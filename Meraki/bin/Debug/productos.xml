@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<productos>
+  <producto codigo="eead66e7-53d9-4706-8a02-69f9603fccbb">
+    <stock codigo="a1dcd079-88d9-4689-ba89-95c0de12291e">
+      <nombre>CERVEZA HEINEKEN</nombre>
+      <medida>473</medida>
+      <tipoMedida>ml.</tipoMedida>
+      <cantidadActual>2161</cantidadActual>
+      <cantidadIngresada>0</cantidadIngresada>
+      <fechaIngreso>0001-01-01T00:00:00</fechaIngreso>
+    </stock>
+    <unidad>24</unidad>
+    <tipo>individual</tipo>
+    <precio_mayorista>2000,00</precio_mayorista>
+    <precio_minorista>2500,00</precio_minorista>
+  </producto>
+  <producto codigo="b2018b71-d0b5-4c99-9ce0-63840c3fea56">
+    <stock codigo="c739d436-72f6-455c-a9e7-71fefb8ba332">
+      <nombre>CERVEZA HEINEKEN</nombre>
+      <medida>1</medida>
+      <tipoMedida>lt.</tipoMedida>
+      <cantidadActual>0</cantidadActual>
+      <cantidadIngresada>0</cantidadIngresada>
+      <fechaIngreso>0001-01-01T00:00:00</fechaIngreso>
+    </stock>
+    <unidad>12</unidad>
+    <tipo>individual</tipo>
+    <precio_mayorista>1500,00</precio_mayorista>
+    <precio_minorista>1800,00</precio_minorista>
+  </producto>
+  <producto codigo="7c5c7335-d9ba-4ade-b6d8-6e4d28859560">
+    <items>
+      <stock codigo="cf7164d0-a570-4907-a8f6-b4af070e03a3">
+        <nombre>FERNET BRANCA</nombre>
+        <medida>750</medida>
+        <tipoMedida>lt.</tipoMedida>
+        <cantidadActual>10</cantidadActual>
+        <cantidadIngresada>0</cantidadIngresada>
+        <fechaIngreso>0001-01-01T00:00:00</fechaIngreso>
+      </stock>
+      <stock codigo="a745fbbe-1d9c-442a-85ac-c9714487e57e">
+        <nombre>COCA-COLA</nombre>
+        <medida>2.25</medida>
+        <tipoMedida>lt.</tipoMedida>
+        <cantidadActual>50</cantidadActual>
+        <cantidadIngresada>0</cantidadIngresada>
+        <fechaIngreso>0001-01-01T00:00:00</fechaIngreso>
+      </stock>
+      <stock codigo="a745fbbe-1d9c-442a-85ac-c9714487e57e">
+        <nombre>COCA-COLA</nombre>
+        <medida>2.25</medida>
+        <tipoMedida>lt.</tipoMedida>
+        <cantidadActual>50</cantidadActual>
+        <cantidadIngresada>0</cantidadIngresada>
+        <fechaIngreso>0001-01-01T00:00:00</fechaIngreso>
+      </stock>
+    </items>
+    <nombre>COMBO FERNET (1 FERNET BRANCA + 2 COCA-COLA)</nombre>
+    <unidad>1</unidad>
+    <tipo>combo</tipo>
+    <precio_mayorista>2250,00</precio_mayorista>
+    <precio_minorista>2700,00</precio_minorista>
+  </producto>
+</productos>

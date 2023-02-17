@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<clientes>
+  <cliente codigo="94f46433-a321-47f1-b6c5-c5efdf018817">
+    <nombre>Ezequiel</nombre>
+    <direccion>Guems 3734</direccion>
+    <localidad>CABA</localidad>
+    <telefono>1123957706</telefono>
+    <horario_de_apertura>11:00:00</horario_de_apertura>
+    <horario_de_cierre>17:00:00</horario_de_cierre>
+  </cliente>
+  <cliente codigo="e2d6b41b-40d8-40e5-bab1-ab8ada228539">
+    <nombre>Daniela</nombre>
+    <direccion>Rio Grande 19</direccion>
+    <localidad>CABA</localidad>
+    <telefono>1148271185</telefono>
+    <horario_de_apertura>10:00:00</horario_de_apertura>
+    <horario_de_cierre>18:00:00</horario_de_cierre>
+  </cliente>
+</clientes>

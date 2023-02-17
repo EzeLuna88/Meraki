@@ -1,0 +1,12 @@
+D:\Users\Eze\source\repos\Meraki\BE\bin\Debug\BE.dll
+D:\Users\Eze\source\repos\Meraki\BE\bin\Debug\BE.pdb
+D:\Users\Eze\source\repos\Meraki\BE\obj\Debug\BE.csproj.AssemblyReference.cache
+D:\Users\Eze\source\repos\Meraki\BE\obj\Debug\BE.csproj.CoreCompileInputs.cache
+D:\Users\Eze\source\repos\Meraki\BE\obj\Debug\BE.dll
+D:\Users\Eze\source\repos\Meraki\BE\obj\Debug\BE.pdb
+C:\Users\Eze\Desktop\Meraki\BE\bin\Debug\BE.dll
+C:\Users\Eze\Desktop\Meraki\BE\bin\Debug\BE.pdb
+C:\Users\Eze\Desktop\Meraki\BE\obj\Debug\BE.csproj.AssemblyReference.cache
+C:\Users\Eze\Desktop\Meraki\BE\obj\Debug\BE.csproj.CoreCompileInputs.cache
+C:\Users\Eze\Desktop\Meraki\BE\obj\Debug\BE.dll
+C:\Users\Eze\Desktop\Meraki\BE\obj\Debug\BE.pdb

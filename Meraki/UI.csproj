@@ -1,0 +1,260 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{EA4F4F07-F372-4B1E-B3AE-2ABBAA7EBA39}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Meraki</RootNamespace>
+    <AssemblyName>Meraki</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>C:\Users\Eze\Desktop\publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>4</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>D24F8C3953BFC1C4A2EA81687F9B79C98250905D</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>UI_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Compra.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Compra.Designer.cs">
+      <DependentUpon>Compra.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CompraMayorista.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CompraMayorista.Designer.cs">
+      <DependentUpon>CompraMayorista.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CompraMinorista.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CompraMinorista.Designer.cs">
+      <DependentUpon>CompraMinorista.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProductosCrearCombo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProductosCrearCombo.Designer.cs">
+      <DependentUpon>ProductosCrearCombo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StockAgregar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StockAgregar.Designer.cs">
+      <DependentUpon>StockAgregar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StockModificar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StockModificar.Designer.cs">
+      <DependentUpon>StockModificar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StockNuevoProducto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StockNuevoProducto.Designer.cs">
+      <DependentUpon>StockNuevoProducto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Clientes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Clientes.Designer.cs">
+      <DependentUpon>Clientes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ClientesAlta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ClientesAlta.Designer.cs">
+      <DependentUpon>ClientesAlta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ClientesModificar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ClientesModificar.Designer.cs">
+      <DependentUpon>ClientesModificar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Principal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Principal.Designer.cs">
+      <DependentUpon>Principal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Productos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Productos.Designer.cs">
+      <DependentUpon>Productos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProductosAlta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProductosAlta.Designer.cs">
+      <DependentUpon>ProductosAlta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProductosModificar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProductosModificar.Designer.cs">
+      <DependentUpon>ProductosModificar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Stock.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Stock.Designer.cs">
+      <DependentUpon>Stock.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Compra.resx">
+      <DependentUpon>Compra.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CompraMayorista.resx">
+      <DependentUpon>CompraMayorista.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CompraMinorista.resx">
+      <DependentUpon>CompraMinorista.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProductosCrearCombo.resx">
+      <DependentUpon>ProductosCrearCombo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StockAgregar.resx">
+      <DependentUpon>StockAgregar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StockModificar.resx">
+      <DependentUpon>StockModificar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StockNuevoProducto.resx">
+      <DependentUpon>StockNuevoProducto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Clientes.resx">
+      <DependentUpon>Clientes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ClientesAlta.resx">
+      <DependentUpon>ClientesAlta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ClientesModificar.resx">
+      <DependentUpon>ClientesModificar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Principal.resx">
+      <DependentUpon>Principal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Productos.resx">
+      <DependentUpon>Productos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProductosAlta.resx">
+      <DependentUpon>ProductosAlta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProductosModificar.resx">
+      <DependentUpon>ProductosModificar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Stock.resx">
+      <DependentUpon>Stock.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="UI_TemporaryKey.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BE\BE.csproj">
+      <Project>{21927b94-abc5-43eb-9fbe-6746d3ff5a5c}</Project>
+      <Name>BE</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BLL\BLL.csproj">
+      <Project>{dd5498c4-b175-457c-ac9a-15c43e3f8a8c}</Project>
+      <Name>BLL</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 y x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
