@@ -4,7 +4,7 @@
     <nombre>CERVEZA HEINEKEN</nombre>
     <medida>473</medida>
     <tipo_medida>ml.</tipo_medida>
-    <cantidad_actual>2089</cantidad_actual>
+    <cantidad_actual>1705</cantidad_actual>
   </producto>
   <producto codigo="e4707ede-af79-484b-aa39-254ffc460877">
     <nombre>ELEMENTOS</nombre>
@@ -178,7 +178,7 @@
     <nombre>COCA-COLA</nombre>
     <medida>2,25</medida>
     <tipo_medida>lt.</tipo_medida>
-    <cantidad_actual>46</cantidad_actual>
+    <cantidad_actual>16</cantidad_actual>
   </producto>
   <producto codigo="caa51131-1cca-4b35-81a5-78070fbd1167">
     <nombre>CERVEZA SIETE CHOLAS - BLONDE ALE</nombre>

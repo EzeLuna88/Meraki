@@ -34,13 +34,25 @@ namespace DAL
                 doc.Save("compras.xml");
 
                 XElement productos = new XElement("productos");
-                foreach (BECarrito carrito in compraMayorista.ListaCarrito)
+                foreach (BECarrito item in compraMayorista.ListaCarrito)
                 {
-                    XElement producto = new XElement("producto",
-                                              new XElement("nombre", carrito.Producto.ToString()),
-                                              new XElement("unidades", carrito.Cantidad),
-                                              new XElement("monto", carrito.Total));
-                    productos.Add(producto);
+                    if (item.Producto is BEProductoIndividual)
+                    {
+                        XElement producto = new XElement("producto",
+                                              new XElement("nombre", item.Producto.ToString()),
+                                              new XElement("unidades", item.Cantidad),
+                                              new XElement("monto", item.Total));
+                        productos.Add(producto);
+                    }
+                    else if (item.Producto is BEProductoCombo)
+                    {
+                        BEProductoCombo productoCombo = (BEProductoCombo)item.Producto;
+                        XElement producto = new XElement("producto",
+                                                new XElement("nombre", productoCombo.Nombre.ToString().Trim()),
+                                                new XElement("unidades", item.Cantidad),
+                                                new XElement("monto", item.Total));
+                        productos.Add(producto);
+                    }
                 }
 
                 doc.Element("compras").Add(new XElement("compra",

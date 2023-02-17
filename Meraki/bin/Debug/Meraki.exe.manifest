@@ -73,19 +73,19 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>4G7HYb9XMsBTxeJ4PB3Tg/zksCJHfaNUGg5gRRxLWV4=</dsig:DigestValue>
+        <dsig:DigestValue>qe2npeAka3vI95niqBUm6+RewSwmA9ZzaVbT03XXYUU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Meraki.exe" size="90584">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Meraki.exe" size="93656">
       <assemblyIdentity name="Meraki" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>NODVL7DZcq6l5BmxWJoRvbv65ATdzdg6qDkUMOfaghk=</dsig:DigestValue>
+        <dsig:DigestValue>m63CKqdLSBbhgGh9bPHuKLFmvDfGR6LdOfSI3XPYTWg=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

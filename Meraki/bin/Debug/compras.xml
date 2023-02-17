@@ -671,4 +671,129 @@
       </producto>
     </productos>
   </compra>
+  <compra codigo="3a00d0f3-e437-4396-8d00-28778ddd9884">
+    <fecha>17/2/2023 12:57:14</fecha>
+    <total>14100,00</total>
+    <cliente>
+      <codigo>94f46433-a321-47f1-b6c5-c5efdf018817</codigo>
+      <nombre>Ezequiel</nombre>
+      <direccion>Guems 3734</direccion>
+      <localidad>CABA</localidad>
+      <telefono>1123957706</telefono>
+      <horario_de_apertura>11:00:00</horario_de_apertura>
+      <horario_de_cierre>17:00:00</horario_de_cierre>
+    </cliente>
+    <productos>
+      <producto>
+        <nombre>COMBO FERNET (1 FERNET BRANCA + 2 COCA-COLA)</nombre>
+        <unidades>3</unidades>
+        <monto>8100.00</monto>
+      </producto>
+      <producto>
+        <nombre>CERVEZA HEINEKEN 473ml. x 24</nombre>
+        <unidades>3</unidades>
+        <monto>6000.00</monto>
+      </producto>
+    </productos>
+  </compra>
+  <compra codigo="812dc54a-f2f9-464e-9ae4-f70badcb5e83">
+    <fecha>17/2/2023 12:58:14</fecha>
+    <total>14100,00</total>
+    <cliente>
+      <codigo>94f46433-a321-47f1-b6c5-c5efdf018817</codigo>
+      <nombre>Ezequiel</nombre>
+      <direccion>Guems 3734</direccion>
+      <localidad>CABA</localidad>
+      <telefono>1123957706</telefono>
+      <horario_de_apertura>11:00:00</horario_de_apertura>
+      <horario_de_cierre>17:00:00</horario_de_cierre>
+    </cliente>
+    <productos>
+      <producto>
+        <nombre>CERVEZA HEINEKEN 473ml. x 24</nombre>
+        <unidades>3</unidades>
+        <monto>6000.00</monto>
+      </producto>
+      <producto>
+        <nombre>COMBO FERNET (1 FERNET BRANCA + 2 COCA-COLA)</nombre>
+        <unidades>3</unidades>
+        <monto>8100.00</monto>
+      </producto>
+    </productos>
+  </compra>
+  <compra codigo="bbdec8ba-2259-4b43-992d-3326ff5352e7">
+    <fecha>17/2/2023 12:59:55</fecha>
+    <total>11400,00</total>
+    <cliente>
+      <codigo>94f46433-a321-47f1-b6c5-c5efdf018817</codigo>
+      <nombre>Ezequiel</nombre>
+      <direccion>Guems 3734</direccion>
+      <localidad>CABA</localidad>
+      <telefono>1123957706</telefono>
+      <horario_de_apertura>11:00:00</horario_de_apertura>
+      <horario_de_cierre>17:00:00</horario_de_cierre>
+    </cliente>
+    <productos>
+      <producto>
+        <nombre>CERVEZA HEINEKEN 473ml. x 24</nombre>
+        <unidades>3</unidades>
+        <monto>6000.00</monto>
+      </producto>
+      <producto>
+        <nombre>COMBO FERNET (1 FERNET BRANCA + 2 COCA-COLA)</nombre>
+        <unidades>2</unidades>
+        <monto>5400.00</monto>
+      </producto>
+    </productos>
+  </compra>
+  <compra codigo="b9ac116c-d17f-455f-acc6-4eb6c8c70d35">
+    <fecha>17/2/2023 13:02:01</fecha>
+    <total>18800,00</total>
+    <cliente>
+      <codigo>94f46433-a321-47f1-b6c5-c5efdf018817</codigo>
+      <nombre>Ezequiel</nombre>
+      <direccion>Guems 3734</direccion>
+      <localidad>CABA</localidad>
+      <telefono>1123957706</telefono>
+      <horario_de_apertura>11:00:00</horario_de_apertura>
+      <horario_de_cierre>17:00:00</horario_de_cierre>
+    </cliente>
+    <productos>
+      <producto>
+        <nombre>CERVEZA HEINEKEN 473ml. x 24</nombre>
+        <unidades>4</unidades>
+        <monto>8000.00</monto>
+      </producto>
+      <producto>
+        <nombre>COMBO FERNET (1 FERNET BRANCA + 2 COCA-COLA)</nombre>
+        <unidades>4</unidades>
+        <monto>10800.00</monto>
+      </producto>
+    </productos>
+  </compra>
+  <compra codigo="8afbcec4-569f-47d0-b108-c2fa8aec6d05">
+    <fecha>17/2/2023 13:06:31</fecha>
+    <total>12750,00</total>
+    <cliente>
+      <codigo>94f46433-a321-47f1-b6c5-c5efdf018817</codigo>
+      <nombre>Ezequiel</nombre>
+      <direccion>Guems 3734</direccion>
+      <localidad>CABA</localidad>
+      <telefono>1123957706</telefono>
+      <horario_de_apertura>11:00:00</horario_de_apertura>
+      <horario_de_cierre>17:00:00</horario_de_cierre>
+    </cliente>
+    <productos>
+      <producto>
+        <nombre>CERVEZA HEINEKEN 473ml. x 24</nombre>
+        <unidades>3</unidades>
+        <monto>6000.00</monto>
+      </producto>
+      <producto>
+        <nombre>COMBO FERNET (1 FERNET BRANCA + 2 COCA-COLA)</nombre>
+        <unidades>3</unidades>
+        <monto>6750.00</monto>
+      </producto>
+    </productos>
+  </compra>
 </compras>

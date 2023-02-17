@@ -44,18 +44,12 @@ namespace Meraki
             dataGridViewProductos.Columns["Codigo"].Visible = false;
             dataGridViewProductos.Columns["Tipo"].Visible = false;
             dataGridViewProductos.Columns["Unidad"].HeaderText = "Unidades";
-            dataGridViewProductos.Columns["precioMayorista"].HeaderText = "Precio Mayorista";
-            dataGridViewProductos.Columns["precioMinorista"].HeaderText = "Precio Minorista";
-            dataGridViewProductos.Columns["precioMayorista"].DefaultCellStyle.Format = "c2";
-            dataGridViewProductos.Columns["precioMinorista"].DefaultCellStyle.Format = "c2";
             if (dataGridViewProductos.Columns["nombre"] == null)
             {
                 dataGridViewProductos.Columns.Add("nombre", "nombre");
             }
             dataGridViewProductos.Columns["nombre"].DisplayIndex = 0;
             dataGridViewProductos.CellFormatting += dataGridViewProductos_CellFormatting; 
-            dataGridViewProductos.Columns["Codigo"].Visible = false;
-            dataGridViewProductos.Columns["Unidad"].HeaderText = "Unidades";
             dataGridViewProductos.Columns["precioMayorista"].Visible = false;
             dataGridViewProductos.Columns["precioMinorista"].HeaderText = "Precio";
             dataGridViewProductos.Columns["precioMinorista"].DefaultCellStyle.Format = "c2";
@@ -200,9 +194,43 @@ namespace Meraki
 
         private void textBoxFiltrar_TextChanged(object sender, EventArgs e)
         {
-           /* string textoABuscar = textBoxFiltrar.Text.ToLower();
-            var tablaFiltrada = bllProducto.listaProductos().Where(row => row.Stock.Nombre.ToLower().Contains(textoABuscar));
-            dataGridViewProductos.DataSource = tablaFiltrada.ToList(); */
+            string filtro = textBoxFiltrar.Text.ToLower();
+
+            dataGridViewProductos.DataSource = null;
+            dataGridViewProductos.Rows.Clear();
+
+            List<BEProducto> productosFiltrados = new List<BEProducto>();
+
+            foreach (BEProducto producto in bllProducto.listaProductos())
+            {
+                if (producto is BEProductoIndividual)
+                {
+                    if (producto.ToString().ToLower().Contains(filtro))
+                    {
+                        productosFiltrados.Add(producto);
+                    }
+                }
+                else if (producto is BEProductoCombo)
+                {
+                    if (producto.ToString().ToLower().Contains(filtro))
+                    {
+                        productosFiltrados.Add(producto);
+                    }
+                }
+            }
+            dataGridViewProductos.DataSource = productosFiltrados;
+            dataGridViewProductos.Columns["Codigo"].Visible = false;
+            dataGridViewProductos.Columns["Tipo"].Visible = false;
+            dataGridViewProductos.Columns["Unidad"].HeaderText = "Unidades";
+            if (dataGridViewProductos.Columns["nombre"] == null)
+            {
+                dataGridViewProductos.Columns.Add("nombre", "nombre");
+            }
+            dataGridViewProductos.Columns["nombre"].DisplayIndex = 0;
+            dataGridViewProductos.CellFormatting += dataGridViewProductos_CellFormatting;
+            dataGridViewProductos.Columns["precioMinorista"].Visible = false;
+            dataGridViewProductos.Columns["precioMayorista"].HeaderText = "Precio";
+            dataGridViewProductos.Columns["precioMayorista"].DefaultCellStyle.Format = "c2";
         }
 
         private void CompraMinorista_Load(object sender, EventArgs e)
