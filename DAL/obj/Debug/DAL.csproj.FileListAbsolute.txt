@@ -16,3 +16,12 @@ C:\Users\Eze\Desktop\Meraki\DAL\obj\Debug\DAL.csproj.CoreCompileInputs.cache
 C:\Users\Eze\Desktop\Meraki\DAL\obj\Debug\DAL.csproj.CopyComplete
 C:\Users\Eze\Desktop\Meraki\DAL\obj\Debug\DAL.dll
 C:\Users\Eze\Desktop\Meraki\DAL\obj\Debug\DAL.pdb
+C:\Users\Eze\Desktop\Meraki\Meraki\DAL\bin\Debug\DAL.dll
+C:\Users\Eze\Desktop\Meraki\Meraki\DAL\bin\Debug\DAL.pdb
+C:\Users\Eze\Desktop\Meraki\Meraki\DAL\bin\Debug\BE.dll
+C:\Users\Eze\Desktop\Meraki\Meraki\DAL\bin\Debug\BE.pdb
+C:\Users\Eze\Desktop\Meraki\Meraki\DAL\obj\Debug\DAL.csproj.AssemblyReference.cache
+C:\Users\Eze\Desktop\Meraki\Meraki\DAL\obj\Debug\DAL.csproj.CoreCompileInputs.cache
+C:\Users\Eze\Desktop\Meraki\Meraki\DAL\obj\Debug\DAL.csproj.CopyComplete
+C:\Users\Eze\Desktop\Meraki\Meraki\DAL\obj\Debug\DAL.dll
+C:\Users\Eze\Desktop\Meraki\Meraki\DAL\obj\Debug\DAL.pdb

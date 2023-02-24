@@ -4,3 +4,9 @@ D:\Users\Eze\source\repos\Meraki\MPP\obj\Debug\MPP.csproj.AssemblyReference.cach
 D:\Users\Eze\source\repos\Meraki\MPP\obj\Debug\MPP.csproj.CoreCompileInputs.cache
 D:\Users\Eze\source\repos\Meraki\MPP\obj\Debug\MPP.dll
 D:\Users\Eze\source\repos\Meraki\MPP\obj\Debug\MPP.pdb
+C:\Users\Eze\Desktop\Meraki\Meraki\MPP\bin\Debug\MPP.dll
+C:\Users\Eze\Desktop\Meraki\Meraki\MPP\bin\Debug\MPP.pdb
+C:\Users\Eze\Desktop\Meraki\Meraki\MPP\obj\Debug\MPP.csproj.AssemblyReference.cache
+C:\Users\Eze\Desktop\Meraki\Meraki\MPP\obj\Debug\MPP.csproj.CoreCompileInputs.cache
+C:\Users\Eze\Desktop\Meraki\Meraki\MPP\obj\Debug\MPP.dll
+C:\Users\Eze\Desktop\Meraki\Meraki\MPP\obj\Debug\MPP.pdb
