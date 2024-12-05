@@ -1,0 +1,271 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Comprobante</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            margin: 20px;
+            line-height: 1.2;
+        }
+
+        h1 {
+            font-size: 20px;
+            margin: 0;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        h3 {
+            font-size: 12px;
+            margin: 0;
+        }
+
+        .header {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        .header-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+            .header-table td {
+                padding: 5px;
+                vertical-align: top;
+            }
+
+            .header-table .header-left,
+            .header-table .header-right {
+                width: 25%;
+            }
+
+            .header-table .header-center {
+                text-align: center;
+                width: 50%;
+            }
+
+        .header-right {
+            text-align: right;
+            font-size: 12px;
+        }
+
+            .header-right .nro-comprobante {
+                font-size: 12px;
+                margin-top: 10px;
+            }
+
+            .header-right .fecha {
+                font-size: 10px;
+                color: #555;
+                margin-top: 3px;
+            }
+
+        .client-info {
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+
+        .client-info-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+            .client-info-table th {
+                background-color: #f2f2f2;
+                width: 10%;
+                padding: 2px 5px;
+                text-align: left;
+                font-size: 10px;
+                white-space: nowrap;
+            }
+
+            .client-info-table td {
+                vertical-align: top;
+                padding: 2px 5px;
+                text-align: left;
+                font-size: 10px;
+                width: 60%;
+            }
+
+            
+
+
+
+        .payment-info {
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+
+        .payment-info-table {
+            width: auto;
+            border-collapse: collapse;
+        }
+
+            .payment-info-table td {
+                width: auto;
+                padding: 5px;
+                text-align: left;
+                font-size: 10px;
+            }
+
+            .payment-info-table th {
+                width: 80px;
+                padding: 5px;
+                text-align: left;
+                font-size: 10px;
+                background-color: #f2f2f2;
+                white-space: nowrap;
+            }
+
+
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+        }
+
+            .table th, .table td {
+                border: 1px solid #ddd;
+                padding: 6px;
+                text-align: center;
+                font-size: 9px;
+            }
+
+                .table td.producto {
+                    text-align: left;
+                }
+
+                .table td.precio {
+                    text-align: right;
+                }
+
+                .table th.codigo, .table td.codigo {
+                    width: 15%;
+                }
+
+                .table th.producto, .table td.producto {
+                    width: 40%;
+                }
+
+                .table th.precio_unitario, .table td.precio_unitario {
+                    width: 15%;
+                }
+
+                .table th.cantidad, .table td.cantidad {
+                    width: 15%;
+                }
+
+                .table th.precio, .table td.precio {
+                    width: 15%;
+                }
+
+        .total-summary {
+            text-align: right;
+            margin-top: 15px;
+        }
+
+            .total-summary h3 {
+                margin: 0;
+                font-size: 12px;
+            }
+
+        .separator {
+            height: 10px; /* Ajusta la altura según sea necesario */
+        }
+
+        .total-row {
+            font-weight: bold;
+        }
+
+            .total-row td {
+                border: none; /* Elimina el borde para la fila total */
+                padding: 6px;
+                text-align: right;
+            }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <table class="header-table">
+            <tr>
+                <td class="header-left"></td> <!-- Columna izquierda vacía -->
+                <td class="header-center"><h1>MERAKI BEBIDAS</h1></td> <!-- Columna central con el título -->
+                <td class="header-right">
+                    <div>PRESUPUESTO</div>
+                    
+                    <div class="fecha">{{fechaComprobante}}</div>
+                </td> <!-- Columna derecha con los datos del comprobante -->
+            </tr>
+        </table>
+    </div>
+
+    <div class="separator"></div>
+    <div class="separator"></div>
+
+
+    <div class="client-info">
+        <table class="client-info-table">
+            <tr>
+                <th>Cliente:</th>
+                <td>{{nombreCliente}}</td>
+                <td rowspan="4" class="comments">
+                    
+                </td>
+            </tr>
+            <tr>
+                <th>Dirección:</th>
+                <td>{{direccionCliente}}</td>
+            </tr>
+            <tr>
+                <th>Teléfono:</th>
+                <td>{{telefonoCliente}}</td>
+            </tr>
+            <tr>
+                <th>Horario:</th>
+                <td>{{horarioApertura}} - {{horarioCierre}}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="separator"></div>
+
+
+   
+
+    <div class="separator"></div>
+
+    <div class="carrito">
+        <h2>Detalle de la Compra</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Producto</th>
+                    <th>Precio unitario</th>
+                    <th>Cantidad</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{productosCarrito}}
+
+                <tr class="total-row">
+                    <td colspan="3" style="text-align: right;">Total</td>
+                    <td style="text-align: center;">{{cantidadTotalProductos}}</td>
+                    <td style="text-align: right;">${{totalCompra}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+</body>
+</html>

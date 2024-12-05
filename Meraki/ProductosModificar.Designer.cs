@@ -29,197 +29,242 @@
         private void InitializeComponent()
         {
             this.textBoxCodigo = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.buttonModificar = new System.Windows.Forms.Button();
             this.textBoxPrecioMayorista = new System.Windows.Forms.TextBox();
             this.textBoxUnidades = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.textBoxPrecioMinorista = new System.Windows.Forms.TextBox();
             this.textBoxNombre = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             this.dataGridViewCombo = new System.Windows.Forms.DataGridView();
+            this.iconButtonModificar = new FontAwesome.Sharp.IconButton();
+            this.iconButtonCancelar = new FontAwesome.Sharp.IconButton();
+            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCombo)).BeginInit();
             this.SuspendLayout();
             // 
             // textBoxCodigo
             // 
+            this.textBoxCodigo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+            this.textBoxCodigo.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxCodigo.Enabled = false;
-            this.textBoxCodigo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxCodigo.Location = new System.Drawing.Point(187, 6);
+            this.textBoxCodigo.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxCodigo.Location = new System.Drawing.Point(147, 12);
             this.textBoxCodigo.Name = "textBoxCodigo";
-            this.textBoxCodigo.Size = new System.Drawing.Size(280, 26);
-            this.textBoxCodigo.TabIndex = 55;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(12, 9);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(70, 20);
-            this.label7.TabIndex = 54;
-            this.label7.Text = "Codigo:";
-            // 
-            // button1
-            // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.Color.Red;
-            this.button1.Location = new System.Drawing.Point(277, 377);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(103, 61);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "Cancelar";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // buttonModificar
-            // 
-            this.buttonModificar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonModificar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.buttonModificar.Location = new System.Drawing.Point(84, 377);
-            this.buttonModificar.Name = "buttonModificar";
-            this.buttonModificar.Size = new System.Drawing.Size(103, 61);
-            this.buttonModificar.TabIndex = 4;
-            this.buttonModificar.Text = "Modificar";
-            this.buttonModificar.UseVisualStyleBackColor = true;
-            this.buttonModificar.Click += new System.EventHandler(this.buttonModificar_Click);
+            this.textBoxCodigo.Size = new System.Drawing.Size(298, 22);
+            this.textBoxCodigo.TabIndex = 1;
             // 
             // textBoxPrecioMayorista
             // 
-            this.textBoxPrecioMayorista.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxPrecioMayorista.Location = new System.Drawing.Point(187, 101);
+            this.textBoxPrecioMayorista.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+            this.textBoxPrecioMayorista.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxPrecioMayorista.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxPrecioMayorista.Location = new System.Drawing.Point(148, 96);
             this.textBoxPrecioMayorista.Name = "textBoxPrecioMayorista";
-            this.textBoxPrecioMayorista.Size = new System.Drawing.Size(280, 26);
-            this.textBoxPrecioMayorista.TabIndex = 2;
+            this.textBoxPrecioMayorista.Size = new System.Drawing.Size(297, 22);
+            this.textBoxPrecioMayorista.TabIndex = 4;
             this.textBoxPrecioMayorista.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxPrecioMayorista_KeyPress_1);
             this.textBoxPrecioMayorista.Leave += new System.EventHandler(this.textBoxPrecioMayorista_Leave_1);
             // 
             // textBoxUnidades
             // 
-            this.textBoxUnidades.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxUnidades.Location = new System.Drawing.Point(187, 69);
+            this.textBoxUnidades.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+            this.textBoxUnidades.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxUnidades.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxUnidades.Location = new System.Drawing.Point(147, 68);
             this.textBoxUnidades.Name = "textBoxUnidades";
-            this.textBoxUnidades.Size = new System.Drawing.Size(280, 26);
-            this.textBoxUnidades.TabIndex = 1;
+            this.textBoxUnidades.Size = new System.Drawing.Size(298, 22);
+            this.textBoxUnidades.TabIndex = 3;
             this.textBoxUnidades.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxUnidades_KeyPress);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(10, 136);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(142, 20);
-            this.label5.TabIndex = 44;
-            this.label5.Text = "Precio Minorista:";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(10, 104);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(146, 20);
-            this.label4.TabIndex = 43;
-            this.label4.Text = "Precio Mayorista:";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(12, 72);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(90, 20);
-            this.label2.TabIndex = 41;
-            this.label2.Text = "Unidades:";
             // 
             // textBoxPrecioMinorista
             // 
-            this.textBoxPrecioMinorista.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxPrecioMinorista.Location = new System.Drawing.Point(187, 133);
+            this.textBoxPrecioMinorista.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+            this.textBoxPrecioMinorista.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxPrecioMinorista.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxPrecioMinorista.Location = new System.Drawing.Point(148, 124);
             this.textBoxPrecioMinorista.Name = "textBoxPrecioMinorista";
-            this.textBoxPrecioMinorista.Size = new System.Drawing.Size(280, 26);
-            this.textBoxPrecioMinorista.TabIndex = 3;
+            this.textBoxPrecioMinorista.Size = new System.Drawing.Size(297, 22);
+            this.textBoxPrecioMinorista.TabIndex = 5;
             this.textBoxPrecioMinorista.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxPrecioMinorista_KeyPress_1);
             this.textBoxPrecioMinorista.Leave += new System.EventHandler(this.textBoxPrecioMinorista_Leave_1);
             // 
             // textBoxNombre
             // 
+            this.textBoxNombre.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+            this.textBoxNombre.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxNombre.Enabled = false;
-            this.textBoxNombre.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxNombre.Location = new System.Drawing.Point(187, 38);
+            this.textBoxNombre.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxNombre.Location = new System.Drawing.Point(147, 40);
             this.textBoxNombre.Name = "textBoxNombre";
-            this.textBoxNombre.Size = new System.Drawing.Size(280, 26);
-            this.textBoxNombre.TabIndex = 46;
+            this.textBoxNombre.Size = new System.Drawing.Size(298, 22);
+            this.textBoxNombre.TabIndex = 2;
             // 
-            // label1
+            // panel1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(12, 41);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(76, 20);
-            this.label1.TabIndex = 40;
-            this.label1.Text = "Nombre:";
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(199)))), ((int)(((byte)(91)))), ((int)(((byte)(122)))));
+            this.panel1.Controls.Add(this.label8);
+            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.textBoxPrecioMinorista);
+            this.panel1.Controls.Add(this.textBoxCodigo);
+            this.panel1.Controls.Add(this.label6);
+            this.panel1.Controls.Add(this.label9);
+            this.panel1.Controls.Add(this.label10);
+            this.panel1.Controls.Add(this.textBoxNombre);
+            this.panel1.Controls.Add(this.textBoxPrecioMayorista);
+            this.panel1.Controls.Add(this.textBoxUnidades);
+            this.panel1.Location = new System.Drawing.Point(14, 13);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(457, 160);
+            this.panel1.TabIndex = 57;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(14, 12);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(63, 21);
+            this.label8.TabIndex = 28;
+            this.label8.Text = "Codigo:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(14, 40);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(71, 21);
+            this.label3.TabIndex = 17;
+            this.label3.Text = "Nombre:";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(14, 68);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(78, 21);
+            this.label6.TabIndex = 18;
+            this.label6.Text = "Unidades:";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(14, 96);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(129, 21);
+            this.label9.TabIndex = 20;
+            this.label9.Text = "Precio Mayorista:";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(14, 124);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(126, 21);
+            this.label10.TabIndex = 21;
+            this.label10.Text = "Precio Minorista:";
             // 
             // dataGridViewCombo
             // 
-            this.dataGridViewCombo.AllowUserToResizeColumns = false;
-            this.dataGridViewCombo.AllowUserToResizeRows = false;
-            this.dataGridViewCombo.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridViewCombo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.dataGridViewCombo.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+            this.dataGridViewCombo.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridViewCombo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewCombo.Location = new System.Drawing.Point(14, 165);
+            this.dataGridViewCombo.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(26)))), ((int)(((byte)(64)))));
+            this.dataGridViewCombo.Location = new System.Drawing.Point(14, 179);
             this.dataGridViewCombo.MultiSelect = false;
             this.dataGridViewCombo.Name = "dataGridViewCombo";
             this.dataGridViewCombo.ReadOnly = true;
             this.dataGridViewCombo.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewCombo.Size = new System.Drawing.Size(453, 202);
-            this.dataGridViewCombo.TabIndex = 56;
+            this.dataGridViewCombo.Size = new System.Drawing.Size(457, 214);
+            this.dataGridViewCombo.TabIndex = 58;
+            // 
+            // iconButtonModificar
+            // 
+            this.iconButtonModificar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.iconButtonModificar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(26)))), ((int)(((byte)(64)))));
+            this.iconButtonModificar.FlatAppearance.BorderSize = 0;
+            this.iconButtonModificar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.iconButtonModificar.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.iconButtonModificar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
+            this.iconButtonModificar.IconChar = FontAwesome.Sharp.IconChar.Pen;
+            this.iconButtonModificar.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
+            this.iconButtonModificar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iconButtonModificar.IconSize = 30;
+            this.iconButtonModificar.Location = new System.Drawing.Point(126, 399);
+            this.iconButtonModificar.Name = "iconButtonModificar";
+            this.iconButtonModificar.Size = new System.Drawing.Size(106, 40);
+            this.iconButtonModificar.TabIndex = 60;
+            this.iconButtonModificar.Text = "Modificar";
+            this.iconButtonModificar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.iconButtonModificar.UseVisualStyleBackColor = false;
+            this.iconButtonModificar.Click += new System.EventHandler(this.iconButtonModificar_Click);
+            // 
+            // iconButtonCancelar
+            // 
+            this.iconButtonCancelar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.iconButtonCancelar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(26)))), ((int)(((byte)(64)))));
+            this.iconButtonCancelar.FlatAppearance.BorderSize = 0;
+            this.iconButtonCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.iconButtonCancelar.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.iconButtonCancelar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
+            this.iconButtonCancelar.IconChar = FontAwesome.Sharp.IconChar.CircleXmark;
+            this.iconButtonCancelar.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
+            this.iconButtonCancelar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iconButtonCancelar.IconSize = 30;
+            this.iconButtonCancelar.Location = new System.Drawing.Point(238, 399);
+            this.iconButtonCancelar.Name = "iconButtonCancelar";
+            this.iconButtonCancelar.Size = new System.Drawing.Size(106, 40);
+            this.iconButtonCancelar.TabIndex = 59;
+            this.iconButtonCancelar.Text = "Cancelar";
+            this.iconButtonCancelar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.iconButtonCancelar.UseVisualStyleBackColor = false;
+            this.iconButtonCancelar.Click += new System.EventHandler(this.iconButtonCancelar_Click);
             // 
             // ProductosModificar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(483, 450);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
+            this.ClientSize = new System.Drawing.Size(484, 445);
+            this.Controls.Add(this.iconButtonModificar);
+            this.Controls.Add(this.iconButtonCancelar);
             this.Controls.Add(this.dataGridViewCombo);
-            this.Controls.Add(this.textBoxPrecioMinorista);
-            this.Controls.Add(this.textBoxCodigo);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.buttonModificar);
-            this.Controls.Add(this.textBoxPrecioMayorista);
-            this.Controls.Add(this.textBoxUnidades);
-            this.Controls.Add(this.textBoxNombre);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.panel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "ProductosModificar";
             this.Text = "ProductosModificar";
-            this.Load += new System.EventHandler(this.ProductosModificar_Load);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ProductosModificar_MouseDown);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCombo)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
         public System.Windows.Forms.TextBox textBoxCodigo;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button buttonModificar;
         public System.Windows.Forms.TextBox textBoxPrecioMayorista;
         public System.Windows.Forms.TextBox textBoxUnidades;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label2;
         public System.Windows.Forms.TextBox textBoxPrecioMinorista;
         public System.Windows.Forms.TextBox textBoxNombre;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
         public System.Windows.Forms.DataGridView dataGridViewCombo;
+        private FontAwesome.Sharp.IconButton iconButtonModificar;
+        private FontAwesome.Sharp.IconButton iconButtonCancelar;
     }
 }

@@ -1,0 +1,6 @@
+C:\Users\Eze\Desktop\Meraki\Meraki\Servicios\bin\Debug\Servicios.dll
+C:\Users\Eze\Desktop\Meraki\Meraki\Servicios\bin\Debug\Servicios.pdb
+C:\Users\Eze\Desktop\Meraki\Meraki\Servicios\obj\Debug\Servicios.csproj.AssemblyReference.cache
+C:\Users\Eze\Desktop\Meraki\Meraki\Servicios\obj\Debug\Servicios.csproj.CoreCompileInputs.cache
+C:\Users\Eze\Desktop\Meraki\Meraki\Servicios\obj\Debug\Servicios.dll
+C:\Users\Eze\Desktop\Meraki\Meraki\Servicios\obj\Debug\Servicios.pdb

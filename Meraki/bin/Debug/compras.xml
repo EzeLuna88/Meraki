@@ -796,4 +796,122 @@
       </producto>
     </productos>
   </compra>
+  <compra codigo="b3be5d35-3840-4e7d-bde2-437dbfdcd47d">
+    <fecha>6/11/2023 7:26:44 PM</fecha>
+    <total>1500.00</total>
+    <cliente>
+      <codigo>94f46433-a321-47f1-b6c5-c5efdf018817</codigo>
+      <nombre>Ezequiel</nombre>
+      <direccion>Guems 3734</direccion>
+      <localidad>CABA</localidad>
+      <telefono>1123957706</telefono>
+      <horario_de_apertura>11:00:00</horario_de_apertura>
+      <horario_de_cierre>17:00:00</horario_de_cierre>
+    </cliente>
+    <productos>
+      <producto>
+        <nombre>CERVEZA CORONA 710ml. x 12</nombre>
+        <unidades>1</unidades>
+        <monto>1500.00</monto>
+      </producto>
+    </productos>
+  </compra>
+  <compra codigo="bbf7139f-cc9c-4e51-b2f4-8cac371e29ff">
+    <fecha>6/11/2023 7:29:10 PM</fecha>
+    <total>4500.00</total>
+    <cliente>
+      <codigo>e2d6b41b-40d8-40e5-bab1-ab8ada228539</codigo>
+      <nombre>Daniela</nombre>
+      <direccion>Rio Grande 19</direccion>
+      <localidad>CABA</localidad>
+      <telefono>1148271185</telefono>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>18:00:00</horario_de_cierre>
+    </cliente>
+    <productos>
+      <producto>
+        <nombre>CERVEZA ANDES RUBIA 473ml. x 24</nombre>
+        <unidades>1</unidades>
+        <monto>3000.00</monto>
+      </producto>
+      <producto>
+        <nombre>CERVEZA CORONA 710ml. x 12</nombre>
+        <unidades>1</unidades>
+        <monto>1500.00</monto>
+      </producto>
+    </productos>
+  </compra>
+  <compra codigo="9180b2eb-4920-4deb-9889-ae25fec61488">
+    <fecha>3/16/2024 12:32:18 PM</fecha>
+    <total>225000</total>
+    <cliente>
+      <codigo>94f46433-a321-47f1-b6c5-c5efdf018817</codigo>
+      <nombre>Ezequiel</nombre>
+      <direccion>Guems 3734</direccion>
+      <localidad>CABA</localidad>
+      <telefono>1123957706</telefono>
+      <horario_de_apertura>11:00:00</horario_de_apertura>
+      <horario_de_cierre>17:00:00</horario_de_cierre>
+    </cliente>
+    <productos>
+      <producto>
+        <nombre>COMBO FERNET (1 FERNET BRANCA + 2 COCA-COLA)</nombre>
+        <unidades>1</unidades>
+        <monto>225000</monto>
+      </producto>
+    </productos>
+  </compra>
+  <compra codigo="63171b5d-666a-4332-961d-39d5de20c1eb">
+    <fecha>4/27/2024 8:58:36 PM</fecha>
+    <total>15500.00</total>
+    <cliente>
+      <codigo>e2d6b41b-40d8-40e5-bab1-ab8ada228539</codigo>
+      <nombre>Daniela</nombre>
+      <direccion>Rio Grande 19</direccion>
+      <localidad>CABA</localidad>
+      <telefono>1148271185</telefono>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>18:00:00</horario_de_cierre>
+    </cliente>
+    <productos>
+      <producto>
+        <nombre>COCA-COLA 225lt. x 8</nombre>
+        <unidades>1</unidades>
+        <monto>15500.00</monto>
+      </producto>
+    </productos>
+  </compra>
+  <compra codigo="86e9065e-d42b-461c-b291-42b4c664b988">
+    <fecha>4/27/2024 9:03:35 PM</fecha>
+    <total>12345.00</total>
+    <productos>
+      <producto>
+        <nombre>COMBO FERNET + 2 COCA-COLA</nombre>
+        <unidades>1</unidades>
+        <monto>12345.00</monto>
+      </producto>
+    </productos>
+  </compra>
+  <compra codigo="42081c33-06e8-4f1e-8843-6955860ec9c2">
+    <fecha>4/27/2024 9:18:21 PM</fecha>
+    <total>20000.00</total>
+    <productos>
+      <producto>
+        <nombre>COCA-COLA 225lt. x 8</nombre>
+        <unidades>1</unidades>
+        <monto>20000.00</monto>
+      </producto>
+    </productos>
+  </compra>
+  <compra codigo="378aeacc-c7a5-40a3-9a11-95c72ff4732f">
+    <fecha>5/3/2024 5:35:42 PM</fecha>
+    <total>1.00</total>
+    <productos>
+      <producto>
+        <nombre>PRUEBA 500lt. x 1</nombre>
+        <unidades>1</unidades>
+        <monto>1.00</monto>
+      </producto>
+    </productos>
+  </compra>
 </compras>

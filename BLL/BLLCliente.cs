@@ -8,7 +8,7 @@ using BE;
 
 namespace BLL
 {
-    
+
 
     public class BLLCliente
     {
@@ -20,6 +20,11 @@ namespace BLL
         public void GuardarCliente(BECliente cliente)
         {
             dalCliente.GuardarCliente(cliente);
+        }
+
+        public void GuardarCompraMayoristaTemporal(BECliente beCliente, BECompraMayorista beCompraMayoristaTemporal)
+        {
+            dalCliente.GuardarCompraMayoristaTemporal(beCliente, beCompraMayoristaTemporal);
         }
 
         public List<BECliente> ListaClientes()
@@ -36,8 +41,13 @@ namespace BLL
         {
             dalCliente.ModificarCliente(cliente);
         }
+
+        public void AgregarModificarComentarios(BECliente cliente)
+        {
+            dalCliente.AgregarModificarComentarios(cliente);
+        }
     }
 
-   
+
 
 }

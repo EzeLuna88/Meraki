@@ -11,6 +11,7 @@ using System.Xml;
 using System.Collections;
 using System.Xml.Serialization;
 using System.Security.Cryptography;
+using Servicios;
 
 namespace DAL
 {
@@ -20,18 +21,19 @@ namespace DAL
         {
             try
             {
-                XDocument doc;
-                if (File.Exists("compras.xml"))
-                {
+                string rutaArchivo = PathManager.GetFilePath("compras.xml");
 
-                    doc = XDocument.Load("compras.xml");
+                XDocument doc;
+                if (File.Exists(rutaArchivo))
+                {
+                    // Carga el archivo XML de clientes
+                    doc = XDocument.Load(rutaArchivo);
                 }
                 else
                 {
                     doc = new XDocument(new XElement("compras"));
-
                 }
-                doc.Save("compras.xml");
+                doc.Save(rutaArchivo);
 
                 XElement productos = new XElement("productos");
                 foreach (BECarrito item in compraMayorista.ListaCarrito)
@@ -65,11 +67,12 @@ namespace DAL
                                                 new XElement("direccion",compraMayorista.Cliente.Direccion.Trim()),
                                                 new XElement("localidad", compraMayorista.Cliente.Localidad.Trim()),
                                                 new XElement("telefono", compraMayorista.Cliente.Telefono.Trim()),
+                                                new XElement("telefono alternativo", compraMayorista.Cliente.TelefonoAlternativo.Trim()),
                                                 new XElement("horario_de_apertura", compraMayorista.Cliente.HorarioDeApertura.ToString().Trim()),
                                                 new XElement("horario_de_cierre", compraMayorista.Cliente.HorarioDeCierre.ToString().Trim())),
                                                productos));
                 ;
-                doc.Save("compras.xml");
+                doc.Save(rutaArchivo);
             }
             catch (Exception)
             {
@@ -80,7 +83,8 @@ namespace DAL
 
         public BEProducto BuscarCompraMayorista(string codigo)
         {
-            XDocument doc = XDocument.Load("productos.xml");
+            string rutaArchivo = PathManager.GetFilePath("compras.xml");
+            XDocument doc = XDocument.Load(rutaArchivo);
             var consulta = from producto in doc.Descendants("producto")
                            where producto.Attribute("codigo").Value == codigo
                            select new BEProductoIndividual

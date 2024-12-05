@@ -95,7 +95,7 @@
             this.buttonSacar.Location = new System.Drawing.Point(406, 301);
             this.buttonSacar.Name = "buttonSacar";
             this.buttonSacar.Size = new System.Drawing.Size(50, 50);
-            this.buttonSacar.TabIndex = 2;
+            this.buttonSacar.TabIndex = 3;
             this.buttonSacar.Text = "-1";
             this.buttonSacar.UseVisualStyleBackColor = true;
             this.buttonSacar.Click += new System.EventHandler(this.buttonSacar_Click);
@@ -107,7 +107,7 @@
             this.buttonAgregar.Location = new System.Drawing.Point(306, 301);
             this.buttonAgregar.Name = "buttonAgregar";
             this.buttonAgregar.Size = new System.Drawing.Size(50, 50);
-            this.buttonAgregar.TabIndex = 3;
+            this.buttonAgregar.TabIndex = 2;
             this.buttonAgregar.Text = "+1";
             this.buttonAgregar.UseVisualStyleBackColor = true;
             this.buttonAgregar.Click += new System.EventHandler(this.buttonAgregar_Click);
@@ -118,7 +118,7 @@
             this.textBoxFiltrar.Location = new System.Drawing.Point(79, 313);
             this.textBoxFiltrar.Name = "textBoxFiltrar";
             this.textBoxFiltrar.Size = new System.Drawing.Size(221, 26);
-            this.textBoxFiltrar.TabIndex = 38;
+            this.textBoxFiltrar.TabIndex = 1;
             this.textBoxFiltrar.TextChanged += new System.EventHandler(this.textBoxFiltrar_TextChanged);
             // 
             // label6

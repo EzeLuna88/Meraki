@@ -11,6 +11,7 @@ using System.Xml;
 using System.Collections;
 using System.Xml.Serialization;
 using System.Security.Cryptography;
+using Servicios;
 
 namespace DAL
 {
@@ -20,20 +21,21 @@ namespace DAL
         {
             try
             {
-                XDocument doc;
-                if (File.Exists("stock.xml"))
-                {
+                string rutaArchivo = PathManager.GetFilePath("stock.xml");
 
-                    doc = XDocument.Load("stock.xml");
+                XDocument doc;
+                if (File.Exists(rutaArchivo))
+                {
+                    // Carga el archivo XML de clientes
+                    doc = XDocument.Load(rutaArchivo);
                 }
                 else
                 {
                     doc = new XDocument(new XElement("productos"));
-
                 }
-                doc.Save("stock.xml");
+                doc.Save(rutaArchivo);
 
-                var consulta = from Producto in XElement.Load("stock.xml").Elements("producto")
+                var consulta = from Producto in doc.Element("productos").Elements("producto")
                                select new BEStock
                                {
                                    Codigo = Convert.ToString(Producto.Attribute("codigo").Value).Trim(),
@@ -41,7 +43,9 @@ namespace DAL
                                    Nombre = Convert.ToString(Producto.Element("nombre").Value).Trim(),
                                    Medida = Convert.ToDouble(Producto.Element("medida").Value),
                                    TipoMedida = Convert.ToString(Producto.Element("tipo_medida").Value).Trim(),
-
+                                   CantidadReservada = Producto.Element("cantidad_reservada") != null
+                                                ? int.Parse(Producto.Element("cantidad_reservada").Value)
+                                                : 0
 
                                };
                 List<BEStock> stock = consulta.ToList<BEStock>();
@@ -58,12 +62,13 @@ namespace DAL
         {
             try
             {
-                XDocument doc = XDocument.Load("stock.xml");
+                string rutaArchivo = PathManager.GetFilePath("stock.xml");
+                XDocument doc = XDocument.Load(rutaArchivo);
                 var consulta = from producto in doc.Descendants("producto")
                                where producto.Attribute("codigo").Value == beStock.Codigo
                                select producto;
                 consulta.Remove();
-                doc.Save("stock.xml");
+                doc.Save(rutaArchivo);
             }
             catch (Exception)
             {
@@ -74,7 +79,8 @@ namespace DAL
 
         public void AgregarStock(BEStock beStock, int unidades)
         {
-            XDocument doc = XDocument.Load("stock.xml");
+            string rutaArchivo = PathManager.GetFilePath("stock.xml");
+            XDocument doc = XDocument.Load(rutaArchivo);
             var consulta = from producto in doc.Descendants("producto")
                            where producto.Attribute("codigo").Value == beStock.Codigo
                            select producto;
@@ -87,14 +93,15 @@ namespace DAL
 
 
 
-            doc.Save("stock.xml");
+            doc.Save(rutaArchivo);
         }
 
         public bool ComprobarRepetido(BEStock beStock)
         {
             try
             {
-                XDocument doc = XDocument.Load("stock.xml");
+                string rutaArchivo = PathManager.GetFilePath("stock.xml");
+                XDocument doc = XDocument.Load(rutaArchivo);
 
                 var repetido = doc.Root.Elements("producto").Where(p => (string)p.Element("nombre") == beStock.Nombre.Trim() && (string)p.Element("medida") == beStock.Medida.ToString().Trim()).Any();
                 if (repetido)
@@ -114,7 +121,8 @@ namespace DAL
         {
             try
             {
-                XDocument doc = XDocument.Load("stock.xml");
+                string rutaArchivo = PathManager.GetFilePath("stock.xml");
+                XDocument doc = XDocument.Load(rutaArchivo);
                 doc.Element("productos").Add(new XElement("producto",
                                                new XAttribute("codigo", beStock.Codigo.ToString().Trim()),
                                                new XElement("nombre", beStock.Nombre.Trim()),
@@ -124,7 +132,7 @@ namespace DAL
 
 
                 // Guarda el documento XML en el archivo "clientes.xml"
-                doc.Save("stock.xml");
+                doc.Save(rutaArchivo);
 
 
 
@@ -138,7 +146,8 @@ namespace DAL
 
         public void ActualizarStock(List<BEStock> listaStock)
         {
-            XDocument doc = XDocument.Load("stock.xml");
+            string rutaArchivo = PathManager.GetFilePath("stock.xml");
+            XDocument doc = XDocument.Load(rutaArchivo);
             foreach (BEStock beStock in listaStock)
             {
                 var consulta = from compra in doc.Descendants("producto")
@@ -153,12 +162,32 @@ namespace DAL
             }
 
 
-            doc.Save("stock.xml");
+            doc.Save(rutaArchivo);
         }
+
+        public void AcomodarCantidadReservadaStock()
+        {
+            string rutaArchivo = PathManager.GetFilePath("stock.xml");
+            XDocument doc = XDocument.Load(rutaArchivo);
+            foreach(XElement producto in doc.Descendants("producto"))
+            {
+                XElement cantidadReservadaElemento = producto.Element("cantidad_reservada");
+                if (cantidadReservadaElemento != null)
+                {
+                    cantidadReservadaElemento.Value = "0"; // Seteamos la cantidad reservada a 0
+                }
+            }
+
+
+            doc.Save(rutaArchivo);
+        }
+
 
         public void ModificarStock(BEStock beStock)
         {
-            XDocument doc = XDocument.Load("stock.xml");
+            string rutaArchivo = PathManager.GetFilePath("stock.xml");
+            XDocument doc = XDocument.Load(rutaArchivo);
+
             var consulta = from producto in doc.Descendants("producto")
                            where producto.Attribute("codigo").Value == beStock.Codigo
                            select producto;
@@ -167,10 +196,39 @@ namespace DAL
                 modificar.Element("nombre").Value = beStock.Nombre;
                 modificar.Element("medida").Value = beStock.Medida.ToString();
                 modificar.Element("tipo_medida").Value = beStock.TipoMedida;
-               
+
             }
 
-            doc.Save("stock.xml");
+            doc.Save(rutaArchivo);
+        }
+
+        public void CantidadReservadaStock(BEStock beStock)
+        {
+            string rutaArchivo = PathManager.GetFilePath("stock.xml");
+            XDocument doc = XDocument.Load(rutaArchivo);
+
+            var consulta = from producto in doc.Descendants("producto")
+                           where producto.Attribute("codigo").Value == beStock.Codigo
+                           select producto;
+            foreach (XElement modificar in consulta)
+            {
+                XElement cantidadReservadaElemento = modificar.Element("cantidad_reservada");
+
+                if (cantidadReservadaElemento == null)
+                {
+                    // Si no existe, lo crea
+                    cantidadReservadaElemento = new XElement("cantidad_reservada", beStock.CantidadReservada.ToString());
+                    modificar.Add(cantidadReservadaElemento); // Añade el nuevo elemento al producto
+                }
+                else
+                {
+                    // Si ya existe, actualiza su valor
+                    cantidadReservadaElemento.Value = beStock.CantidadReservada.ToString();
+                }
+
+            }
+
+            doc.Save(rutaArchivo);
         }
     }
 }

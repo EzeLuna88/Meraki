@@ -40,7 +40,7 @@
             this.buttonCancelar.Location = new System.Drawing.Point(231, 11);
             this.buttonCancelar.Name = "buttonCancelar";
             this.buttonCancelar.Size = new System.Drawing.Size(103, 61);
-            this.buttonCancelar.TabIndex = 34;
+            this.buttonCancelar.TabIndex = 3;
             this.buttonCancelar.Text = "Cancelar";
             this.buttonCancelar.UseVisualStyleBackColor = true;
             this.buttonCancelar.Click += new System.EventHandler(this.buttonModificar_Click);
@@ -52,7 +52,7 @@
             this.buttonCompraMinorista.Location = new System.Drawing.Point(122, 12);
             this.buttonCompraMinorista.Name = "buttonCompraMinorista";
             this.buttonCompraMinorista.Size = new System.Drawing.Size(103, 61);
-            this.buttonCompraMinorista.TabIndex = 33;
+            this.buttonCompraMinorista.TabIndex = 2;
             this.buttonCompraMinorista.Text = "Compra Minorista";
             this.buttonCompraMinorista.UseVisualStyleBackColor = true;
             this.buttonCompraMinorista.Click += new System.EventHandler(this.buttonCompraMinorista_Click);
@@ -64,7 +64,7 @@
             this.buttonCompraMayorista.Location = new System.Drawing.Point(13, 11);
             this.buttonCompraMayorista.Name = "buttonCompraMayorista";
             this.buttonCompraMayorista.Size = new System.Drawing.Size(103, 61);
-            this.buttonCompraMayorista.TabIndex = 32;
+            this.buttonCompraMayorista.TabIndex = 1;
             this.buttonCompraMayorista.Text = "Compra Mayorista";
             this.buttonCompraMayorista.UseVisualStyleBackColor = true;
             this.buttonCompraMayorista.Click += new System.EventHandler(this.buttonCompraMayorista_Click);

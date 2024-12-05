@@ -28,217 +28,209 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.label9 = new System.Windows.Forms.Label();
+            this.richTextBoxComentarios = new System.Windows.Forms.RichTextBox();
             this.dataGridViewClientes = new System.Windows.Forms.DataGridView();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.labelNombre = new System.Windows.Forms.Label();
-            this.labelDireccion = new System.Windows.Forms.Label();
-            this.labelLocalidad = new System.Windows.Forms.Label();
-            this.labelTelefono = new System.Windows.Forms.Label();
-            this.labelHorarioDeApertura = new System.Windows.Forms.Label();
-            this.labelHorarioDeCierre = new System.Windows.Forms.Label();
-            this.buttonAlta = new System.Windows.Forms.Button();
-            this.buttonBaja = new System.Windows.Forms.Button();
-            this.buttonModificar = new System.Windows.Forms.Button();
+            this.textBoxFiltrar = new System.Windows.Forms.TextBox();
+            this.iconButtonAlta2 = new FontAwesome.Sharp.IconButton();
+            this.iconButtonBaja2 = new FontAwesome.Sharp.IconButton();
+            this.iconButtonModificar2 = new FontAwesome.Sharp.IconButton();
+            this.iconButtonComentariosGuardar = new FontAwesome.Sharp.IconButton();
+            this.iconButtonComentariosBorrar = new FontAwesome.Sharp.IconButton();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewClientes)).BeginInit();
             this.SuspendLayout();
             // 
+            // label9
+            // 
+            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(9, 211);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(85, 17);
+            this.label9.TabIndex = 37;
+            this.label9.Text = "Comentarios:";
+            // 
+            // richTextBoxComentarios
+            // 
+            this.richTextBoxComentarios.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.richTextBoxComentarios.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(199)))), ((int)(((byte)(91)))), ((int)(((byte)(122)))));
+            this.richTextBoxComentarios.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.richTextBoxComentarios.Enabled = false;
+            this.richTextBoxComentarios.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.richTextBoxComentarios.Location = new System.Drawing.Point(12, 231);
+            this.richTextBoxComentarios.Name = "richTextBoxComentarios";
+            this.richTextBoxComentarios.Size = new System.Drawing.Size(472, 127);
+            this.richTextBoxComentarios.TabIndex = 38;
+            this.richTextBoxComentarios.Text = "";
+            // 
             // dataGridViewClientes
             // 
-            this.dataGridViewClientes.AllowUserToResizeColumns = false;
-            this.dataGridViewClientes.AllowUserToResizeRows = false;
-            this.dataGridViewClientes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridViewClientes.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewClientes.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+            this.dataGridViewClientes.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dataGridViewClientes.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(8)))), ((int)(((byte)(21)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewClientes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewClientes.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(26)))), ((int)(((byte)(64)))));
             this.dataGridViewClientes.Location = new System.Drawing.Point(12, 12);
             this.dataGridViewClientes.MultiSelect = false;
             this.dataGridViewClientes.Name = "dataGridViewClientes";
             this.dataGridViewClientes.ReadOnly = true;
             this.dataGridViewClientes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewClientes.Size = new System.Drawing.Size(714, 598);
-            this.dataGridViewClientes.TabIndex = 0;
-            this.dataGridViewClientes.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewClientes_CellClick);
+            this.dataGridViewClientes.Size = new System.Drawing.Size(587, 196);
+            this.dataGridViewClientes.TabIndex = 42;
+            this.dataGridViewClientes.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewClientes_CellClick_1);
+            this.dataGridViewClientes.SelectionChanged += new System.EventHandler(this.dataGridViewClientes_SelectionChanged_1);
             // 
-            // label1
+            // textBoxFiltrar
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(823, 15);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(76, 20);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Nombre:";
+            this.textBoxFiltrar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxFiltrar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+            this.textBoxFiltrar.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxFiltrar.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxFiltrar.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.textBoxFiltrar.Location = new System.Drawing.Point(12, 364);
+            this.textBoxFiltrar.Name = "textBoxFiltrar";
+            this.textBoxFiltrar.Size = new System.Drawing.Size(472, 18);
+            this.textBoxFiltrar.TabIndex = 43;
+            this.textBoxFiltrar.TextChanged += new System.EventHandler(this.textBoxFiltrar_TextChanged_1);
+            this.textBoxFiltrar.Enter += new System.EventHandler(this.textBoxFiltrar_Enter);
+            this.textBoxFiltrar.Leave += new System.EventHandler(this.textBoxFiltrar_Leave);
             // 
-            // label2
+            // iconButtonAlta2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(810, 35);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(89, 20);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Direccion:";
+            this.iconButtonAlta2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.iconButtonAlta2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(26)))), ((int)(((byte)(64)))));
+            this.iconButtonAlta2.FlatAppearance.BorderSize = 0;
+            this.iconButtonAlta2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.iconButtonAlta2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.iconButtonAlta2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
+            this.iconButtonAlta2.IconChar = FontAwesome.Sharp.IconChar.CircleChevronUp;
+            this.iconButtonAlta2.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
+            this.iconButtonAlta2.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iconButtonAlta2.IconSize = 30;
+            this.iconButtonAlta2.Location = new System.Drawing.Point(12, 388);
+            this.iconButtonAlta2.Name = "iconButtonAlta2";
+            this.iconButtonAlta2.Size = new System.Drawing.Size(106, 40);
+            this.iconButtonAlta2.TabIndex = 44;
+            this.iconButtonAlta2.Text = "Alta";
+            this.iconButtonAlta2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.iconButtonAlta2.UseVisualStyleBackColor = false;
+            this.iconButtonAlta2.Click += new System.EventHandler(this.iconButtonAlta2_Click);
             // 
-            // label3
+            // iconButtonBaja2
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(808, 55);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(91, 20);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Localidad:";
+            this.iconButtonBaja2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.iconButtonBaja2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(26)))), ((int)(((byte)(64)))));
+            this.iconButtonBaja2.FlatAppearance.BorderSize = 0;
+            this.iconButtonBaja2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.iconButtonBaja2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.iconButtonBaja2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
+            this.iconButtonBaja2.IconChar = FontAwesome.Sharp.IconChar.CircleChevronDown;
+            this.iconButtonBaja2.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
+            this.iconButtonBaja2.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iconButtonBaja2.IconSize = 30;
+            this.iconButtonBaja2.Location = new System.Drawing.Point(124, 388);
+            this.iconButtonBaja2.Name = "iconButtonBaja2";
+            this.iconButtonBaja2.Size = new System.Drawing.Size(106, 40);
+            this.iconButtonBaja2.TabIndex = 45;
+            this.iconButtonBaja2.Text = "Baja";
+            this.iconButtonBaja2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.iconButtonBaja2.UseVisualStyleBackColor = false;
+            this.iconButtonBaja2.Click += new System.EventHandler(this.iconButtonBaja2_Click);
             // 
-            // label4
+            // iconButtonModificar2
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(815, 75);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(84, 20);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "Telefono:";
+            this.iconButtonModificar2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.iconButtonModificar2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(26)))), ((int)(((byte)(64)))));
+            this.iconButtonModificar2.FlatAppearance.BorderSize = 0;
+            this.iconButtonModificar2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.iconButtonModificar2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.iconButtonModificar2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
+            this.iconButtonModificar2.IconChar = FontAwesome.Sharp.IconChar.Pen;
+            this.iconButtonModificar2.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
+            this.iconButtonModificar2.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iconButtonModificar2.IconSize = 30;
+            this.iconButtonModificar2.Location = new System.Drawing.Point(236, 388);
+            this.iconButtonModificar2.Name = "iconButtonModificar2";
+            this.iconButtonModificar2.Size = new System.Drawing.Size(106, 40);
+            this.iconButtonModificar2.TabIndex = 46;
+            this.iconButtonModificar2.Text = "Modificar";
+            this.iconButtonModificar2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.iconButtonModificar2.UseVisualStyleBackColor = false;
+            this.iconButtonModificar2.Click += new System.EventHandler(this.iconButtonModificar2_Click);
             // 
-            // label5
+            // iconButtonComentariosGuardar
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(728, 95);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(171, 20);
-            this.label5.TabIndex = 5;
-            this.label5.Text = "Horario de apertura:";
+            this.iconButtonComentariosGuardar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.iconButtonComentariosGuardar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(26)))), ((int)(((byte)(64)))));
+            this.iconButtonComentariosGuardar.FlatAppearance.BorderSize = 0;
+            this.iconButtonComentariosGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.iconButtonComentariosGuardar.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.iconButtonComentariosGuardar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
+            this.iconButtonComentariosGuardar.IconChar = FontAwesome.Sharp.IconChar.FloppyDisk;
+            this.iconButtonComentariosGuardar.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
+            this.iconButtonComentariosGuardar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iconButtonComentariosGuardar.IconSize = 30;
+            this.iconButtonComentariosGuardar.Location = new System.Drawing.Point(493, 271);
+            this.iconButtonComentariosGuardar.Name = "iconButtonComentariosGuardar";
+            this.iconButtonComentariosGuardar.Size = new System.Drawing.Size(106, 40);
+            this.iconButtonComentariosGuardar.TabIndex = 47;
+            this.iconButtonComentariosGuardar.Text = "Guardar";
+            this.iconButtonComentariosGuardar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.iconButtonComentariosGuardar.UseVisualStyleBackColor = false;
+            this.iconButtonComentariosGuardar.Click += new System.EventHandler(this.iconButtonComentariosGuardar_Click);
             // 
-            // label6
+            // iconButtonComentariosBorrar
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(751, 115);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(148, 20);
-            this.label6.TabIndex = 6;
-            this.label6.Text = "Horario de cierre:";
-            // 
-            // labelNombre
-            // 
-            this.labelNombre.AutoSize = true;
-            this.labelNombre.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelNombre.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.labelNombre.Location = new System.Drawing.Point(905, 15);
-            this.labelNombre.Name = "labelNombre";
-            this.labelNombre.Size = new System.Drawing.Size(0, 20);
-            this.labelNombre.TabIndex = 7;
-            // 
-            // labelDireccion
-            // 
-            this.labelDireccion.AutoSize = true;
-            this.labelDireccion.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelDireccion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.labelDireccion.Location = new System.Drawing.Point(905, 35);
-            this.labelDireccion.Name = "labelDireccion";
-            this.labelDireccion.Size = new System.Drawing.Size(0, 20);
-            this.labelDireccion.TabIndex = 8;
-            // 
-            // labelLocalidad
-            // 
-            this.labelLocalidad.AutoSize = true;
-            this.labelLocalidad.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelLocalidad.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.labelLocalidad.Location = new System.Drawing.Point(905, 55);
-            this.labelLocalidad.Name = "labelLocalidad";
-            this.labelLocalidad.Size = new System.Drawing.Size(0, 20);
-            this.labelLocalidad.TabIndex = 9;
-            // 
-            // labelTelefono
-            // 
-            this.labelTelefono.AutoSize = true;
-            this.labelTelefono.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTelefono.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.labelTelefono.Location = new System.Drawing.Point(905, 75);
-            this.labelTelefono.Name = "labelTelefono";
-            this.labelTelefono.Size = new System.Drawing.Size(0, 20);
-            this.labelTelefono.TabIndex = 10;
-            // 
-            // labelHorarioDeApertura
-            // 
-            this.labelHorarioDeApertura.AutoSize = true;
-            this.labelHorarioDeApertura.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelHorarioDeApertura.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.labelHorarioDeApertura.Location = new System.Drawing.Point(905, 95);
-            this.labelHorarioDeApertura.Name = "labelHorarioDeApertura";
-            this.labelHorarioDeApertura.Size = new System.Drawing.Size(0, 20);
-            this.labelHorarioDeApertura.TabIndex = 11;
-            // 
-            // labelHorarioDeCierre
-            // 
-            this.labelHorarioDeCierre.AutoSize = true;
-            this.labelHorarioDeCierre.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelHorarioDeCierre.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.labelHorarioDeCierre.Location = new System.Drawing.Point(905, 115);
-            this.labelHorarioDeCierre.Name = "labelHorarioDeCierre";
-            this.labelHorarioDeCierre.Size = new System.Drawing.Size(0, 20);
-            this.labelHorarioDeCierre.TabIndex = 12;
-            // 
-            // buttonAlta
-            // 
-            this.buttonAlta.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.buttonAlta.ForeColor = System.Drawing.Color.Blue;
-            this.buttonAlta.Location = new System.Drawing.Point(732, 138);
-            this.buttonAlta.Name = "buttonAlta";
-            this.buttonAlta.Size = new System.Drawing.Size(100, 100);
-            this.buttonAlta.TabIndex = 13;
-            this.buttonAlta.Text = "Alta";
-            this.buttonAlta.UseVisualStyleBackColor = true;
-            this.buttonAlta.Click += new System.EventHandler(this.buttonAlta_Click);
-            // 
-            // buttonBaja
-            // 
-            this.buttonBaja.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.buttonBaja.ForeColor = System.Drawing.Color.Red;
-            this.buttonBaja.Location = new System.Drawing.Point(841, 139);
-            this.buttonBaja.Name = "buttonBaja";
-            this.buttonBaja.Size = new System.Drawing.Size(100, 100);
-            this.buttonBaja.TabIndex = 14;
-            this.buttonBaja.Text = "Baja";
-            this.buttonBaja.UseVisualStyleBackColor = true;
-            this.buttonBaja.Click += new System.EventHandler(this.buttonBaja_Click);
-            // 
-            // buttonModificar
-            // 
-            this.buttonModificar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.buttonModificar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.buttonModificar.Location = new System.Drawing.Point(950, 138);
-            this.buttonModificar.Name = "buttonModificar";
-            this.buttonModificar.Size = new System.Drawing.Size(100, 100);
-            this.buttonModificar.TabIndex = 15;
-            this.buttonModificar.Text = "Modificar";
-            this.buttonModificar.UseVisualStyleBackColor = true;
-            this.buttonModificar.Click += new System.EventHandler(this.buttonModificar_Click);
+            this.iconButtonComentariosBorrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.iconButtonComentariosBorrar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(26)))), ((int)(((byte)(64)))));
+            this.iconButtonComentariosBorrar.FlatAppearance.BorderSize = 0;
+            this.iconButtonComentariosBorrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.iconButtonComentariosBorrar.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.iconButtonComentariosBorrar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
+            this.iconButtonComentariosBorrar.IconChar = FontAwesome.Sharp.IconChar.Pen;
+            this.iconButtonComentariosBorrar.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
+            this.iconButtonComentariosBorrar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iconButtonComentariosBorrar.IconSize = 30;
+            this.iconButtonComentariosBorrar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.iconButtonComentariosBorrar.Location = new System.Drawing.Point(493, 271);
+            this.iconButtonComentariosBorrar.Name = "iconButtonComentariosBorrar";
+            this.iconButtonComentariosBorrar.Size = new System.Drawing.Size(106, 40);
+            this.iconButtonComentariosBorrar.TabIndex = 48;
+            this.iconButtonComentariosBorrar.Text = "Modificar";
+            this.iconButtonComentariosBorrar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.iconButtonComentariosBorrar.UseVisualStyleBackColor = false;
+            this.iconButtonComentariosBorrar.Click += new System.EventHandler(this.iconButtonComentariosBorrar_Click);
             // 
             // Clientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1284, 648);
-            this.Controls.Add(this.buttonModificar);
-            this.Controls.Add(this.buttonBaja);
-            this.Controls.Add(this.buttonAlta);
-            this.Controls.Add(this.labelHorarioDeCierre);
-            this.Controls.Add(this.labelHorarioDeApertura);
-            this.Controls.Add(this.labelTelefono);
-            this.Controls.Add(this.labelLocalidad);
-            this.Controls.Add(this.labelDireccion);
-            this.Controls.Add(this.labelNombre);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
+            this.ClientSize = new System.Drawing.Size(613, 434);
+            this.Controls.Add(this.iconButtonComentariosBorrar);
+            this.Controls.Add(this.iconButtonComentariosGuardar);
+            this.Controls.Add(this.iconButtonModificar2);
+            this.Controls.Add(this.iconButtonBaja2);
+            this.Controls.Add(this.iconButtonAlta2);
+            this.Controls.Add(this.textBoxFiltrar);
             this.Controls.Add(this.dataGridViewClientes);
+            this.Controls.Add(this.richTextBoxComentarios);
+            this.Controls.Add(this.label9);
             this.Name = "Clientes";
             this.Text = "Clientes";
             this.Load += new System.EventHandler(this.Clientes_Load);
@@ -249,22 +241,15 @@
         }
 
         #endregion
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label labelNombre;
-        private System.Windows.Forms.Label labelDireccion;
-        private System.Windows.Forms.Label labelLocalidad;
-        private System.Windows.Forms.Label labelTelefono;
-        private System.Windows.Forms.Label labelHorarioDeApertura;
-        private System.Windows.Forms.Label labelHorarioDeCierre;
-        private System.Windows.Forms.Button buttonAlta;
-        private System.Windows.Forms.Button buttonBaja;
-        private System.Windows.Forms.Button buttonModificar;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.RichTextBox richTextBoxComentarios;
         private System.Windows.Forms.DataGridView dataGridViewClientes;
+        private System.Windows.Forms.TextBox textBoxFiltrar;
+        private FontAwesome.Sharp.IconButton iconButtonAlta2;
+        private FontAwesome.Sharp.IconButton iconButtonBaja2;
+        private FontAwesome.Sharp.IconButton iconButtonModificar2;
+        private FontAwesome.Sharp.IconButton iconButtonComentariosGuardar;
+        private FontAwesome.Sharp.IconButton iconButtonComentariosBorrar;
     }
 }
 

@@ -14,7 +14,7 @@ namespace BLL
 
         public BLLStock() { dalStock = new DALStock(); }
 
-       
+
 
         public void GuardarNuevoProducto(BEStock beStock)
         { dalStock.GuardarNuevoProducto(beStock); }
@@ -37,7 +37,7 @@ namespace BLL
             dalStock.AgregarStock(bestock, unidades);
         }
 
-        public void ActualizarStock (List<BEStock> listaStock)
+        public void ActualizarStock(List<BEStock> listaStock)
         {
             dalStock.ActualizarStock(listaStock);
         }
@@ -45,6 +45,16 @@ namespace BLL
         public void ModificarStock(BEStock beStock)
         {
             dalStock.ModificarStock(beStock);
+        }
+
+        public void CantidadReservadaStock(BEStock beStock)
+        {
+            dalStock.CantidadReservadaStock(beStock);
+        }
+
+        public void AcomodarCantidadReservada()
+        {
+            dalStock.AcomodarCantidadReservadaStock();
         }
     }
 }

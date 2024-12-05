@@ -16,51 +16,85 @@ namespace Meraki
     {
         BLLStock bllStock;
         BEStock beStock;
+        private const string placeholderText = "   Buscar...";
+
         public Stock()
         {
             beStock = new BEStock();
-            bllStock= new BLLStock();
+            bllStock = new BLLStock();
             InitializeComponent();
             CargarDataGrid();
         }
 
-        private void buttonAgregarStock_Click(object sender, EventArgs e)
-        {
-            beStock = (BEStock)dataGridViewStock.CurrentRow.DataBoundItem;
-            StockAgregar stockAgregar = new StockAgregar();
-            stockAgregar.labelProducto.Text = beStock.Nombre + " " + beStock.Medida.ToString() + " " + beStock.TipoMedida;
-            
-            stockAgregar.AsignarProducto(beStock);
 
-            stockAgregar.ShowDialog();
-            CargarDataGrid();
-            dataGridViewStock.Rows[0].Selected = true;
-        }
-
-        private void buttonNuevoProducto_Click(object sender, EventArgs e)
-        {
-            StockNuevoProducto cargaStock = new StockNuevoProducto();
-            cargaStock.ShowDialog();
-            CargarDataGrid();
-
-        }
 
         public void CargarDataGrid()
         {
             dataGridViewStock.DataSource = null;
-            dataGridViewStock.DataSource = bllStock.CargarStock();
-            dataGridViewStock.Columns[0].Visible = false;
+
+            List<BEStock> listStock = bllStock.CargarStock().OrderBy(stock => stock.Nombre).ToList();
+            var bindingList = new BindingList<BEStock>(listStock);
+            dataGridViewStock.DataSource = bindingList;
+
+
             dataGridViewStock.Columns[1].HeaderText = "Nombre";
-            dataGridViewStock.Columns[2].Visible= false;
+            dataGridViewStock.Columns[2].Visible = false;
             dataGridViewStock.Columns[3].Visible = false;
             dataGridViewStock.Columns[4].HeaderText = "Cantidad actual";
             dataGridViewStock.Columns[6].Visible = false;
             dataGridViewStock.Columns[5].Visible = false;
-
+            ConfigurarDataGrid(dataGridViewStock);
 
         }
 
-        private void dataGridViewStock_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        public void ConfigurarDataGrid(DataGridView dataGridView)
+        {
+            // Configuración general del DataGridView
+            dataGridView.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(217, 171, 171);
+            dataGridView.RowHeadersVisible = false;
+            dataGridView.Font = new System.Drawing.Font("Segoe UI", 9);
+            dataGridView.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 10, FontStyle.Bold);
+            dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView.RowTemplate.Height = 25;
+            dataGridView.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(146, 26, 64);
+            dataGridView.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White;
+            dataGridView.AllowUserToResizeRows = false;
+            dataGridView.AllowUserToResizeColumns = false;
+            dataGridView.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            dataGridView.EnableHeadersVisualStyles = false;
+            dataGridView.AllowUserToAddRows = false;
+            dataGridView.ColumnHeadersDefaultCellStyle.SelectionBackColor = dataGridView.ColumnHeadersDefaultCellStyle.BackColor;
+            dataGridView.ColumnHeadersDefaultCellStyle.SelectionForeColor = dataGridView.ColumnHeadersDefaultCellStyle.ForeColor;
+
+            dataGridView.Columns["Codigo"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dataGridView.Columns["Codigo"].Width = 60;
+            dataGridView.Columns["Codigo"].HeaderText = "Cod.";
+            dataGridView.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dataGridView.Columns[4].Width = 80;
+
+            // Configuración específica de estilo para columnas
+            //ConfigurarEstilosColumnas(dataGridView);
+        }
+
+
+
+
+        private void Stock_Load(object sender, EventArgs e)
+        {
+            if (dataGridViewStock.Rows.Count > 0)
+            {
+                dataGridViewStock.Rows[0].Selected = true;
+            }
+
+            textBoxFiltrar.Text = placeholderText;
+            textBoxFiltrar.ForeColor = System.Drawing.Color.Gray;
+        }
+
+
+
+
+
+        private void dataGridViewStock_CellFormatting_1(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (e.ColumnIndex == 1 && e.RowIndex != this.dataGridViewStock.NewRowIndex)
             {
@@ -71,22 +105,45 @@ namespace Meraki
             }
         }
 
-        private void textBoxFiltrar_TextChanged(object sender, EventArgs e)
+        private void textBoxFiltrar_TextChanged_1(object sender, EventArgs e)
         {
             string textoABuscar = textBoxFiltrar.Text.ToLower();
-            var tablaFiltrada = bllStock.CargarStock().Where(row => row.Nombre.ToLower().Contains(textoABuscar));
-            dataGridViewStock.DataSource = tablaFiltrada.ToList();
-        }
 
-        private void Stock_Load(object sender, EventArgs e)
-        {
-            if (dataGridViewStock.Rows.Count > 0)
+            if (string.IsNullOrWhiteSpace(textoABuscar) || textoABuscar == "   buscar...")
             {
-                dataGridViewStock.Rows[0].Selected = true;
+                CargarDataGrid();
             }
+            else
+            {
+                var tablaFiltrada = bllStock.CargarStock().Where(row => row.Nombre.ToLower().Contains(textoABuscar) ||
+                                                                        row.Codigo.ToLower().Contains(textoABuscar)
+                                                                        );
+                dataGridViewStock.DataSource = tablaFiltrada.ToList();
+            }
+
         }
 
-        private void buttonBorrarProducto_Click(object sender, EventArgs e)
+        private void iconButtonAgregarStock_Click(object sender, EventArgs e)
+        {
+            beStock = (BEStock)dataGridViewStock.CurrentRow.DataBoundItem;
+            StockAgregar stockAgregar = new StockAgregar();
+            stockAgregar.labelProducto.Text = beStock.Nombre + " " + beStock.Medida.ToString() + " " + beStock.TipoMedida;
+
+            stockAgregar.AsignarProducto(beStock);
+
+            stockAgregar.ShowDialog();
+            CargarDataGrid();
+            dataGridViewStock.Rows[0].Selected = true;
+        }
+
+        private void iconButtonNuevo_Click(object sender, EventArgs e)
+        {
+            StockNuevoProducto cargaStock = new StockNuevoProducto();
+            cargaStock.ShowDialog();
+            CargarDataGrid();
+        }
+
+        private void iconButtonBorrar_Click(object sender, EventArgs e)
         {
             try
             {
@@ -118,20 +175,38 @@ namespace Meraki
             }
         }
 
-        private void buttonModificar_Click(object sender, EventArgs e)
+        private void iconButtonModificar_Click(object sender, EventArgs e)
         {
             beStock = (BEStock)dataGridViewStock.CurrentRow.DataBoundItem;
             StockModificar stockModificar = new StockModificar();
             stockModificar.textBoxCodigo.Text = beStock.Codigo.ToString();
-            stockModificar.textBoxNombre.Text = beStock.Nombre ;
+            stockModificar.textBoxNombre.Text = beStock.Nombre;
             stockModificar.textBoxMedida.Text = beStock.Medida.ToString();
             stockModificar.comboBoxTipoMedida.Text = beStock.TipoMedida;
-            
+
             stockModificar.AsignarProducto(beStock);
             stockModificar.ShowDialog();
             CargarDataGrid();
             dataGridViewStock.Rows[0].Selected = true;
             dataGridViewStock.Rows[0].Selected = true;
+        }
+
+        private void textBoxFiltrar_Enter(object sender, EventArgs e)
+        {
+            if (textBoxFiltrar.Text == placeholderText)
+            {
+                textBoxFiltrar.Text = ""; // Limpia el TextBox
+                textBoxFiltrar.ForeColor = System.Drawing.Color.Black; // Cambia el color del texto
+            }
+        }
+
+        private void textBoxFiltrar_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(textBoxFiltrar.Text))
+            {
+                textBoxFiltrar.Text = placeholderText; // Restaura el texto del placeholder
+                textBoxFiltrar.ForeColor = System.Drawing.Color.Gray; // Cambia el color del texto
+            }
         }
     }
 }

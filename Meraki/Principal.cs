@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BE;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,82 +8,110 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Configuration;
 
 namespace Meraki
 {
     public partial class Principal : Form
     {
+        private Form ventanaActiva = null; // Variable para almacenar la ventana activa actualmente
+        int screenWidth;
+        int screenHeight;
+
         public Principal()
         {
-            this.WindowState= FormWindowState.Maximized;
+
+            this.WindowState = FormWindowState.Maximized;
             InitializeComponent();
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Clientes clientes = new Clientes();
-            clientes.Show();
-        }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            Productos productos= new Productos();
-            productos.Show();
-        }
-
-        private void buttonStock_Click(object sender, EventArgs e)
-        {
-            Stock stock = new Stock();
-            stock.Show();
-        }
-
-        private void buttonNuevaCompra_Click(object sender, EventArgs e)
-        {
-            Compra compra= new Compra();
-            compra.ShowDialog();
-        }
 
         private void mayoristaToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            CerrarVentanaActiva();
+
+
+
             CompraMayorista compraMayorista = new CompraMayorista();
-            compraMayorista.MdiParent= this;
-            compraMayorista.WindowState = FormWindowState.Maximized;
-            compraMayorista.Show();
+            AbrirVentana(compraMayorista);
+
         }
 
         private void clientesToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            Clientes clientes = new Clientes();
-            clientes.MdiParent = this;
-            clientes.WindowState = FormWindowState.Maximized;
-            clientes.Show();
+            CerrarVentanaActiva();
 
+
+            Clientes clientes = new Clientes();
+            AbrirVentana(clientes);
 
         }
 
         private void productosToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+
             Productos productos = new Productos();
-            productos.MdiParent = this;
-            productos.WindowState = FormWindowState.Maximized;
-            productos.Show();
+            AbrirVentana(productos);
+
+
         }
 
         private void controlToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
             Stock stock = new Stock();
-            stock.MdiParent = this;
-            stock.WindowState= FormWindowState.Maximized;
-            stock.Show();
+            AbrirVentana(stock);
+
+
+
+
         }
 
         private void minoristaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CompraMinorista compraMinorista = new CompraMinorista();
-            compraMinorista.MdiParent = this;
-            compraMinorista.WindowState = FormWindowState.Maximized;
-            compraMinorista.Show();
+            /* CerrarVentanaActiva();
+
+             CompraMinorista compraMinorista = new CompraMinorista();
+             AbrirVentana(compraMinorista);
+            */
+        }
+
+        private void CerrarVentanaActiva()
+        {
+            if (ventanaActiva != null && !ventanaActiva.IsDisposed)
+            {
+                ventanaActiva.Close();
+            }
+        }
+
+        // Método para abrir una nueva ventana y establecerla como ventana activa
+        private void AbrirVentana(Form ventana)
+        {
+            ventanaActiva = ventana;
+            ventana.MdiParent = this;
+            ventana.WindowState = FormWindowState.Maximized;
+            ventana.Show();
+        }
+
+        private void hacerBackupToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+
+        }
+
+        private void Principal_Load(object sender, EventArgs e)
+        {
+            int screenWidth = Screen.PrimaryScreen.Bounds.Width;
+            int screenHeight = Screen.PrimaryScreen.Bounds.Height;
+        }
+
+        private void comprobantesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CerrarVentanaActiva();
+            Comprobantes comprobantes = new Comprobantes();
+            AbrirVentana(comprobantes);
         }
     }
 }

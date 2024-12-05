@@ -22,6 +22,11 @@ namespace BLL
             access.GuardarProducto(beProducto);
         }
 
+        public bool CodigoYaExiste(string codigo)
+        {
+            return access.CodigoYaExiste(codigo);
+        }
+
         public void ModificarProducto(BEProductoCombo beProducto)
         {
             access.ModificarProducto(beProducto);

@@ -15,37 +15,37 @@ using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using System.Net.Sockets;
 using System.Globalization;
+using Servicios;
 
 namespace DAL
 {
     public class DALProducto
     {
-       
+
 
         public List<BEProducto> listaProductos()
         {
 
             try
             {
-                
+                string rutaArchivo = PathManager.GetFilePath("productos.xml");
 
                 XDocument doc;
-                if (File.Exists("productos.xml"))
+                if (File.Exists(rutaArchivo))
                 {
                     // Carga el archivo XML de clientes
-                    doc = XDocument.Load("productos.xml");
+                    doc = XDocument.Load(rutaArchivo);
                 }
                 else
                 {
                     doc = new XDocument(new XElement("productos"));
                 }
-                doc.Save("productos.xml");
+                doc.Save(rutaArchivo);
 
-                       
 
-                var consulta = from Producto in XElement.Load("productos.xml").Elements("producto")
+                var consulta = from Producto in doc.Element("productos").Elements("producto")
                                select Producto.Element("tipo")?.Value == "individual"
-                               ? (BEProducto) new BEProductoIndividual
+                               ? (BEProducto)new BEProductoIndividual
 
                                {
                                    Stock = (from stock in Producto.Elements("stock")
@@ -64,9 +64,9 @@ namespace DAL
                                    PrecioMayorista = Convert.ToDecimal(Producto.Element("precio_mayorista").Value),
                                    PrecioMinorista = Convert.ToDecimal(Producto.Element("precio_minorista").Value)
 
-                                   
+
                                }
-                               : (BEProducto) new BEProductoCombo
+                               : (BEProducto)new BEProductoCombo
                                {
                                    ListaProductos = (from stock in Producto.Element("items").Elements("stock")
                                                      select new BEStock
@@ -83,7 +83,7 @@ namespace DAL
                                    Nombre = Producto.Element("nombre").Value,
                                    PrecioMayorista = Convert.ToDecimal(Producto.Element("precio_mayorista").Value),
                                    PrecioMinorista = Convert.ToDecimal(Producto.Element("precio_minorista").Value)
-                               
+
                                };
                 List<BEProducto> listaProductos = consulta.ToList<BEProducto>();
                 return listaProductos;
@@ -100,8 +100,9 @@ namespace DAL
         {
             try
             {
-                XDocument doc = XDocument.Load("productos.xml");
-                producto.Codigo = Guid.NewGuid().ToString();
+                string rutaArchivo = PathManager.GetFilePath("productos.xml");
+                XDocument doc = XDocument.Load(rutaArchivo);
+
 
                 doc.Element("productos").Add(new XElement("producto",
                                             new XAttribute("codigo", producto.Codigo.ToString().Trim()),
@@ -120,7 +121,7 @@ namespace DAL
                                             new XElement("precio_minorista", producto.PrecioMinorista.ToString().Trim())));
 
                 // Guarda el documento XML en el archivo "clientes.xml"
-                doc.Save("productos.xml");
+                doc.Save(rutaArchivo);
             }
             catch (Exception)
             {
@@ -133,40 +134,40 @@ namespace DAL
 
         public void BorrarProducto(BEProductoIndividual beProducto)
         {
-            XDocument doc = XDocument.Load("productos.xml");
+            string rutaArchivo = PathManager.GetFilePath("productos.xml");
+            XDocument doc = XDocument.Load(rutaArchivo);
             var consulta = from producto in doc.Descendants("producto")
-                           where producto.Element("stock").Attribute("codigo").Value == beProducto.Stock.Codigo
-                           && producto.Element("unidad").Value == beProducto.Unidad.ToString()
-                           && producto.Element("precio_mayorista").Value == beProducto.PrecioMayorista.ToString()
-                           && producto.Element("precio_minorista").Value == beProducto.PrecioMinorista.ToString()
+                           where producto.Attribute("codigo").Value == beProducto.Codigo
                            select producto;
             consulta.Remove();
-            doc.Save("productos.xml");
+            doc.Save(rutaArchivo);
         }
 
         public void ModificarProducto(BEProducto beProducto)
         {
-            XDocument doc = XDocument.Load("productos.xml");
+            string rutaArchivo = PathManager.GetFilePath("productos.xml");
+            XDocument doc = XDocument.Load(rutaArchivo);
             var consulta = from producto in doc.Descendants("producto")
                            where producto.Attribute("codigo").Value == beProducto.Codigo
                            select producto;
             foreach (XElement modificar in consulta)
             {
-                
-                modificar.Element("unidad").Value = beProducto.Unidad.ToString();
-               
+                modificar.Element("unidad").Value = beProducto.Unidad.ToString();   
                 modificar.Element("precio_mayorista").Value = beProducto.PrecioMayorista.ToString();
                 modificar.Element("precio_minorista").Value = beProducto.PrecioMinorista.ToString();
 
-                
+
             }
 
-            doc.Save("productos.xml");
+            doc.Save(rutaArchivo);
         }
+
+
 
         public BEProducto BuscarProducto(string codigo)
         {
-            XDocument doc = XDocument.Load("productos.xml");
+            string rutaArchivo = PathManager.GetFilePath("productos.xml");
+            XDocument doc = XDocument.Load(rutaArchivo);
             var consulta = from producto in doc.Descendants("producto")
                            where producto.Attribute("codigo").Value == codigo
                            select new BEProductoIndividual
@@ -190,16 +191,16 @@ namespace DAL
             return beProducto;
 
         }
-       
-        
-           
 
-       
 
-        
+
+
+
+
+
     }
 
-    
+
 }
 
 

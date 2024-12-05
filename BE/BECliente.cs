@@ -14,9 +14,12 @@ namespace BE
         public string Direccion { get; set; }
         public string Localidad { get; set; }
         public string Telefono { get; set; }
+        public string TelefonoAlternativo { get; set; }
         public TimeSpan HorarioDeApertura { get; set; }
         public TimeSpan HorarioDeCierre { get; set; }
+        public string Comentarios { get; set; }
 
+        public BECompraMayorista CompraMayoristaTemp { get; set; }
 
     }
 }

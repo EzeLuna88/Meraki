@@ -34,8 +34,10 @@
             this.labelUnidadesXPackCaja = new System.Windows.Forms.Label();
             this.textBoxUnidad = new System.Windows.Forms.TextBox();
             this.textBoxPacks = new System.Windows.Forms.TextBox();
-            this.buttonCancelar = new System.Windows.Forms.Button();
-            this.buttonAgregarStock = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.iconButtonAgregarStock = new FontAwesome.Sharp.IconButton();
+            this.iconButtonCancelar = new FontAwesome.Sharp.IconButton();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // labelCodigoEscondido
@@ -50,88 +52,127 @@
             // labelProducto
             // 
             this.labelProducto.AutoSize = true;
-            this.labelProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.labelProducto.Location = new System.Drawing.Point(12, 14);
+            this.labelProducto.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelProducto.Location = new System.Drawing.Point(13, 10);
             this.labelProducto.Name = "labelProducto";
-            this.labelProducto.Size = new System.Drawing.Size(57, 20);
+            this.labelProducto.Size = new System.Drawing.Size(52, 21);
             this.labelProducto.TabIndex = 1;
             this.labelProducto.Text = "label1";
             // 
             // labelPacksCajas
             // 
             this.labelPacksCajas.AutoSize = true;
-            this.labelPacksCajas.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.labelPacksCajas.Location = new System.Drawing.Point(11, 38);
+            this.labelPacksCajas.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPacksCajas.Location = new System.Drawing.Point(12, 36);
             this.labelPacksCajas.Name = "labelPacksCajas";
-            this.labelPacksCajas.Size = new System.Drawing.Size(199, 20);
+            this.labelPacksCajas.Size = new System.Drawing.Size(168, 21);
             this.labelPacksCajas.TabIndex = 2;
             this.labelPacksCajas.Text = "Cantidad Packs / Cajas:";
             // 
             // labelUnidadesXPackCaja
             // 
             this.labelUnidadesXPackCaja.AutoSize = true;
-            this.labelUnidadesXPackCaja.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.labelUnidadesXPackCaja.Location = new System.Drawing.Point(11, 64);
+            this.labelUnidadesXPackCaja.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelUnidadesXPackCaja.Location = new System.Drawing.Point(12, 64);
             this.labelUnidadesXPackCaja.Name = "labelUnidadesXPackCaja";
-            this.labelUnidadesXPackCaja.Size = new System.Drawing.Size(198, 20);
+            this.labelUnidadesXPackCaja.Size = new System.Drawing.Size(168, 21);
             this.labelUnidadesXPackCaja.TabIndex = 3;
             this.labelUnidadesXPackCaja.Text = "Unidades x Pack / Caja:";
             // 
             // textBoxUnidad
             // 
-            this.textBoxUnidad.Location = new System.Drawing.Point(215, 66);
+            this.textBoxUnidad.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+            this.textBoxUnidad.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxUnidad.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxUnidad.Location = new System.Drawing.Point(184, 64);
             this.textBoxUnidad.Name = "textBoxUnidad";
-            this.textBoxUnidad.Size = new System.Drawing.Size(40, 20);
+            this.textBoxUnidad.Size = new System.Drawing.Size(40, 22);
             this.textBoxUnidad.TabIndex = 2;
             this.textBoxUnidad.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxUnidad_KeyPress);
             // 
             // textBoxPacks
             // 
-            this.textBoxPacks.Location = new System.Drawing.Point(215, 38);
+            this.textBoxPacks.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+            this.textBoxPacks.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxPacks.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxPacks.Location = new System.Drawing.Point(184, 36);
             this.textBoxPacks.Name = "textBoxPacks";
-            this.textBoxPacks.Size = new System.Drawing.Size(40, 20);
+            this.textBoxPacks.Size = new System.Drawing.Size(40, 22);
             this.textBoxPacks.TabIndex = 1;
             this.textBoxPacks.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxPacks_KeyPress);
             // 
-            // buttonCancelar
+            // panel1
             // 
-            this.buttonCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonCancelar.ForeColor = System.Drawing.Color.Red;
-            this.buttonCancelar.Location = new System.Drawing.Point(152, 102);
-            this.buttonCancelar.Name = "buttonCancelar";
-            this.buttonCancelar.Size = new System.Drawing.Size(103, 61);
-            this.buttonCancelar.TabIndex = 4;
-            this.buttonCancelar.Text = "Cancelar";
-            this.buttonCancelar.UseVisualStyleBackColor = true;
-            this.buttonCancelar.Click += new System.EventHandler(this.buttonCancelar_Click);
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(199)))), ((int)(((byte)(91)))), ((int)(((byte)(122)))));
+            this.panel1.Controls.Add(this.labelProducto);
+            this.panel1.Controls.Add(this.labelPacksCajas);
+            this.panel1.Controls.Add(this.labelUnidadesXPackCaja);
+            this.panel1.Controls.Add(this.textBoxPacks);
+            this.panel1.Controls.Add(this.textBoxUnidad);
+            this.panel1.Location = new System.Drawing.Point(12, 15);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(373, 100);
+            this.panel1.TabIndex = 5;
             // 
-            // buttonAgregarStock
+            // iconButtonAgregarStock
             // 
-            this.buttonAgregarStock.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonAgregarStock.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.buttonAgregarStock.Location = new System.Drawing.Point(15, 102);
-            this.buttonAgregarStock.Name = "buttonAgregarStock";
-            this.buttonAgregarStock.Size = new System.Drawing.Size(103, 61);
-            this.buttonAgregarStock.TabIndex = 3;
-            this.buttonAgregarStock.Text = "Agregar";
-            this.buttonAgregarStock.UseVisualStyleBackColor = true;
-            this.buttonAgregarStock.Click += new System.EventHandler(this.buttonAgregarStock_Click);
+            this.iconButtonAgregarStock.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.iconButtonAgregarStock.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(26)))), ((int)(((byte)(64)))));
+            this.iconButtonAgregarStock.FlatAppearance.BorderSize = 0;
+            this.iconButtonAgregarStock.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.iconButtonAgregarStock.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.iconButtonAgregarStock.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
+            this.iconButtonAgregarStock.IconChar = FontAwesome.Sharp.IconChar.PlusCircle;
+            this.iconButtonAgregarStock.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
+            this.iconButtonAgregarStock.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iconButtonAgregarStock.IconSize = 30;
+            this.iconButtonAgregarStock.Location = new System.Drawing.Point(80, 133);
+            this.iconButtonAgregarStock.Name = "iconButtonAgregarStock";
+            this.iconButtonAgregarStock.Size = new System.Drawing.Size(110, 40);
+            this.iconButtonAgregarStock.TabIndex = 56;
+            this.iconButtonAgregarStock.Text = "Agregar";
+            this.iconButtonAgregarStock.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.iconButtonAgregarStock.UseVisualStyleBackColor = false;
+            this.iconButtonAgregarStock.Click += new System.EventHandler(this.iconButtonAgregarStock_Click);
+            // 
+            // iconButtonCancelar
+            // 
+            this.iconButtonCancelar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.iconButtonCancelar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(26)))), ((int)(((byte)(64)))));
+            this.iconButtonCancelar.FlatAppearance.BorderSize = 0;
+            this.iconButtonCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.iconButtonCancelar.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.iconButtonCancelar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
+            this.iconButtonCancelar.IconChar = FontAwesome.Sharp.IconChar.Ban;
+            this.iconButtonCancelar.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
+            this.iconButtonCancelar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iconButtonCancelar.IconSize = 30;
+            this.iconButtonCancelar.Location = new System.Drawing.Point(196, 133);
+            this.iconButtonCancelar.Name = "iconButtonCancelar";
+            this.iconButtonCancelar.Size = new System.Drawing.Size(110, 40);
+            this.iconButtonCancelar.TabIndex = 55;
+            this.iconButtonCancelar.Text = "Cancelar";
+            this.iconButtonCancelar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.iconButtonCancelar.UseVisualStyleBackColor = false;
+            this.iconButtonCancelar.Click += new System.EventHandler(this.iconButtonCancelar_Click);
             // 
             // StockAgregar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(343, 179);
-            this.Controls.Add(this.buttonCancelar);
-            this.Controls.Add(this.buttonAgregarStock);
-            this.Controls.Add(this.textBoxPacks);
-            this.Controls.Add(this.textBoxUnidad);
-            this.Controls.Add(this.labelUnidadesXPackCaja);
-            this.Controls.Add(this.labelPacksCajas);
-            this.Controls.Add(this.labelProducto);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
+            this.ClientSize = new System.Drawing.Size(397, 188);
+            this.Controls.Add(this.iconButtonAgregarStock);
+            this.Controls.Add(this.iconButtonCancelar);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelCodigoEscondido);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "StockAgregar";
             this.Text = "StockAgregar";
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.StockAgregar_MouseDown);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -143,8 +184,9 @@
         private System.Windows.Forms.TextBox textBoxUnidad;
         private System.Windows.Forms.TextBox textBoxPacks;
         public System.Windows.Forms.Label labelProducto;
-        private System.Windows.Forms.Button buttonCancelar;
-        private System.Windows.Forms.Button buttonAgregarStock;
         public System.Windows.Forms.Label labelCodigoEscondido;
+        private System.Windows.Forms.Panel panel1;
+        private FontAwesome.Sharp.IconButton iconButtonAgregarStock;
+        private FontAwesome.Sharp.IconButton iconButtonCancelar;
     }
 }

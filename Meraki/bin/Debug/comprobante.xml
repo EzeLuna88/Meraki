@@ -1,0 +1,1972 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<comprobantes>
+  <comprobante numero="00000001">
+    <fecha>5/7/2024 6:55:51 PM</fecha>
+    <cliente codigo="e390d934-4178-4d9f-89eb-700dbc026da2">
+      <nombre>EZEQUIEL LUNA</nombre>
+      <direccion>GUEMES 3734</direccion>
+      <localidad>CABA</localidad>
+      <direccion>GUEMES 3734</direccion>
+      <telefono>4827-1185</telefono>
+      <telefono_alternativo>-</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:50:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1119-a">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA HEINEKEN 473ml. x 5</nombre>
+      <precio>1300.00</precio>
+    </item>
+    <pago_efectivo>False</pago_efectivo>
+    <total>1300.00</total>
+  </comprobante>
+  <comprobante numero="00000002">
+    <fecha>5/7/2024 6:56:34 PM</fecha>
+    <cliente codigo="e390d934-4178-4d9f-89eb-700dbc026da2">
+      <nombre>EZEQUIEL LUNA</nombre>
+      <direccion>GUEMES 3734</direccion>
+      <localidad>CABA</localidad>
+      <direccion>GUEMES 3734</direccion>
+      <telefono>4827-1185</telefono>
+      <telefono_alternativo>-</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:50:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1119-a">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA HEINEKEN 473ml. x 5</nombre>
+      <precio>1300.00</precio>
+    </item>
+    <pago_efectivo>True</pago_efectivo>
+    <total>1300.00</total>
+  </comprobante>
+  <comprobante numero="00000003">
+    <fecha>5/7/2024 6:56:59 PM</fecha>
+    <cliente codigo="e390d934-4178-4d9f-89eb-700dbc026da2">
+      <nombre>EZEQUIEL LUNA</nombre>
+      <direccion>GUEMES 3734</direccion>
+      <localidad>CABA</localidad>
+      <direccion>GUEMES 3734</direccion>
+      <telefono>4827-1185</telefono>
+      <telefono_alternativo>-</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:50:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1120-B">
+      <cantidad>1</cantidad>
+      <nombre>ELEMENTOS 1lt. x 6</nombre>
+      <precio>7000.00</precio>
+    </item>
+    <pago_efectivo>True</pago_efectivo>
+    <total>7000.00</total>
+  </comprobante>
+  <comprobante numero="00000004">
+    <fecha>5/7/2024 8:03:45 PM</fecha>
+    <cliente codigo="e390d934-4178-4d9f-89eb-700dbc026da2">
+      <nombre>EZEQUIEL LUNA</nombre>
+      <direccion>GUEMES 3734</direccion>
+      <localidad>CABA</localidad>
+      <direccion>GUEMES 3734</direccion>
+      <telefono>4827-1185</telefono>
+      <telefono_alternativo>-</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:50:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1119-a">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA HEINEKEN 473ml. x 5</nombre>
+      <precio>1300.00</precio>
+    </item>
+    <item codigo="1119-b">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA HEINEKEN 473ml. x 6</nombre>
+      <precio>5000.00</precio>
+    </item>
+    <item codigo="1119-c">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA HEINEKEN 473ml. x 12</nombre>
+      <precio>12000.00</precio>
+    </item>
+    <item codigo="1120-A">
+      <cantidad>1</cantidad>
+      <nombre>ELEMENTOS 1lt. x 2</nombre>
+      <precio>3000.00</precio>
+    </item>
+    <item codigo="1120-B">
+      <cantidad>1</cantidad>
+      <nombre>ELEMENTOS 1lt. x 6</nombre>
+      <precio>7000.00</precio>
+    </item>
+    <item codigo="1138-A">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA STELLA ARTOIS 1lt. x 1</nombre>
+      <precio>1250.00</precio>
+    </item>
+    <item codigo="1150-A">
+      <cantidad>1</cantidad>
+      <nombre>CAJA RABIETA 0- x 1</nombre>
+      <precio>5000.00</precio>
+    </item>
+    <item codigo="1149-A">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA SIETE CHOLAS - BLONDE ALE 473ml. x 1</nombre>
+      <precio>2300.00</precio>
+    </item>
+    <item codigo="1142-A">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA PALERMO 1lt. x 6</nombre>
+      <precio>7500.00</precio>
+    </item>
+    <pago_efectivo>False</pago_efectivo>
+    <total>44350.00</total>
+  </comprobante>
+  <comprobante numero="00000005">
+    <fecha>5/7/2024 8:04:24 PM</fecha>
+    <cliente codigo="e390d934-4178-4d9f-89eb-700dbc026da2">
+      <nombre>EZEQUIEL LUNA</nombre>
+      <direccion>GUEMES 3734</direccion>
+      <localidad>CABA</localidad>
+      <direccion>GUEMES 3734</direccion>
+      <telefono>4827-1185</telefono>
+      <telefono_alternativo>-</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:50:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1119-a">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA HEINEKEN 473ml. x 5</nombre>
+      <precio>1300.00</precio>
+    </item>
+    <item codigo="1119-b">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA HEINEKEN 473ml. x 6</nombre>
+      <precio>5000.00</precio>
+    </item>
+    <item codigo="1119-c">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA HEINEKEN 473ml. x 12</nombre>
+      <precio>12000.00</precio>
+    </item>
+    <item codigo="1120-A">
+      <cantidad>1</cantidad>
+      <nombre>ELEMENTOS 1lt. x 2</nombre>
+      <precio>3000.00</precio>
+    </item>
+    <item codigo="1120-B">
+      <cantidad>1</cantidad>
+      <nombre>ELEMENTOS 1lt. x 6</nombre>
+      <precio>7000.00</precio>
+    </item>
+    <item codigo="1150-A">
+      <cantidad>1</cantidad>
+      <nombre>CAJA RABIETA 0- x 1</nombre>
+      <precio>5000.00</precio>
+    </item>
+    <item codigo="1149-A">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA SIETE CHOLAS - BLONDE ALE 473ml. x 1</nombre>
+      <precio>2300.00</precio>
+    </item>
+    <item codigo="1142-A">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA PALERMO 1lt. x 6</nombre>
+      <precio>7500.00</precio>
+    </item>
+    <pago_efectivo>False</pago_efectivo>
+    <total>43100.00</total>
+  </comprobante>
+  <comprobante numero="00000006">
+    <fecha>5/7/2024 8:04:45 PM</fecha>
+    <cliente codigo="e390d934-4178-4d9f-89eb-700dbc026da2">
+      <nombre>EZEQUIEL LUNA</nombre>
+      <direccion>GUEMES 3734</direccion>
+      <localidad>CABA</localidad>
+      <direccion>GUEMES 3734</direccion>
+      <telefono>4827-1185</telefono>
+      <telefono_alternativo>-</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:50:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1142-A">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA PALERMO 1lt. x 6</nombre>
+      <precio>7500.00</precio>
+    </item>
+    <item codigo="1149-A">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA SIETE CHOLAS - BLONDE ALE 473ml. x 1</nombre>
+      <precio>2300.00</precio>
+    </item>
+    <item codigo="1119-a">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA HEINEKEN 473ml. x 5</nombre>
+      <precio>1300.00</precio>
+    </item>
+    <item codigo="1119-b">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA HEINEKEN 473ml. x 6</nombre>
+      <precio>5000.00</precio>
+    </item>
+    <item codigo="1119-c">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA HEINEKEN 473ml. x 12</nombre>
+      <precio>12000.00</precio>
+    </item>
+    <item codigo="1120-A">
+      <cantidad>1</cantidad>
+      <nombre>ELEMENTOS 1lt. x 2</nombre>
+      <precio>3000.00</precio>
+    </item>
+    <item codigo="1120-B">
+      <cantidad>1</cantidad>
+      <nombre>ELEMENTOS 1lt. x 6</nombre>
+      <precio>7000.00</precio>
+    </item>
+    <pago_efectivo>False</pago_efectivo>
+    <total>38100.00</total>
+  </comprobante>
+  <comprobante numero="00000007">
+    <fecha>5/7/2024 8:10:43 PM</fecha>
+    <cliente codigo="e390d934-4178-4d9f-89eb-700dbc026da2">
+      <nombre>EZEQUIEL LUNA</nombre>
+      <direccion>GUEMES 3734</direccion>
+      <localidad>CABA</localidad>
+      <direccion>GUEMES 3734</direccion>
+      <telefono>4827-1185</telefono>
+      <telefono_alternativo>-</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:50:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1119-a">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA HEINEKEN 473ml. x 5</nombre>
+      <precio>1300.00</precio>
+    </item>
+    <pago_efectivo>True</pago_efectivo>
+    <total>1300.00</total>
+  </comprobante>
+  <comprobante numero="00000008">
+    <fecha>5/7/2024 8:14:10 PM</fecha>
+    <cliente codigo="e390d934-4178-4d9f-89eb-700dbc026da2">
+      <nombre>EZEQUIEL LUNA</nombre>
+      <direccion>GUEMES 3734</direccion>
+      <localidad>CABA</localidad>
+      <direccion>GUEMES 3734</direccion>
+      <telefono>4827-1185</telefono>
+      <telefono_alternativo>-</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:50:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1119-a">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA HEINEKEN 473ml. x 5</nombre>
+      <precio>1300.00</precio>
+    </item>
+    <pago_efectivo>True</pago_efectivo>
+    <total>1300.00</total>
+  </comprobante>
+  <comprobante numero="00000009">
+    <fecha>5/7/2024 8:16:19 PM</fecha>
+    <cliente codigo="47ec5345-71ea-47b0-a392-b92d110dcc57">
+      <nombre>MERAKI BEBIDAS</nombre>
+      <direccion>ALMIRANTE BROWN 324</direccion>
+      <localidad>RAMOS MEJIA</localidad>
+      <direccion>ALMIRANTE BROWN 324</direccion>
+      <telefono>15-2395-7706</telefono>
+      <telefono_alternativo>4823-1185</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1150-A">
+      <cantidad>1</cantidad>
+      <nombre>CAJA RABIETA 0- x 1</nombre>
+      <precio>5000.00</precio>
+    </item>
+    <pago_efectivo>True</pago_efectivo>
+    <total>5000.00</total>
+  </comprobante>
+  <comprobante numero="00000010">
+    <fecha>5/7/2024 8:18:53 PM</fecha>
+    <cliente codigo="47ec5345-71ea-47b0-a392-b92d110dcc57">
+      <nombre>MERAKI BEBIDAS</nombre>
+      <direccion>ALMIRANTE BROWN 324</direccion>
+      <localidad>RAMOS MEJIA</localidad>
+      <direccion>ALMIRANTE BROWN 324</direccion>
+      <telefono>15-2395-7706</telefono>
+      <telefono_alternativo>4823-1185</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1142-A">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA PALERMO 1lt. x 6</nombre>
+      <precio>7500.00</precio>
+    </item>
+    <pago_efectivo>True</pago_efectivo>
+    <total>7500.00</total>
+  </comprobante>
+  <comprobante numero="00000011">
+    <fecha>5/7/2024 10:31:24 PM</fecha>
+    <cliente codigo="47ec5345-71ea-47b0-a392-b92d110dcc57">
+      <nombre>MERAKI BEBIDAS</nombre>
+      <direccion>ALMIRANTE BROWN 324</direccion>
+      <localidad>RAMOS MEJIA</localidad>
+      <direccion>ALMIRANTE BROWN 324</direccion>
+      <telefono>15-2395-7706</telefono>
+      <telefono_alternativo>4823-1185</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1119-c">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA HEINEKEN 473ml. x 12</nombre>
+      <precio>12000.00</precio>
+    </item>
+    <item codigo="1149-A">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA SIETE CHOLAS - BLONDE ALE 473ml. x 1</nombre>
+      <precio>2300.00</precio>
+    </item>
+    <pago_efectivo>True</pago_efectivo>
+    <total>14300.00</total>
+  </comprobante>
+  <comprobante numero="00000012">
+    <fecha>5/11/2024 1:00:52 PM</fecha>
+    <cliente codigo="47ec5345-71ea-47b0-a392-b92d110dcc57">
+      <nombre>MERAKI BEBIDAS</nombre>
+      <direccion>ALMIRANTE BROWN 324</direccion>
+      <localidad>RAMOS MEJIA</localidad>
+      <direccion>ALMIRANTE BROWN 324</direccion>
+      <telefono>15-2395-7706</telefono>
+      <telefono_alternativo>4823-1185</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1150-A">
+      <cantidad>1</cantidad>
+      <nombre>CAJA RABIETA 0- x 1</nombre>
+      <precio>1000</precio>
+    </item>
+    <item codigo="1119-b">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA HEINEKEN 473ml. x 6</nombre>
+      <precio>5000.00</precio>
+    </item>
+    <item codigo="1119-c">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA HEINEKEN 473ml. x 12</nombre>
+      <precio>12000.00</precio>
+    </item>
+    <pago_efectivo>False</pago_efectivo>
+    <total>18000.00</total>
+  </comprobante>
+  <comprobante numero="00000013">
+    <fecha>8/14/2024 12:00:47 PM</fecha>
+    <cliente codigo="e390d934-4178-4d9f-89eb-700dbc026da2">
+      <nombre>EZEQUIEL LUNA</nombre>
+      <direccion>GUEMES 3734</direccion>
+      <localidad>CABA</localidad>
+      <direccion>GUEMES 3734</direccion>
+      <telefono>4827-1185</telefono>
+      <telefono_alternativo>-</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:50:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1150-A">
+      <cantidad>2</cantidad>
+      <nombre>CAJA RABIETA 0- x 1</nombre>
+      <precio>10000.00</precio>
+    </item>
+    <pago_efectivo>True</pago_efectivo>
+    <total>10000.00</total>
+  </comprobante>
+  <comprobante numero="00000014">
+    <fecha>8/16/2024 9:39:28 PM</fecha>
+    <cliente codigo="47ec5345-71ea-47b0-a392-b92d110dcc57">
+      <nombre>MERAKI BEBIDAS</nombre>
+      <direccion>ALMIRANTE BROWN 324</direccion>
+      <localidad>RAMOS MEJIA</localidad>
+      <direccion>ALMIRANTE BROWN 324</direccion>
+      <telefono>15-2395-7706</telefono>
+      <telefono_alternativo>4823-1185</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1132-A">
+      <cantidad>9</cantidad>
+      <nombre>CERVEZA IMPERIAL IPA 473ml. x 1</nombre>
+      <precio>9000.00</precio>
+    </item>
+    <pago_efectivo>False</pago_efectivo>
+    <total>9000.00</total>
+  </comprobante>
+  <comprobante numero="00000015">
+    <fecha>8/16/2024 10:15:41 PM</fecha>
+    <cliente codigo="47ec5345-71ea-47b0-a392-b92d110dcc57">
+      <nombre>MERAKI BEBIDAS</nombre>
+      <direccion>ALMIRANTE BROWN 324</direccion>
+      <localidad>RAMOS MEJIA</localidad>
+      <direccion>ALMIRANTE BROWN 324</direccion>
+      <telefono>15-2395-7706</telefono>
+      <telefono_alternativo>4823-1185</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1136-A">
+      <cantidad>9</cantidad>
+      <nombre>CERVEZA IMPERIAL RUBIA 1lt. x 1</nombre>
+      <precio>9000.00</precio>
+    </item>
+    <pago_efectivo>False</pago_efectivo>
+    <total>9000.00</total>
+  </comprobante>
+  <comprobante numero="00000016">
+    <fecha>8/16/2024 10:19:49 PM</fecha>
+    <cliente codigo="e390d934-4178-4d9f-89eb-700dbc026da2">
+      <nombre>EZEQUIEL LUNA</nombre>
+      <direccion>GUEMES 3734</direccion>
+      <localidad>CABA</localidad>
+      <direccion>GUEMES 3734</direccion>
+      <telefono>4827-1185</telefono>
+      <telefono_alternativo>-</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:50:00</horario_de_cierre>
+    </cliente>
+    <item codigo="31c7a813-e75c-427c-8f45-d428d6c12678">
+      <cantidad>1</cantidad>
+      <nombre>COMBO 1 FERNET + 2 COCA-COLA 2.25</nombre>
+      <precio>11500.00</precio>
+    </item>
+    <pago_efectivo>False</pago_efectivo>
+    <total>11500.00</total>
+  </comprobante>
+  <comprobante numero="00000017">
+    <fecha>8/18/2024 11:53:19 AM</fecha>
+    <cliente codigo="e390d934-4178-4d9f-89eb-700dbc026da2">
+      <nombre>EZEQUIEL LUNA</nombre>
+      <direccion>GUEMES 3734</direccion>
+      <localidad>CABA</localidad>
+      <direccion>GUEMES 3734</direccion>
+      <telefono>4827-1185</telefono>
+      <telefono_alternativo>-</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:50:00</horario_de_cierre>
+    </cliente>
+    <item codigo="31c7a813-e75c-427c-8f45-d428d6c12678">
+      <cantidad>2</cantidad>
+      <nombre>COMBO 1 FERNET + 2 COCA-COLA 2.25</nombre>
+      <precio>23000.00</precio>
+    </item>
+    <item codigo="1120-A">
+      <cantidad>3</cantidad>
+      <nombre>ELEMENTOS 1lt. x 2</nombre>
+      <precio>9000.00</precio>
+    </item>
+    <pago_efectivo>True</pago_efectivo>
+    <total>32000.00</total>
+  </comprobante>
+  <comprobante numero="00000018">
+    <fecha>8/19/2024 8:28:55 PM</fecha>
+    <cliente codigo="de815a46-bd7b-46a9-996c-794503d81903">
+      <nombre>AVILA</nombre>
+      <direccion>GUEMES 123</direccion>
+      <localidad>CABA</localidad>
+      <direccion>GUEMES 123</direccion>
+      <telefono>12345689</telefono>
+      <telefono_alternativo>1324568</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1119-a">
+      <cantidad>4</cantidad>
+      <nombre>CERVEZA HEINEKEN 473ml. x 5</nombre>
+      <precio>5200.00</precio>
+    </item>
+    <item codigo="1152-A">
+      <cantidad>2</cantidad>
+      <nombre>PRUEBA 500lt. x 2</nombre>
+      <precio>3000.00</precio>
+    </item>
+    <item codigo="1119-c">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA HEINEKEN 473ml. x 12</nombre>
+      <precio>12000.00</precio>
+    </item>
+    <pago_efectivo>True</pago_efectivo>
+    <total>20200.00</total>
+  </comprobante>
+  <comprobante numero="00000019">
+    <fecha>8/19/2024 8:30:55 PM</fecha>
+    <cliente codigo="36e5f2eb-34de-4ba5-b0ad-bb95b19dea9d">
+      <nombre>JOSE</nombre>
+      <direccion>JOSECITO</direccion>
+      <localidad>CABA</localidad>
+      <direccion>JOSECITO</direccion>
+      <telefono>12345678</telefono>
+      <telefono_alternativo>123456789</telefono_alternativo>
+      <horario_de_apertura>11:00:00</horario_de_apertura>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1150-A">
+      <cantidad>3</cantidad>
+      <nombre>CAJA RABIETA 0- x 1</nombre>
+      <precio>15000.00</precio>
+    </item>
+    <item codigo="1132-A">
+      <cantidad>3</cantidad>
+      <nombre>CERVEZA IMPERIAL IPA 473ml. x 1</nombre>
+      <precio>3000.00</precio>
+    </item>
+    <item codigo="1120-B">
+      <cantidad>1</cantidad>
+      <nombre>ELEMENTOS 1lt. x 6</nombre>
+      <precio>7000.00</precio>
+    </item>
+    <item codigo="1120-A">
+      <cantidad>3</cantidad>
+      <nombre>ELEMENTOS 1lt. x 2</nombre>
+      <precio>9000.00</precio>
+    </item>
+    <pago_efectivo>False</pago_efectivo>
+    <total>34000.00</total>
+  </comprobante>
+  <comprobante numero="00000020">
+    <fecha>8/19/2024 8:36:46 PM</fecha>
+    <cliente codigo="36e5f2eb-34de-4ba5-b0ad-bb95b19dea9d">
+      <nombre>JOSE</nombre>
+      <direccion>JOSECITO</direccion>
+      <localidad>CABA</localidad>
+      <direccion>JOSECITO</direccion>
+      <telefono>12345678</telefono>
+      <telefono_alternativo>123456789</telefono_alternativo>
+      <horario_de_apertura>11:00:00</horario_de_apertura>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1150-A">
+      <cantidad>3</cantidad>
+      <nombre>CAJA RABIETA 0- x 1</nombre>
+      <precio>15000.00</precio>
+    </item>
+    <item codigo="1132-A">
+      <cantidad>3</cantidad>
+      <nombre>CERVEZA IMPERIAL IPA 473ml. x 1</nombre>
+      <precio>3000.00</precio>
+    </item>
+    <item codigo="1120-B">
+      <cantidad>1</cantidad>
+      <nombre>ELEMENTOS 1lt. x 6</nombre>
+      <precio>7000.00</precio>
+    </item>
+    <item codigo="1120-A">
+      <cantidad>3</cantidad>
+      <nombre>ELEMENTOS 1lt. x 2</nombre>
+      <precio>9000.00</precio>
+    </item>
+    <pago_efectivo>False</pago_efectivo>
+    <total>34000.00</total>
+  </comprobante>
+  <comprobante numero="00000021">
+    <fecha>8/19/2024 8:38:59 PM</fecha>
+    <cliente codigo="36e5f2eb-34de-4ba5-b0ad-bb95b19dea9d">
+      <nombre>JOSE</nombre>
+      <direccion>JOSECITO</direccion>
+      <localidad>CABA</localidad>
+      <direccion>JOSECITO</direccion>
+      <telefono>12345678</telefono>
+      <telefono_alternativo>123456789</telefono_alternativo>
+      <horario_de_apertura>11:00:00</horario_de_apertura>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1150-A">
+      <cantidad>3</cantidad>
+      <nombre>CAJA RABIETA 0- x 1</nombre>
+      <precio>15000.00</precio>
+    </item>
+    <item codigo="1132-A">
+      <cantidad>3</cantidad>
+      <nombre>CERVEZA IMPERIAL IPA 473ml. x 1</nombre>
+      <precio>3000.00</precio>
+    </item>
+    <item codigo="1120-B">
+      <cantidad>1</cantidad>
+      <nombre>ELEMENTOS 1lt. x 6</nombre>
+      <precio>7000.00</precio>
+    </item>
+    <item codigo="1120-A">
+      <cantidad>3</cantidad>
+      <nombre>ELEMENTOS 1lt. x 2</nombre>
+      <precio>9000.00</precio>
+    </item>
+    <pago_efectivo>True</pago_efectivo>
+    <total>34000.00</total>
+  </comprobante>
+  <comprobante numero="00000022">
+    <fecha>8/21/2024 11:35:14 AM</fecha>
+    <cliente codigo="de815a46-bd7b-46a9-996c-794503d81903">
+      <nombre>AVILA</nombre>
+      <direccion>GUEMES 123</direccion>
+      <localidad>CABA</localidad>
+      <direccion>GUEMES 123</direccion>
+      <telefono>12345689</telefono>
+      <telefono_alternativo>1324568</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1152-B">
+      <cantidad>4</cantidad>
+      <nombre>PRUEBA 0- x 10</nombre>
+      <precio>4000.00</precio>
+    </item>
+    <item codigo="1119-a">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA HEINEKEN 473ml. x 5</nombre>
+      <precio>1300.00</precio>
+    </item>
+    <item codigo="78599">
+      <cantidad>2</cantidad>
+      <nombre>COMBO PRUEBA</nombre>
+      <precio>2000.00</precio>
+    </item>
+    <item codigo="1153-A">
+      <cantidad>1</cantidad>
+      <nombre>SPRITE 2.25lt. x 5</nombre>
+      <precio>7450.00</precio>
+    </item>
+    <pago_efectivo>False</pago_efectivo>
+    <total>14750.00</total>
+  </comprobante>
+  <comprobante numero="00000023">
+    <fecha>8/21/2024 11:36:33 AM</fecha>
+    <cliente codigo="de815a46-bd7b-46a9-996c-794503d81903">
+      <nombre>AVILA</nombre>
+      <direccion>GUEMES 123</direccion>
+      <localidad>CABA</localidad>
+      <direccion>GUEMES 123</direccion>
+      <telefono>12345689</telefono>
+      <telefono_alternativo>1324568</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1152-B">
+      <cantidad>4</cantidad>
+      <nombre>PRUEBA 0- x 10</nombre>
+      <precio>4000.00</precio>
+    </item>
+    <item codigo="1119-a">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA HEINEKEN 473ml. x 5</nombre>
+      <precio>1300.00</precio>
+    </item>
+    <item codigo="78599">
+      <cantidad>2</cantidad>
+      <nombre>COMBO PRUEBA</nombre>
+      <precio>2000.00</precio>
+    </item>
+    <item codigo="1153-A">
+      <cantidad>1</cantidad>
+      <nombre>SPRITE 2.25lt. x 5</nombre>
+      <precio>7450.00</precio>
+    </item>
+    <pago_efectivo>False</pago_efectivo>
+    <total>14750.00</total>
+  </comprobante>
+  <comprobante numero="00000024">
+    <fecha>8/21/2024 11:41:09 AM</fecha>
+    <cliente codigo="de815a46-bd7b-46a9-996c-794503d81903">
+      <nombre>AVILA</nombre>
+      <direccion>GUEMES 123</direccion>
+      <localidad>CABA</localidad>
+      <direccion>GUEMES 123</direccion>
+      <telefono>12345689</telefono>
+      <telefono_alternativo>1324568</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1152-B">
+      <cantidad>4</cantidad>
+      <nombre>PRUEBA 0- x 10</nombre>
+      <precio>4000.00</precio>
+    </item>
+    <item codigo="1119-a">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA HEINEKEN 473ml. x 5</nombre>
+      <precio>1300.00</precio>
+    </item>
+    <item codigo="78599">
+      <cantidad>2</cantidad>
+      <nombre>COMBO PRUEBA</nombre>
+      <precio>2000.00</precio>
+    </item>
+    <item codigo="1153-A">
+      <cantidad>1</cantidad>
+      <nombre>SPRITE 2.25lt. x 5</nombre>
+      <precio>7450.00</precio>
+    </item>
+    <pago_efectivo>False</pago_efectivo>
+    <total>14750.00</total>
+  </comprobante>
+  <comprobante numero="00000025">
+    <fecha>8/21/2024 12:10:26 PM</fecha>
+    <cliente codigo="de815a46-bd7b-46a9-996c-794503d81903">
+      <nombre>AVILA</nombre>
+      <direccion>GUEMES 123</direccion>
+      <localidad>CABA</localidad>
+      <direccion>GUEMES 123</direccion>
+      <telefono>12345689</telefono>
+      <telefono_alternativo>1324568</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1152-B">
+      <cantidad>4</cantidad>
+      <nombre>PRUEBA 0- x 10</nombre>
+      <precio>4000.00</precio>
+    </item>
+    <item codigo="1119-a">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA HEINEKEN 473ml. x 5</nombre>
+      <precio>1300.00</precio>
+    </item>
+    <item codigo="78599">
+      <cantidad>2</cantidad>
+      <nombre>COMBO PRUEBA</nombre>
+      <precio>2000.00</precio>
+    </item>
+    <item codigo="1153-A">
+      <cantidad>1</cantidad>
+      <nombre>SPRITE 2.25lt. x 5</nombre>
+      <precio>7450.00</precio>
+    </item>
+    <pago_efectivo>False</pago_efectivo>
+    <total>14750.00</total>
+  </comprobante>
+  <comprobante numero="00000026">
+    <fecha>8/21/2024 12:12:36 PM</fecha>
+    <cliente codigo="7579fd6d-664f-4c74-abee-dc58ee09ff65">
+      <nombre>DANIELA GARCIA</nombre>
+      <direccion>RIO GRANDE 159</direccion>
+      <localidad>CABA</localidad>
+      <direccion>RIO GRANDE 159</direccion>
+      <telefono>4874-5111</telefono>
+      <telefono_alternativo>-</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1119-c">
+      <cantidad>2</cantidad>
+      <nombre>CERVEZA HEINEKEN 473ml. x 12</nombre>
+      <precio>24000.00</precio>
+    </item>
+    <item codigo="1119-b">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA HEINEKEN 473ml. x 6</nombre>
+      <precio>5000.00</precio>
+    </item>
+    <pago_efectivo>False</pago_efectivo>
+    <total>29000.00</total>
+  </comprobante>
+  <comprobante numero="00000027">
+    <fecha>8/21/2024 12:14:02 PM</fecha>
+    <cliente codigo="7579fd6d-664f-4c74-abee-dc58ee09ff65">
+      <nombre>DANIELA GARCIA</nombre>
+      <direccion>RIO GRANDE 159</direccion>
+      <localidad>CABA</localidad>
+      <direccion>RIO GRANDE 159</direccion>
+      <telefono>4874-5111</telefono>
+      <telefono_alternativo>-</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1120-A">
+      <cantidad>1</cantidad>
+      <nombre>ELEMENTOS 1lt. x 2</nombre>
+      <precio>3000.00</precio>
+    </item>
+    <pago_efectivo>True</pago_efectivo>
+    <total>3000.00</total>
+  </comprobante>
+  <comprobante numero="00000028">
+    <fecha>8/21/2024 12:14:51 PM</fecha>
+    <cliente codigo="e390d934-4178-4d9f-89eb-700dbc026da2">
+      <nombre>EZEQUIEL LUNA</nombre>
+      <direccion>GUEMES 3734</direccion>
+      <localidad>CABA</localidad>
+      <direccion>GUEMES 3734</direccion>
+      <telefono>4827-1185</telefono>
+      <telefono_alternativo>-</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:50:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1119-a">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA HEINEKEN 473ml. x 5</nombre>
+      <precio>2000.25</precio>
+    </item>
+    <pago_efectivo>True</pago_efectivo>
+    <total>2000.25</total>
+  </comprobante>
+  <comprobante numero="00000029">
+    <fecha>8/21/2024 12:18:08 PM</fecha>
+    <cliente codigo="de815a46-bd7b-46a9-996c-794503d81903">
+      <nombre>AVILA</nombre>
+      <direccion>GUEMES 123</direccion>
+      <localidad>CABA</localidad>
+      <direccion>GUEMES 123</direccion>
+      <telefono>12345689</telefono>
+      <telefono_alternativo>1324568</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1138-A">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA STELLA ARTOIS 1lt. x 1</nombre>
+      <precio>1250.00</precio>
+    </item>
+    <pago_efectivo>False</pago_efectivo>
+    <total>1250.00</total>
+  </comprobante>
+  <comprobante numero="00000030">
+    <fecha>8/21/2024 12:20:37 PM</fecha>
+    <cliente codigo="de815a46-bd7b-46a9-996c-794503d81903">
+      <nombre>AVILA</nombre>
+      <direccion>GUEMES 123</direccion>
+      <localidad>CABA</localidad>
+      <direccion>GUEMES 123</direccion>
+      <telefono>12345689</telefono>
+      <telefono_alternativo>1324568</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1152-B">
+      <cantidad>1</cantidad>
+      <nombre>PRUEBA 0- x 10</nombre>
+      <precio>1000.00</precio>
+    </item>
+    <pago_efectivo>True</pago_efectivo>
+    <total>1000.00</total>
+  </comprobante>
+  <comprobante numero="00000031">
+    <fecha>8/21/2024 12:23:05 PM</fecha>
+    <cliente codigo="e390d934-4178-4d9f-89eb-700dbc026da2">
+      <nombre>EZEQUIEL LUNA</nombre>
+      <direccion>GUEMES 3734</direccion>
+      <localidad>CABA</localidad>
+      <direccion>GUEMES 3734</direccion>
+      <telefono>4827-1185</telefono>
+      <telefono_alternativo>-</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:50:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1120-A">
+      <cantidad>1</cantidad>
+      <nombre>ELEMENTOS 1lt. x 2</nombre>
+      <precio>3000.00</precio>
+    </item>
+    <pago_efectivo>True</pago_efectivo>
+    <total>3000.00</total>
+  </comprobante>
+  <comprobante numero="00000032">
+    <fecha>8/21/2024 12:23:57 PM</fecha>
+    <cliente codigo="e390d934-4178-4d9f-89eb-700dbc026da2">
+      <nombre>EZEQUIEL LUNA</nombre>
+      <direccion>GUEMES 3734</direccion>
+      <localidad>CABA</localidad>
+      <direccion>GUEMES 3734</direccion>
+      <telefono>4827-1185</telefono>
+      <telefono_alternativo>-</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:50:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1149-A">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA SIETE CHOLAS - BLONDE ALE 473ml. x 1</nombre>
+      <precio>2300.00</precio>
+    </item>
+    <pago_efectivo>False</pago_efectivo>
+    <total>2300.00</total>
+  </comprobante>
+  <comprobante numero="00000033">
+    <fecha>8/21/2024 12:29:00 PM</fecha>
+    <cliente codigo="de815a46-bd7b-46a9-996c-794503d81903">
+      <nombre>AVILA</nombre>
+      <direccion>GUEMES 123</direccion>
+      <localidad>CABA</localidad>
+      <direccion>GUEMES 123</direccion>
+      <telefono>12345689</telefono>
+      <telefono_alternativo>1324568</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1120-A">
+      <cantidad>1</cantidad>
+      <nombre>ELEMENTOS 1lt. x 2</nombre>
+      <precio>3000.00</precio>
+    </item>
+    <pago_efectivo>True</pago_efectivo>
+    <total>3000.00</total>
+  </comprobante>
+  <comprobante numero="00000034">
+    <fecha>8/21/2024 12:30:54 PM</fecha>
+    <cliente codigo="e390d934-4178-4d9f-89eb-700dbc026da2">
+      <nombre>EZEQUIEL LUNA</nombre>
+      <direccion>GUEMES 3734</direccion>
+      <localidad>CABA</localidad>
+      <direccion>GUEMES 3734</direccion>
+      <telefono>4827-1185</telefono>
+      <telefono_alternativo>-</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:50:00</horario_de_cierre>
+    </cliente>
+    <item codigo="3ff1e6a0-6c90-4c6c-93fd-9de20812e540">
+      <cantidad>1</cantidad>
+      <nombre>COMBO VINO + CERVEZA</nombre>
+      <precio>25456.00</precio>
+    </item>
+    <pago_efectivo>True</pago_efectivo>
+    <total>25456.00</total>
+  </comprobante>
+  <comprobante numero="00000035">
+    <fecha>8/21/2024 12:32:30 PM</fecha>
+    <cliente codigo="8d031343-8156-40f9-b287-f4cb97d6cec7">
+      <nombre>CHINO</nombre>
+      <direccion>GUEMES 1234</direccion>
+      <localidad>SAN MARTIN</localidad>
+      <direccion>GUEMES 1234</direccion>
+      <telefono>12345678</telefono>
+      <telefono_alternativo>13245678</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>19:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="78599">
+      <cantidad>1</cantidad>
+      <nombre>COMBO PRUEBA</nombre>
+      <precio>1000.00</precio>
+    </item>
+    <pago_efectivo>True</pago_efectivo>
+    <total>1000.00</total>
+  </comprobante>
+  <comprobante numero="00000036">
+    <fecha>8/21/2024 12:36:50 PM</fecha>
+    <cliente codigo="de815a46-bd7b-46a9-996c-794503d81903">
+      <nombre>AVILA</nombre>
+      <direccion>GUEMES 123</direccion>
+      <localidad>CABA</localidad>
+      <direccion>GUEMES 123</direccion>
+      <telefono>12345689</telefono>
+      <telefono_alternativo>1324568</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1119-c">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA HEINEKEN 473ml. x 12</nombre>
+      <precio>12000.00</precio>
+    </item>
+    <pago_efectivo>False</pago_efectivo>
+    <total>12000.00</total>
+  </comprobante>
+  <comprobante numero="00000037">
+    <fecha>8/21/2024 12:38:07 PM</fecha>
+    <cliente codigo="de815a46-bd7b-46a9-996c-794503d81903">
+      <nombre>AVILA</nombre>
+      <direccion>GUEMES 123</direccion>
+      <localidad>CABA</localidad>
+      <direccion>GUEMES 123</direccion>
+      <telefono>12345689</telefono>
+      <telefono_alternativo>1324568</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1120-B">
+      <cantidad>1</cantidad>
+      <nombre>ELEMENTOS 1lt. x 6</nombre>
+      <precio>7000.00</precio>
+    </item>
+    <pago_efectivo>False</pago_efectivo>
+    <total>7000.00</total>
+  </comprobante>
+  <comprobante numero="00000038">
+    <fecha>8/21/2024 12:56:51 PM</fecha>
+    <cliente codigo="de815a46-bd7b-46a9-996c-794503d81903">
+      <nombre>AVILA</nombre>
+      <direccion>GUEMES 123</direccion>
+      <localidad>CABA</localidad>
+      <direccion>GUEMES 123</direccion>
+      <telefono>12345689</telefono>
+      <telefono_alternativo>1324568</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1120-B">
+      <cantidad>1</cantidad>
+      <nombre>ELEMENTOS 1lt. x 6</nombre>
+      <precio>7000.00</precio>
+    </item>
+    <pago_efectivo>True</pago_efectivo>
+    <total>7000.00</total>
+  </comprobante>
+  <comprobante numero="00000039">
+    <fecha>8/21/2024 1:00:38 PM</fecha>
+    <cliente codigo="de815a46-bd7b-46a9-996c-794503d81903">
+      <nombre>AVILA</nombre>
+      <direccion>GUEMES 123</direccion>
+      <localidad>CABA</localidad>
+      <direccion>GUEMES 123</direccion>
+      <telefono>12345689</telefono>
+      <telefono_alternativo>1324568</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1153-A">
+      <cantidad>1</cantidad>
+      <nombre>SPRITE 2.25lt. x 5</nombre>
+      <precio>7450.00</precio>
+    </item>
+    <pago_efectivo>False</pago_efectivo>
+    <total>7450.00</total>
+  </comprobante>
+  <comprobante numero="00000040">
+    <fecha>8/21/2024 1:02:38 PM</fecha>
+    <cliente codigo="de815a46-bd7b-46a9-996c-794503d81903">
+      <nombre>AVILA</nombre>
+      <direccion>GUEMES 123</direccion>
+      <localidad>CABA</localidad>
+      <direccion>GUEMES 123</direccion>
+      <telefono>12345689</telefono>
+      <telefono_alternativo>1324568</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1153-A">
+      <cantidad>1</cantidad>
+      <nombre>SPRITE 2.25lt. x 5</nombre>
+      <precio>7450.00</precio>
+    </item>
+    <pago_efectivo>True</pago_efectivo>
+    <total>7450.00</total>
+  </comprobante>
+  <comprobante numero="00000041">
+    <fecha>8/21/2024 1:06:15 PM</fecha>
+    <cliente codigo="de815a46-bd7b-46a9-996c-794503d81903">
+      <nombre>AVILA</nombre>
+      <direccion>GUEMES 123</direccion>
+      <localidad>CABA</localidad>
+      <direccion>GUEMES 123</direccion>
+      <telefono>12345689</telefono>
+      <telefono_alternativo>1324568</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1153-A">
+      <cantidad>1</cantidad>
+      <nombre>SPRITE 2.25lt. x 5</nombre>
+      <precio>7450.00</precio>
+    </item>
+    <pago_efectivo>True</pago_efectivo>
+    <total>7450.00</total>
+  </comprobante>
+  <comprobante numero="00000042">
+    <fecha>8/21/2024 1:09:39 PM</fecha>
+    <cliente codigo="de815a46-bd7b-46a9-996c-794503d81903">
+      <nombre>AVILA</nombre>
+      <direccion>GUEMES 123</direccion>
+      <localidad>CABA</localidad>
+      <direccion>GUEMES 123</direccion>
+      <telefono>12345689</telefono>
+      <telefono_alternativo>1324568</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1153-A">
+      <cantidad>1</cantidad>
+      <nombre>SPRITE 2.25lt. x 5</nombre>
+      <precio>7450.00</precio>
+    </item>
+    <pago_efectivo>True</pago_efectivo>
+    <total>7450.00</total>
+  </comprobante>
+  <comprobante numero="00000043">
+    <fecha>8/21/2024 1:11:18 PM</fecha>
+    <cliente codigo="de815a46-bd7b-46a9-996c-794503d81903">
+      <nombre>AVILA</nombre>
+      <direccion>GUEMES 123</direccion>
+      <localidad>CABA</localidad>
+      <direccion>GUEMES 123</direccion>
+      <telefono>12345689</telefono>
+      <telefono_alternativo>1324568</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1119-c">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA HEINEKEN 473ml. x 12</nombre>
+      <precio>12000.00</precio>
+    </item>
+    <pago_efectivo>True</pago_efectivo>
+    <total>12000.00</total>
+  </comprobante>
+  <comprobante numero="00000044">
+    <fecha>8/21/2024 1:14:08 PM</fecha>
+    <cliente codigo="de815a46-bd7b-46a9-996c-794503d81903">
+      <nombre>AVILA</nombre>
+      <direccion>GUEMES 123</direccion>
+      <localidad>CABA</localidad>
+      <direccion>GUEMES 123</direccion>
+      <telefono>12345689</telefono>
+      <telefono_alternativo>1324568</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1119-b">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA HEINEKEN 473ml. x 6</nombre>
+      <precio>5000.00</precio>
+    </item>
+    <pago_efectivo>False</pago_efectivo>
+    <total>5000.00</total>
+  </comprobante>
+  <comprobante numero="00000045">
+    <fecha>8/21/2024 1:19:10 PM</fecha>
+    <cliente codigo="de815a46-bd7b-46a9-996c-794503d81903">
+      <nombre>AVILA</nombre>
+      <direccion>GUEMES 123</direccion>
+      <localidad>CABA</localidad>
+      <direccion>GUEMES 123</direccion>
+      <telefono>12345689</telefono>
+      <telefono_alternativo>1324568</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="3ff1e6a0-6c90-4c6c-93fd-9de20812e540">
+      <cantidad>1</cantidad>
+      <nombre>COMBO VINO + CERVEZA</nombre>
+      <precio>25456.00</precio>
+    </item>
+    <pago_efectivo>True</pago_efectivo>
+    <total>25456.00</total>
+  </comprobante>
+  <comprobante numero="00000046">
+    <fecha>8/21/2024 1:22:02 PM</fecha>
+    <cliente codigo="de815a46-bd7b-46a9-996c-794503d81903">
+      <nombre>AVILA</nombre>
+      <direccion>GUEMES 123</direccion>
+      <localidad>CABA</localidad>
+      <direccion>GUEMES 123</direccion>
+      <telefono>12345689</telefono>
+      <telefono_alternativo>1324568</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1138-A">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA STELLA ARTOIS 1lt. x 1</nombre>
+      <precio>1250.00</precio>
+    </item>
+    <pago_efectivo>True</pago_efectivo>
+    <total>1250.00</total>
+  </comprobante>
+  <comprobante numero="00000047">
+    <fecha>8/21/2024 1:25:57 PM</fecha>
+    <cliente codigo="de815a46-bd7b-46a9-996c-794503d81903">
+      <nombre>AVILA</nombre>
+      <direccion>GUEMES 123</direccion>
+      <localidad>CABA</localidad>
+      <direccion>GUEMES 123</direccion>
+      <telefono>12345689</telefono>
+      <telefono_alternativo>1324568</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1153-A">
+      <cantidad>1</cantidad>
+      <nombre>SPRITE 2.25lt. x 5</nombre>
+      <precio>7450.00</precio>
+    </item>
+    <pago_efectivo>True</pago_efectivo>
+    <total>7450.00</total>
+  </comprobante>
+  <comprobante numero="00000048">
+    <fecha>8/21/2024 1:26:38 PM</fecha>
+    <cliente codigo="de815a46-bd7b-46a9-996c-794503d81903">
+      <nombre>AVILA</nombre>
+      <direccion>GUEMES 123</direccion>
+      <localidad>CABA</localidad>
+      <direccion>GUEMES 123</direccion>
+      <telefono>12345689</telefono>
+      <telefono_alternativo>1324568</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1120-A">
+      <cantidad>1</cantidad>
+      <nombre>ELEMENTOS 1lt. x 2</nombre>
+      <precio>3000.00</precio>
+    </item>
+    <pago_efectivo>True</pago_efectivo>
+    <total>3000.00</total>
+  </comprobante>
+  <comprobante numero="00000049">
+    <fecha>8/21/2024 1:32:47 PM</fecha>
+    <cliente codigo="de815a46-bd7b-46a9-996c-794503d81903">
+      <nombre>AVILA</nombre>
+      <direccion>GUEMES 123</direccion>
+      <localidad>CABA</localidad>
+      <direccion>GUEMES 123</direccion>
+      <telefono>12345689</telefono>
+      <telefono_alternativo>1324568</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1119-a">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA HEINEKEN 473ml. x 5</nombre>
+      <precio>1300.00</precio>
+    </item>
+    <pago_efectivo>True</pago_efectivo>
+    <total>1300.00</total>
+  </comprobante>
+  <comprobante numero="00000050">
+    <fecha>8/21/2024 1:38:02 PM</fecha>
+    <cliente codigo="de815a46-bd7b-46a9-996c-794503d81903">
+      <nombre>AVILA</nombre>
+      <direccion>GUEMES 123</direccion>
+      <localidad>CABA</localidad>
+      <direccion>GUEMES 123</direccion>
+      <telefono>12345689</telefono>
+      <telefono_alternativo>1324568</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1119-a">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA HEINEKEN 473ml. x 5</nombre>
+      <precio>1300.00</precio>
+    </item>
+    <pago_efectivo>True</pago_efectivo>
+    <total>1300.00</total>
+  </comprobante>
+  <comprobante numero="00000051">
+    <fecha>8/21/2024 1:39:57 PM</fecha>
+    <cliente codigo="de815a46-bd7b-46a9-996c-794503d81903">
+      <nombre>AVILA</nombre>
+      <direccion>GUEMES 123</direccion>
+      <localidad>CABA</localidad>
+      <direccion>GUEMES 123</direccion>
+      <telefono>12345689</telefono>
+      <telefono_alternativo>1324568</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1138-A">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA STELLA ARTOIS 1lt. x 1</nombre>
+      <precio>1250.00</precio>
+    </item>
+    <pago_efectivo>True</pago_efectivo>
+    <total>1250.00</total>
+  </comprobante>
+  <comprobante numero="00000052">
+    <fecha>8/21/2024 1:43:07 PM</fecha>
+    <cliente codigo="de815a46-bd7b-46a9-996c-794503d81903">
+      <nombre>AVILA</nombre>
+      <direccion>GUEMES 123</direccion>
+      <localidad>CABA</localidad>
+      <direccion>GUEMES 123</direccion>
+      <telefono>12345689</telefono>
+      <telefono_alternativo>1324568</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="31c7a813-e75c-427c-8f45-d428d6c12678">
+      <cantidad>1</cantidad>
+      <nombre>COMBO 1 FERNET + 2 COCA-COLA 2.25</nombre>
+      <precio>11500.00</precio>
+    </item>
+    <pago_efectivo>True</pago_efectivo>
+    <total>11500.00</total>
+  </comprobante>
+  <comprobante numero="00000053">
+    <fecha>8/21/2024 1:45:57 PM</fecha>
+    <cliente codigo="de815a46-bd7b-46a9-996c-794503d81903">
+      <nombre>AVILA</nombre>
+      <direccion>GUEMES 123</direccion>
+      <localidad>CABA</localidad>
+      <direccion>GUEMES 123</direccion>
+      <telefono>12345689</telefono>
+      <telefono_alternativo>1324568</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1153-A">
+      <cantidad>1</cantidad>
+      <nombre>SPRITE 2.25lt. x 5</nombre>
+      <precio>7450.00</precio>
+    </item>
+    <pago_efectivo>True</pago_efectivo>
+    <total>7450.00</total>
+  </comprobante>
+  <comprobante numero="00000054">
+    <fecha>8/21/2024 1:46:26 PM</fecha>
+    <cliente codigo="47ec5345-71ea-47b0-a392-b92d110dcc57">
+      <nombre>MERAKI BEBIDAS</nombre>
+      <direccion>ALMIRANTE BROWN 324</direccion>
+      <localidad>RAMOS MEJIA</localidad>
+      <direccion>ALMIRANTE BROWN 324</direccion>
+      <telefono>15-2395-7706</telefono>
+      <telefono_alternativo>4823-1185</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1119-a">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA HEINEKEN 473ml. x 5</nombre>
+      <precio>1600</precio>
+    </item>
+    <item codigo="1153-A">
+      <cantidad>1</cantidad>
+      <nombre>SPRITE 2.25lt. x 5</nombre>
+      <precio>7450.00</precio>
+    </item>
+    <pago_efectivo>True</pago_efectivo>
+    <total>9050.00</total>
+  </comprobante>
+  <comprobante numero="00000055">
+    <fecha>8/21/2024 1:47:41 PM</fecha>
+    <cliente codigo="de815a46-bd7b-46a9-996c-794503d81903">
+      <nombre>AVILA</nombre>
+      <direccion>GUEMES 123</direccion>
+      <localidad>CABA</localidad>
+      <direccion>GUEMES 123</direccion>
+      <telefono>12345689</telefono>
+      <telefono_alternativo>1324568</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1153-A">
+      <cantidad>1</cantidad>
+      <nombre>SPRITE 2.25lt. x 5</nombre>
+      <precio>7450.00</precio>
+    </item>
+    <pago_efectivo>True</pago_efectivo>
+    <total>7450.00</total>
+  </comprobante>
+  <comprobante numero="00000056">
+    <fecha>8/21/2024 1:48:46 PM</fecha>
+    <cliente codigo="de815a46-bd7b-46a9-996c-794503d81903">
+      <nombre>AVILA</nombre>
+      <direccion>GUEMES 123</direccion>
+      <localidad>CABA</localidad>
+      <direccion>GUEMES 123</direccion>
+      <telefono>12345689</telefono>
+      <telefono_alternativo>1324568</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1153-A">
+      <cantidad>1</cantidad>
+      <nombre>SPRITE 2.25lt. x 5</nombre>
+      <precio>7450.00</precio>
+    </item>
+    <pago_efectivo>True</pago_efectivo>
+    <total>7450.00</total>
+  </comprobante>
+  <comprobante numero="00000057">
+    <fecha>8/21/2024 1:49:31 PM</fecha>
+    <cliente codigo="de815a46-bd7b-46a9-996c-794503d81903">
+      <nombre>AVILA</nombre>
+      <direccion>GUEMES 123</direccion>
+      <localidad>CABA</localidad>
+      <direccion>GUEMES 123</direccion>
+      <telefono>12345689</telefono>
+      <telefono_alternativo>1324568</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1153-A">
+      <cantidad>1</cantidad>
+      <nombre>SPRITE 2.25lt. x 5</nombre>
+      <precio>7450.00</precio>
+    </item>
+    <pago_efectivo>True</pago_efectivo>
+    <total>7450.00</total>
+  </comprobante>
+  <comprobante numero="00000058">
+    <fecha>8/21/2024 1:51:49 PM</fecha>
+    <cliente codigo="de815a46-bd7b-46a9-996c-794503d81903">
+      <nombre>AVILA</nombre>
+      <direccion>GUEMES 123</direccion>
+      <localidad>CABA</localidad>
+      <direccion>GUEMES 123</direccion>
+      <telefono>12345689</telefono>
+      <telefono_alternativo>1324568</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="78599">
+      <cantidad>1</cantidad>
+      <nombre>COMBO PRUEBA</nombre>
+      <precio>1000.00</precio>
+    </item>
+    <pago_efectivo>True</pago_efectivo>
+    <total>1000.00</total>
+  </comprobante>
+  <comprobante numero="00000059">
+    <fecha>8/21/2024 1:52:26 PM</fecha>
+    <cliente codigo="de815a46-bd7b-46a9-996c-794503d81903">
+      <nombre>AVILA</nombre>
+      <direccion>GUEMES 123</direccion>
+      <localidad>CABA</localidad>
+      <direccion>GUEMES 123</direccion>
+      <telefono>12345689</telefono>
+      <telefono_alternativo>1324568</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1120-A">
+      <cantidad>1</cantidad>
+      <nombre>ELEMENTOS 1lt. x 2</nombre>
+      <precio>3000.00</precio>
+    </item>
+    <pago_efectivo>True</pago_efectivo>
+    <total>3000.00</total>
+  </comprobante>
+  <comprobante numero="00000060">
+    <fecha>8/21/2024 1:55:18 PM</fecha>
+    <cliente codigo="de815a46-bd7b-46a9-996c-794503d81903">
+      <nombre>AVILA</nombre>
+      <direccion>GUEMES 123</direccion>
+      <localidad>CABA</localidad>
+      <direccion>GUEMES 123</direccion>
+      <telefono>12345689</telefono>
+      <telefono_alternativo>1324568</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="3ff1e6a0-6c90-4c6c-93fd-9de20812e540">
+      <cantidad>1</cantidad>
+      <nombre>COMBO VINO + CERVEZA</nombre>
+      <precio>25456.00</precio>
+    </item>
+    <pago_efectivo>True</pago_efectivo>
+    <total>25456.00</total>
+  </comprobante>
+  <comprobante numero="00000061">
+    <fecha>8/21/2024 1:59:39 PM</fecha>
+    <cliente codigo="de815a46-bd7b-46a9-996c-794503d81903">
+      <nombre>AVILA</nombre>
+      <direccion>GUEMES 123</direccion>
+      <localidad>CABA</localidad>
+      <direccion>GUEMES 123</direccion>
+      <telefono>12345689</telefono>
+      <telefono_alternativo>1324568</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1119-a">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA HEINEKEN 473ml. x 5</nombre>
+      <precio>1300.00</precio>
+    </item>
+    <pago_efectivo>True</pago_efectivo>
+    <total>1300.00</total>
+  </comprobante>
+  <comprobante numero="00000062">
+    <fecha>8/21/2024 2:02:45 PM</fecha>
+    <cliente codigo="de815a46-bd7b-46a9-996c-794503d81903">
+      <nombre>AVILA</nombre>
+      <direccion>GUEMES 123</direccion>
+      <localidad>CABA</localidad>
+      <direccion>GUEMES 123</direccion>
+      <telefono>12345689</telefono>
+      <telefono_alternativo>1324568</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="78599">
+      <cantidad>1</cantidad>
+      <nombre>COMBO PRUEBA</nombre>
+      <precio>1000.00</precio>
+    </item>
+    <pago_efectivo>True</pago_efectivo>
+    <total>1000.00</total>
+  </comprobante>
+  <comprobante numero="00000063">
+    <fecha>8/21/2024 2:03:53 PM</fecha>
+    <cliente codigo="de815a46-bd7b-46a9-996c-794503d81903">
+      <nombre>AVILA</nombre>
+      <direccion>GUEMES 123</direccion>
+      <localidad>CABA</localidad>
+      <direccion>GUEMES 123</direccion>
+      <telefono>12345689</telefono>
+      <telefono_alternativo>1324568</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="78599">
+      <cantidad>2</cantidad>
+      <nombre>COMBO PRUEBA</nombre>
+      <precio>2000.00</precio>
+    </item>
+    <pago_efectivo>True</pago_efectivo>
+    <total>2000.00</total>
+  </comprobante>
+  <comprobante numero="00000064">
+    <fecha>8/21/2024 2:06:00 PM</fecha>
+    <cliente codigo="de815a46-bd7b-46a9-996c-794503d81903">
+      <nombre>AVILA</nombre>
+      <direccion>GUEMES 123</direccion>
+      <localidad>CABA</localidad>
+      <direccion>GUEMES 123</direccion>
+      <telefono>12345689</telefono>
+      <telefono_alternativo>1324568</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1136-A">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA IMPERIAL RUBIA 1lt. x 1</nombre>
+      <precio>1000.00</precio>
+    </item>
+    <pago_efectivo>True</pago_efectivo>
+    <total>1000.00</total>
+  </comprobante>
+  <comprobante numero="00000065">
+    <fecha>8/21/2024 2:29:55 PM</fecha>
+    <cliente codigo="7579fd6d-664f-4c74-abee-dc58ee09ff65">
+      <nombre>DANIELA GARCIA</nombre>
+      <direccion>RIO GRANDE 159</direccion>
+      <localidad>CABA</localidad>
+      <direccion>RIO GRANDE 159</direccion>
+      <telefono>4874-5111</telefono>
+      <telefono_alternativo>-</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="78599">
+      <cantidad>1</cantidad>
+      <nombre>COMBO PRUEBA</nombre>
+      <precio>1000.00</precio>
+    </item>
+    <pago_efectivo>True</pago_efectivo>
+    <total>1000.00</total>
+  </comprobante>
+  <comprobante numero="00000066">
+    <fecha>8/21/2024 2:34:01 PM</fecha>
+    <cliente codigo="7579fd6d-664f-4c74-abee-dc58ee09ff65">
+      <nombre>DANIELA GARCIA</nombre>
+      <direccion>RIO GRANDE 159</direccion>
+      <localidad>CABA</localidad>
+      <direccion>RIO GRANDE 159</direccion>
+      <telefono>4874-5111</telefono>
+      <telefono_alternativo>-</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1149-A">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA SIETE CHOLAS - BLONDE ALE 473ml. x 1</nombre>
+      <precio>2300.00</precio>
+    </item>
+    <pago_efectivo>True</pago_efectivo>
+    <total>2300.00</total>
+  </comprobante>
+  <comprobante numero="00000067">
+    <fecha>8/21/2024 2:37:13 PM</fecha>
+    <cliente codigo="8d031343-8156-40f9-b287-f4cb97d6cec7">
+      <nombre>CHINO</nombre>
+      <direccion>GUEMES 1234</direccion>
+      <localidad>SAN MARTIN</localidad>
+      <direccion>GUEMES 1234</direccion>
+      <telefono>12345678</telefono>
+      <telefono_alternativo>13245678</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>19:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1149-A">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA SIETE CHOLAS - BLONDE ALE 473ml. x 1</nombre>
+      <precio>2300.00</precio>
+    </item>
+    <pago_efectivo>True</pago_efectivo>
+    <total>2300.00</total>
+  </comprobante>
+  <comprobante numero="00000068">
+    <fecha>8/21/2024 2:41:57 PM</fecha>
+    <cliente codigo="8d031343-8156-40f9-b287-f4cb97d6cec7">
+      <nombre>CHINO</nombre>
+      <direccion>GUEMES 1234</direccion>
+      <localidad>SAN MARTIN</localidad>
+      <direccion>GUEMES 1234</direccion>
+      <telefono>12345678</telefono>
+      <telefono_alternativo>13245678</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>19:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1120-B">
+      <cantidad>1</cantidad>
+      <nombre>ELEMENTOS 1lt. x 6</nombre>
+      <precio>7000.00</precio>
+    </item>
+    <pago_efectivo>True</pago_efectivo>
+    <total>7000.00</total>
+  </comprobante>
+  <comprobante numero="00000069">
+    <fecha>8/21/2024 2:44:05 PM</fecha>
+    <cliente codigo="e390d934-4178-4d9f-89eb-700dbc026da2">
+      <nombre>EZEQUIEL LUNA</nombre>
+      <direccion>GUEMES 3734</direccion>
+      <localidad>CABA</localidad>
+      <direccion>GUEMES 3734</direccion>
+      <telefono>4827-1185</telefono>
+      <telefono_alternativo>-</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:50:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1132-A">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA IMPERIAL IPA 473ml. x 1</nombre>
+      <precio>1000.00</precio>
+    </item>
+    <pago_efectivo>True</pago_efectivo>
+    <total>1000.00</total>
+  </comprobante>
+  <comprobante numero="00000070">
+    <fecha>8/21/2024 2:45:22 PM</fecha>
+    <cliente codigo="de815a46-bd7b-46a9-996c-794503d81903">
+      <nombre>AVILA</nombre>
+      <direccion>GUEMES 123</direccion>
+      <localidad>CABA</localidad>
+      <direccion>GUEMES 123</direccion>
+      <telefono>12345689</telefono>
+      <telefono_alternativo>1324568</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="78599">
+      <cantidad>1</cantidad>
+      <nombre>COMBO PRUEBA</nombre>
+      <precio>1000.00</precio>
+    </item>
+    <pago_efectivo>True</pago_efectivo>
+    <total>1000.00</total>
+  </comprobante>
+  <comprobante numero="00000071">
+    <fecha>8/21/2024 2:50:30 PM</fecha>
+    <cliente codigo="7579fd6d-664f-4c74-abee-dc58ee09ff65">
+      <nombre>DANIELA GARCIA</nombre>
+      <direccion>RIO GRANDE 159</direccion>
+      <localidad>CABA</localidad>
+      <direccion>RIO GRANDE 159</direccion>
+      <telefono>4874-5111</telefono>
+      <telefono_alternativo>-</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="78599">
+      <cantidad>1</cantidad>
+      <nombre>COMBO PRUEBA</nombre>
+      <precio>1000.00</precio>
+    </item>
+    <pago_efectivo>True</pago_efectivo>
+    <total>1000.00</total>
+  </comprobante>
+  <comprobante numero="00000072">
+    <fecha>8/21/2024 2:53:47 PM</fecha>
+    <cliente codigo="7579fd6d-664f-4c74-abee-dc58ee09ff65">
+      <nombre>DANIELA GARCIA</nombre>
+      <direccion>RIO GRANDE 159</direccion>
+      <localidad>CABA</localidad>
+      <direccion>RIO GRANDE 159</direccion>
+      <telefono>4874-5111</telefono>
+      <telefono_alternativo>-</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="31c7a813-e75c-427c-8f45-d428d6c12678">
+      <cantidad>1</cantidad>
+      <nombre>COMBO 1 FERNET + 2 COCA-COLA 2.25</nombre>
+      <precio>11500.00</precio>
+    </item>
+    <item codigo="3ff1e6a0-6c90-4c6c-93fd-9de20812e540">
+      <cantidad>1</cantidad>
+      <nombre>COMBO VINO + CERVEZA</nombre>
+      <precio>25456.00</precio>
+    </item>
+    <item codigo="78599">
+      <cantidad>1</cantidad>
+      <nombre>COMBO PRUEBA</nombre>
+      <precio>1000.00</precio>
+    </item>
+    <pago_efectivo>True</pago_efectivo>
+    <total>37956.00</total>
+  </comprobante>
+  <comprobante numero="00000073">
+    <fecha>8/21/2024 2:55:04 PM</fecha>
+    <cliente codigo="47ec5345-71ea-47b0-a392-b92d110dcc57">
+      <nombre>MERAKI BEBIDAS</nombre>
+      <direccion>ALMIRANTE BROWN 324</direccion>
+      <localidad>RAMOS MEJIA</localidad>
+      <direccion>ALMIRANTE BROWN 324</direccion>
+      <telefono>15-2395-7706</telefono>
+      <telefono_alternativo>4823-1185</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1132-A">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA IMPERIAL IPA 473ml. x 1</nombre>
+      <precio>1000.00</precio>
+    </item>
+    <item codigo="1133-A">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA IMPERIAL ROJA 473ml. x 1</nombre>
+      <precio>1000.00</precio>
+    </item>
+    <item codigo="1136-A">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA IMPERIAL RUBIA 1lt. x 1</nombre>
+      <precio>1000.00</precio>
+    </item>
+    <pago_efectivo>False</pago_efectivo>
+    <total>3000.00</total>
+  </comprobante>
+  <comprobante numero="00000074">
+    <fecha>8/21/2024 2:56:15 PM</fecha>
+    <cliente codigo="47ec5345-71ea-47b0-a392-b92d110dcc57">
+      <nombre>MERAKI BEBIDAS</nombre>
+      <direccion>ALMIRANTE BROWN 324</direccion>
+      <localidad>RAMOS MEJIA</localidad>
+      <direccion>ALMIRANTE BROWN 324</direccion>
+      <telefono>15-2395-7706</telefono>
+      <telefono_alternativo>4823-1185</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1119-b">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA HEINEKEN 473ml. x 6</nombre>
+      <precio>5000.00</precio>
+    </item>
+    <item codigo="1119-c">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA HEINEKEN 473ml. x 12</nombre>
+      <precio>12000.00</precio>
+    </item>
+    <item codigo="1136-A">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA IMPERIAL RUBIA 1lt. x 1</nombre>
+      <precio>1000.00</precio>
+    </item>
+    <pago_efectivo>True</pago_efectivo>
+    <total>18000.00</total>
+  </comprobante>
+  <comprobante numero="00000075">
+    <fecha>8/21/2024 4:06:11 PM</fecha>
+    <cliente codigo="47ec5345-71ea-47b0-a392-b92d110dcc57">
+      <nombre>MERAKI BEBIDAS</nombre>
+      <direccion>ALMIRANTE BROWN 324</direccion>
+      <localidad>RAMOS MEJIA</localidad>
+      <direccion>ALMIRANTE BROWN 324</direccion>
+      <telefono>15-2395-7706</telefono>
+      <telefono_alternativo>4823-1185</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <comentarios>fdgdfdfgfdh yuj ktum tyjrbrdtb</comentarios>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1132-A">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA IMPERIAL IPA 473ml. x 1</nombre>
+      <precio>1000.00</precio>
+    </item>
+    <item codigo="1133-A">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA IMPERIAL ROJA 473ml. x 1</nombre>
+      <precio>1000.00</precio>
+    </item>
+    <item codigo="1136-A">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA IMPERIAL RUBIA 1lt. x 1</nombre>
+      <precio>1000.00</precio>
+    </item>
+    <item codigo="1142-A">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA PALERMO 1lt. x 6</nombre>
+      <precio>7500.00</precio>
+    </item>
+    <pago_efectivo>False</pago_efectivo>
+    <total>10500.00</total>
+  </comprobante>
+  <comprobante numero="00000076">
+    <fecha>8/23/2024 7:00:50 PM</fecha>
+    <cliente codigo="7579fd6d-664f-4c74-abee-dc58ee09ff65">
+      <nombre>DANIELA GARCIA</nombre>
+      <direccion>RIO GRANDE 159</direccion>
+      <localidad>CABA</localidad>
+      <direccion>RIO GRANDE 159</direccion>
+      <telefono>4874-5111</telefono>
+      <telefono_alternativo>-</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <comentarios></comentarios>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1119-c">
+      <cantidad>2</cantidad>
+      <nombre>CERVEZA HEINEKEN 473ml. x 12</nombre>
+      <precio>24000.00</precio>
+    </item>
+    <pago_efectivo>True</pago_efectivo>
+    <total>24000.00</total>
+  </comprobante>
+  <comprobante numero="00000077">
+    <fecha>8/23/2024 7:03:59 PM</fecha>
+    <cliente codigo="8d031343-8156-40f9-b287-f4cb97d6cec7">
+      <nombre>CHINO</nombre>
+      <direccion>GUEMES 1234</direccion>
+      <localidad>SAN MARTIN</localidad>
+      <direccion>GUEMES 1234</direccion>
+      <telefono>12345678</telefono>
+      <telefono_alternativo>13245678</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <comentarios></comentarios>
+      <horario_de_cierre>19:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1119-a">
+      <cantidad>2</cantidad>
+      <nombre>CERVEZA HEINEKEN 473ml. x 5</nombre>
+      <precio>2600.00</precio>
+    </item>
+    <pago_efectivo>False</pago_efectivo>
+    <total>2600.00</total>
+  </comprobante>
+  <comprobante numero="00000078">
+    <fecha>8/30/2024 12:12:53 PM</fecha>
+    <cliente codigo="31831afc-2e9c-424d-a79c-c84bd1a3d106">
+      <nombre>VICTOR LACUADRAS</nombre>
+      <direccion>J. B. ALBERDI 1234</direccion>
+      <localidad>RAMOS MEJIA</localidad>
+      <direccion>J. B. ALBERDI 1234</direccion>
+      <telefono>12345678</telefono>
+      <telefono_alternativo>12345679</telefono_alternativo>
+      <horario_de_apertura>09:00:00</horario_de_apertura>
+      <comentarios>Debe $5456</comentarios>
+      <horario_de_cierre>19:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1154-A">
+      <cantidad>2</cantidad>
+      <nombre>CERVEZA ANTARES 473ml. x 6</nombre>
+      <precio>17000.00</precio>
+    </item>
+    <pago_efectivo>False</pago_efectivo>
+    <total>17000.00</total>
+  </comprobante>
+  <comprobante numero="00000079">
+    <fecha>8/30/2024 12:18:47 PM</fecha>
+    <cliente codigo="31831afc-2e9c-424d-a79c-c84bd1a3d106">
+      <nombre>VICTOR LACUADRAS</nombre>
+      <direccion>J. B. ALBERDI 1234</direccion>
+      <localidad>RAMOS MEJIA</localidad>
+      <direccion>J. B. ALBERDI 1234</direccion>
+      <telefono>12345678</telefono>
+      <telefono_alternativo>12345679</telefono_alternativo>
+      <horario_de_apertura>09:00:00</horario_de_apertura>
+      <comentarios>Debe $5456</comentarios>
+      <horario_de_cierre>19:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1154-A">
+      <cantidad>3</cantidad>
+      <nombre>CERVEZA ANTARES 473ml. x 6</nombre>
+      <precio>25500.00</precio>
+    </item>
+    <pago_efectivo>True</pago_efectivo>
+    <total>25500.00</total>
+  </comprobante>
+  <comprobante numero="00000080">
+    <fecha>8/30/2024 12:23:50 PM</fecha>
+    <cliente codigo="e390d934-4178-4d9f-89eb-700dbc026da2">
+      <nombre>EZEQUIEL LUNA</nombre>
+      <direccion>GUEMES 3734</direccion>
+      <localidad>CABA</localidad>
+      <direccion>GUEMES 3734</direccion>
+      <telefono>4827-1185</telefono>
+      <telefono_alternativo>-</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <comentarios></comentarios>
+      <horario_de_cierre>15:50:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1119-a">
+      <cantidad>2</cantidad>
+      <nombre>CERVEZA HEINEKEN 473ml. x 5</nombre>
+      <precio>2600.00</precio>
+    </item>
+    <item codigo="1154-A">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA ANTARES 473ml. x 6</nombre>
+      <precio>8500.00</precio>
+    </item>
+    <pago_efectivo>False</pago_efectivo>
+    <total>11100.00</total>
+  </comprobante>
+  <comprobante numero="00000081">
+    <fecha>9/3/2024 10:53:46 AM</fecha>
+    <cliente codigo="36e5f2eb-34de-4ba5-b0ad-bb95b19dea9d">
+      <nombre>JOSE</nombre>
+      <direccion>JOSECITO</direccion>
+      <localidad>CABA</localidad>
+      <direccion>JOSECITO</direccion>
+      <telefono>12345678</telefono>
+      <telefono_alternativo>123456789</telefono_alternativo>
+      <horario_de_apertura>11:00:00</horario_de_apertura>
+      <comentarios></comentarios>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1119-b">
+      <cantidad>1</cantidad>
+      <nombre>CERVEZA HEINEKEN 473ml. x 6</nombre>
+      <precio>5000.00</precio>
+    </item>
+    <pago_efectivo>True</pago_efectivo>
+    <total>5000.00</total>
+  </comprobante>
+  <comprobante numero="00000082">
+    <fecha>9/5/2024 8:14:54 PM</fecha>
+    <cliente codigo="36e5f2eb-34de-4ba5-b0ad-bb95b19dea9d">
+      <nombre>JOSE</nombre>
+      <direccion>JOSECITO</direccion>
+      <localidad>CABA</localidad>
+      <direccion>JOSECITO</direccion>
+      <telefono>12345678</telefono>
+      <telefono_alternativo>123456789</telefono_alternativo>
+      <horario_de_apertura>11:00:00</horario_de_apertura>
+      <comentarios></comentarios>
+      <horario_de_cierre>15:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1119-a">
+      <cantidad>2</cantidad>
+      <nombre>CERVEZA HEINEKEN 473ml. x 5</nombre>
+      <precio>2600.00</precio>
+    </item>
+    <pago_efectivo>False</pago_efectivo>
+    <total>2600.00</total>
+  </comprobante>
+  <comprobante numero="00000083">
+    <fecha>9/18/2024 1:37:29 PM</fecha>
+    <cliente codigo="e6c1dae0-0645-4c13-a75c-7317129c9859">
+      <nombre>MIGUE GRANADOS</nombre>
+      <direccion>OLGA 1234</direccion>
+      <localidad>CABA</localidad>
+      <direccion>OLGA 1234</direccion>
+      <telefono>123</telefono>
+      <telefono_alternativo>154948</telefono_alternativo>
+      <horario_de_apertura>10:00:00</horario_de_apertura>
+      <comentarios></comentarios>
+      <horario_de_cierre>14:00:00</horario_de_cierre>
+    </cliente>
+    <item codigo="1155-A">
+      <cantidad>2</cantidad>
+      <nombre>AGUA VILLAMANAOS 2lt. x 6</nombre>
+      <precio>2500.00</precio>
+    </item>
+    <pago_efectivo>True</pago_efectivo>
+    <total>2500.00</total>
+  </comprobante>
+</comprobantes>

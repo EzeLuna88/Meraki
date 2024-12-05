@@ -15,8 +15,10 @@ namespace BE
         public string TipoMedida { get; set; }
         public int CantidadActual { get; set; }
         public int CantidadIngresada { get; set; }
+
+        public int CantidadReservada { get; set; }
         public DateTime FechaIngreso { get; set; }
-        public List<BEProducto> Productos { get; set; }
+        
 
         public override string ToString()
         {

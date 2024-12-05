@@ -1,195 +1,213 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <productos>
-  <producto codigo="a1dcd079-88d9-4689-ba89-95c0de12291e">
+  <producto codigo="1119">
     <nombre>CERVEZA HEINEKEN</nombre>
     <medida>473</medida>
     <tipo_medida>ml.</tipo_medida>
-    <cantidad_actual>1705</cantidad_actual>
+    <cantidad_actual>683</cantidad_actual>
   </producto>
-  <producto codigo="e4707ede-af79-484b-aa39-254ffc460877">
+  <producto codigo="1120">
     <nombre>ELEMENTOS</nombre>
     <medida>1</medida>
     <tipo_medida>lt.</tipo_medida>
-    <cantidad_actual>690</cantidad_actual>
+    <cantidad_actual>372</cantidad_actual>
   </producto>
-  <producto codigo="b0dd05d2-8f62-4ff8-8b78-ce3a57aa8b9c">
+  <producto codigo="1121">
     <nombre>VINO LOS ARBOLES</nombre>
     <medida>1</medida>
     <tipo_medida>lt.</tipo_medida>
-    <cantidad_actual>30</cantidad_actual>
+    <cantidad_actual>22</cantidad_actual>
   </producto>
-  <producto codigo="ee648074-4297-40df-a98a-b6b7a38f3978">
+  <producto codigo="1122">
     <nombre>CERVEZA HEINEKEN</nombre>
     <medida>710</medida>
     <tipo_medida>ml.</tipo_medida>
-    <cantidad_actual>0</cantidad_actual>
+    <cantidad_actual>28</cantidad_actual>
   </producto>
-  <producto codigo="9608f386-c4a5-4fc0-adff-8292667875ee">
+  <producto codigo="1123">
     <nombre>CERVEZA QUILMES</nombre>
     <medida>473</medida>
     <tipo_medida>ml.</tipo_medida>
     <cantidad_actual>0</cantidad_actual>
   </producto>
-  <producto codigo="77e158f1-aa59-44ea-a369-dcb5811a2af5">
+  <producto codigo="1124">
     <nombre>CERVEZA SANTA FE</nombre>
     <medida>473</medida>
     <tipo_medida>ml.</tipo_medida>
-    <cantidad_actual>0</cantidad_actual>
+    <cantidad_actual>100</cantidad_actual>
   </producto>
-  <producto codigo="e6521879-956e-47a7-b2f3-063db91ce4bf">
+  <producto codigo="1125">
     <nombre>CERVEZA MILLER</nombre>
     <medida>473</medida>
     <tipo_medida>ml.</tipo_medida>
     <cantidad_actual>0</cantidad_actual>
   </producto>
-  <producto codigo="5451ecda-fa51-4b6e-9339-74c376b8a1d7">
+  <producto codigo="1126">
     <nombre>CERVEZA CORONA</nombre>
     <medida>330</medida>
     <tipo_medida>ml.</tipo_medida>
     <cantidad_actual>0</cantidad_actual>
   </producto>
-  <producto codigo="99bfc0d6-0b78-45b0-bf30-83220e5530ac">
+  <producto codigo="1127">
     <nombre>CERVEZA CORONA</nombre>
     <medida>710</medida>
     <tipo_medida>ml.</tipo_medida>
-    <cantidad_actual>0</cantidad_actual>
+    <cantidad_actual>48</cantidad_actual>
   </producto>
-  <producto codigo="16e682d0-ec6b-4e17-9e8e-d7ff483b7f21">
+  <producto codigo="1128">
     <nombre>CERVEZA BRAHMA</nombre>
     <medida>473</medida>
     <tipo_medida>ml.</tipo_medida>
     <cantidad_actual>0</cantidad_actual>
   </producto>
-  <producto codigo="d6bbdd5e-83cf-4cf2-a0d1-c76caed81299">
+  <producto codigo="1129">
     <nombre>CERVEZA AMSTEL</nombre>
     <medida>473</medida>
     <tipo_medida>ml.</tipo_medida>
     <cantidad_actual>0</cantidad_actual>
   </producto>
-  <producto codigo="0562e766-f758-48d4-95c8-53e9bb993484">
+  <producto codigo="1130">
     <nombre>CERVEZA SCHNEIDER</nombre>
     <medida>473</medida>
     <tipo_medida>ml.</tipo_medida>
     <cantidad_actual>60</cantidad_actual>
   </producto>
-  <producto codigo="0b59a597-bf06-48cd-b34e-d5a85277ffad">
+  <producto codigo="1131">
     <nombre>CERVEZA SCHNEIDER</nombre>
     <medida>710</medida>
     <tipo_medida>ml.</tipo_medida>
     <cantidad_actual>0</cantidad_actual>
   </producto>
-  <producto codigo="bd710e40-d664-4aa2-922b-3491eaad9274">
+  <producto codigo="1132">
     <nombre>CERVEZA IMPERIAL IPA</nombre>
     <medida>473</medida>
     <tipo_medida>ml.</tipo_medida>
-    <cantidad_actual>0</cantidad_actual>
+    <cantidad_actual>78</cantidad_actual>
   </producto>
-  <producto codigo="5c862952-a287-460b-aa72-ce4f8581c483">
+  <producto codigo="1133">
     <nombre>CERVEZA IMPERIAL ROJA</nombre>
     <medida>473</medida>
     <tipo_medida>ml.</tipo_medida>
-    <cantidad_actual>0</cantidad_actual>
+    <cantidad_actual>96</cantidad_actual>
   </producto>
-  <producto codigo="3b055370-e8db-4716-a454-89b30a04f0b7">
+  <producto codigo="1134">
     <nombre>CERVEZA ANDES RUBIA</nombre>
     <medida>473</medida>
     <tipo_medida>ml.</tipo_medida>
-    <cantidad_actual>0</cantidad_actual>
+    <cantidad_actual>576</cantidad_actual>
   </producto>
-  <producto codigo="e18e4814-995e-409a-b681-acbf7e435ff3">
+  <producto codigo="1135">
     <nombre>CERVEZA ANDES ROJA</nombre>
     <medida>473</medida>
     <tipo_medida>ml.</tipo_medida>
     <cantidad_actual>0</cantidad_actual>
   </producto>
-  <producto codigo="bfa63881-6324-4f30-9401-94dc0fd97713">
+  <producto codigo="1136">
     <nombre>CERVEZA IMPERIAL RUBIA</nombre>
     <medida>1</medida>
     <tipo_medida>lt.</tipo_medida>
-    <cantidad_actual>0</cantidad_actual>
+    <cantidad_actual>83</cantidad_actual>
   </producto>
-  <producto codigo="ee69ae07-7197-4491-b830-b934886697e6">
+  <producto codigo="1137">
     <nombre>CERVEZA GROLSCH</nombre>
     <medida>1</medida>
     <tipo_medida>lt.</tipo_medida>
-    <cantidad_actual>0</cantidad_actual>
+    <cantidad_actual>36</cantidad_actual>
   </producto>
-  <producto codigo="d75ef9f7-a109-48de-a0d3-367baa75fe1e">
+  <producto codigo="1138">
     <nombre>CERVEZA STELLA ARTOIS</nombre>
     <medida>1</medida>
     <tipo_medida>lt.</tipo_medida>
-    <cantidad_actual>240</cantidad_actual>
+    <cantidad_actual>233</cantidad_actual>
   </producto>
-  <producto codigo="c739d436-72f6-455c-a9e7-71fefb8ba332">
+  <producto codigo="1139">
     <nombre>CERVEZA HEINEKEN</nombre>
     <medida>1</medida>
     <tipo_medida>lt.</tipo_medida>
     <cantidad_actual>0</cantidad_actual>
   </producto>
-  <producto codigo="c2531472-58c3-4db2-851e-3ca97e667a86">
+  <producto codigo="1140">
     <nombre>CERVEZA BRAHMA</nombre>
     <medida>1</medida>
     <tipo_medida>lt.</tipo_medida>
     <cantidad_actual>0</cantidad_actual>
   </producto>
-  <producto codigo="5ec1241f-aff1-4e3f-904f-1c4292e57b19">
+  <producto codigo="1141">
     <nombre>CERVEZA QUILMES</nombre>
     <medida>1</medida>
     <tipo_medida>lt.</tipo_medida>
     <cantidad_actual>0</cantidad_actual>
   </producto>
-  <producto codigo="17d1ef81-f440-4740-8c4b-c1ba4f459996">
+  <producto codigo="1142">
     <nombre>CERVEZA PALERMO</nombre>
     <medida>1</medida>
     <tipo_medida>lt.</tipo_medida>
-    <cantidad_actual>0</cantidad_actual>
+    <cantidad_actual>24</cantidad_actual>
   </producto>
-  <producto codigo="e56ca2c2-8461-49b9-910b-8b97576e426c">
+  <producto codigo="1143">
     <nombre>CERVEZA IGUANA</nombre>
     <medida>1</medida>
     <tipo_medida>lt.</tipo_medida>
     <cantidad_actual>0</cantidad_actual>
   </producto>
-  <producto codigo="45369ca3-b319-4590-bc3f-ce9e04e3e997">
+  <producto codigo="1144">
     <nombre>VINO MICHEL TORINO</nombre>
     <medida>1.25</medida>
     <tipo_medida>lt.</tipo_medida>
     <cantidad_actual>0</cantidad_actual>
   </producto>
-  <producto codigo="a14d2a5b-41de-4f24-a3d0-be69e06670c7">
-    <nombre>FERCHETTO</nombre>
-    <medida>0</medida>
-    <tipo_medida>-</tipo_medida>
-    <cantidad_actual>0</cantidad_actual>
-  </producto>
-  <producto codigo="c79cbf88-523b-4bee-91a3-db2aa9af0b28">
+  <producto codigo="1146">
     <nombre>CERVEZA SIETE CHOLAS - PORTER</nombre>
     <medida>473</medida>
-    <tipo_medida>lt.</tipo_medida>
+    <tipo_medida>ml.</tipo_medida>
     <cantidad_actual>12</cantidad_actual>
   </producto>
-  <producto codigo="cf7164d0-a570-4907-a8f6-b4af070e03a3">
+  <producto codigo="1147">
     <nombre>FERNET BRANCA</nombre>
     <medida>750</medida>
     <tipo_medida>lt.</tipo_medida>
-    <cantidad_actual>8</cantidad_actual>
+    <cantidad_actual>93</cantidad_actual>
   </producto>
-  <producto codigo="a745fbbe-1d9c-442a-85ac-c9714487e57e">
+  <producto codigo="1148">
     <nombre>COCA-COLA</nombre>
-    <medida>2,25</medida>
+    <medida>2.25</medida>
     <tipo_medida>lt.</tipo_medida>
-    <cantidad_actual>16</cantidad_actual>
+    <cantidad_actual>86</cantidad_actual>
   </producto>
-  <producto codigo="caa51131-1cca-4b35-81a5-78070fbd1167">
+  <producto codigo="1149">
     <nombre>CERVEZA SIETE CHOLAS - BLONDE ALE</nombre>
     <medida>473</medida>
     <tipo_medida>ml.</tipo_medida>
-    <cantidad_actual>18</cantidad_actual>
+    <cantidad_actual>8</cantidad_actual>
   </producto>
-  <producto codigo="7615e861-9ddc-4b63-b39f-6dcbae548630">
+  <producto codigo="1150">
     <nombre>CAJA RABIETA</nombre>
     <medida>0</medida>
     <tipo_medida>-</tipo_medida>
-    <cantidad_actual>20</cantidad_actual>
+    <cantidad_actual>-1</cantidad_actual>
+  </producto>
+  <producto codigo="1151">
+    <nombre>CERVEZA GROLSCH</nombre>
+    <medida>473</medida>
+    <tipo_medida>lt.</tipo_medida>
+    <cantidad_actual>100</cantidad_actual>
+  </producto>
+  <producto codigo="1152">
+    <nombre>PRUEBA</nombre>
+    <medida>0</medida>
+    <tipo_medida>-</tipo_medida>
+    <cantidad_actual>-9</cantidad_actual>
+  </producto>
+  <producto codigo="1153">
+    <nombre>SPRITE</nombre>
+    <medida>2.25</medida>
+    <tipo_medida>lt.</tipo_medida>
+    <cantidad_actual>-5</cantidad_actual>
+  </producto>
+  <producto codigo="1154">
+    <nombre>CERVEZA ANTARES</nombre>
+    <medida>473</medida>
+    <tipo_medida>ml.</tipo_medida>
+    <cantidad_actual>4952</cantidad_actual>
   </producto>
 </productos>
