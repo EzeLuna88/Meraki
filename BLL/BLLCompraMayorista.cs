@@ -1,5 +1,5 @@
 ﻿using BE;
-using DAL;
+using MPP;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,15 +10,15 @@ namespace BLL
 {
     public class BLLCompraMayorista
     {
-        DALCompraMayorista dalCompraMayorista;
+        MPPCompraMayorista mppCompraMayorista;
         public BLLCompraMayorista()
         {
-            dalCompraMayorista = new DALCompraMayorista();
+            mppCompraMayorista = new MPPCompraMayorista();
         }
 
         public void GuardarCompraMayorista(BECompraMayorista compraMayorista)
         {
-            dalCompraMayorista.GuardarCompraMayorista(compraMayorista);
+            mppCompraMayorista.GuardarCompraMayorista(compraMayorista);
         }
     }
 }

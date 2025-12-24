@@ -180,6 +180,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AvisoPocoStock.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AvisoPocoStock.Designer.cs">
+      <DependentUpon>AvisoPocoStock.cs</DependentUpon>
+    </Compile>
     <Compile Include="Colores.cs" />
     <Compile Include="Compra.cs">
       <SubType>Form</SubType>
@@ -210,6 +216,12 @@
     </Compile>
     <Compile Include="Dashboard.Designer.cs">
       <DependentUpon>Dashboard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FechasDeVencimiento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FechasDeVencimiento.Designer.cs">
+      <DependentUpon>FechasDeVencimiento.cs</DependentUpon>
     </Compile>
     <Compile Include="PrincipalNuevo.cs">
       <SubType>Form</SubType>
@@ -291,6 +303,9 @@
     <Compile Include="Stock.Designer.cs">
       <DependentUpon>Stock.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AvisoPocoStock.resx">
+      <DependentUpon>AvisoPocoStock.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Compra.resx">
       <DependentUpon>Compra.cs</DependentUpon>
     </EmbeddedResource>
@@ -305,6 +320,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dashboard.resx">
       <DependentUpon>Dashboard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FechasDeVencimiento.resx">
+      <DependentUpon>FechasDeVencimiento.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PrincipalNuevo.resx">
       <DependentUpon>PrincipalNuevo.cs</DependentUpon>

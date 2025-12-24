@@ -8,6 +8,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using BLL;
 using FontAwesome.Sharp;
 
 
@@ -18,9 +19,10 @@ namespace Meraki
         private IconButton currentButton;
         private Panel leftBorderButton;
         private Form currentChildForm;
-
+        BLLStock bllStock;
         public PrincipalNuevo()
         {
+            bllStock = new BLLStock();
             InitializeComponent();
             leftBorderButton = new Panel();
             leftBorderButton.Size = new Size(188, 7);
@@ -196,6 +198,11 @@ namespace Meraki
         {
             ActivarBoton(sender, RGBColores.color2);
             OpenChildForm(new Dashboard());
+        }
+
+        private void PrincipalNuevo_Load(object sender, EventArgs e)
+        {
+            
         }
     }
 }

@@ -4,23 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BE;
-using DAL;
+using MPP;
 
 namespace BLL
 {
     
     public class BLLProducto
     {
-        DALProducto access;
+        MPPProducto access;
 
         public BLLProducto()
         {
-            access= new DALProducto();
+            access = new MPPProducto();
         }
 
         public List<BEProducto> listaProductos()
         {
-            return access.listaProductos();
+            return access.ListaProductos();
         }
 
         public void GuardarProducto(BEProductoIndividual beProducto)
@@ -35,9 +35,9 @@ namespace BLL
             access.ModificarProducto(beProducto);
         }
 
-        public BEProducto BuscarProducto(string codigo)
+        /*public BEProducto BuscarProducto(string codigo)
         {
             return access.BuscarProducto(codigo);
-        }
+        }*/
     }
 }

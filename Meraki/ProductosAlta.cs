@@ -115,6 +115,9 @@ namespace Meraki
             dataGridViewStock.Columns[4].HeaderText = "Cantidad actual";
             dataGridViewStock.Columns[6].Visible = false;
             dataGridViewStock.Columns[5].Visible = false;
+            dataGridViewStock.Columns[7].Visible = false;
+            dataGridViewStock.Columns[8].Visible = false;
+
             ConfigurarDataGrid(dataGridViewStock);
 
         }

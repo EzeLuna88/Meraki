@@ -149,6 +149,7 @@
     <Compile Include="BLLCompraMayorista.cs" />
     <Compile Include="BLLCompraMinorista.cs" />
     <Compile Include="BLLComprobante.cs" />
+    <Compile Include="BLLConfiguracion.cs" />
     <Compile Include="BLLProducto.cs" />
     <Compile Include="BLLProductoCombo.cs" />
     <Compile Include="BLLStock.cs" />
@@ -159,9 +160,9 @@
       <Project>{21927b94-abc5-43eb-9fbe-6746d3ff5a5c}</Project>
       <Name>BE</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DAL\DAL.csproj">
-      <Project>{777d8142-3f6a-416b-93e0-8d0f6d08d947}</Project>
-      <Name>DAL</Name>
+    <ProjectReference Include="..\MPP\MPP.csproj">
+      <Project>{75f0e3cc-bedf-4f9f-9991-cfeab2a2b908}</Project>
+      <Name>MPP</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

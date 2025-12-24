@@ -38,6 +38,8 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.iconButtonCargar = new FontAwesome.Sharp.IconButton();
             this.iconButtonCancelar = new FontAwesome.Sharp.IconButton();
+            this.maskedTextBoxFechaDeVencimiento = new System.Windows.Forms.MaskedTextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -57,9 +59,9 @@
             this.textBoxMedida.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
             this.textBoxMedida.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxMedida.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxMedida.Location = new System.Drawing.Point(169, 47);
+            this.textBoxMedida.Location = new System.Drawing.Point(187, 47);
             this.textBoxMedida.Name = "textBoxMedida";
-            this.textBoxMedida.Size = new System.Drawing.Size(192, 22);
+            this.textBoxMedida.Size = new System.Drawing.Size(174, 22);
             this.textBoxMedida.TabIndex = 2;
             this.textBoxMedida.TextChanged += new System.EventHandler(this.textBoxMedida_TextChanged);
             this.textBoxMedida.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxMedida_KeyPress);
@@ -69,9 +71,9 @@
             this.textBoxNombre.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
             this.textBoxNombre.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxNombre.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxNombre.Location = new System.Drawing.Point(169, 19);
+            this.textBoxNombre.Location = new System.Drawing.Point(187, 19);
             this.textBoxNombre.Name = "textBoxNombre";
-            this.textBoxNombre.Size = new System.Drawing.Size(280, 22);
+            this.textBoxNombre.Size = new System.Drawing.Size(262, 22);
             this.textBoxNombre.TabIndex = 1;
             this.textBoxNombre.TextChanged += new System.EventHandler(this.textBoxNombre_TextChanged);
             // 
@@ -100,9 +102,9 @@
             this.textBoxCantidad.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
             this.textBoxCantidad.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxCantidad.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxCantidad.Location = new System.Drawing.Point(169, 75);
+            this.textBoxCantidad.Location = new System.Drawing.Point(187, 75);
             this.textBoxCantidad.Name = "textBoxCantidad";
-            this.textBoxCantidad.Size = new System.Drawing.Size(280, 22);
+            this.textBoxCantidad.Size = new System.Drawing.Size(262, 22);
             this.textBoxCantidad.TabIndex = 4;
             this.textBoxCantidad.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxCantidad_KeyPress);
             // 
@@ -120,16 +122,18 @@
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(199)))), ((int)(((byte)(91)))), ((int)(((byte)(122)))));
+            this.panel1.Controls.Add(this.maskedTextBoxFechaDeVencimiento);
             this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.textBoxCantidad);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.comboBoxTipoMedida);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.textBoxNombre);
             this.panel1.Controls.Add(this.textBoxMedida);
-            this.panel1.Location = new System.Drawing.Point(12, 14);
+            this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(470, 123);
+            this.panel1.Size = new System.Drawing.Size(470, 140);
             this.panel1.TabIndex = 71;
             // 
             // iconButtonCargar
@@ -144,7 +148,7 @@
             this.iconButtonCargar.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
             this.iconButtonCargar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.iconButtonCargar.IconSize = 30;
-            this.iconButtonCargar.Location = new System.Drawing.Point(133, 151);
+            this.iconButtonCargar.Location = new System.Drawing.Point(133, 169);
             this.iconButtonCargar.Name = "iconButtonCargar";
             this.iconButtonCargar.Size = new System.Drawing.Size(110, 40);
             this.iconButtonCargar.TabIndex = 74;
@@ -165,7 +169,7 @@
             this.iconButtonCancelar.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
             this.iconButtonCancelar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.iconButtonCancelar.IconSize = 30;
-            this.iconButtonCancelar.Location = new System.Drawing.Point(249, 151);
+            this.iconButtonCancelar.Location = new System.Drawing.Point(249, 169);
             this.iconButtonCancelar.Name = "iconButtonCancelar";
             this.iconButtonCancelar.Size = new System.Drawing.Size(110, 40);
             this.iconButtonCancelar.TabIndex = 73;
@@ -174,12 +178,32 @@
             this.iconButtonCancelar.UseVisualStyleBackColor = false;
             this.iconButtonCancelar.Click += new System.EventHandler(this.iconButtonCancelar_Click);
             // 
+            // maskedTextBoxFechaDeVencimiento
+            // 
+            this.maskedTextBoxFechaDeVencimiento.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+            this.maskedTextBoxFechaDeVencimiento.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.maskedTextBoxFechaDeVencimiento.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.maskedTextBoxFechaDeVencimiento.Location = new System.Drawing.Point(187, 103);
+            this.maskedTextBoxFechaDeVencimiento.Name = "maskedTextBoxFechaDeVencimiento";
+            this.maskedTextBoxFechaDeVencimiento.Size = new System.Drawing.Size(262, 22);
+            this.maskedTextBoxFechaDeVencimiento.TabIndex = 76;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(18, 104);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(163, 21);
+            this.label4.TabIndex = 75;
+            this.label4.Text = "Fecha de vencimiento:";
+            // 
             // StockNuevoProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
-            this.ClientSize = new System.Drawing.Size(494, 203);
+            this.ClientSize = new System.Drawing.Size(494, 221);
             this.Controls.Add(this.iconButtonCargar);
             this.Controls.Add(this.iconButtonCancelar);
             this.Controls.Add(this.panel1);
@@ -205,5 +229,7 @@
         private System.Windows.Forms.Panel panel1;
         private FontAwesome.Sharp.IconButton iconButtonCargar;
         private FontAwesome.Sharp.IconButton iconButtonCancelar;
+        private System.Windows.Forms.MaskedTextBox maskedTextBoxFechaDeVencimiento;
+        private System.Windows.Forms.Label label4;
     }
 }

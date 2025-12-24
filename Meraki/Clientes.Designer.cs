@@ -65,6 +65,7 @@
             this.richTextBoxComentarios.Size = new System.Drawing.Size(472, 127);
             this.richTextBoxComentarios.TabIndex = 38;
             this.richTextBoxComentarios.Text = "";
+            this.richTextBoxComentarios.TextChanged += new System.EventHandler(this.richTextBoxComentarios_TextChanged);
             // 
             // dataGridViewClientes
             // 

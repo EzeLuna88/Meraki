@@ -1,60 +1,91 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BE;
-using DAL;
+using MPP;
 
 namespace BLL
 {
     public class BLLStock
     {
-        DALStock dalStock;
+        MPPStock mppStock;
 
-        public BLLStock() { dalStock = new DALStock(); }
+        public BLLStock() { mppStock = new MPPStock(); }
 
 
 
         public void GuardarNuevoProducto(BEStock beStock)
-        { dalStock.GuardarNuevoProducto(beStock); }
+        { mppStock.GuardarNuevoProducto(beStock); }
 
         public List<BEStock> CargarStock()
-        { return dalStock.cargarStock(); }
+        { return mppStock.CargarStock(); }
 
         public bool ComprobarRepetido(BEStock beStock)
         {
-            return dalStock.ComprobarRepetido(beStock);
+            return mppStock.ComprobarRepetido(beStock);
         }
 
         public void BorrarProductoDeStock(BEStock beStock)
         {
-            dalStock.BorrarProductoDeStock(beStock);
+            mppStock.BorrarProductoDeStock(beStock);
         }
 
         public void AgregarStock(BEStock bestock, int unidades)
         {
-            dalStock.AgregarStock(bestock, unidades);
+            mppStock.AgregarStock(bestock, unidades);
         }
 
         public void ActualizarStock(List<BEStock> listaStock)
         {
-            dalStock.ActualizarStock(listaStock);
+            mppStock.ActualizarStock(listaStock);
         }
 
         public void ModificarStock(BEStock beStock)
         {
-            dalStock.ModificarStock(beStock);
+            mppStock.ModificarStock(beStock);
         }
 
         public void CantidadReservadaStock(BEStock beStock)
         {
-            dalStock.CantidadReservadaStock(beStock);
+            mppStock.CantidadReservadaStock(beStock);
         }
 
         public void AcomodarCantidadReservada()
         {
-            dalStock.AcomodarCantidadReservadaStock();
+            mppStock.AcomodarCantidadReservadaStock();
+        }
+
+        public void CargarFechaDeVencimiento(BEStock beStock, DateTime fechaDeVencimiento, int totalUnidades)
+        {
+            mppStock.CargarFechaDeVencimiento(beStock, fechaDeVencimiento, totalUnidades);
+        }
+
+        public void DescontarStockPorVencimiento(BECompraMayorista compra)
+        {
+            mppStock.DescontarStockPorVencimiento(compra); 
+        }
+
+        public DataTable ObtenerStockConVencimiento()
+        {
+            return mppStock.ObtenerStockConVencimiento();
+        }
+
+        public void CantidadAviso(BEStock beStock)
+        {
+             mppStock.CantidadAviso(beStock);
+        }
+
+        public List<string> ObtenerProductosProximosAVencer()
+        {
+            return mppStock.ObtenerProductosProximosAVencer();
+        }
+
+        public List<string> ObtenerProductosConStockBajo()
+        {
+            return mppStock.ObtenerProductosConStockBajo();
         }
     }
 }

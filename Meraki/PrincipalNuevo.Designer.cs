@@ -327,6 +327,7 @@
             this.MinimumSize = new System.Drawing.Size(615, 39);
             this.Name = "PrincipalNuevo";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.PrincipalNuevo_Load);
             this.Resize += new System.EventHandler(this.Form1_Resize);
             this.panelMenu.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);

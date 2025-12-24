@@ -28,18 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.radioButtonEfectivo = new System.Windows.Forms.RadioButton();
             this.radioButtonTransferencia = new System.Windows.Forms.RadioButton();
-            this.checkBoxCarritosTemporales = new System.Windows.Forms.CheckBox();
-            this.textBoxFiltrarCliente = new System.Windows.Forms.TextBox();
-            this.dataGridViewClientes = new System.Windows.Forms.DataGridView();
-            this.panelListaClientes = new System.Windows.Forms.Panel();
-            this.panel10 = new System.Windows.Forms.Panel();
-            this.panel7 = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.iconButtonAgregar = new FontAwesome.Sharp.IconButton();
             this.panel11 = new System.Windows.Forms.Panel();
@@ -62,12 +55,18 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.buttonTotal = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.iconButtonVencimiento = new FontAwesome.Sharp.IconButton();
+            this.iconButtonAlertaPocoStock = new FontAwesome.Sharp.IconButton();
             this.iconButtonClientes = new FontAwesome.Sharp.IconButton();
             this.panel5 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewClientes)).BeginInit();
-            this.panelListaClientes.SuspendLayout();
-            this.panel7.SuspendLayout();
+            this.dataGridViewClientes = new System.Windows.Forms.DataGridView();
+            this.textBoxFiltrarCliente = new System.Windows.Forms.TextBox();
+            this.checkBoxCarritosTemporales = new System.Windows.Forms.CheckBox();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.panel10 = new System.Windows.Forms.Panel();
+            this.panelListaClientes = new System.Windows.Forms.Panel();
             this.panel2.SuspendLayout();
             this.panel8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProductos)).BeginInit();
@@ -76,6 +75,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCarrito)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewClientes)).BeginInit();
+            this.panel7.SuspendLayout();
+            this.panelListaClientes.SuspendLayout();
             this.SuspendLayout();
             // 
             // radioButtonEfectivo
@@ -103,109 +105,6 @@
             this.radioButtonTransferencia.TabStop = true;
             this.radioButtonTransferencia.Text = "TRANSFERENCIA";
             this.radioButtonTransferencia.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxCarritosTemporales
-            // 
-            this.checkBoxCarritosTemporales.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.checkBoxCarritosTemporales.AutoSize = true;
-            this.checkBoxCarritosTemporales.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxCarritosTemporales.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
-            this.checkBoxCarritosTemporales.Location = new System.Drawing.Point(12, 543);
-            this.checkBoxCarritosTemporales.Name = "checkBoxCarritosTemporales";
-            this.checkBoxCarritosTemporales.Size = new System.Drawing.Size(215, 21);
-            this.checkBoxCarritosTemporales.TabIndex = 60;
-            this.checkBoxCarritosTemporales.Text = "Clientes con carritos temporales";
-            this.checkBoxCarritosTemporales.UseVisualStyleBackColor = true;
-            this.checkBoxCarritosTemporales.CheckedChanged += new System.EventHandler(this.checkBoxCarritosTemporales_CheckedChanged);
-            // 
-            // textBoxFiltrarCliente
-            // 
-            this.textBoxFiltrarCliente.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxFiltrarCliente.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-            this.textBoxFiltrarCliente.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxFiltrarCliente.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxFiltrarCliente.Location = new System.Drawing.Point(12, 520);
-            this.textBoxFiltrarCliente.Name = "textBoxFiltrarCliente";
-            this.textBoxFiltrarCliente.Size = new System.Drawing.Size(489, 18);
-            this.textBoxFiltrarCliente.TabIndex = 62;
-            this.textBoxFiltrarCliente.TextChanged += new System.EventHandler(this.textBoxFiltrarCliente_TextChanged);
-            this.textBoxFiltrarCliente.Enter += new System.EventHandler(this.textBoxFiltrarCliente_Enter);
-            this.textBoxFiltrarCliente.Leave += new System.EventHandler(this.textBoxFiltrarCliente_Leave);
-            // 
-            // dataGridViewClientes
-            // 
-            this.dataGridViewClientes.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridViewClientes.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-            this.dataGridViewClientes.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dataGridViewClientes.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(8)))), ((int)(((byte)(21)))));
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewClientes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
-            this.dataGridViewClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewClientes.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(26)))), ((int)(((byte)(64)))));
-            this.dataGridViewClientes.Location = new System.Drawing.Point(12, 31);
-            this.dataGridViewClientes.MultiSelect = false;
-            this.dataGridViewClientes.Name = "dataGridViewClientes";
-            this.dataGridViewClientes.ReadOnly = true;
-            this.dataGridViewClientes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewClientes.Size = new System.Drawing.Size(489, 483);
-            this.dataGridViewClientes.TabIndex = 63;
-            this.dataGridViewClientes.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewClientes_CellClick_1);
-            this.dataGridViewClientes.SelectionChanged += new System.EventHandler(this.dataGridViewClientes_SelectionChanged_1);
-            // 
-            // panelListaClientes
-            // 
-            this.panelListaClientes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(8)))), ((int)(((byte)(21)))));
-            this.panelListaClientes.Controls.Add(this.panel10);
-            this.panelListaClientes.Controls.Add(this.panel7);
-            this.panelListaClientes.Controls.Add(this.checkBoxCarritosTemporales);
-            this.panelListaClientes.Controls.Add(this.textBoxFiltrarCliente);
-            this.panelListaClientes.Controls.Add(this.dataGridViewClientes);
-            this.panelListaClientes.Location = new System.Drawing.Point(42, 0);
-            this.panelListaClientes.Name = "panelListaClientes";
-            this.panelListaClientes.Size = new System.Drawing.Size(511, 567);
-            this.panelListaClientes.TabIndex = 61;
-            this.panelListaClientes.Visible = false;
-            // 
-            // panel10
-            // 
-            this.panel10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
-            this.panel10.Location = new System.Drawing.Point(12, 30);
-            this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(489, 1);
-            this.panel10.TabIndex = 66;
-            // 
-            // panel7
-            // 
-            this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(8)))), ((int)(((byte)(21)))));
-            this.panel7.Controls.Add(this.label2);
-            this.panel7.Location = new System.Drawing.Point(12, 8);
-            this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(489, 22);
-            this.panel7.TabIndex = 65;
-            // 
-            // label2
-            // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
-            this.label2.Location = new System.Drawing.Point(2, 2);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(66, 17);
-            this.label2.TabIndex = 64;
-            this.label2.Text = "CLIENTES";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panel2
             // 
@@ -301,14 +200,14 @@
             this.dataGridViewProductos.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
             this.dataGridViewProductos.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridViewProductos.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(8)))), ((int)(((byte)(21)))));
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewProductos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(8)))), ((int)(((byte)(21)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewProductos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewProductos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewProductos.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(26)))), ((int)(((byte)(64)))));
             this.dataGridViewProductos.Location = new System.Drawing.Point(12, 29);
@@ -418,7 +317,7 @@
             this.iconButtonModificarPrecio.Name = "iconButtonModificarPrecio";
             this.iconButtonModificarPrecio.Size = new System.Drawing.Size(107, 40);
             this.iconButtonModificarPrecio.TabIndex = 69;
-            this.iconButtonModificarPrecio.Text = "Modificar precio";
+            this.iconButtonModificarPrecio.Text = "Modificar";
             this.iconButtonModificarPrecio.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.iconButtonModificarPrecio.UseVisualStyleBackColor = false;
             this.iconButtonModificarPrecio.Click += new System.EventHandler(this.iconButtonModificarPrecio_Click);
@@ -439,7 +338,7 @@
             this.iconButtonGuardarPrecio.Name = "iconButtonGuardarPrecio";
             this.iconButtonGuardarPrecio.Size = new System.Drawing.Size(107, 40);
             this.iconButtonGuardarPrecio.TabIndex = 68;
-            this.iconButtonGuardarPrecio.Text = "Guardar precio";
+            this.iconButtonGuardarPrecio.Text = "Guardar";
             this.iconButtonGuardarPrecio.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.iconButtonGuardarPrecio.UseVisualStyleBackColor = false;
             this.iconButtonGuardarPrecio.Click += new System.EventHandler(this.iconButtonGuardarPrecio_Click);
@@ -509,14 +408,14 @@
             this.dataGridViewCarrito.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
             this.dataGridViewCarrito.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridViewCarrito.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(8)))), ((int)(((byte)(21)))));
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewCarrito.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(8)))), ((int)(((byte)(21)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewCarrito.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewCarrito.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewCarrito.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(26)))), ((int)(((byte)(64)))));
             this.dataGridViewCarrito.Location = new System.Drawing.Point(12, 28);
@@ -526,7 +425,9 @@
             this.dataGridViewCarrito.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewCarrito.Size = new System.Drawing.Size(918, 145);
             this.dataGridViewCarrito.TabIndex = 63;
+            this.dataGridViewCarrito.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dataGridViewCarrito_CellBeginEdit);
             this.dataGridViewCarrito.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewCarrito_CellValueChanged_1);
+            this.dataGridViewCarrito.CurrentCellDirtyStateChanged += new System.EventHandler(this.dataGridViewCarrito_CurrentCellDirtyStateChanged);
             this.dataGridViewCarrito.Click += new System.EventHandler(this.dataGridViewCarrito_Click);
             // 
             // iconButtonConfirmarCompra
@@ -589,12 +490,56 @@
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(8)))), ((int)(((byte)(21)))));
+            this.panel4.Controls.Add(this.iconButtonVencimiento);
+            this.panel4.Controls.Add(this.iconButtonAlertaPocoStock);
             this.panel4.Controls.Add(this.iconButtonClientes);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel4.Location = new System.Drawing.Point(0, 0);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(40, 567);
             this.panel4.TabIndex = 65;
+            // 
+            // iconButtonVencimiento
+            // 
+            this.iconButtonVencimiento.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
+            this.iconButtonVencimiento.FlatAppearance.BorderSize = 0;
+            this.iconButtonVencimiento.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.iconButtonVencimiento.Font = new System.Drawing.Font("Segoe UI", 5.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.iconButtonVencimiento.ForeColor = System.Drawing.Color.Red;
+            this.iconButtonVencimiento.IconChar = FontAwesome.Sharp.IconChar.ExclamationTriangle;
+            this.iconButtonVencimiento.IconColor = System.Drawing.Color.Red;
+            this.iconButtonVencimiento.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iconButtonVencimiento.IconSize = 30;
+            this.iconButtonVencimiento.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.iconButtonVencimiento.Location = new System.Drawing.Point(0, 50);
+            this.iconButtonVencimiento.Name = "iconButtonVencimiento";
+            this.iconButtonVencimiento.Size = new System.Drawing.Size(40, 50);
+            this.iconButtonVencimiento.TabIndex = 12;
+            this.iconButtonVencimiento.Text = " Venc.";
+            this.iconButtonVencimiento.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.iconButtonVencimiento.UseVisualStyleBackColor = false;
+            this.iconButtonVencimiento.Click += new System.EventHandler(this.iconButtonVencimiento_Click);
+            // 
+            // iconButtonAlertaPocoStock
+            // 
+            this.iconButtonAlertaPocoStock.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
+            this.iconButtonAlertaPocoStock.FlatAppearance.BorderSize = 0;
+            this.iconButtonAlertaPocoStock.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.iconButtonAlertaPocoStock.Font = new System.Drawing.Font("Segoe UI", 5.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.iconButtonAlertaPocoStock.ForeColor = System.Drawing.Color.Red;
+            this.iconButtonAlertaPocoStock.IconChar = FontAwesome.Sharp.IconChar.ExclamationTriangle;
+            this.iconButtonAlertaPocoStock.IconColor = System.Drawing.Color.Red;
+            this.iconButtonAlertaPocoStock.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iconButtonAlertaPocoStock.IconSize = 30;
+            this.iconButtonAlertaPocoStock.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.iconButtonAlertaPocoStock.Location = new System.Drawing.Point(0, 0);
+            this.iconButtonAlertaPocoStock.Name = "iconButtonAlertaPocoStock";
+            this.iconButtonAlertaPocoStock.Size = new System.Drawing.Size(40, 50);
+            this.iconButtonAlertaPocoStock.TabIndex = 11;
+            this.iconButtonAlertaPocoStock.Text = " Stock";
+            this.iconButtonAlertaPocoStock.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.iconButtonAlertaPocoStock.UseVisualStyleBackColor = false;
+            this.iconButtonAlertaPocoStock.Click += new System.EventHandler(this.iconButtonAlertaPocoStock_Click);
             // 
             // iconButtonClientes
             // 
@@ -607,7 +552,7 @@
             this.iconButtonClientes.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
             this.iconButtonClientes.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.iconButtonClientes.IconSize = 30;
-            this.iconButtonClientes.Location = new System.Drawing.Point(0, 15);
+            this.iconButtonClientes.Location = new System.Drawing.Point(0, 102);
             this.iconButtonClientes.Name = "iconButtonClientes";
             this.iconButtonClientes.Size = new System.Drawing.Size(40, 50);
             this.iconButtonClientes.TabIndex = 10;
@@ -632,6 +577,110 @@
             this.panel6.Size = new System.Drawing.Size(2, 567);
             this.panel6.TabIndex = 66;
             // 
+            // dataGridViewClientes
+            // 
+            this.dataGridViewClientes.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewClientes.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+            this.dataGridViewClientes.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dataGridViewClientes.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(8)))), ((int)(((byte)(21)))));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewClientes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.dataGridViewClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewClientes.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(26)))), ((int)(((byte)(64)))));
+            this.dataGridViewClientes.Location = new System.Drawing.Point(12, 31);
+            this.dataGridViewClientes.MultiSelect = false;
+            this.dataGridViewClientes.Name = "dataGridViewClientes";
+            this.dataGridViewClientes.ReadOnly = true;
+            this.dataGridViewClientes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewClientes.Size = new System.Drawing.Size(489, 483);
+            this.dataGridViewClientes.TabIndex = 63;
+            this.dataGridViewClientes.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewClientes_CellClick_1);
+            this.dataGridViewClientes.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewClientes_CellDoubleClick);
+            this.dataGridViewClientes.SelectionChanged += new System.EventHandler(this.dataGridViewClientes_SelectionChanged_1);
+            // 
+            // textBoxFiltrarCliente
+            // 
+            this.textBoxFiltrarCliente.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxFiltrarCliente.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+            this.textBoxFiltrarCliente.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxFiltrarCliente.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxFiltrarCliente.Location = new System.Drawing.Point(12, 520);
+            this.textBoxFiltrarCliente.Name = "textBoxFiltrarCliente";
+            this.textBoxFiltrarCliente.Size = new System.Drawing.Size(489, 18);
+            this.textBoxFiltrarCliente.TabIndex = 62;
+            this.textBoxFiltrarCliente.TextChanged += new System.EventHandler(this.textBoxFiltrarCliente_TextChanged);
+            this.textBoxFiltrarCliente.Enter += new System.EventHandler(this.textBoxFiltrarCliente_Enter);
+            this.textBoxFiltrarCliente.Leave += new System.EventHandler(this.textBoxFiltrarCliente_Leave);
+            // 
+            // checkBoxCarritosTemporales
+            // 
+            this.checkBoxCarritosTemporales.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.checkBoxCarritosTemporales.AutoSize = true;
+            this.checkBoxCarritosTemporales.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxCarritosTemporales.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
+            this.checkBoxCarritosTemporales.Location = new System.Drawing.Point(12, 543);
+            this.checkBoxCarritosTemporales.Name = "checkBoxCarritosTemporales";
+            this.checkBoxCarritosTemporales.Size = new System.Drawing.Size(215, 21);
+            this.checkBoxCarritosTemporales.TabIndex = 60;
+            this.checkBoxCarritosTemporales.Text = "Clientes con carritos temporales";
+            this.checkBoxCarritosTemporales.UseVisualStyleBackColor = true;
+            this.checkBoxCarritosTemporales.CheckedChanged += new System.EventHandler(this.checkBoxCarritosTemporales_CheckedChanged);
+            // 
+            // panel7
+            // 
+            this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(8)))), ((int)(((byte)(21)))));
+            this.panel7.Controls.Add(this.label2);
+            this.panel7.Location = new System.Drawing.Point(12, 8);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(489, 22);
+            this.panel7.TabIndex = 65;
+            // 
+            // label2
+            // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
+            this.label2.Location = new System.Drawing.Point(2, 2);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(66, 17);
+            this.label2.TabIndex = 64;
+            this.label2.Text = "CLIENTES";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panel10
+            // 
+            this.panel10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
+            this.panel10.Location = new System.Drawing.Point(12, 30);
+            this.panel10.Name = "panel10";
+            this.panel10.Size = new System.Drawing.Size(489, 1);
+            this.panel10.TabIndex = 66;
+            // 
+            // panelListaClientes
+            // 
+            this.panelListaClientes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(8)))), ((int)(((byte)(21)))));
+            this.panelListaClientes.Controls.Add(this.panel10);
+            this.panelListaClientes.Controls.Add(this.panel7);
+            this.panelListaClientes.Controls.Add(this.checkBoxCarritosTemporales);
+            this.panelListaClientes.Controls.Add(this.textBoxFiltrarCliente);
+            this.panelListaClientes.Controls.Add(this.dataGridViewClientes);
+            this.panelListaClientes.Location = new System.Drawing.Point(42, 0);
+            this.panelListaClientes.Name = "panelListaClientes";
+            this.panelListaClientes.Size = new System.Drawing.Size(511, 567);
+            this.panelListaClientes.TabIndex = 61;
+            this.panelListaClientes.Visible = false;
+            // 
             // CompraMayorista
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -649,11 +698,6 @@
             this.Text = "CompraMayorista";
             this.Load += new System.EventHandler(this.CompraMayorista_Load);
             this.Click += new System.EventHandler(this.CompraMayorista_Click);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewClientes)).EndInit();
-            this.panelListaClientes.ResumeLayout(false);
-            this.panelListaClientes.PerformLayout();
-            this.panel7.ResumeLayout(false);
-            this.panel7.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel8.ResumeLayout(false);
@@ -666,6 +710,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCarrito)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewClientes)).EndInit();
+            this.panel7.ResumeLayout(false);
+            this.panel7.PerformLayout();
+            this.panelListaClientes.ResumeLayout(false);
+            this.panelListaClientes.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -673,11 +722,6 @@
         #endregion
         private System.Windows.Forms.RadioButton radioButtonEfectivo;
         private System.Windows.Forms.RadioButton radioButtonTransferencia;
-        private System.Windows.Forms.CheckBox checkBoxCarritosTemporales;
-        private System.Windows.Forms.TextBox textBoxFiltrarCliente;
-        private System.Windows.Forms.DataGridView dataGridViewClientes;
-        private System.Windows.Forms.Panel panelListaClientes;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.TextBox textBoxFiltrar;
         private System.Windows.Forms.DataGridView dataGridViewProductos;
@@ -695,15 +739,22 @@
         private FontAwesome.Sharp.IconButton iconButtonClientes;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Panel panel6;
-        private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.Panel panel8;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel panel9;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Panel panel10;
         private System.Windows.Forms.Panel panel11;
         private System.Windows.Forms.Panel panel12;
         private FontAwesome.Sharp.IconButton iconButtonGenerarPresupuesto;
         private FontAwesome.Sharp.IconButton iconButtonAgregar;
+        private System.Windows.Forms.DataGridView dataGridViewClientes;
+        private System.Windows.Forms.TextBox textBoxFiltrarCliente;
+        private System.Windows.Forms.CheckBox checkBoxCarritosTemporales;
+        private System.Windows.Forms.Panel panel7;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Panel panel10;
+        private System.Windows.Forms.Panel panelListaClientes;
+        private FontAwesome.Sharp.IconButton iconButtonAlertaPocoStock;
+        private FontAwesome.Sharp.IconButton iconButtonVencimiento;
     }
 }

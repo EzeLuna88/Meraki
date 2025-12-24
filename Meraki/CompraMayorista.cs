@@ -47,10 +47,11 @@ namespace Meraki
         List<BEComprobante> listaComprobantes;
         BECliente clienteSeleccionado;
         bool ModificarPrecio;
+        bool ModificarCantidad;
         private BindingSource bindingSourceClientes = new BindingSource();
         bool panelClientes = false;
         private const string placeholderText = "   Buscar...";
-
+        int cantidadAnteriorEditada;
         public CompraMayorista()
         {
             bllStock = new BLLStock();
@@ -67,16 +68,20 @@ namespace Meraki
             bllComprobante = new BLLComprobante();
             clienteSeleccionado = new BECliente();
             ModificarPrecio = false;
+            ModificarCantidad = false;
 
             InitializeComponent();
-
-
+            
+            iconButtonAlertaPocoStock.Visible = false;
+            iconButtonVencimiento.Visible = false;
             CargarDataGrid();
             CargarDataGridClientes();
             ComprobarCarritoParaModificar();
             ConfigurarDataGrid(dataGridViewCarrito);
             this.Click += CompraMayorista_Click;
             this.Click += tableLayoutPanel1_Click;
+            ComprobarBajoStock();
+            comprobarVencimiento();
         }
 
 
@@ -93,6 +98,7 @@ namespace Meraki
             dataGridViewProductos.Columns["Codigo"].Visible = false;
             dataGridViewProductos.Columns["Tipo"].Visible = false;
             dataGridViewProductos.Columns["Unidad"].Visible = false;
+            dataGridViewProductos.Columns["NombreMostrar"].Visible = false;
             if (dataGridViewProductos.Columns["nombre"] == null)
             {
                 dataGridViewProductos.Columns.Add("Nombre", "Nombre");
@@ -192,7 +198,7 @@ namespace Meraki
                 beCompraMayorista.ListaCarrito.Add(beCarrito);
 
             }
-            productoEnStock.CantidadReservada += producto.Unidad;
+            productoEnStock.CantidadReservada = productoEnStock.CantidadReservada + producto.Unidad;
             bllStock.CantidadReservadaStock(productoEnStock);
 
             bllCliente.GuardarCompraMayoristaTemporal(clienteSeleccionado, beCompraMayorista);
@@ -258,9 +264,11 @@ namespace Meraki
 
         private void ActualizarInterfaz()
         {
-            //CargarDataGridClientes();
+            CargarDataGridClientes();
             CargarDataGridCarrito();
             CalcularTotal();
+            ComprobarBajoStock();
+            comprobarVencimiento();
         }
 
 
@@ -297,11 +305,8 @@ namespace Meraki
 
         public void CargarDataGridClientes()
         {
-            int selectedRowIndex = -1;
-            if (dataGridViewClientes.SelectedRows.Count > 0)
-            {
-                selectedRowIndex = dataGridViewClientes.SelectedRows[0].Index;
-            }
+            // Guardar el código del cliente seleccionado si existe
+            string codigoClienteSeleccionado = clienteSeleccionado?.Codigo;
 
             // Cargar y ordenar los clientes
             List<BECliente> listClientes = bllCliente.ListaClientes().OrderBy(cliente => cliente.Nombre).ToList();
@@ -313,18 +318,25 @@ namespace Meraki
                 }
             }
 
-            // Asignar la lista al BindingSource
+            // Asignar al DataGridView
             bindingSourceClientes.DataSource = new BindingList<BECliente>(listClientes);
             dataGridViewClientes.DataSource = bindingSourceClientes;
 
-            if (selectedRowIndex >= 0 && selectedRowIndex < dataGridViewClientes.Rows.Count)
+            // Restaurar la selección usando clienteSeleccionado
+            if (!string.IsNullOrEmpty(codigoClienteSeleccionado))
             {
-                dataGridViewClientes.Rows[selectedRowIndex].Selected = true;
+                foreach (DataGridViewRow row in dataGridViewClientes.Rows)
+                {
+                    if (row.DataBoundItem is BECliente cliente && cliente.Codigo == codigoClienteSeleccionado)
+                    {
+                        row.Selected = true;
+                        dataGridViewClientes.FirstDisplayedScrollingRowIndex = row.Index;
+                        break;
+                    }
+                }
             }
 
-
-
-
+            // Ocultar columnas y configurar
             dataGridViewClientes.Columns[0].Visible = false;
             dataGridViewClientes.Columns[4].Visible = false;
             dataGridViewClientes.Columns[5].Visible = false;
@@ -374,7 +386,7 @@ namespace Meraki
             paginaHtml = paginaHtml.Replace("{{productosCarrito}}", filasItems);
 
             paginaHtml = paginaHtml.Replace("{{cantidadTotalProductos}}", cantidad.ToString());
-            paginaHtml = paginaHtml.Replace("{{totalCompra}}", comprobante.Total.ToString());
+            paginaHtml = paginaHtml.Replace("{{totalCompra}}", comprobante.Total.ToString("c2"));
 
 
             if (comprobante.PagoEfectivo == true)
@@ -486,7 +498,6 @@ namespace Meraki
                 dataGridViewCarrito.DefaultCellStyle.BackColor = Color.Gray;
                 dataGridViewCarrito.DefaultCellStyle.SelectionBackColor = Color.Gray;
                 dataGridViewCarrito.ReadOnly = true;
-
             }
         }
 
@@ -767,7 +778,7 @@ namespace Meraki
                         {
                             // Remover el producto si la cantidad es 1
                             beCompraMayorista.ListaCarrito.Remove(beCarrito);
-
+                            beCompraMayorista.Total = 0;
                             // Actualizar stock y reservar la cantidad devuelta
                             productoEnStock.CantidadReservada -= beCarrito.Producto.Unidad;
                             bllStock.CantidadReservadaStock(productoEnStock);
@@ -947,9 +958,10 @@ namespace Meraki
                         bllComprobante.GuardarNuevoComprobante(beComprobante);
                         GenerarPDF(beComprobante);
                         bllStock.ActualizarStock(listaStockTemp);
+                        bllStock.DescontarStockPorVencimiento(beCompraMayorista);
                         listaStock = bllStock.CargarStock();
                         limpiarCompraMayorista();
-
+                        ComprobarBajoStock();
                     }
                 }
                 else
@@ -964,6 +976,16 @@ namespace Meraki
             }
         }
 
+        private void ComprobarBajoStock()
+        {
+            List<string> productosBajoStock = bllStock.ObtenerProductosConStockBajo();
+            if (productosBajoStock.Any())
+            {
+                iconButtonAlertaPocoStock.Visible = true;
+                
+            }
+        }
+
         private void iconButtonModificarPrecio_Click(object sender, EventArgs e)
         {
 
@@ -971,7 +993,6 @@ namespace Meraki
             {
                 dataGridViewCarrito.ReadOnly = false;
                 dataGridViewCarrito.Columns["Producto"].ReadOnly = true;
-                dataGridViewCarrito.Columns["Cantidad"].ReadOnly = true;
                 ModificarPrecio = true;
                 ComprobarCarritoParaModificar();
             }
@@ -981,43 +1002,196 @@ namespace Meraki
 
         private void dataGridViewCarrito_CellValueChanged_1(object sender, DataGridViewCellEventArgs e)
         {
-            // Asegúrate de que la modificación se hizo en la columna de precios
-            if (e.ColumnIndex == dataGridViewCarrito.Columns["Total"].Index)
+            if (e.RowIndex < 0 || e.RowIndex >= dataGridViewCarrito.Rows.Count)
+                return;
+
+            var fila = dataGridViewCarrito.Rows[e.RowIndex];
+            if (fila.IsNewRow) return;
+
+            string nombreColumna = dataGridViewCarrito.Columns[e.ColumnIndex].Name;
+
+            if (nombreColumna == "Cantidad")
             {
-                // Llama al método calcularTotal
-                CalcularTotal();
+                var valorCelda = fila.Cells["Cantidad"].Value;
+
+                // Si la celda quedó vacía, no hacer nada
+                if (valorCelda == null || string.IsNullOrWhiteSpace(valorCelda.ToString()))
+                    return;
+
+                if (int.TryParse(valorCelda.ToString(), out int nuevaCantidad) && nuevaCantidad > 0)
+                {
+                    var itemCarrito = beCompraMayorista.ListaCarrito[e.RowIndex];
+
+                    if (itemCarrito.Producto.Tipo == "individual")
+                    {
+                        BEProductoIndividual producto = (BEProductoIndividual)itemCarrito.Producto;
+                        
+                        int devolverStock = cantidadAnteriorEditada * producto.Unidad;
+                        int nuevaCantidadReservada = producto.Stock.CantidadReservada - devolverStock;
+                        int nuevaCantidadUnidades = nuevaCantidad * producto.Unidad;
+                        
+                        if(producto.Stock.CantidadActual >= nuevaCantidadReservada + nuevaCantidadUnidades)
+                        {
+                            producto.Stock.CantidadReservada = nuevaCantidadReservada + nuevaCantidadUnidades;
+                            bllStock.CantidadReservadaStock(producto.Stock); // si tenés persistencia acá
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("No hay suficiente stock");
+                            fila.Cells["Cantidad"].Value = cantidadAnteriorEditada;
+                            return;
+                        }
+
+                    }
+                    else if (itemCarrito.Producto.Tipo == "combo")
+                    {
+                        var productoCombo = (BEProductoCombo)itemCarrito.Producto;
+                        bool hayStockSuficiente = true;
+
+                        // Por cada unidad de stock que compone el combo...
+                        int cantidadAnterior = itemCarrito.Cantidad;
+
+                        foreach (BEStock stockEnCombo in productoCombo.ListaProductos)
+                        {
+                            int stockDisponible = stockEnCombo.CantidadActual - stockEnCombo.CantidadReservada + cantidadAnterior;
+
+                            if (stockDisponible < nuevaCantidad)
+                            {
+                                hayStockSuficiente = false;
+                                break;
+                            }
+                        }
+
+                        if (!hayStockSuficiente)
+                        {
+                            MessageBox.Show("No hay suficiente stock para uno o más productos del combo.");
+                            fila.Cells["Cantidad"].Value = itemCarrito.Cantidad;
+                            return;
+                        }
+
+                        // Si hay stock, actualizar reservas
+                        foreach (BEStock stockEnCombo in productoCombo.ListaProductos)
+                        {
+                            stockEnCombo.CantidadReservada = stockEnCombo.CantidadReservada - cantidadAnterior + nuevaCantidad;
+                            bllStock.CantidadReservadaStock(stockEnCombo);
+                        }
+
+                        // ... luego actualizás cantidad y total del carrito como antes
+                    }
+
+                    itemCarrito.Cantidad = nuevaCantidad;
+
+                    decimal nuevoTotal = Math.Round(itemCarrito.Producto.PrecioMayorista * nuevaCantidad, 2);
+                    itemCarrito.Total = nuevoTotal;
+
+                    fila.Cells["Total"].Value = nuevoTotal;
+                    CalcularTotal();
+
+                    bllCliente.GuardarCompraMayoristaTemporal(clienteSeleccionado, beCompraMayorista);
+
+                }
+                else
+                {
+                    // No mostrar mensaje acá, solo ignorar.
+                }
             }
+
+            
+            
         }
 
         private void iconButtonGuardarPrecio_Click(object sender, EventArgs e)
         {
-            foreach (DataGridViewRow fila in dataGridViewCarrito.Rows)
+            for (int i = 0; i < dataGridViewCarrito.Rows.Count; i++)
             {
+                DataGridViewRow fila = dataGridViewCarrito.Rows[i];
+
                 if (fila.Index != dataGridViewCarrito.NewRowIndex && !fila.IsNewRow)
                 {
-                    int rowIndex = fila.Index;
-                    if (decimal.TryParse(fila.Cells["Total"].Value.ToString(), out decimal nuevoTotal))
+                    if (int.TryParse(fila.Cells["Cantidad"].Value?.ToString(), out int nuevaCantidad) && nuevaCantidad > 0)
                     {
-                        // Redondear el valor a dos decimales
-                        nuevoTotal = Math.Round(nuevoTotal, 2);
+                        if (decimal.TryParse(fila.Cells["Total"].Value?.ToString(), out decimal nuevoTotal))
+                        {
+                            nuevoTotal = Math.Round(nuevoTotal, 2);
 
-                        // Actualizar el valor en la lista de carritos
-                        beCompraMayorista.ListaCarrito[rowIndex].Total = nuevoTotal;
+                            var itemCarrito = beCompraMayorista.ListaCarrito[i];
+                            int cantidadAnterior = itemCarrito.Cantidad;
 
-                        // Desactivar la modificación de precio
-                        ModificarPrecio = false;
+                            // Actualizar stock reservado
+                            if (itemCarrito.Producto.Tipo == "individual")
+                            {
+                                BEProductoIndividual producto = (BEProductoIndividual)itemCarrito.Producto;
+                                int unidadesAntiguas = cantidadAnterior * producto.Unidad;
+                                int unidadesNuevas = nuevaCantidad * producto.Unidad;
+
+                                int stockDisponible = producto.Stock.CantidadActual - producto.Stock.CantidadReservada + unidadesAntiguas;
+
+                                if (stockDisponible >= unidadesNuevas)
+                                {
+                                    producto.Stock.CantidadReservada = producto.Stock.CantidadReservada - unidadesAntiguas + unidadesNuevas;
+                                    bllStock.CantidadReservadaStock(producto.Stock); // persistencia
+                                }
+                                else
+                                {
+                                    MessageBox.Show($"No hay suficiente stock para '{producto.ToString()}'.", "Stock insuficiente", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    continue;
+                                }
+                            }
+                            else if (itemCarrito.Producto.Tipo == "combo")
+                            {
+                                var combo = (BEProductoCombo)itemCarrito.Producto;
+                                bool stockSuficiente = true;
+
+                                foreach (var stock in combo.ListaProductos)
+                                {
+                                    int disponible = stock.CantidadActual - stock.CantidadReservada + cantidadAnterior;
+                                    if (disponible < nuevaCantidad)
+                                    {
+                                        stockSuficiente = false;
+                                        break;
+                                    }
+                                }
+
+                                if (!stockSuficiente)
+                                {
+                                    MessageBox.Show($"No hay suficiente stock para uno o más productos del combo '{combo.Nombre}'.", "Stock insuficiente", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    continue;
+                                }
+
+                                foreach (var stock in combo.ListaProductos)
+                                {
+                                    stock.CantidadReservada = stock.CantidadReservada - cantidadAnterior + nuevaCantidad;
+                                    bllStock.CantidadReservadaStock(stock);
+                                }
+                            }
+
+                            // Actualizar cantidad y total en el carrito
+                            itemCarrito.Cantidad = nuevaCantidad;
+                            itemCarrito.Total = nuevoTotal;
+
+                            // Desactivar edición
+                            ModificarPrecio = false;
+                        }
+                        else
+                        {
+                            MessageBox.Show("El valor ingresado en 'Total' no es un número válido.");
+                        }
                     }
                     else
                     {
-                        // Manejar el caso donde el valor no se puede convertir
-                        MessageBox.Show("El valor ingresado en 'Total' no es un número válido.");
+                        MessageBox.Show("El valor ingresado en 'Cantidad' no es válido. Debe ser un número entero mayor que cero.");
                     }
                 }
             }
+
+            // Guardar los cambios del carrito temporal del cliente
             bllCliente.GuardarCompraMayoristaTemporal(clienteSeleccionado, beCompraMayorista);
 
+            // Refrescar la grilla y recalcular total
             ComprobarCarritoParaModificar();
             CargarDataGridCarrito();
+            CalcularTotal();
         }
 
         private void iconButtonCarritoAgregar_Click(object sender, EventArgs e)
@@ -1042,7 +1216,7 @@ namespace Meraki
                             beCarrito.Total += beCarrito.Producto.PrecioMayorista;
 
                             // Aumentar la cantidad reservada
-                            productoEnStock.CantidadReservada += beCarrito.Producto.Unidad;
+                            productoEnStock.CantidadReservada = productoEnStock.CantidadReservada + beCarrito.Producto.Unidad;
                             bllStock.CantidadReservadaStock(productoEnStock);
 
                             CargarDataGridCarrito();
@@ -1187,62 +1361,64 @@ namespace Meraki
             SaveFileDialog guardar = new SaveFileDialog
             {
                 FileName = ".jpg",
-                Filter = "JPEG Image (*.jpg)|*.jpg", // Filtro para archivos JPEG
-                DefaultExt = "jpg" // Extensión predeterminada
+                Filter = "JPEG Image (*.jpg)|*.jpg",
+                DefaultExt = "jpg"
             };
 
             string paginaHtml = Properties.Resources.plantilla2.ToString();
 
-            paginaHtml = paginaHtml.Replace("{{fechaComprobante}}", DateTime.Today.ToString());
-            paginaHtml = paginaHtml.Replace("{{nombreCliente}}", clienteSeleccionado.Nombre.ToString());
-            paginaHtml = paginaHtml.Replace("{{direccionCliente}}", clienteSeleccionado.Direccion.ToString() + ", " + clienteSeleccionado.Localidad.ToString());
-            paginaHtml = paginaHtml.Replace("{{telefonoCliente}}", clienteSeleccionado.Telefono.ToString() + " / " + clienteSeleccionado.TelefonoAlternativo.ToString());
+            var cultura = new CultureInfo("es-AR");
+
+            paginaHtml = paginaHtml.Replace("{{fechaComprobante}}", DateTime.Today.ToString("d", cultura));
+            paginaHtml = paginaHtml.Replace("{{nombreCliente}}", clienteSeleccionado.Nombre);
+            paginaHtml = paginaHtml.Replace("{{direccionCliente}}", $"{clienteSeleccionado.Direccion}, {clienteSeleccionado.Localidad}");
+            paginaHtml = paginaHtml.Replace("{{telefonoCliente}}", $"{clienteSeleccionado.Telefono} / {clienteSeleccionado.TelefonoAlternativo}");
             paginaHtml = paginaHtml.Replace("{{horarioApertura}}", clienteSeleccionado.HorarioDeApertura.ToString());
             paginaHtml = paginaHtml.Replace("{{horarioCierre}}", clienteSeleccionado.HorarioDeCierre.ToString());
 
             string filasItems = string.Empty;
             int cantidad = 0;
             decimal totalPresupuesto = 0;
+
             foreach (BECarrito item in compraMayorista.ListaCarrito)
             {
                 cantidad += item.Cantidad;
                 filasItems += "<tr>";
                 filasItems += $"<td>{item.Producto.Codigo}</td>";
-                decimal precioUnitario = item.Producto.PrecioMayorista;
                 filasItems += $"<td class='producto'>{item.Producto.ToString()}</td>";
-                filasItems += $"<td >{precioUnitario.ToString("c2")}</td>";
+
+                decimal precioUnitario = item.Producto.PrecioMayorista;
+                filasItems += $"<td>{precioUnitario.ToString("N2", cultura)}</td>";
                 filasItems += $"<td>{item.Cantidad}</td>";
-                filasItems += $"<td class='precio'>{item.Total.ToString("c2")}</td>";
+                filasItems += $"<td class='precio'>{item.Total.ToString("N2", cultura)}</td>";
                 filasItems += "</tr>";
+
                 totalPresupuesto += item.Total;
             }
-            paginaHtml = paginaHtml.Replace("{{productosCarrito}}", filasItems);
 
+            paginaHtml = paginaHtml.Replace("{{productosCarrito}}", filasItems);
             paginaHtml = paginaHtml.Replace("{{cantidadTotalProductos}}", cantidad.ToString());
-            paginaHtml = paginaHtml.Replace("{{totalCompra}}", totalPresupuesto.ToString());
+            paginaHtml = paginaHtml.Replace("{{totalCompra}}", totalPresupuesto.ToString("N2", cultura));
 
             WebBrowser webBrowser = new WebBrowser
             {
                 ScrollBarsEnabled = false,
                 ScriptErrorsSuppressed = true,
-                Width = 827,  // A4 width in pixels (96 DPI)
-                Height = 1169 // A4 height in pixels (96 DPI)
+                Width = 827,
+                Height = 1169
             };
 
             webBrowser.DocumentText = paginaHtml;
             webBrowser.DocumentCompleted += (s, ev) =>
             {
-                // Cuando el documento esté completamente cargado
                 Bitmap bitmap = new Bitmap(webBrowser.Width, webBrowser.Height);
                 webBrowser.DrawToBitmap(bitmap, new System.Drawing.Rectangle(0, 0, bitmap.Width, bitmap.Height));
 
-                // Guardar la imagen
                 if (guardar.ShowDialog() == DialogResult.OK)
                 {
                     bitmap.Save(guardar.FileName, ImageFormat.Jpeg);
                     MessageBox.Show("Imagen guardada correctamente.");
 
-                    // Abrir la imagen automáticamente
                     try
                     {
                         System.Diagnostics.Process.Start(guardar.FileName);
@@ -1253,9 +1429,6 @@ namespace Meraki
                     }
                 }
             };
-
-
-
         }
 
         private void iconButtonAgregar_Click_1(object sender, EventArgs e)
@@ -1412,6 +1585,75 @@ namespace Meraki
         private void iconButtonAcomodarCantidadReservada_Click(object sender, EventArgs e)
         {
             bllStock.AcomodarCantidadReservada();
+        }
+
+        
+
+        private void dataGridViewClientes_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            dataGridViewClientes_CellClick_1(sender, e);
+            panelListaClientes.Visible = false;
+
+        }
+
+        private void iconButtonAlertaPocoStock_Click(object sender, EventArgs e)
+        {
+            List<string> productosBajoStock = bllStock.ObtenerProductosConStockBajo();
+            if (productosBajoStock.Any())
+            {
+                iconButtonAlertaPocoStock.Visible = true;
+                string mensaje = "¡Atención! Los siguientes productos tienen bajo stock:\n\n" + string.Join("\n", productosBajoStock);
+                MessageBox.Show(mensaje, "Stock bajo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        public void comprobarVencimiento()
+        {
+            var productosProximos = bllStock.ObtenerProductosProximosAVencer(); // o como lo tengas nombrado
+
+            if (productosProximos.Any())
+            {
+                iconButtonVencimiento.Visible = true;
+            }
+        }
+
+        private void iconButtonVencimiento_Click(object sender, EventArgs e)
+        {
+            var productosProximos = bllStock.ObtenerProductosProximosAVencer(); // o como lo tengas nombrado
+
+            if (productosProximos.Any())
+            {
+                string mensaje = "Los siguientes productos están próximos a vencerse:\n\n" +
+                                 string.Join("\n", productosProximos);
+
+                MessageBox.Show(mensaje, "Aviso de vencimiento", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void dataGridViewCarrito_CurrentCellDirtyStateChanged(object sender, EventArgs e)
+        {
+            if (dataGridViewCarrito.IsCurrentCellDirty)
+            {
+                var celda = dataGridViewCarrito.CurrentCell;
+
+                if (celda != null && celda.Value != null && !string.IsNullOrWhiteSpace(celda.EditedFormattedValue.ToString()))
+                {
+                    // Solo hacer commit si la celda tiene contenido válido
+                    dataGridViewCarrito.CommitEdit(DataGridViewDataErrorContexts.Commit);
+                }
+            }
+        }
+
+        private void dataGridViewCarrito_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            if (dataGridViewCarrito.Columns[e.ColumnIndex].Name == "Cantidad")
+            {
+                var valor = dataGridViewCarrito.Rows[e.RowIndex].Cells[e.ColumnIndex].Value?.ToString();
+                if (int.TryParse(valor, out int cantidad))
+                {
+                    cantidadAnteriorEditada = cantidad;
+                }
+            }
         }
     }
 }

@@ -94,6 +94,7 @@ namespace Meraki
 
         private void CargarDataGridCombo()
         {
+            dataGridViewCombo.Columns.Clear();
             dataGridViewCombo.DataSource = null;
             dataGridViewCombo.DataSource = productoCombo.ListaProductos;
             dataGridViewCombo.Columns["Codigo"].Visible = false;

@@ -20,6 +20,7 @@ namespace Meraki
         BECliente beCliente;
         BLLCliente bllCliente;
         bool ComentariosHabilitado;
+        private bool ComentariosModificados = false;
         private const string placeholderText = "   Buscar...";
 
 
@@ -95,7 +96,7 @@ namespace Meraki
             {
                 iconButtonComentariosBorrar.Visible = false;
                 iconButtonComentariosGuardar.Visible = true;
-                dataGridViewClientes.Enabled = false;
+                //dataGridViewClientes.Enabled = false;
             }
         }
 
@@ -251,44 +252,109 @@ namespace Meraki
 
         private void iconButtonComentariosBorrar_Click(object sender, EventArgs e)
         {
+            var filaSeleccionada = dataGridViewClientes.CurrentRow;
+
             ComentariosHabilitado = true;
             ComprobarComentarios();
             richTextBoxComentarios.Enabled = true;
             richTextBoxComentarios.BackColor = System.Drawing.Color.FromArgb(217, 171, 171);
 
+            if (filaSeleccionada != null)
+            {
+                filaSeleccionada.Selected = true;
+            }
         }
 
         private void iconButtonComentariosGuardar_Click(object sender, EventArgs e)
         {
+            try
+            {
+                // Verificar si el comentario fue realmente modificado
+                if (richTextBoxComentarios.Text.Trim() != beCliente.Comentarios)
+                {
+                    ComentariosHabilitado = false;  // Deshabilitar la edición
+                    ComprobarComentarios();  // Actualizar la visibilidad de los botones
+                    richTextBoxComentarios.Enabled = false;  // Deshabilitar el richTextBox
+                    beCliente.Comentarios = richTextBoxComentarios.Text.Trim();  // Asignar el nuevo comentario al cliente
+
+                    // Llamar al método de BLL para guardar o modificar el comentario
+                    bllCliente.AgregarModificarComentarios(beCliente);
+                    MessageBox.Show("Se guardó el comentario");
+
+                    richTextBoxComentarios.BackColor = System.Drawing.Color.FromArgb(199, 91, 122); // Cambiar color de fondo del TextBox
+
+                    // Después de guardar el comentario, puedes recargar los clientes en el DataGrid
+                    CargarDataGridClientes();
+                }
+                else
+                {
+                    // Si no hubo cambios en el comentario, mostramos un mensaje informando al usuario
+                    MessageBox.Show("No se realizaron cambios en el comentario.");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejo de errores
+                MessageBox.Show("Error al guardar el comentario: " + ex.Message);
+            }
+        }
+
+        private void ResetearEstadoComentarios()
+        {
             ComentariosHabilitado = false;
-            ComprobarComentarios();
+            ComentariosModificados = false;
             richTextBoxComentarios.Enabled = false;
-            beCliente.Comentarios = richTextBoxComentarios.Text.Trim();
-            bllCliente.AgregarModificarComentarios(beCliente);
-            MessageBox.Show("Se guardo el comentario");
-            richTextBoxComentarios.BackColor = System.Drawing.Color.FromArgb(199, 91, 122);
-            CargarDataGridClientes();
+            richTextBoxComentarios.BackColor = System.Drawing.Color.White;
+            ComprobarComentarios();
         }
 
         private void dataGridViewClientes_SelectionChanged_1(object sender, EventArgs e)
         {
             try
             {
-                // Verifica que hay una fila seleccionada
+                if (ComentariosHabilitado && ComentariosModificados)
+                {
+                    var resultado = MessageBox.Show(
+                        "Estás editando un comentario. ¿Deseás guardar los cambios?",
+                        "Comentario en edición",
+                        MessageBoxButtons.YesNoCancel,
+                        MessageBoxIcon.Question
+                    );
+
+                    if (resultado == DialogResult.Yes)
+                    {
+                        beCliente.Comentarios = richTextBoxComentarios.Text.Trim();  // Asignar el nuevo comentario al cliente
+                        bllCliente.AgregarModificarComentarios(beCliente);
+                        ResetearEstadoComentarios();
+                    }
+                    else if (resultado == DialogResult.No)
+                    {
+                        ResetearEstadoComentarios();
+                    }
+                    else if (resultado == DialogResult.Cancel)
+                    {
+                        // Cancelar el cambio de selección
+                        dataGridViewClientes.SelectionChanged -= dataGridViewClientes_SelectionChanged_1;
+
+                        // Volver a seleccionar la fila anterior (opcional: guardar índice anterior)
+                        if (dataGridViewClientes.CurrentRow != null)
+                            dataGridViewClientes.CurrentCell = dataGridViewClientes.CurrentRow.Cells[0];
+
+                        dataGridViewClientes.SelectionChanged += dataGridViewClientes_SelectionChanged_1;
+                        return;
+                    }
+                }
+
+                // Si hay una fila seleccionada
                 if (dataGridViewClientes.SelectedRows.Count > 0)
                 {
-                    // Obtén el índice de la fila seleccionada
                     int rowIndex = dataGridViewClientes.SelectedRows[0].Index;
 
-                    // Verifica que el índice sea válido
                     if (rowIndex >= 0 && rowIndex < dataGridViewClientes.Rows.Count)
                     {
-                        // Obtén el cliente correspondiente a la fila seleccionada
                         BECliente clienteSeleccionado = (BECliente)dataGridViewClientes.Rows[rowIndex].DataBoundItem;
 
-                        // Aquí puedes realizar las acciones necesarias con el cliente seleccionado
-                        EscribirDatos(); // Pasamos el cliente seleccionado
-
+                        EscribirDatos(); // Tu lógica para cargar datos del cliente
                     }
                 }
             }
@@ -317,6 +383,12 @@ namespace Meraki
                 textBoxFiltrar.Text = placeholderText; // Restaura el texto del placeholder
                 textBoxFiltrar.ForeColor = System.Drawing.Color.Gray; // Cambia el color del texto
             }
+        }
+
+        private void richTextBoxComentarios_TextChanged(object sender, EventArgs e)
+        {
+            if (ComentariosHabilitado)
+                ComentariosModificados = true;
         }
     }
 }

@@ -91,9 +91,12 @@ namespace Meraki
             foreach (BEItem item in beComprobante.ListaItems)
             {
                 cantidad += item.Cantidad;
+                decimal precioUnitario = item.Precio / item.Cantidad;
+
                 filasItems += "<tr>";
                 filasItems += $"<td>{item.Codigo}</td>";
                 filasItems += $"<td class='producto'>{item.Nombre}</td>";
+                filasItems += $"<td>{precioUnitario.ToString("c2")}</td>";
                 filasItems += $"<td>{item.Cantidad}</td>";
                 filasItems += $"<td class='precio'>{item.Precio.ToString("c2")}</td>";
                 filasItems += "</tr>";
@@ -101,7 +104,7 @@ namespace Meraki
             paginaHtml = paginaHtml.Replace("{{productosCarrito}}", filasItems);
 
             paginaHtml = paginaHtml.Replace("{{cantidadTotalProductos}}", cantidad.ToString());
-            paginaHtml = paginaHtml.Replace("{{totalCompra}}", beComprobante.Total.ToString());
+            paginaHtml = paginaHtml.Replace("{{totalCompra}}", beComprobante.Total.ToString("c2"));
 
 
             if (beComprobante.PagoEfectivo == true)
@@ -302,9 +305,12 @@ namespace Meraki
             foreach (BEItem item in beComprobante.ListaItems)
             {
                 cantidad += item.Cantidad;
+                decimal precioUnitario = item.Precio / item.Cantidad;
+
                 filasItems += "<tr>";
                 filasItems += $"<td>{item.Codigo}</td>";
                 filasItems += $"<td class='producto'>{item.Nombre}</td>";
+                filasItems += $"<td>{precioUnitario.ToString("c2")}</td>";
                 filasItems += $"<td>{item.Cantidad}</td>";
                 filasItems += $"<td class='precio'>{item.Precio.ToString("c2")}</td>";
                 filasItems += "</tr>";
@@ -312,7 +318,7 @@ namespace Meraki
             paginaHtml = paginaHtml.Replace("{{productosCarrito}}", filasItems);
 
             paginaHtml = paginaHtml.Replace("{{cantidadTotalProductos}}", cantidad.ToString());
-            paginaHtml = paginaHtml.Replace("{{totalCompra}}", beComprobante.Total.ToString());
+            paginaHtml = paginaHtml.Replace("{{totalCompra}}", beComprobante.Total.ToString("c2"));
 
 
             if (beComprobante.PagoEfectivo == true)

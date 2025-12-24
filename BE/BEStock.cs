@@ -1,4 +1,5 @@
-﻿using System;
+﻿using iText.Layout.Properties;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -18,8 +19,8 @@ namespace BE
 
         public int CantidadReservada { get; set; }
         public DateTime FechaIngreso { get; set; }
-        
 
+        public int AvisoCantidadStock { get; set; }
         public override string ToString()
         {
             return Nombre + " " + Medida.ToString() + TipoMedida.ToString();

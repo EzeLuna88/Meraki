@@ -12,6 +12,7 @@ using BLL;
 using System.Text.RegularExpressions;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Runtime.InteropServices;
+using System.Globalization;
 
 namespace Meraki
 {
@@ -28,6 +29,7 @@ namespace Meraki
             this.Text = string.Empty;
             this.ControlBox = false;
             this.DoubleBuffered = true;
+
 
         }
 
@@ -62,11 +64,40 @@ namespace Meraki
         {
             int totalUnidades = int.Parse(textBoxPacks.Text) * int.Parse(textBoxUnidad.Text);
 
-            DialogResult confirmacion;
+            DateTime fechaDeVencimiento;
+            bool fechaValida = DateTime.TryParseExact(
+                maskedTextBoxFechaDeVencimiento.Text,
+                "dd/MM/yyyy",
+                CultureInfo.InvariantCulture,
+                DateTimeStyles.None,
+                out fechaDeVencimiento
+            );
 
-            confirmacion = MessageBox.Show("Agregar " + totalUnidades.ToString() + " unidades de " + beStock.Nombre + " " + beStock.Medida + beStock.TipoMedida, "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question); ;
+            if (!fechaValida)
+            {
+                MessageBox.Show("La fecha ingresada no es válida. Por favor, ingresá una fecha en formato dd/MM/yyyy.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (fechaDeVencimiento <= DateTime.Today)
+            {
+                MessageBox.Show("La fecha de vencimiento debe ser posterior al día de hoy.", "Fecha inválida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            DialogResult confirmacion = MessageBox.Show(
+                $"Agregar {totalUnidades} unidades de {beStock.Nombre} {beStock.Medida}{beStock.TipoMedida}\nFecha de vencimiento: {fechaDeVencimiento.ToShortDateString()}",
+                "Confirmar",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question
+            );
+
             if (confirmacion == DialogResult.Yes)
-            { bllStock.AgregarStock(beStock, totalUnidades); }
+            {
+                bllStock.GuardarNuevoProducto(beStock);
+               
+                bllStock.CargarFechaDeVencimiento(beStock, fechaDeVencimiento, totalUnidades);
+            }
 
             DialogResult = DialogResult.OK;
             Close();

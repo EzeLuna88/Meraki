@@ -1,5 +1,5 @@
 ﻿using BE;
-using DAL;
+using MPP;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,11 +10,11 @@ namespace BLL
 {
     public class BLLProductoCombo
     {
-        DALProductoCombo access;
+        MPPProductoCombo access;
 
         public BLLProductoCombo()
         {
-            access = new DALProductoCombo();
+            access = new MPPProductoCombo();
         }
 
         public void GuardarProducto(BEProductoCombo beProducto)

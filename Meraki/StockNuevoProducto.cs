@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -108,11 +109,38 @@ namespace Meraki
                 int ultimoCodigo = ObtenerUltimoCodigo();
                 int nuevoCodigo = ultimoCodigo + 1;
                 beStock.Codigo = nuevoCodigo.ToString();
+
+                // VALIDACIÓN DE FECHA DE VENCIMIENTO
+                DateTime fechaDeVencimiento;
+                bool fechaValida = DateTime.TryParseExact(
+                    maskedTextBoxFechaDeVencimiento.Text,
+                    "dd/MM/yyyy",
+                    CultureInfo.InvariantCulture,
+                    DateTimeStyles.None,
+                    out fechaDeVencimiento
+                );
+
+                if (!fechaValida)
+                {
+                    MessageBox.Show("La fecha ingresada no es válida. Usá el formato dd/MM/yyyy.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                if (fechaDeVencimiento <= DateTime.Today)
+                {
+                    MessageBox.Show("La fecha de vencimiento debe ser posterior al día de hoy.", "Fecha inválida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // VALIDACIONES Y CARGA DE STOCK
                 if (String.IsNullOrEmpty(textBoxNombre.Text))
-                { MessageBox.Show("Debe colocar un nombre"); }
+                {
+                    MessageBox.Show("Debe colocar un nombre");
+                }
                 else
                 {
                     beStock.Nombre = textBoxNombre.Text.ToUpper();
+
                     if (String.IsNullOrEmpty(textBoxMedida.Text))
                     {
                         beStock.Medida = 0;
@@ -121,10 +149,9 @@ namespace Meraki
                     else
                     {
                         beStock.Medida = Convert.ToDouble(textBoxMedida.Text);
-                        beStock.TipoMedida = comboBoxTipoMedida.SelectedItem.ToString();
-
-
+                        beStock.TipoMedida = comboBoxTipoMedida.SelectedItem?.ToString() ?? "-";
                     }
+
                     if (String.IsNullOrEmpty(textBoxCantidad.Text))
                     {
                         MessageBox.Show("Debe ingresar la cantidad de stock que ingresó del producto");
@@ -132,26 +159,23 @@ namespace Meraki
                     else
                     {
                         beStock.CantidadActual = Convert.ToInt32(textBoxCantidad.Text);
+
                         if (bllStock.ComprobarRepetido(beStock))
                         {
-                            MessageBox.Show("El producto a cargar se encuentra en el stock");
+                            MessageBox.Show("El producto a cargar ya se encuentra en el stock");
                         }
                         else
                         {
                             bllStock.GuardarNuevoProducto(beStock);
+                            bllStock.CargarFechaDeVencimiento(beStock, fechaDeVencimiento, beStock.CantidadActual);
                             DialogResult = DialogResult.OK;
                             Close();
                         }
                     }
-
-
                 }
-
-
             }
             catch (Exception)
             {
-
                 throw;
             }
         }

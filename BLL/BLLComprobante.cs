@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using BE;
-using DAL;
+using MPP;
 
 
 namespace BLL
@@ -15,16 +15,16 @@ namespace BLL
 
     public class BLLComprobante
     {
-        DALComprobante access;
+        MPPComprobante access;
 
         public BLLComprobante()
         {
-            access = new DALComprobante();
+            access = new MPPComprobante();
         }
 
         public List<BEComprobante> listaComprobantes()
         {
-            return access.listaComprobantes();
+            return access.ListaComprobantes();
         }
 
         public void GuardarNuevoComprobante(BEComprobante beComprobante)

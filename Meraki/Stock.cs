@@ -43,6 +43,8 @@ namespace Meraki
             dataGridViewStock.Columns[4].HeaderText = "Cantidad actual";
             dataGridViewStock.Columns[6].Visible = false;
             dataGridViewStock.Columns[5].Visible = false;
+            dataGridViewStock.Columns[7].Visible = false;
+            dataGridViewStock.Columns[8].HeaderText = "Aviso poco stock";
             ConfigurarDataGrid(dataGridViewStock);
 
         }
@@ -71,6 +73,13 @@ namespace Meraki
             dataGridView.Columns["Codigo"].HeaderText = "Cod.";
             dataGridView.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             dataGridView.Columns[4].Width = 80;
+            dataGridView.Columns[4].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridView.Columns[4].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridView.Columns[8].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dataGridView.Columns[8].Width = 110;
+            dataGridView.Columns[8].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridView.Columns[8].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
 
             // Configuración específica de estilo para columnas
             //ConfigurarEstilosColumnas(dataGridView);
@@ -168,10 +177,10 @@ namespace Meraki
                 else
                 { MessageBox.Show("Debe seleccionar un cliente"); }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                MessageBox.Show(ex.Message, "No se puede borrar", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -207,6 +216,22 @@ namespace Meraki
                 textBoxFiltrar.Text = placeholderText; // Restaura el texto del placeholder
                 textBoxFiltrar.ForeColor = System.Drawing.Color.Gray; // Cambia el color del texto
             }
+        }
+
+        private void iconButtonFechasDeVencimiento_Click(object sender, EventArgs e)
+        {
+            FechasDeVencimiento fechasDeVencimiento = new FechasDeVencimiento();
+            fechasDeVencimiento.ShowDialog();
+            CargarDataGrid();
+        }
+
+        private void iconButtonAvisoPocoStock_Click(object sender, EventArgs e)
+        {
+            beStock = (BEStock)dataGridViewStock.CurrentRow.DataBoundItem;
+            AvisoPocoStock avisoPocoStock = new AvisoPocoStock(beStock);
+            avisoPocoStock.AsignarProducto(beStock);
+            avisoPocoStock.ShowDialog();
+            CargarDataGrid();
         }
     }
 }

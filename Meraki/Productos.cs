@@ -48,6 +48,10 @@ namespace Meraki
 
             // Aplicar configuración general al DataGridView
             ConfigurarDataGrid(dataGridViewProductos);
+
+            dataGridViewProductos.Columns["NombreMostrar"].Visible = false;
+            dataGridViewProductos.Columns[2].Visible = false;
+
         }
 
         private List<BEProducto> ObtenerListaProductosOrdenada()

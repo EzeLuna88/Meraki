@@ -10,6 +10,8 @@ namespace BE
     {
         public BEStock Stock { get; set; }
 
+        public override string NombreMostrar => this.ToString();
+
         public override string ToString()
         {
             return Stock.Nombre + " " + Stock.Medida.ToString() + Stock.TipoMedida.ToString() + " x " + Unidad;
