@@ -214,14 +214,22 @@ namespace Meraki
             chartProductosMasVendidos.Series.Add(serie);
 
             // Ajustar el estilo del gráfico
-            
+            chartProductosMasVendidos.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
+            chartProductosMasVendidos.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
+
             chartProductosMasVendidos.ChartAreas[0].AxisY.Title = "Producto";
             chartProductosMasVendidos.ChartAreas[0].AxisY.Interval = 1; // Mostrar todos los productos
             chartProductosMasVendidos.ChartAreas[0].AxisX.Interval = 1;
             chartProductosMasVendidos.ChartAreas[0].AxisY.LabelStyle.TruncatedLabels = true; // Truncar etiquetas largas
             chartProductosMasVendidos.ChartAreas[0].AxisY.LabelStyle.IsStaggered = false;   // Evitar que las etiquetas se apilen
             chartProductosMasVendidos.ChartAreas[0].AxisY.LabelStyle.Font = new Font("Segoe UI", 8, FontStyle.Regular);
-            chartProductosMasVendidos.Series[0]["PointWidth"] = "0.8"; // Aumenta el ancho de las barras (0.6 a 0.8)
+
+            // Reemplazamos PointWidth por PixelPointWidth para controlar el grosor máximo
+            // chartProductosMasVendidos.Series[0]["PointWidth"] = "0.8"; // Aumenta el ancho de las barras (0.6 a 0.8)
+            chartProductosMasVendidos.Series[0]["PixelPointWidth"] = "40";
+
+            // Margen para que no quede pegado a los bordes
+            chartProductosMasVendidos.ChartAreas[0].AxisY.IsMarginVisible = true;
 
 
             // Configurar el Chart para habilitar scroll en el eje Y
@@ -319,6 +327,16 @@ namespace Meraki
 
             // Configurar el ángulo de las etiquetas del eje X para que se muestren en vertical
             chartVentas.ChartAreas[0].AxisX.LabelStyle.Angle = 45;
+
+            // Limpiar visualmente el gráfico quitando las grillas
+            chartVentas.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
+            chartVentas.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
+            chartVentas.ChartAreas[0].AxisY2.MajorGrid.Enabled = false;
+
+            // Evitar que las barras sean enormes cuando hay pocos datos
+            chartVentas.ChartAreas[0].AxisX.IsMarginVisible = true;
+            // Fijar un ancho máximo en píxeles para las barras
+            chartVentas.Series[0]["PixelPointWidth"] = "50";
 
             // Configurar los títulos de los ejes
             chartVentas.ChartAreas[0].AxisY.Title = "Cantidad de Pedidos";
