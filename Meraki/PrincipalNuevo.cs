@@ -19,10 +19,8 @@ namespace Meraki
         private IconButton currentButton;
         private Panel leftBorderButton;
         private Form currentChildForm;
-        BLLStock bllStock;
         public PrincipalNuevo()
         {
-            bllStock = new BLLStock();
             InitializeComponent();
             leftBorderButton = new Panel();
             leftBorderButton.Size = new Size(188, 7);
