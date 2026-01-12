@@ -181,6 +181,7 @@
     <Compile Include="MPPProductoCombo.cs" />
     <Compile Include="MPPStock.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SQLQueryConstants.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
