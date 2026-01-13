@@ -209,7 +209,8 @@ namespace Meraki
                 Name = "ProductosVendidos",
                 ChartType = SeriesChartType.Bar, // Tipo de gráfico de barras horizontales
                 Color = Color.FromArgb(175, 31, 76), // Color institucional
-                IsValueShownAsLabel = true // Mostrar etiquetas de valor sobre las barras
+                IsValueShownAsLabel = true, // Mostrar etiquetas de valor sobre las barras
+                IsXValueIndexed = true // Evitar superposición de índices numéricos con categorías
             };
 
             // Agregar los productos y sus cantidades al gráfico
@@ -254,7 +255,8 @@ namespace Meraki
             chartProductosMasVendidos.ChartAreas[0].AxisX.ScaleView.Size = 10;
 
             chartProductosMasVendidos.ChartAreas[0].InnerPlotPosition = new ElementPosition(20, 5, 75, 85);
-            chartProductosMasVendidos.ChartAreas[0].Position = new ElementPosition(0, 0, 100, 100);
+            chartProductosMasVendidos.ChartAreas[0].Position.Y = 10;
+            chartProductosMasVendidos.ChartAreas[0].Position.Height = 90;
         }
 
         private void IconButtonHoy_Click(object sender, EventArgs e)
