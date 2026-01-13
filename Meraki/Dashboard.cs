@@ -42,6 +42,8 @@ namespace Meraki
             ActualizarCharts(listaComprobantes);
             CargarDataGridClientes();
 
+            // Estilo del título del gráfico de productos
+            label5.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
         }
 
         private void InicializarFechas()
@@ -228,13 +230,11 @@ namespace Meraki
             chartProductosMasVendidos.ChartAreas[0].AxisX.Title = "Producto";
             chartProductosMasVendidos.ChartAreas[0].AxisX.Interval = 1; // Mostrar todos los nombres de productos
             chartProductosMasVendidos.ChartAreas[0].AxisX.LabelStyle.Font = new Font("Segoe UI", 8, FontStyle.Regular);
+            chartProductosMasVendidos.ChartAreas[0].AxisX.MajorTickMark.Enabled = false; // Limpiar marcas de graduación
             
             // AxisY (Horizontal en Bar Chart): Valores (Cantidades)
-            // Intervalo en Auto para evitar solapamiento de números (0, 1, 2, 3...)
-            chartProductosMasVendidos.ChartAreas[0].AxisY.Interval = 0;
-            chartProductosMasVendidos.ChartAreas[0].AxisY.LabelStyle.TruncatedLabels = true;
-            chartProductosMasVendidos.ChartAreas[0].AxisY.LabelStyle.IsStaggered = false;
-            chartProductosMasVendidos.ChartAreas[0].AxisY.LabelStyle.Font = new Font("Segoe UI", 8, FontStyle.Regular);
+            // Ocultar completamente ya que los valores están en las etiquetas de las barras
+            chartProductosMasVendidos.ChartAreas[0].AxisY.Enabled = AxisEnabled.False;
 
 
             // Reemplazamos PointWidth por PixelPointWidth para controlar el grosor máximo
