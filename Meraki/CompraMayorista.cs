@@ -300,7 +300,7 @@ namespace Meraki
             dataGridViewCarrito.Columns["Total"].DefaultCellStyle.Format = "c2";
             buttonTotal.Text = clienteSeleccionado.Nombre +
                                " // TOTAL: $ " +
-                               beCompraMayorista.Total.ToString("N2", CultureInfo.InvariantCulture);
+                               beCompraMayorista.Total.ToString("N2");
         }
 
         public void CargarDataGridClientes()
@@ -438,7 +438,7 @@ namespace Meraki
             }
             buttonTotal.Text = clienteSeleccionado.Nombre +
                                " // TOTAL: $ " +
-                               beCompraMayorista.Total.ToString("N2", CultureInfo.InvariantCulture);
+                               beCompraMayorista.Total.ToString("N2");
         }
 
         private void CargarDataGridCarrito()
@@ -591,7 +591,7 @@ namespace Meraki
                     // Actualiza el total
                     buttonTotal.Text = clienteSeleccionado.Nombre +
                                        " // TOTAL: $ " +
-                                       beCompraMayorista.Total.ToString("N2", CultureInfo.InvariantCulture);
+                                       beCompraMayorista.Total.ToString("N2");
                 }
             }
             catch (Exception ex)
@@ -682,8 +682,6 @@ namespace Meraki
 
         private void dataGridViewClientes_SelectionChanged_1(object sender, EventArgs e)
         {
-            var cultureInfo = new CultureInfo("en-US");
-
             try
             {
                 if (dataGridViewClientes.SelectedRows.Count > 0)
@@ -709,7 +707,6 @@ namespace Meraki
                         dataGridViewCarrito.DataSource = clienteSeleccionado.CompraMayoristaTemp.ListaCarrito;
 
                         // Configuración de formato y alineación de las columnas
-                        dataGridViewCarrito.Columns["Total"].DefaultCellStyle.FormatProvider = cultureInfo;
                         dataGridViewCarrito.Columns["Total"].DefaultCellStyle.Format = "c2"; // Formato de moneda
 
                         dataGridViewCarrito.Columns["Cantidad"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -736,7 +733,7 @@ namespace Meraki
 
                     // Actualiza el botón con el total formateado correctamente
                     buttonTotal.Text = clienteSeleccionado.Nombre + " // TOTAL: $ " +
-                                       beCompraMayorista.Total.ToString("N2", CultureInfo.InvariantCulture);
+                                       beCompraMayorista.Total.ToString("N2");
                 }
             }
             catch (Exception ex)
@@ -831,7 +828,7 @@ namespace Meraki
                             }
                             buttonTotal.Text = clienteSeleccionado.Nombre +
                                                " // TOTAL: $ " +
-                                               beCompraMayorista.Total.ToString("N2", CultureInfo.InvariantCulture);
+                                               beCompraMayorista.Total.ToString("N2");
                             foreach (BEStock item in beProductoCombo.ListaProductos)
                             {
                                 var itemEnStock = listaStock.Find(p => p.Codigo == item.Codigo);
@@ -1367,9 +1364,8 @@ namespace Meraki
 
             string paginaHtml = Properties.Resources.plantilla2.ToString();
 
-            var cultura = new CultureInfo("es-AR");
-
-            paginaHtml = paginaHtml.Replace("{{fechaComprobante}}", DateTime.Today.ToString("d", cultura));
+            // Usar la cultura por defecto (es-AR)
+            paginaHtml = paginaHtml.Replace("{{fechaComprobante}}", DateTime.Today.ToString("d"));
             paginaHtml = paginaHtml.Replace("{{nombreCliente}}", clienteSeleccionado.Nombre);
             paginaHtml = paginaHtml.Replace("{{direccionCliente}}", $"{clienteSeleccionado.Direccion}, {clienteSeleccionado.Localidad}");
             paginaHtml = paginaHtml.Replace("{{telefonoCliente}}", $"{clienteSeleccionado.Telefono} / {clienteSeleccionado.TelefonoAlternativo}");
@@ -1388,9 +1384,9 @@ namespace Meraki
                 filasItems += $"<td class='producto'>{item.Producto.ToString()}</td>";
 
                 decimal precioUnitario = item.Producto.PrecioMayorista;
-                filasItems += $"<td>{precioUnitario.ToString("N2", cultura)}</td>";
+                filasItems += $"<td>{precioUnitario.ToString("N2")}</td>";
                 filasItems += $"<td>{item.Cantidad}</td>";
-                filasItems += $"<td class='precio'>{item.Total.ToString("N2", cultura)}</td>";
+                filasItems += $"<td class='precio'>{item.Total.ToString("N2")}</td>";
                 filasItems += "</tr>";
 
                 totalPresupuesto += item.Total;
@@ -1398,7 +1394,7 @@ namespace Meraki
 
             paginaHtml = paginaHtml.Replace("{{productosCarrito}}", filasItems);
             paginaHtml = paginaHtml.Replace("{{cantidadTotalProductos}}", cantidad.ToString());
-            paginaHtml = paginaHtml.Replace("{{totalCompra}}", totalPresupuesto.ToString("N2", cultura));
+            paginaHtml = paginaHtml.Replace("{{totalCompra}}", totalPresupuesto.ToString("N2"));
 
             WebBrowser webBrowser = new WebBrowser
             {
@@ -1579,7 +1575,7 @@ namespace Meraki
             // Actualizar el botón total
             buttonTotal.Text = clienteSeleccionado.Nombre +
                                " // TOTAL: $ " +
-                               beCompraMayorista.Total.ToString("N2", CultureInfo.InvariantCulture);
+                               beCompraMayorista.Total.ToString("N2");
         }
 
         private void iconButtonAcomodarCantidadReservada_Click(object sender, EventArgs e)
