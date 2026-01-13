@@ -201,7 +201,8 @@ namespace Meraki
             Series serie = new Series
             {
                 Name = "ProductosVendidos",
-                ChartType = SeriesChartType.Bar // Tipo de gráfico de barras horizontales
+                ChartType = SeriesChartType.Bar, // Tipo de gráfico de barras horizontales
+                Color = System.Drawing.Color.FromArgb(175, 31, 76) // Color del tema
             };
 
             // Agregar los productos y sus cantidades al gráfico
@@ -219,7 +220,8 @@ namespace Meraki
 
             chartProductosMasVendidos.ChartAreas[0].AxisY.Title = "Producto";
             chartProductosMasVendidos.ChartAreas[0].AxisY.Interval = 1; // Mostrar todos los productos
-            chartProductosMasVendidos.ChartAreas[0].AxisX.Interval = 1;
+            // Eliminar intervalo fijo en X para evitar aglomeración de números
+            // chartProductosMasVendidos.ChartAreas[0].AxisX.Interval = 1;
             chartProductosMasVendidos.ChartAreas[0].AxisY.LabelStyle.TruncatedLabels = true; // Truncar etiquetas largas
             chartProductosMasVendidos.ChartAreas[0].AxisY.LabelStyle.IsStaggered = false;   // Evitar que las etiquetas se apilen
             chartProductosMasVendidos.ChartAreas[0].AxisY.LabelStyle.Font = new Font("Segoe UI", 8, FontStyle.Regular);
@@ -345,8 +347,11 @@ namespace Meraki
 
             // Asegurarse de que solo se muestren las fechas con datos en el eje X
             chartVentas.ChartAreas[0].AxisX.IntervalAutoMode = IntervalAutoMode.VariableCount;
-            chartVentas.ChartAreas[0].AxisX.Interval = 1;
+            // Eliminar intervalo fijo de 1 para que auto-calcule y no se encimen las fechas
+            // chartVentas.ChartAreas[0].AxisX.Interval = 1;
             chartVentas.ChartAreas[0].AxisX.LabelStyle.IsEndLabelVisible = true;
+            // Formato de fecha más corto
+            chartVentas.ChartAreas[0].AxisX.LabelStyle.Format = "dd/MM/yy";
 
             // Evitar que el eje X muestre días sin datos
             if (datosAgrupados.Count > 0)
