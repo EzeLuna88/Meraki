@@ -42,6 +42,8 @@ namespace Meraki
             ActualizarCharts(listaComprobantes);
             CargarDataGridClientes();
 
+            // Estilo del título del gráfico de productos
+            label5.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
         }
 
         private void InicializarFechas()
@@ -197,11 +199,17 @@ namespace Meraki
 
             chartProductosMasVendidos.Series.Clear();
 
+            // Configurar colores generales del gráfico
+            chartProductosMasVendidos.BackColor = Color.Transparent;
+            chartProductosMasVendidos.ChartAreas[0].BackColor = Color.Transparent;
+
             // Crear una nueva serie de tipo columna (barras)
             Series serie = new Series
             {
                 Name = "ProductosVendidos",
-                ChartType = SeriesChartType.Bar // Tipo de gráfico de barras horizontales
+                ChartType = SeriesChartType.Bar, // Tipo de gráfico de barras horizontales
+                Color = Color.FromArgb(175, 31, 76), // Color institucional
+                IsValueShownAsLabel = true // Mostrar etiquetas de valor sobre las barras
             };
 
             // Agregar los productos y sus cantidades al gráfico
@@ -213,26 +221,40 @@ namespace Meraki
             // Añadir la serie al gráfico
             chartProductosMasVendidos.Series.Add(serie);
 
-            // Ajustar el estilo del gráfico
+            // Ajustar el estilo del gráfico (Limpieza de GridLines)
+            chartProductosMasVendidos.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
+            chartProductosMasVendidos.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
+
+            // Configuración de Ejes
+            // AxisX (Vertical en Bar Chart): Categorías (Productos)
+            chartProductosMasVendidos.ChartAreas[0].AxisX.Title = "Producto";
+            chartProductosMasVendidos.ChartAreas[0].AxisX.Interval = 1; // Mostrar todos los nombres de productos
+            chartProductosMasVendidos.ChartAreas[0].AxisX.LabelStyle.Font = new Font("Segoe UI", 8, FontStyle.Regular);
+            chartProductosMasVendidos.ChartAreas[0].AxisX.MajorTickMark.Enabled = false; // Limpiar marcas de graduación
+            chartProductosMasVendidos.ChartAreas[0].AxisX.MajorGrid.Enabled = false; // Asegurar que no haya grilla
             
-            chartProductosMasVendidos.ChartAreas[0].AxisY.Title = "Producto";
-            chartProductosMasVendidos.ChartAreas[0].AxisY.Interval = 1; // Mostrar todos los productos
-            chartProductosMasVendidos.ChartAreas[0].AxisX.Interval = 1;
-            chartProductosMasVendidos.ChartAreas[0].AxisY.LabelStyle.TruncatedLabels = true; // Truncar etiquetas largas
-            chartProductosMasVendidos.ChartAreas[0].AxisY.LabelStyle.IsStaggered = false;   // Evitar que las etiquetas se apilen
-            chartProductosMasVendidos.ChartAreas[0].AxisY.LabelStyle.Font = new Font("Segoe UI", 8, FontStyle.Regular);
-            chartProductosMasVendidos.Series[0]["PointWidth"] = "0.8"; // Aumenta el ancho de las barras (0.6 a 0.8)
+            // AxisY (Horizontal en Bar Chart): Valores (Cantidades)
+            // Ocultar completamente ya que los valores están en las etiquetas de las barras
+            chartProductosMasVendidos.ChartAreas[0].AxisY.Enabled = AxisEnabled.False;
 
 
-            // Configurar el Chart para habilitar scroll en el eje Y
-            chartProductosMasVendidos.ChartAreas[0].AxisX.ScrollBar.Enabled = true;  // Activar la barra de desplazamiento
-            chartProductosMasVendidos.ChartAreas[0].AxisX.ScrollBar.Size = 15;       // Tamaño de la barra de desplazamiento
-            chartProductosMasVendidos.ChartAreas[0].AxisX.ScrollBar.ButtonStyle = ScrollBarButtonStyles.SmallScroll;  // Estilo de los botones de desplazamiento
-            chartProductosMasVendidos.ChartAreas[0].AxisX.ScaleView.Zoomable = true; // Permitir zoom
-            chartProductosMasVendidos.ChartAreas[0].AxisX.ScaleView.Size = 10;       // Número de barras visibles antes de tener que desplazarse
+            // Reemplazamos PointWidth por PixelPointWidth para controlar el grosor máximo
+            chartProductosMasVendidos.Series[0]["PixelPointWidth"] = "40";
 
-            chartProductosMasVendidos.ChartAreas[0].InnerPlotPosition = new ElementPosition(20, 5, 75, 85); // Ajustar el área de las barras dentro del gráfico
-            chartProductosMasVendidos.ChartAreas[0].Position = new ElementPosition(0, 0, 100, 100);  // Asegurar que el gráfico se use al máximo en la ventana
+            // Margen para que no quede pegado a los bordes
+            chartProductosMasVendidos.ChartAreas[0].AxisX.IsMarginVisible = true;
+            chartProductosMasVendidos.ChartAreas[0].AxisY.IsMarginVisible = true;
+
+
+            // Configurar el Chart para habilitar scroll en el eje X (Vertical en BarChart)
+            chartProductosMasVendidos.ChartAreas[0].AxisX.ScrollBar.Enabled = true;
+            chartProductosMasVendidos.ChartAreas[0].AxisX.ScrollBar.Size = 15;
+            chartProductosMasVendidos.ChartAreas[0].AxisX.ScrollBar.ButtonStyle = ScrollBarButtonStyles.SmallScroll;
+            chartProductosMasVendidos.ChartAreas[0].AxisX.ScaleView.Zoomable = true;
+            chartProductosMasVendidos.ChartAreas[0].AxisX.ScaleView.Size = 10;
+
+            chartProductosMasVendidos.ChartAreas[0].InnerPlotPosition = new ElementPosition(20, 5, 75, 85);
+            chartProductosMasVendidos.ChartAreas[0].Position = new ElementPosition(0, 0, 100, 100);
         }
 
         private void IconButtonHoy_Click(object sender, EventArgs e)
@@ -320,6 +342,16 @@ namespace Meraki
             // Configurar el ángulo de las etiquetas del eje X para que se muestren en vertical
             chartVentas.ChartAreas[0].AxisX.LabelStyle.Angle = 45;
 
+            // Limpiar visualmente el gráfico quitando las grillas
+            chartVentas.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
+            chartVentas.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
+            chartVentas.ChartAreas[0].AxisY2.MajorGrid.Enabled = false;
+
+            // Evitar que las barras sean enormes cuando hay pocos datos
+            chartVentas.ChartAreas[0].AxisX.IsMarginVisible = true;
+            // Fijar un ancho máximo en píxeles para las barras
+            chartVentas.Series[0]["PixelPointWidth"] = "50";
+
             // Configurar los títulos de los ejes
             chartVentas.ChartAreas[0].AxisY.Title = "Cantidad de Pedidos";
             chartVentas.ChartAreas[0].AxisY2.Title = "Total Facturado";
@@ -327,8 +359,11 @@ namespace Meraki
 
             // Asegurarse de que solo se muestren las fechas con datos en el eje X
             chartVentas.ChartAreas[0].AxisX.IntervalAutoMode = IntervalAutoMode.VariableCount;
-            chartVentas.ChartAreas[0].AxisX.Interval = 1;
+            // Eliminar intervalo fijo de 1 para que auto-calcule y no se encimen las fechas
+            // chartVentas.ChartAreas[0].AxisX.Interval = 1;
             chartVentas.ChartAreas[0].AxisX.LabelStyle.IsEndLabelVisible = true;
+            // Formato de fecha más corto
+            chartVentas.ChartAreas[0].AxisX.LabelStyle.Format = "dd/MM/yy";
 
             // Evitar que el eje X muestre días sin datos
             if (datosAgrupados.Count > 0)

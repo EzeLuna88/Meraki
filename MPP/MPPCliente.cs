@@ -1,4 +1,4 @@
-﻿using BE;
+using BE;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -27,10 +27,6 @@ namespace MPP
         {
             cliente.Codigo = Guid.NewGuid().ToString();
 
-            string query = @"INSERT INTO clientes 
-                            (codigo, nombre, direccion, localidad, telefono, telefono_alternativo, horario_de_apertura, horario_de_cierre) 
-                            VALUES (@codigo, @nombre, @direccion, @localidad, @telefono, @telefonoAlternativo, @apertura, @cierre)";
-
             var parametros = new MySqlParameter[]
             {
                 new MySqlParameter("@codigo", cliente.Codigo),
@@ -43,35 +39,30 @@ namespace MPP
                 new MySqlParameter("@cierre", cliente.HorarioDeCierre)
             };
 
-            return acceso.EjecutarNonQuery(query, parametros) > 0;
+            return acceso.EjecutarNonQuery(SQLQueryConstants.Cliente_Insertar, parametros) > 0;
         }
 
         public void GuardarCompraMayoristaTemporal(BECliente cliente, BECompraMayorista compraTemporal)
         {
-            var acceso = new AccesoDAL();
+            // Removed redundant AccesoDAL instantiation, use class member 'acceso'
 
-            string consultaEliminar = "DELETE FROM compra_producto_temporal WHERE id_cliente = @id_cliente";
             var parametrosEliminar = new MySqlParameter[]
             {
-        new MySqlParameter("@id_cliente", cliente.Codigo)
+                new MySqlParameter("@id_cliente", cliente.Codigo)
             };
-            acceso.EjecutarNonQuery(consultaEliminar, parametrosEliminar);
-
-            string consultaInsertar = @"INSERT INTO compra_producto_temporal 
-                                (id_cliente, id_producto, cantidad, precio_total) 
-                                VALUES (@id_cliente, @id_producto, @cantidad, @precio_total)";
+            acceso.EjecutarNonQuery(SQLQueryConstants.CompraTemporal_EliminarPorCliente, parametrosEliminar);
 
             foreach (var item in compraTemporal.ListaCarrito)
             {
                 var parametrosInsertar = new MySqlParameter[]
                 {
-            new MySqlParameter("@id_cliente", cliente.Codigo),
-            new MySqlParameter("@id_producto", item.Producto.Codigo),
-            new MySqlParameter("@cantidad", item.Cantidad),
-            new MySqlParameter("@precio_total", item.Total)
+                    new MySqlParameter("@id_cliente", cliente.Codigo),
+                    new MySqlParameter("@id_producto", item.Producto.Codigo),
+                    new MySqlParameter("@cantidad", item.Cantidad),
+                    new MySqlParameter("@precio_total", item.Total)
                 };
 
-                acceso.EjecutarNonQuery(consultaInsertar, parametrosInsertar);
+                acceso.EjecutarNonQuery(SQLQueryConstants.CompraTemporal_Insertar, parametrosInsertar);
             }
         }
 
@@ -79,11 +70,7 @@ namespace MPP
         {
             List<BECliente> listaClientes = new List<BECliente>();
 
-            string query = @"SELECT codigo, nombre, direccion, localidad, telefono, telefono_alternativo, 
-                            horario_de_apertura, horario_de_cierre, comentarios
-                     FROM clientes";
-
-            DataTable tabla = acceso.EjecutarConsulta(query);
+            DataTable tabla = acceso.EjecutarConsulta(SQLQueryConstants.Cliente_Listar);
 
             foreach (DataRow row in tabla.Rows)
             {
@@ -110,35 +97,12 @@ namespace MPP
 
         private BECompraMayorista ObtenerCompraTemporalDelCliente(string idCliente)
         {
-            string query = @"
-        SELECT 
-            cpt.id_producto,
-            cpt.cantidad,
-            cpt.precio_total,
-            p.stock_id,
-            p.unidad,
-            p.precio_mayorista,
-            p.precio_minorista,
-            p.tipo,
-            s.nombre,
-            s.medida,
-            s.tipo_medida,
-            s.cantidad_actual,
-            s.cantidad_reservada
-        FROM compra_producto_temporal cpt
-        JOIN producto p ON cpt.id_producto = p.id
-        LEFT JOIN stock s ON p.stock_id = s.id
-        WHERE cpt.id_cliente = @idCliente;";
-
             var parametros = new List<MySqlParameter>
-    {
-        new MySqlParameter("@idCliente", idCliente)
-    };
+            {
+                new MySqlParameter("@idCliente", idCliente)
+            };
 
-            DataTable tabla = acceso.EjecutarConsulta(query, parametros.ToArray());
-
-            /*if (tabla.Rows.Count == 0)
-                return null;*/
+            DataTable tabla = acceso.EjecutarConsulta(SQLQueryConstants.CompraTemporal_ObtenerPorCliente, parametros.ToArray());
 
             BECompraMayorista compra = new BECompraMayorista
             {
@@ -147,28 +111,26 @@ namespace MPP
 
             foreach (DataRow row in tabla.Rows)
             {
-                // Si el stock_id es null, significa que es un producto combo
                 string stockId = row["stock_id"].ToString();
                 string productoId = row["id_producto"].ToString();
+
                 if (string.IsNullOrEmpty(stockId))
                 {
-                    // Es un producto combo
+                    // Combo product
                     BEProductoCombo productoCombo = ObtenerProductoComboPorId(productoId);
-
                     
-                        BECarrito item = new BECarrito
-                        {
-                            Producto = productoCombo,
-                            Cantidad = Convert.ToInt32(row["cantidad"]),
-                            Total = Convert.ToDecimal(row["precio_total"])
-                        };
+                    BECarrito item = new BECarrito
+                    {
+                        Producto = productoCombo,
+                        Cantidad = Convert.ToInt32(row["cantidad"]),
+                        Total = Convert.ToDecimal(row["precio_total"])
+                    };
 
-                        compra.ListaCarrito.Add(item);
-                    
+                    compra.ListaCarrito.Add(item);
                 }
                 else
                 {
-                    // Es un producto individual
+                    // Individual product
                     BEStock stock = new BEStock
                     {
                         Codigo = row["stock_id"].ToString(),
@@ -207,18 +169,12 @@ namespace MPP
 
         public BEProductoCombo ObtenerProductoComboPorId(string idCombo)
         {
-            // 1. Obtener datos del producto combo
-            string queryCombo = @"
-        SELECT id, nombre, unidad, precio_mayorista, precio_minorista, tipo
-        FROM producto
-        WHERE id = @idCombo";
-
             var parametrosCombo = new List<MySqlParameter>
-    {
-        new MySqlParameter("@idCombo", idCombo)
-    };
+            {
+                new MySqlParameter("@idCombo", idCombo)
+            };
 
-            DataTable tablaCombo = acceso.EjecutarConsulta(queryCombo, parametrosCombo.ToArray());
+            DataTable tablaCombo = acceso.EjecutarConsulta(SQLQueryConstants.Producto_ObtenerPorId, parametrosCombo.ToArray());
 
             if (tablaCombo.Rows.Count == 0)
                 return null;
@@ -236,13 +192,7 @@ namespace MPP
                 ListaProductos = new List<BEStock>()
             };
 
-            // 2. Obtener los productos que componen el combo y sus cantidades
-            string queryProductosDelCombo = @"
-        SELECT stock_id, cantidad
-        FROM producto_stock
-        WHERE producto_id = @idCombo";
-
-            DataTable tablaProductos = acceso.EjecutarConsulta(queryProductosDelCombo, parametrosCombo.ToArray());
+            DataTable tablaProductos = acceso.EjecutarConsulta(SQLQueryConstants.ProductoStock_ObtenerPorProductoId, parametrosCombo.ToArray());
 
             foreach (DataRow row in tablaProductos.Rows)
             {
@@ -251,10 +201,8 @@ namespace MPP
 
                 BEStock stock = ObtenerStockPorId(stockId);
 
-                // Repetir el producto las veces necesarias
                 for (int i = 0; i < cantidad; i++)
                 {
-                    // Clonamos el stock para evitar referencias compartidas
                     BEStock stockClonado = new BEStock
                     {
                         Codigo = stock.Codigo,
@@ -274,17 +222,12 @@ namespace MPP
 
         public BEStock ObtenerStockPorId(int stockId)
         {
-            string query = @"
-        SELECT id, nombre, medida, tipo_medida, cantidad_actual, cantidad_reservada
-        FROM stock
-        WHERE id = @id";
-
             var parametros = new List<MySqlParameter>
-    {
-        new MySqlParameter("@id", stockId)
-    };
+            {
+                new MySqlParameter("@id", stockId)
+            };
 
-            DataTable tabla = acceso.EjecutarConsulta(query, parametros.ToArray());
+            DataTable tabla = acceso.EjecutarConsulta(SQLQueryConstants.Stock_ObtenerPorId, parametros.ToArray());
 
             if (tabla.Rows.Count == 0)
                 throw new Exception($"No se encontró stock con ID: {stockId}");
@@ -306,58 +249,42 @@ namespace MPP
 
         public bool BorrarCliente(BECliente cliente)
         {
-            string query = "DELETE FROM clientes WHERE codigo = @codigo";
-
             var parametros = new MySqlParameter[]
             {
                 new MySqlParameter("@codigo", cliente.Codigo)
             };
 
-            return acceso.EjecutarNonQuery(query, parametros) > 0;
+            return acceso.EjecutarNonQuery(SQLQueryConstants.Cliente_Eliminar, parametros) > 0;
         }
 
         public bool ModificarCliente(BECliente cliente)
         {
-            string query = @"UPDATE clientes 
-                     SET nombre = @nombre, 
-                         direccion = @direccion, 
-                         localidad = @localidad, 
-                         telefono = @telefono, 
-                         telefono_alternativo = @telefonoAlternativo, 
-                         horario_de_apertura = @apertura, 
-                         horario_de_cierre = @cierre
-                     WHERE codigo = @codigo";
-
             var parametros = new MySqlParameter[]
             {
-        new MySqlParameter("@nombre", cliente.Nombre),
-        new MySqlParameter("@direccion", cliente.Direccion),
-        new MySqlParameter("@localidad", cliente.Localidad),
-        new MySqlParameter("@telefono", cliente.Telefono),
-        new MySqlParameter("@telefonoAlternativo", cliente.TelefonoAlternativo),
-        new MySqlParameter("@apertura", cliente.HorarioDeApertura),
-        new MySqlParameter("@cierre", cliente.HorarioDeCierre),
-        new MySqlParameter("@codigo", cliente.Codigo)
+                new MySqlParameter("@nombre", cliente.Nombre),
+                new MySqlParameter("@direccion", cliente.Direccion),
+                new MySqlParameter("@localidad", cliente.Localidad),
+                new MySqlParameter("@telefono", cliente.Telefono),
+                new MySqlParameter("@telefonoAlternativo", cliente.TelefonoAlternativo),
+                new MySqlParameter("@apertura", cliente.HorarioDeApertura),
+                new MySqlParameter("@cierre", cliente.HorarioDeCierre),
+                new MySqlParameter("@codigo", cliente.Codigo)
             };
 
-            return acceso.EjecutarNonQuery(query, parametros) > 0;
+            return acceso.EjecutarNonQuery(SQLQueryConstants.Cliente_Modificar, parametros) > 0;
         }
 
         public void AgregarModificarComentarios(BECliente cliente)
         {
-            var acceso = new AccesoDAL();
-
-            string consulta = @"UPDATE clientes 
-                        SET comentarios = @comentarios 
-                        WHERE codigo = @codigo";
+            // Removed redundant AccesoDAL instantiation, use class member 'acceso'
 
             var parametros = new MySqlParameter[]
             {
-        new MySqlParameter("@comentarios", cliente.Comentarios),
-        new MySqlParameter("@codigo", cliente.Codigo)
+                new MySqlParameter("@comentarios", cliente.Comentarios),
+                new MySqlParameter("@codigo", cliente.Codigo)
             };
 
-            int filasAfectadas = acceso.EjecutarNonQuery(consulta, parametros);
+            int filasAfectadas = acceso.EjecutarNonQuery(SQLQueryConstants.Cliente_ActualizarComentarios, parametros);
 
             if (filasAfectadas == 0)
             {
