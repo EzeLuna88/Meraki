@@ -177,7 +177,7 @@ namespace Meraki
             bool formatoDesdeCorrecto = DateTime.TryParseExact(
                 textBoxFiltroFechaDesde.Text,
                 "dd/MM/yyyy",
-                System.Globalization.CultureInfo.InvariantCulture,
+                null,
                 System.Globalization.DateTimeStyles.None,
                 out fechaDesde
             );
@@ -187,7 +187,7 @@ namespace Meraki
             bool formatoHastaCorrecto = DateTime.TryParseExact(
                 textBoxFiltroFechaHasta.Text,
                 "dd/MM/yyyy",
-                System.Globalization.CultureInfo.InvariantCulture,
+                null,
                 System.Globalization.DateTimeStyles.None,
                 out fechaHasta
             );

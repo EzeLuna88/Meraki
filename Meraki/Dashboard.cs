@@ -208,7 +208,6 @@ namespace Meraki
                 ChartType = SeriesChartType.Bar, // Tipo de gráfico de barras horizontales
                 Color = Color.DodgerBlue, // Color moderno
                 IsValueShownAsLabel = true // Mostrar etiquetas de valor sobre las barras
-                Color = System.Drawing.Color.FromArgb(175, 31, 76) // Color del tema
             };
 
             // Agregar los productos y sus cantidades al gráfico
