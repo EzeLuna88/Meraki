@@ -200,15 +200,15 @@ namespace Meraki
             chartProductosMasVendidos.Series.Clear();
 
             // Configurar colores generales del gráfico
-            chartProductosMasVendidos.BackColor = Color.White;
-            chartProductosMasVendidos.ChartAreas[0].BackColor = Color.White;
+            chartProductosMasVendidos.BackColor = Color.Transparent;
+            chartProductosMasVendidos.ChartAreas[0].BackColor = Color.Transparent;
 
             // Crear una nueva serie de tipo columna (barras)
             Series serie = new Series
             {
                 Name = "ProductosVendidos",
                 ChartType = SeriesChartType.Bar, // Tipo de gráfico de barras horizontales
-                Color = Color.DodgerBlue, // Color moderno
+                Color = Color.FromArgb(175, 31, 76), // Color institucional
                 IsValueShownAsLabel = true // Mostrar etiquetas de valor sobre las barras
             };
 
@@ -231,6 +231,7 @@ namespace Meraki
             chartProductosMasVendidos.ChartAreas[0].AxisX.Interval = 1; // Mostrar todos los nombres de productos
             chartProductosMasVendidos.ChartAreas[0].AxisX.LabelStyle.Font = new Font("Segoe UI", 8, FontStyle.Regular);
             chartProductosMasVendidos.ChartAreas[0].AxisX.MajorTickMark.Enabled = false; // Limpiar marcas de graduación
+            chartProductosMasVendidos.ChartAreas[0].AxisX.MajorGrid.Enabled = false; // Asegurar que no haya grilla
             
             // AxisY (Horizontal en Bar Chart): Valores (Cantidades)
             // Ocultar completamente ya que los valores están en las etiquetas de las barras
