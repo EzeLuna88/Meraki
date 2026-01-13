@@ -115,7 +115,7 @@ namespace Meraki
                 bool fechaValida = DateTime.TryParseExact(
                     maskedTextBoxFechaDeVencimiento.Text,
                     "dd/MM/yyyy",
-                    CultureInfo.InvariantCulture,
+                    null,
                     DateTimeStyles.None,
                     out fechaDeVencimiento
                 );
