@@ -197,11 +197,17 @@ namespace Meraki
 
             chartProductosMasVendidos.Series.Clear();
 
+            // Configurar colores generales del gráfico
+            chartProductosMasVendidos.BackColor = Color.White;
+            chartProductosMasVendidos.ChartAreas[0].BackColor = Color.White;
+
             // Crear una nueva serie de tipo columna (barras)
             Series serie = new Series
             {
                 Name = "ProductosVendidos",
                 ChartType = SeriesChartType.Bar, // Tipo de gráfico de barras horizontales
+                Color = Color.DodgerBlue, // Color moderno
+                IsValueShownAsLabel = true // Mostrar etiquetas de valor sobre las barras
                 Color = System.Drawing.Color.FromArgb(175, 31, 76) // Color del tema
             };
 
@@ -214,35 +220,41 @@ namespace Meraki
             // Añadir la serie al gráfico
             chartProductosMasVendidos.Series.Add(serie);
 
-            // Ajustar el estilo del gráfico
+            // Ajustar el estilo del gráfico (Limpieza de GridLines)
             chartProductosMasVendidos.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
             chartProductosMasVendidos.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
 
-            chartProductosMasVendidos.ChartAreas[0].AxisY.Title = "Producto";
-            chartProductosMasVendidos.ChartAreas[0].AxisY.Interval = 1; // Mostrar todos los productos
-            // Eliminar intervalo fijo en X para evitar aglomeración de números
-            // chartProductosMasVendidos.ChartAreas[0].AxisX.Interval = 1;
-            chartProductosMasVendidos.ChartAreas[0].AxisY.LabelStyle.TruncatedLabels = true; // Truncar etiquetas largas
-            chartProductosMasVendidos.ChartAreas[0].AxisY.LabelStyle.IsStaggered = false;   // Evitar que las etiquetas se apilen
+            // Configuración de Ejes
+            // AxisX (Vertical en Bar Chart): Categorías (Productos)
+            chartProductosMasVendidos.ChartAreas[0].AxisX.Title = "Producto";
+            chartProductosMasVendidos.ChartAreas[0].AxisX.Interval = 1; // Mostrar todos los nombres de productos
+            chartProductosMasVendidos.ChartAreas[0].AxisX.LabelStyle.Font = new Font("Segoe UI", 8, FontStyle.Regular);
+            
+            // AxisY (Horizontal en Bar Chart): Valores (Cantidades)
+            // Intervalo en Auto para evitar solapamiento de números (0, 1, 2, 3...)
+            chartProductosMasVendidos.ChartAreas[0].AxisY.Interval = 0;
+            chartProductosMasVendidos.ChartAreas[0].AxisY.LabelStyle.TruncatedLabels = true;
+            chartProductosMasVendidos.ChartAreas[0].AxisY.LabelStyle.IsStaggered = false;
             chartProductosMasVendidos.ChartAreas[0].AxisY.LabelStyle.Font = new Font("Segoe UI", 8, FontStyle.Regular);
 
+
             // Reemplazamos PointWidth por PixelPointWidth para controlar el grosor máximo
-            // chartProductosMasVendidos.Series[0]["PointWidth"] = "0.8"; // Aumenta el ancho de las barras (0.6 a 0.8)
             chartProductosMasVendidos.Series[0]["PixelPointWidth"] = "40";
 
             // Margen para que no quede pegado a los bordes
+            chartProductosMasVendidos.ChartAreas[0].AxisX.IsMarginVisible = true;
             chartProductosMasVendidos.ChartAreas[0].AxisY.IsMarginVisible = true;
 
 
-            // Configurar el Chart para habilitar scroll en el eje Y
-            chartProductosMasVendidos.ChartAreas[0].AxisX.ScrollBar.Enabled = true;  // Activar la barra de desplazamiento
-            chartProductosMasVendidos.ChartAreas[0].AxisX.ScrollBar.Size = 15;       // Tamaño de la barra de desplazamiento
-            chartProductosMasVendidos.ChartAreas[0].AxisX.ScrollBar.ButtonStyle = ScrollBarButtonStyles.SmallScroll;  // Estilo de los botones de desplazamiento
-            chartProductosMasVendidos.ChartAreas[0].AxisX.ScaleView.Zoomable = true; // Permitir zoom
-            chartProductosMasVendidos.ChartAreas[0].AxisX.ScaleView.Size = 10;       // Número de barras visibles antes de tener que desplazarse
+            // Configurar el Chart para habilitar scroll en el eje X (Vertical en BarChart)
+            chartProductosMasVendidos.ChartAreas[0].AxisX.ScrollBar.Enabled = true;
+            chartProductosMasVendidos.ChartAreas[0].AxisX.ScrollBar.Size = 15;
+            chartProductosMasVendidos.ChartAreas[0].AxisX.ScrollBar.ButtonStyle = ScrollBarButtonStyles.SmallScroll;
+            chartProductosMasVendidos.ChartAreas[0].AxisX.ScaleView.Zoomable = true;
+            chartProductosMasVendidos.ChartAreas[0].AxisX.ScaleView.Size = 10;
 
-            chartProductosMasVendidos.ChartAreas[0].InnerPlotPosition = new ElementPosition(20, 5, 75, 85); // Ajustar el área de las barras dentro del gráfico
-            chartProductosMasVendidos.ChartAreas[0].Position = new ElementPosition(0, 0, 100, 100);  // Asegurar que el gráfico se use al máximo en la ventana
+            chartProductosMasVendidos.ChartAreas[0].InnerPlotPosition = new ElementPosition(20, 5, 75, 85);
+            chartProductosMasVendidos.ChartAreas[0].Position = new ElementPosition(0, 0, 100, 100);
         }
 
         private void IconButtonHoy_Click(object sender, EventArgs e)
