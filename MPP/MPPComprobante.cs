@@ -213,9 +213,8 @@ namespace MPP
 
                     // Obtener los items asociados
                     string consultaItems = @"
-                SELECT cp.id_producto, p.nombre, cp.cantidad, cp.precio_unitario
+                SELECT cp.id_producto, cp.nombre_producto, cp.cantidad, cp.precio_unitario
                 FROM comprobantes_productos cp
-                INNER JOIN producto p ON cp.id_producto = p.id
                 WHERE cp.id_comprobante = @numero";
 
                     List<MySqlParameter> paramItem = new List<MySqlParameter>
@@ -231,7 +230,7 @@ namespace MPP
                         items.Add(new BEItem
                         {
                             Codigo = rowItem["id_producto"].ToString(),
-                            Nombre = rowItem["nombre"].ToString(),
+                            Nombre = rowItem["nombre_producto"].ToString(),
                             Cantidad = Convert.ToInt32(rowItem["cantidad"]),
                             Precio = Convert.ToDecimal(rowItem["precio_unitario"])
                         });
