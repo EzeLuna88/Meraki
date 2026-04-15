@@ -32,7 +32,17 @@ namespace BLL
             access.ModificarProducto(beProducto);
         }
 
-        public void BorrarProducto(BEProductoCombo beProducto) { access.BorrarProducto(beProducto); }
+        public void BorrarProducto(BEProductoCombo beProducto)
+        {
+            access.BorrarProducto(beProducto);
+        }
 
+        public bool ValidarStockEnComboActivo(string codigoStock)
+        {
+            // Acá le pasamos la pelota a tu capa de datos (MPP).
+            // Tu MPPProductoCombo va a tener que hacer una consulta a la base de datos 
+            // para ver si este 'codigoStock' existe en la tabla de detalle de algún combo ACTIVO.
+            return access.ValidarStockEnComboActivo(codigoStock);
+        }
     }
 }

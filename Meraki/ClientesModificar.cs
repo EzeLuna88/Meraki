@@ -45,89 +45,56 @@ namespace Meraki
             try
             {
                 beCliente.Codigo = textBoxCodigo.Text;
-                if (String.IsNullOrEmpty(textBoxNombre.Text))
-                {
-                    MessageBox.Show("Debe colocar un nombre");
 
+                // Usamos Trim() para limpiar espacios accidentales
+                beCliente.Nombre = textBoxNombre.Text.Trim();
+                beCliente.Direccion = textBoxDireccion.Text.Trim();
+                beCliente.Localidad = textBoxLocalidad.Text.Trim();
+                beCliente.Telefono = textBoxTelefono.Text.Trim();
+
+                beCliente.TelefonoAlternativo = string.IsNullOrWhiteSpace(textBoxTelefonoAlternativo.Text) ? "-" : textBoxTelefonoAlternativo.Text.Trim();
+
+                // 1. Protección de máscara
+                if (!maskedTextBoxHorarioDeApertura.MaskFull || !maskedTextBoxHorarioDeCierre.MaskFull)
+                {
+                    MessageBox.Show("Debe completar los horarios de apertura y cierre correctamente (HH:MM).", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
                 }
-                else
-                {
-                    beCliente.Nombre = textBoxNombre.Text;
-                    if (String.IsNullOrEmpty(textBoxDireccion.Text))
-                    {
-                        MessageBox.Show("Debe colocar una direccion");
-                    }
-                    else
-                    {
-                        beCliente.Direccion = textBoxDireccion.Text;
-                        if (String.IsNullOrEmpty(textBoxLocalidad.Text))
-                        { MessageBox.Show("Debe colocar una localidad"); }
-                        else
-                        {
-                            beCliente.Localidad = textBoxLocalidad.Text;
-                            if (String.IsNullOrEmpty(textBoxTelefono.Text))
-                            { MessageBox.Show("Debe colocar un telefono"); }
-                            else
-                            {
-                                beCliente.Telefono = textBoxTelefono.Text;
-                                if (string.IsNullOrEmpty(textBoxTelefonoAlternativo.Text))
-                                {
-                                    beCliente.TelefonoAlternativo = "-";
-                                    if (!maskedTextBoxHorarioDeApertura.MaskFull)
-                                    { MessageBox.Show("debe colocar un horario de apertura"); }
-                                    else
-                                    {
-                                        beCliente.HorarioDeApertura = TimeSpan.Parse(maskedTextBoxHorarioDeApertura.Text);
-                                        if (!maskedTextBoxHorarioDeCierre.MaskFull)
-                                        { MessageBox.Show("Debe colocar un horario de cierre"); }
-                                        else
-                                        {
-                                            beCliente.HorarioDeCierre = TimeSpan.Parse(maskedTextBoxHorarioDeCierre.Text);
-                                            DialogResult confirmacion;
-                                            confirmacion = MessageBox.Show("Confirmar la modificacion de los datos?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                                            if (confirmacion == DialogResult.Yes)
-                                            {
-                                                bllCliente.ModificarCliente(beCliente);
-                                                DialogResult = DialogResult.OK;
-                                                Close();
-                                            }
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    beCliente.TelefonoAlternativo = textBoxTelefonoAlternativo.Text;
 
-                                    if (!maskedTextBoxHorarioDeApertura.MaskFull)
-                                    { MessageBox.Show("debe colocar un horario de apertura"); }
-                                    else
-                                    {
-                                        beCliente.HorarioDeApertura = TimeSpan.Parse(maskedTextBoxHorarioDeApertura.Text);
-                                        if (!maskedTextBoxHorarioDeCierre.MaskFull)
-                                        { MessageBox.Show("Debe colocar un horario de cierre"); }
-                                        else
-                                        {
-                                            beCliente.HorarioDeCierre = TimeSpan.Parse(maskedTextBoxHorarioDeCierre.Text);
-                                            DialogResult confirmacion;
-                                            confirmacion = MessageBox.Show("Confirmar la modificacion de los datos?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                                            if (confirmacion == DialogResult.Yes)
-                                            {
-                                                bllCliente.ModificarCliente(beCliente);
-                                                DialogResult = DialogResult.OK;
-                                                Close();
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
+                // 2. Protección de UI: Que la hora exista (evita que explote con horas falsas)
+                if (!TimeSpan.TryParse(maskedTextBoxHorarioDeApertura.Text, out TimeSpan apertura) ||
+                    !TimeSpan.TryParse(maskedTextBoxHorarioDeCierre.Text, out TimeSpan cierre))
+                {
+                    MessageBox.Show("Los horarios ingresados no son válidos (Formato 24hs).", "Error en horario", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                beCliente.HorarioDeApertura = apertura;
+                beCliente.HorarioDeCierre = cierre;
+
+                DialogResult confirmacion = MessageBox.Show("¿Confirmar la modificación de los datos?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (confirmacion == DialogResult.Yes)
+                {
+                    // --- LA BLL TOMA EL CONTROL ---
+                    bllCliente.ModificarCliente(beCliente);
+                    MessageBox.Show("Cliente modificado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    DialogResult = DialogResult.OK;
+                    Close();
                 }
             }
-            catch (Exception)
+            catch (ArgumentException ex)
             {
-
-                throw;
+                // Atajamos a la BLL si falta algún dato clave
+                MessageBox.Show(ex.Message, "Datos incorrectos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            catch (InvalidOperationException ex)
+            {
+                MessageBox.Show(ex.Message, "Operación no permitida", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error inesperado al modificar: " + ex.Message, "Error Crítico", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -139,7 +106,7 @@ namespace Meraki
 
         private void panelBarra_MouseDown(object sender, MouseEventArgs e)
         {
-           
+
         }
 
         //Drag form
@@ -149,7 +116,7 @@ namespace Meraki
         [DllImport("user32.DLL", EntryPoint = "SendMessage")]
         private extern static void SendMessage(System.IntPtr hWnd, int wMsg, int wParam, int lParam);
 
-        
+
 
         private void iconButtonCerrar_Click_1(object sender, EventArgs e)
         {
@@ -174,6 +141,14 @@ namespace Meraki
         {
             ReleaseCapture();
             SendMessage(this.Handle, 0x112, 0xf012, 0);
+        }
+
+        private void textBoxTelefono_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '-' && e.KeyChar != '(' && e.KeyChar != ')')
+            {
+                e.Handled = true;
+            }
         }
     }
 }

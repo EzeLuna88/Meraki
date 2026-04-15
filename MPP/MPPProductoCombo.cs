@@ -4,6 +4,7 @@ using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -41,7 +42,7 @@ namespace MPP
             new MySqlParameter("@precio_minorista", producto.PrecioMinorista)
         };
 
-                acceso.EjecutarNonQueryConParametros(queryProducto, parametrosProducto);
+                acceso.EjecutarNonQuery(queryProducto, parametrosProducto.ToArray());
 
                 // 2. Insertar cada producto del combo en la tabla producto_combo
                 foreach (var stock in producto.ListaProductos)
@@ -57,7 +58,7 @@ namespace MPP
                 new MySqlParameter("@stock_id", stock.Codigo)
             };
 
-                    acceso.EjecutarNonQueryConParametros(queryCombo, parametrosCombo);
+                    acceso.EjecutarNonQuery(queryCombo, parametrosCombo.ToArray());
                 }
             }
             catch (Exception ex)
@@ -105,7 +106,7 @@ namespace MPP
             new MySqlParameter("@precioMinorista", beProducto.PrecioMinorista)
         };
 
-                acceso.EjecutarNonQueryConParametros(queryProducto, parametrosProducto);
+                acceso.EjecutarNonQuery(queryProducto, parametrosProducto.ToArray());
             }
             catch (Exception ex)
             {
@@ -117,20 +118,59 @@ namespace MPP
         {
             try
             {
-                // 1. Eliminar componentes del combo en combo_producto
-                string queryEliminarComponentes = @"DELETE FROM combo_producto WHERE id_combo = @id_combo;";
-                MySqlParameter param1 = new MySqlParameter("@id_combo", beProducto.Codigo);
-                acceso.EjecutarNonQuery(queryEliminarComponentes, param1);
+                // MAGIA DEL HISTORIAL:
+                // No borramos las relaciones en la tabla producto_stock con un DELETE.
+                // Al darle de baja (activo = 0) a la cabecera en la tabla 'producto', 
+                // el combo desaparece del sistema para nuevas ventas, pero conserva 
+                // sus ingredientes intactos para poder consultar comprobantes históricos.
 
-                // 2. Eliminar el combo de la tabla producto
-                string queryEliminarCombo = @"DELETE FROM producto WHERE id = @id;";
-                MySqlParameter param2 = new MySqlParameter("@id", beProducto.Codigo);
-                acceso.EjecutarNonQuery(queryEliminarCombo, param2);
+                string queryEliminarCombo = @"UPDATE producto SET activo = 0 WHERE id = @id;";
+
+                MySqlParameter param = new MySqlParameter("@id", beProducto.Codigo);
+
+                acceso.EjecutarNonQuery(queryEliminarCombo, param);
             }
             catch (Exception ex)
             {
                 throw new Exception("Error al borrar el producto combo.", ex);
             }
+        }
+
+        public bool ValidarStockEnComboActivo(string codigoStock)
+        {
+            bool estaEnComboActivo = false;
+
+            // Consulta adaptada a tus tablas exactas
+            // ps = producto_stock (el detalle)
+            // p = producto (la cabecera del combo)
+            string query = @"
+        SELECT COUNT(*) 
+        FROM producto_stock ps
+        INNER JOIN producto p ON ps.producto_id = p.id
+        WHERE ps.stock_id = @CodigoStock 
+        AND p.activo = 1"; // <-- OJO: Recordá agregar la columna 'activo' a tu tabla producto en MySQL
+
+            // Creamos el parámetro para MySQL
+            MySqlParameter param = new MySqlParameter("@CodigoStock", codigoStock);
+            var parametros = new List<MySqlParameter> { param };
+
+            try
+            {
+                // Llamamos a tu DAL
+                object resultado = acceso.EjecutarEscalar(query, parametros);
+
+                // Si el COUNT da mayor a 0, significa que este stock está metido en un combo que sigue activo
+                if (resultado != null && Convert.ToInt32(resultado) > 0)
+                {
+                    estaEnComboActivo = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al validar el stock en la base de datos: " + ex.Message);
+            }
+
+            return estaEnComboActivo;
         }
     }
 }

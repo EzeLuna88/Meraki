@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QuestPDF.Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace Meraki
             CultureInfo culture = new CultureInfo("es-AR");
             CultureInfo.DefaultThreadCurrentCulture = culture;
             CultureInfo.DefaultThreadCurrentUICulture = culture;
-
+            QuestPDF.Settings.License = LicenseType.Community;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new PrincipalNuevo());

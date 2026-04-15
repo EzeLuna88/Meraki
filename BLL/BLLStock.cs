@@ -13,12 +13,13 @@ namespace BLL
     {
         MPPStock mppStock;
 
+
         public BLLStock() { mppStock = new MPPStock(); }
 
 
 
-        public void GuardarNuevoProducto(BEStock beStock)
-        { mppStock.GuardarNuevoProducto(beStock); }
+        public void GuardarNuevoProducto(BEStock beStock, DateTime fechaDeVencimiento, int unidades)
+        { mppStock.GuardarNuevoProducto(beStock, fechaDeVencimiento, unidades); }
 
         public List<BEStock> CargarStock()
         { return mppStock.CargarStock(); }
@@ -38,8 +39,118 @@ namespace BLL
             mppStock.AgregarStock(bestock, unidades);
         }
 
+        public void ActualizarStock(BECarrito carrito, List<BEStock> listaStock)
+        {
+            // Usamos pattern matching (el nombre de variable al lado del tipo) para ahorrar líneas
+            if (carrito.Producto is BEProductoIndividual productoIndividual)
+            {
+                var productoEnStock = listaStock.Find(p => p.Codigo == productoIndividual.Stock.Codigo);
+                int cantidadDisponible = productoEnStock.CantidadActual - productoEnStock.CantidadReservada;
+
+                if (cantidadDisponible >= productoIndividual.Unidad)
+                {
+                    // 1. Actualizar carrito
+                    carrito.Cantidad++;
+                    carrito.Total += carrito.Producto.PrecioMayorista;
+
+                    // 2. Aumentar la reserva maestra
+                    productoEnStock.CantidadReservada = productoEnStock.CantidadReservada + carrito.Producto.Unidad;
+
+                    // 3. ¡LA SINCRONIZACIÓN! (Para no perder el dato en el carrito temporal)
+                    productoIndividual.Stock.CantidadReservada = productoEnStock.CantidadReservada;
+
+                    // 4. Guardar la reserva individual
+                    CantidadReservadaStock(productoEnStock);
+                }
+                else
+                {
+                    // Corregido el mensaje de error
+                    throw new Exception($"No hay stock suficiente del producto: {productoIndividual.Stock.Nombre}");
+                }
+            }
+            else if (carrito.Producto is BEProductoCombo beProductoCombo)
+            {
+                bool hayStockSuficiente = true;
+
+                foreach (var productoEnCombo in beProductoCombo.ListaProductos)
+                {
+                    var productoEnStock = listaStock.Find(p => p.Codigo == productoEnCombo.Codigo);
+
+                    // CORREGIDO: Ahora verifica la cantidad DISPONIBLE real, restando lo ya reservado
+                    if (productoEnStock == null || (productoEnStock.CantidadActual - productoEnStock.CantidadReservada) < 1)
+                    {
+                        hayStockSuficiente = false;
+                        break;
+                    }
+                }
+
+                if (hayStockSuficiente)
+                {
+                    carrito.Cantidad++;
+                    carrito.Total += carrito.Producto.PrecioMayorista;
+
+                    foreach (var productoEnCombo in beProductoCombo.ListaProductos)
+                    {
+                        var productoEnStock = listaStock.Find(p => p.Codigo == productoEnCombo.Codigo);
+                        if (productoEnStock != null)
+                        {
+                            productoEnStock.CantidadReservada++;
+
+                            // ¡LA SINCRONIZACIÓN para los combos!
+                            productoEnCombo.CantidadReservada = productoEnStock.CantidadReservada;
+
+                            CantidadReservadaStock(productoEnStock);
+                        }
+                    }
+                }
+                else
+                {
+                    throw new Exception("No hay stock suficiente para agregar este combo.");
+                }
+            }
+
+            // Dejamos un solo llamado general a la BD al final para optimizar rendimiento
+            mppStock.ActualizarStock(listaStock);
+        }
+
+        public void DisminuirStockEnCarrito(BECarrito carrito, List<BEStock> listaStock)
+        {
+            if (carrito.Producto is BEProductoIndividual productoIndividual)
+            {
+                var productoEnStock = listaStock.Find(p => p.Codigo == productoIndividual.Stock.Codigo);
+
+                carrito.Cantidad--;
+                carrito.Total -= carrito.Producto.PrecioMayorista;
+
+                productoEnStock.CantidadReservada = productoEnStock.CantidadReservada - carrito.Producto.Unidad;
+
+                productoIndividual.Stock.CantidadReservada = productoEnStock.CantidadReservada;
+
+                CantidadReservadaStock(productoEnStock);
+            }
+            else if (carrito.Producto is BEProductoCombo beProductoCombo)
+            {
+                carrito.Cantidad--;
+                carrito.Total -= carrito.Producto.PrecioMayorista;
+
+                foreach (var productoEnCombo in beProductoCombo.ListaProductos)
+                {
+                    var productoEnStock = listaStock.Find(p => p.Codigo == productoEnCombo.Codigo);
+                    if (productoEnStock != null)
+                    {
+                        productoEnStock.CantidadReservada--;
+
+                        productoEnCombo.CantidadReservada = productoEnStock.CantidadReservada;
+
+                        CantidadReservadaStock(productoEnStock);
+                    }
+                }
+            }
+        }
+
         public void ActualizarStock(List<BEStock> listaStock)
         {
+            // Solo hace de pasamanos hacia la base de datos para un guardado masivo
             mppStock.ActualizarStock(listaStock);
         }
 
@@ -65,7 +176,7 @@ namespace BLL
 
         public void DescontarStockPorVencimiento(BECompraMayorista compra)
         {
-            mppStock.DescontarStockPorVencimiento(compra); 
+            mppStock.DescontarStockPorVencimiento(compra);
         }
 
         public DataTable ObtenerStockConVencimiento()
@@ -75,7 +186,11 @@ namespace BLL
 
         public void CantidadAviso(BEStock beStock)
         {
-             mppStock.CantidadAviso(beStock);
+            if (beStock.AvisoCantidadStock < 0)
+            {
+                throw new ArgumentException("La cantidad para el aviso no puede ser menor a cero.");
+            }
+            mppStock.CantidadAviso(beStock);
         }
 
         public List<string> ObtenerProductosProximosAVencer()

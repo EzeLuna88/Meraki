@@ -19,8 +19,7 @@ namespace Meraki
         BEProductoCombo beProductoCombo;
         BLLProducto bllProducto;
         BLLProductoCombo bllProductoCombo;
-        private bool puntoMayorista = false;
-        private bool puntoMinorista = false;
+
         public ProductosModificar()
         {
             beProductoIndividual = new BEProductoIndividual();
@@ -80,36 +79,27 @@ namespace Meraki
             }
         }
 
-        private void textBoxPrecioMayorista_KeyPress_1(object sender, KeyPressEventArgs e)
+        private void ValidarIngresoDecimal(object sender, KeyPressEventArgs e)
         {
+            TextBox txt = sender as TextBox;
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
-                if ((e.KeyChar == '.') && (!puntoMayorista))
+                char separadorDecimal = Convert.ToChar(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
+                if (e.KeyChar == '.' || e.KeyChar == ',')
                 {
-                    puntoMayorista = true;
-                    e.Handled = false; // permitir ingreso
+                    e.KeyChar = separadorDecimal;
+                    if (txt.Text.Contains(separadorDecimal))
+                    {
+                        e.Handled = true;
+                    }
+                    else
+                    {
+                        e.Handled = false;
+                    }
                 }
-
                 else
                 {
-                    e.Handled = true; // no permitir ingreso
-                }
-            }
-        }
-
-        private void textBoxPrecioMinorista_KeyPress_1(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-            {
-                if ((e.KeyChar == '.') && (!puntoMinorista))
-                {
-                    puntoMinorista = true;
-                    e.Handled = false; // permitir ingreso
-                }
-
-                else
-                {
-                    e.Handled = true; // no permitir ingreso
+                    e.Handled = true;
                 }
             }
         }
@@ -130,6 +120,11 @@ namespace Meraki
             dataGridView.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dataGridView.EnableHeadersVisualStyles = false;
             dataGridView.AllowUserToAddRows = false;
+
+            dataGridView.EnableHeadersVisualStyles = false;
+            dataGridView.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(48, 8, 21); // Bordó oscuro
+            dataGridView.ColumnHeadersDefaultCellStyle.ForeColor = Color.FromArgb(244, 217, 208); // Crema claro
+
             dataGridView.ColumnHeadersDefaultCellStyle.SelectionBackColor = dataGridView.ColumnHeadersDefaultCellStyle.BackColor;
             dataGridView.ColumnHeadersDefaultCellStyle.SelectionForeColor = dataGridView.ColumnHeadersDefaultCellStyle.ForeColor;
             // Configuración específica de estilo para columnas
@@ -138,37 +133,60 @@ namespace Meraki
 
         private void iconButtonModificar_Click(object sender, EventArgs e)
         {
-            if (dataGridViewCombo.Visible == false)
+            // --- PATOVICA DE UI (Evita vacíos y formatos raros) ---
+            if (string.IsNullOrWhiteSpace(textBoxUnidades.Text) ||
+                string.IsNullOrWhiteSpace(textBoxPrecioMayorista.Text))
             {
-                beProductoIndividual.Codigo = textBoxCodigo.Text;
-                beProductoIndividual.Unidad = Convert.ToInt32(textBoxUnidades.Text);
+                MessageBox.Show("Los campos 'Unidades' y 'Precio Mayorista' no pueden estar vacíos.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
-                beProductoIndividual.PrecioMayorista = Convert.ToDecimal(textBoxPrecioMayorista.Text);
-                beProductoIndividual.PrecioMinorista = Convert.ToDecimal(textBoxPrecioMinorista.Text);
-                DialogResult confirmacion;
-                confirmacion = MessageBox.Show("Confirmar la modificacion de los datos?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (confirmacion == DialogResult.Yes)
+            // Por las dudas, forzamos el Precio Minorista a 0 si lo dejaron vacío
+            if (string.IsNullOrWhiteSpace(textBoxPrecioMinorista.Text))
+            {
+                textBoxPrecioMinorista.Text = "0";
+            }
+            // -----------------------------------------------------
+
+            try
+            {
+                if (dataGridViewCombo.Visible == false) // Es Individual
                 {
-                    bllProducto.ModificarProducto(beProductoIndividual);
-                    DialogResult = DialogResult.OK;
-                    Close();
+                    beProductoIndividual.Codigo = textBoxCodigo.Text;
+                    beProductoIndividual.Unidad = Convert.ToInt32(textBoxUnidades.Text);
+                    beProductoIndividual.PrecioMayorista = Convert.ToDecimal(textBoxPrecioMayorista.Text);
+                    beProductoIndividual.PrecioMinorista = Convert.ToDecimal(textBoxPrecioMinorista.Text);
+
+                    DialogResult confirmacion = MessageBox.Show("¿Confirmar la modificación de los datos?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (confirmacion == DialogResult.Yes)
+                    {
+                        bllProducto.ModificarProducto(beProductoIndividual);
+                        MessageBox.Show("Producto modificado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        DialogResult = DialogResult.OK;
+                        Close();
+                    }
+                }
+                else // Es Combo
+                {
+                    beProductoCombo.Codigo = textBoxCodigo.Text;
+                    beProductoCombo.Unidad = Convert.ToInt32(textBoxUnidades.Text);
+                    beProductoCombo.Nombre = textBoxNombre.Text;
+                    beProductoCombo.PrecioMayorista = Convert.ToDecimal(textBoxPrecioMayorista.Text);
+                    beProductoCombo.PrecioMinorista = Convert.ToDecimal(textBoxPrecioMinorista.Text);
+
+                    DialogResult confirmacion = MessageBox.Show("¿Confirmar la modificación de los datos?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (confirmacion == DialogResult.Yes)
+                    {
+                        bllProductoCombo.ModificarProducto(beProductoCombo);
+                        MessageBox.Show("Combo modificado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        DialogResult = DialogResult.OK;
+                        Close();
+                    }
                 }
             }
-            else
+            catch (Exception ex)
             {
-                beProductoCombo.Codigo = textBoxCodigo.Text;
-                beProductoCombo.Unidad = Convert.ToInt32(textBoxUnidades.Text);
-                beProductoCombo.Nombre = textBoxNombre.Text;
-                beProductoCombo.PrecioMayorista = Convert.ToDecimal(textBoxPrecioMayorista.Text);
-                beProductoCombo.PrecioMinorista = Convert.ToDecimal(textBoxPrecioMinorista.Text);
-                DialogResult confirmacion;
-                confirmacion = MessageBox.Show("Confirmar la modificacion de los datos?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (confirmacion == DialogResult.Yes)
-                {
-                    bllProductoCombo.ModificarProducto(beProductoCombo);
-                    DialogResult = DialogResult.OK;
-                    Close();
-                }
+                MessageBox.Show("Ocurrió un error al intentar modificar: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -183,26 +201,7 @@ namespace Meraki
         [DllImport("user32.DLL", EntryPoint = "SendMessage")]
         private extern static void SendMessage(System.IntPtr hWnd, int wMsg, int wParam, int lParam);
 
-        
 
-        private void iconButtonCerrar_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-
-        }
-
-        private void iconButtonMaximizar_Click(object sender, EventArgs e)
-        {
-            if (WindowState == FormWindowState.Normal)
-                WindowState = FormWindowState.Maximized;
-            else
-                WindowState = FormWindowState.Normal;
-        }
-
-        private void iconButtonMinimizar_Click(object sender, EventArgs e)
-        {
-            WindowState = FormWindowState.Minimized;
-        }
 
         private void ProductosModificar_MouseDown(object sender, MouseEventArgs e)
         {

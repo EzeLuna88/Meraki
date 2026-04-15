@@ -14,7 +14,7 @@ namespace MPP
     public class MPPStock
     {
         public List<BEStock> CargarStock()
-{
+        {
             try
             {
                 string consulta = "SELECT id, nombre, medida, tipo_medida, cantidad_actual, cantidad_reservada, aviso FROM stock";
@@ -136,14 +136,23 @@ namespace MPP
         }
 
 
-        public int GuardarNuevoProducto(BEStock beStock)
+        public int GuardarNuevoProducto(BEStock beStock, DateTime fechaDeVencimiento, int totalUnidades)
         {
             try
             {
+                // ARMAMOS UN SOLO BLOQUE GIGANTE DE SQL (TRANSACCIÓN)
                 string consulta = @"
-            INSERT INTO stock (nombre, medida, tipo_medida, cantidad_actual, cantidad_reservada)
-            VALUES (@nombre, @medida, @tipo_medida, @cantidad_actual, @cantidad_reservada);
-            SELECT LAST_INSERT_ID();";
+                    START TRANSACTION;
+                    INSERT INTO stock (nombre, medida, tipo_medida, cantidad_actual, cantidad_reservada)
+                    VALUES (@nombre, @medida, @tipo_medida, @cantidad_actual, @cantidad_reservada);
+            
+                    INSERT INTO stock_vencimiento (stock_id, fecha_de_vencimiento, cantidad)
+                    VALUES (LAST_INSERT_ID(), @fecha_de_vencimiento, @cantidad);
+
+                    COMMIT;
+
+                    SELECT 1;
+        ";
 
                 var parametros = new List<MySqlParameter>()
         {
@@ -151,18 +160,23 @@ namespace MPP
             new MySqlParameter("@medida", beStock.Medida),
             new MySqlParameter("@tipo_medida", beStock.TipoMedida.Trim()),
             new MySqlParameter("@cantidad_actual", beStock.CantidadActual),
-            new MySqlParameter("@cantidad_reservada", beStock.CantidadReservada)
+            new MySqlParameter("@cantidad_reservada", beStock.CantidadReservada),
+            
+            // Le pasamos también los datos del vencimiento
+            new MySqlParameter("@fecha_de_vencimiento", fechaDeVencimiento),
+            new MySqlParameter("@cantidad", totalUnidades)
         };
 
                 AccesoDAL acceso = new AccesoDAL();
 
-                object resultado = acceso.EjecutarEscalarConParametros(consulta, parametros);
+                // EjecutarEscalar nos devuelve el SELECT @id_creado del final
+                object resultado = acceso.EjecutarEscalar(consulta, parametros);
 
-                return Convert.ToInt32(resultado);
+                return resultado != null && resultado != DBNull.Value ? Convert.ToInt32(resultado) : 0;
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al guardar el nuevo producto en la base de datos.", ex);
+                throw new Exception("Error crítico al guardar el producto y su vencimiento. No se guardó nada en la base de datos.", ex);
             }
         }
 
@@ -176,12 +190,14 @@ namespace MPP
                 {
                     string consulta = @"
                 UPDATE stock
-                SET cantidad_actual = @cantidad_actual
+                SET cantidad_actual = @cantidad_actual,
+                    cantidad_reservada = @cantidadReservada
                 WHERE id = @id";
 
                     MySqlParameter[] parametros =
                     {
                 new MySqlParameter("@cantidad_actual", beStock.CantidadActual),
+                new MySqlParameter("@cantidadReservada", beStock.CantidadReservada),
                 new MySqlParameter("@id", int.Parse(beStock.Codigo))
             };
 
@@ -234,7 +250,7 @@ namespace MPP
             new MySqlParameter("@codigo", beStock.Codigo)
         };
 
-                acceso.EjecutarNonQueryConParametros(consulta, parametros);
+                acceso.EjecutarNonQuery(consulta, parametros.ToArray());
             }
             catch (Exception ex)
             {
@@ -259,7 +275,7 @@ namespace MPP
             new MySqlParameter("@codigo", beStock.Codigo)
         };
 
-                acceso.EjecutarNonQueryConParametros(consulta, parametros);
+                acceso.EjecutarNonQuery(consulta, parametros.ToArray());
             }
             catch (Exception ex)
             {
@@ -283,7 +299,7 @@ namespace MPP
             new MySqlParameter("@fecha_de_vencimiento", fechaDeVencimiento)
         };
 
-                object resultado = acceso.EjecutarEscalarConParametros(querySelect, parametrosSelect);
+                object resultado = acceso.EjecutarEscalar(querySelect, parametrosSelect);
 
                 if (resultado != null && resultado != DBNull.Value)
                 {
@@ -302,7 +318,7 @@ namespace MPP
                 new MySqlParameter("@fecha_de_vencimiento", fechaDeVencimiento)
             };
 
-                    acceso.EjecutarNonQueryConParametros(queryUpdate, parametrosUpdate);
+                    acceso.EjecutarNonQuery(queryUpdate, parametrosUpdate.ToArray());
                 }
                 else
                 {
@@ -317,7 +333,7 @@ namespace MPP
                 new MySqlParameter("@cantidad", totalUnidades)
             };
 
-                    acceso.EjecutarNonQueryConParametros(queryInsert, parametrosInsert);
+                    acceso.EjecutarNonQuery(queryInsert, parametrosInsert.ToArray());
                 }
             }
             catch (Exception ex)
@@ -459,7 +475,7 @@ namespace MPP
             new MySqlParameter("@id", beStock.Codigo)
         };
 
-                acceso.EjecutarNonQueryConParametros(query, parametros);
+                acceso.EjecutarNonQuery(query, parametros.ToArray());
             }
             catch (Exception ex)
             {

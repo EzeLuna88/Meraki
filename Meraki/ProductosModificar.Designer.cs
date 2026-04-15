@@ -66,7 +66,7 @@
             this.textBoxPrecioMayorista.Name = "textBoxPrecioMayorista";
             this.textBoxPrecioMayorista.Size = new System.Drawing.Size(297, 22);
             this.textBoxPrecioMayorista.TabIndex = 4;
-            this.textBoxPrecioMayorista.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxPrecioMayorista_KeyPress_1);
+            this.textBoxPrecioMayorista.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ValidarIngresoDecimal);
             this.textBoxPrecioMayorista.Leave += new System.EventHandler(this.textBoxPrecioMayorista_Leave_1);
             // 
             // textBoxUnidades
@@ -89,7 +89,7 @@
             this.textBoxPrecioMinorista.Name = "textBoxPrecioMinorista";
             this.textBoxPrecioMinorista.Size = new System.Drawing.Size(297, 22);
             this.textBoxPrecioMinorista.TabIndex = 5;
-            this.textBoxPrecioMinorista.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxPrecioMinorista_KeyPress_1);
+            this.textBoxPrecioMinorista.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ValidarIngresoDecimal);
             this.textBoxPrecioMinorista.Leave += new System.EventHandler(this.textBoxPrecioMinorista_Leave_1);
             // 
             // textBoxNombre

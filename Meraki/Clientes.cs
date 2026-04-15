@@ -1,17 +1,12 @@
-﻿using System;
+﻿using BE;
+using BLL;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using BLL;
-using BE;
-using System.Runtime.Remoting;
-using System.Data.Common;
-using System.Windows.Media;
 
 namespace Meraki
 {
@@ -32,6 +27,10 @@ namespace Meraki
             CargarDataGridClientes();
             ComentariosHabilitado = false;
             ComprobarComentarios();
+            richTextBoxComentarios.Enabled = true;
+            richTextBoxComentarios.ReadOnly = true;
+            richTextBoxComentarios.BackColor = System.Drawing.Color.FromArgb(199, 91, 122);
+
         }
 
         private void Clientes_Load(object sender, EventArgs e)
@@ -46,8 +45,6 @@ namespace Meraki
             }
         }
 
-
-
         public void CargarDataGridClientes()
         {
             dataGridViewClientes.DataSource = null;
@@ -58,7 +55,6 @@ namespace Meraki
 
 
         }
-
 
 
         private void EscribirDatos()
@@ -78,48 +74,20 @@ namespace Meraki
             }
         }
 
-
-
-
-
-
-
         public void ComprobarComentarios()
         {
             if (!ComentariosHabilitado)
             {
-                iconButtonComentariosBorrar.Visible = true;
+                iconButtonComentariosEditar.Visible = true;
                 iconButtonComentariosGuardar.Visible = false;
                 dataGridViewClientes.Enabled = true;
             }
             else
             {
-                iconButtonComentariosBorrar.Visible = false;
+                iconButtonComentariosEditar.Visible = false;
                 iconButtonComentariosGuardar.Visible = true;
                 //dataGridViewClientes.Enabled = false;
             }
-        }
-
-
-
-
-
-
-
-        private void buttonComentariosBorrar_Click(object sender, EventArgs e)
-        {
-            DialogResult resultado = MessageBox.Show("¿Está seguro de que desea borrar el comentario?",
-                                             "Confirmar borrado",
-                                             MessageBoxButtons.YesNo,
-                                             MessageBoxIcon.Warning);
-
-            if (resultado == DialogResult.Yes)
-            {
-                beCliente.Comentarios = string.Empty;
-                bllCliente.AgregarModificarComentarios(beCliente);
-                CargarDataGridClientes();
-            }
-
         }
 
         public void ConfigurarDataGrid(DataGridView dataGridView)
@@ -212,6 +180,9 @@ namespace Meraki
             {
 
                 beCliente = (BECliente)dataGridViewClientes.CurrentRow.DataBoundItem;
+
+                string codigoClienteActual = beCliente.Codigo;
+
                 ClientesModificar modificar = new ClientesModificar();
                 modificar.textBoxCodigo.Text = beCliente.Codigo;
                 modificar.textBoxNombre.Text = beCliente.Nombre;
@@ -224,6 +195,35 @@ namespace Meraki
                 modificar.ShowDialog();
 
                 CargarDataGridClientes();
+
+                if (!string.IsNullOrEmpty(codigoClienteActual))
+                {
+                    // Desenganchamos el evento un segundo
+                    dataGridViewClientes.SelectionChanged -= dataGridViewClientes_SelectionChanged_1;
+
+                    dataGridViewClientes.ClearSelection();
+
+                    foreach (DataGridViewRow row in dataGridViewClientes.Rows)
+                    {
+                        if (row.DataBoundItem is BECliente clienteEnGrilla && clienteEnGrilla.Codigo == codigoClienteActual)
+                        {
+                            dataGridViewClientes.CurrentCell = row.Cells[1]; // Foco en el nombre
+                            row.Selected = true;
+
+                            // Scrolleamos hasta el cliente si estaba muy abajo
+                            if (row.Index >= 0)
+                                dataGridViewClientes.FirstDisplayedScrollingRowIndex = row.Index;
+
+                            break;
+                        }
+                    }
+
+                    // Volvemos a enganchar el evento
+                    dataGridViewClientes.SelectionChanged += dataGridViewClientes_SelectionChanged_1;
+
+                    // Escribimos los datos actualizados en el panel de abajo
+                    EscribirDatos();
+                }
 
             }
             else
@@ -265,37 +265,82 @@ namespace Meraki
             }
         }
 
+        private void HabilitarEdicionComentarios()
+        {
+            if (dataGridViewClientes.CurrentRow != null)
+            {
+                ComentariosHabilitado = true;
+                ComprobarComentarios(); // Magia: Oculta "Editar" y muestra "Guardar"
+
+                // Magia Visual: Desbloqueamos y cambiamos el color a uno más clarito
+                richTextBoxComentarios.ReadOnly = false;
+                richTextBoxComentarios.BackColor = System.Drawing.Color.FromArgb(217, 171, 171);
+
+                // Ponemos el cursor parpadeando al final del texto listo para escribir
+                richTextBoxComentarios.Focus();
+                richTextBoxComentarios.SelectionStart = richTextBoxComentarios.Text.Length;
+            }
+            else
+            {
+                MessageBox.Show("Seleccione un cliente primero.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
         private void iconButtonComentariosGuardar_Click(object sender, EventArgs e)
         {
             try
             {
-                // Verificar si el comentario fue realmente modificado
+                // Verificamos si realmente escribió algo nuevo
                 if (richTextBoxComentarios.Text.Trim() != beCliente.Comentarios)
                 {
-                    ComentariosHabilitado = false;  // Deshabilitar la edición
-                    ComprobarComentarios();  // Actualizar la visibilidad de los botones
-                    richTextBoxComentarios.Enabled = false;  // Deshabilitar el richTextBox
-                    beCliente.Comentarios = richTextBoxComentarios.Text.Trim();  // Asignar el nuevo comentario al cliente
+                    string codigoClienteActual = beCliente.Codigo;
+                    // ¡CLAVE! Ponemos esto en false PRIMERO para que el SelectionChanged no salte.
+                    ComentariosModificados = false;
+                    ComentariosHabilitado = false;
 
-                    // Llamar al método de BLL para guardar o modificar el comentario
+                    beCliente.Comentarios = richTextBoxComentarios.Text.Trim();
                     bllCliente.AgregarModificarComentarios(beCliente);
-                    MessageBox.Show("Se guardó el comentario");
+                    MessageBox.Show("Se guardó el comentario", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    richTextBoxComentarios.BackColor = System.Drawing.Color.FromArgb(199, 91, 122); // Cambiar color de fondo del TextBox
-
-                    // Después de guardar el comentario, puedes recargar los clientes en el DataGrid
+                    // Ahora sí recargamos la grilla, de forma segura
                     CargarDataGridClientes();
+
+                    if (!string.IsNullOrEmpty(codigoClienteActual))
+                    {
+                        // Desenganchamos el evento un milisegundo para que no haga ruido
+                        dataGridViewClientes.SelectionChanged -= dataGridViewClientes_SelectionChanged_1;
+
+                        dataGridViewClientes.ClearSelection();
+
+                        foreach (DataGridViewRow row in dataGridViewClientes.Rows)
+                        {
+                            if (row.DataBoundItem is BECliente clienteEnGrilla && clienteEnGrilla.Codigo == codigoClienteActual)
+                            {
+                                dataGridViewClientes.CurrentCell = row.Cells[1]; // Foco en el nombre
+                                row.Selected = true;
+
+                                // Hacemos que la grilla scrollee hasta donde está el cliente si estaba muy abajo
+                                if (row.Index >= 0)
+                                    dataGridViewClientes.FirstDisplayedScrollingRowIndex = row.Index;
+
+                                break;
+                            }
+                        }
+
+                        // Volvemos a enganchar el evento
+                        dataGridViewClientes.SelectionChanged += dataGridViewClientes_SelectionChanged_1;
+                    }
                 }
                 else
                 {
-                    // Si no hubo cambios en el comentario, mostramos un mensaje informando al usuario
-                    MessageBox.Show("No se realizaron cambios en el comentario.");
+                    MessageBox.Show("No se realizaron cambios en el comentario.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
+
+                ResetearEstadoComentarios();
             }
             catch (Exception ex)
             {
-                // Manejo de errores
-                MessageBox.Show("Error al guardar el comentario: " + ex.Message);
+                MessageBox.Show("Error al guardar el comentario: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -303,19 +348,25 @@ namespace Meraki
         {
             ComentariosHabilitado = false;
             ComentariosModificados = false;
-            richTextBoxComentarios.Enabled = false;
-            richTextBoxComentarios.BackColor = System.Drawing.Color.White;
+
+            richTextBoxComentarios.ReadOnly = true;
+            richTextBoxComentarios.BackColor = System.Drawing.Color.FromArgb(199, 91, 122);
+
             ComprobarComentarios();
+
+            // Le devolvemos el foco a la grilla para asegurar que el cursor salga del cuadro oscuro
+            dataGridViewClientes.Focus();
         }
 
         private void dataGridViewClientes_SelectionChanged_1(object sender, EventArgs e)
         {
             try
             {
+                // Solo salta la advertencia si estábamos editando Y si hubo cambios
                 if (ComentariosHabilitado && ComentariosModificados)
                 {
                     var resultado = MessageBox.Show(
-                        "Estás editando un comentario. ¿Deseás guardar los cambios?",
+                        "Estás editando un comentario. ¿Deseás guardar los cambios antes de cambiar de cliente?",
                         "Comentario en edición",
                         MessageBoxButtons.YesNoCancel,
                         MessageBoxIcon.Question
@@ -323,49 +374,59 @@ namespace Meraki
 
                     if (resultado == DialogResult.Yes)
                     {
-                        beCliente.Comentarios = richTextBoxComentarios.Text.Trim();  // Asignar el nuevo comentario al cliente
+                        // Ponemos las banderas en false para evitar el bucle infinito
+                        ComentariosModificados = false;
+
+                        beCliente.Comentarios = richTextBoxComentarios.Text.Trim();
                         bllCliente.AgregarModificarComentarios(beCliente);
+
                         ResetearEstadoComentarios();
                     }
                     else if (resultado == DialogResult.No)
                     {
                         ResetearEstadoComentarios();
+                        // Al poner que "No", descartamos los cambios visuales y volvemos a escribir los datos originales
+                        EscribirDatos();
                     }
                     else if (resultado == DialogResult.Cancel)
                     {
-                        // Cancelar el cambio de selección
+                        // Desconectamos el evento temporalmente
                         dataGridViewClientes.SelectionChanged -= dataGridViewClientes_SelectionChanged_1;
 
-                        // Volver a seleccionar la fila anterior (opcional: guardar índice anterior)
-                        if (dataGridViewClientes.CurrentRow != null)
-                            dataGridViewClientes.CurrentCell = dataGridViewClientes.CurrentRow.Cells[0];
+                        // Volvemos a la fila anterior (la que estábamos editando)
+                        foreach (DataGridViewRow row in dataGridViewClientes.Rows)
+                        {
+                            if (row.DataBoundItem == beCliente)
+                            {
+                                dataGridViewClientes.CurrentCell = row.Cells[1]; // Seleccionamos la celda del nombre
+                                break;
+                            }
+                        }
 
+                        // Reconectamos el evento
                         dataGridViewClientes.SelectionChanged += dataGridViewClientes_SelectionChanged_1;
-                        return;
+
+                        // Le devolvemos el foco al cuadro de texto para que siga editando
+                        richTextBoxComentarios.Focus();
+                        return; // Cortamos acá
                     }
                 }
 
-                // Si hay una fila seleccionada
-                if (dataGridViewClientes.SelectedRows.Count > 0)
+                // Lógica normal de carga de datos al hacer clic en un cliente (solo si NO estamos cancelando)
+                if (!ComentariosHabilitado && dataGridViewClientes.SelectedRows.Count > 0)
                 {
                     int rowIndex = dataGridViewClientes.SelectedRows[0].Index;
-
                     if (rowIndex >= 0 && rowIndex < dataGridViewClientes.Rows.Count)
                     {
-                        BECliente clienteSeleccionado = (BECliente)dataGridViewClientes.Rows[rowIndex].DataBoundItem;
-
-                        EscribirDatos(); // Tu lógica para cargar datos del cliente
+                        EscribirDatos();
                     }
                 }
             }
             catch (Exception ex)
             {
-                // Manejo de errores más específico para depuración
                 MessageBox.Show("Error al seleccionar cliente: " + ex.Message);
             }
         }
-
-        
 
         private void textBoxFiltrar_Enter(object sender, EventArgs e)
         {
@@ -389,6 +450,36 @@ namespace Meraki
         {
             if (ComentariosHabilitado)
                 ComentariosModificados = true;
+        }
+
+        private void iconButtonComentariosEditar_Click(object sender, EventArgs e)
+        {
+            HabilitarEdicionComentarios();
+        }
+
+
+
+
+        private void Clientes_VisibleChanged(object sender, EventArgs e)
+        {
+            if (this.Visible)
+            {
+                CargarDataGridClientes();
+            }
+        }
+
+        private void richTextBoxComentarios_MouseDown_1(object sender, MouseEventArgs e)
+        {
+            // Si el cuadro está oscuro (no habilitado), no dejamos que el cursor se quede ahí
+            if (!ComentariosHabilitado)
+            {
+                dataGridViewClientes.Focus(); // Mandamos el foco a la grilla instantáneamente
+            }
+        }
+
+        private void richTextBoxComentarios_DoubleClick_1(object sender, EventArgs e)
+        {
+            HabilitarEdicionComentarios();
         }
     }
 }

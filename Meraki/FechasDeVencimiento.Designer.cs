@@ -28,12 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridViewFechasDeVencimiento = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxDiasDeAviso = new System.Windows.Forms.TextBox();
             this.iconButtonGuardar = new FontAwesome.Sharp.IconButton();
+            this.iconButtonCerrar = new FontAwesome.Sharp.IconButton();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFechasDeVencimiento)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -46,14 +47,14 @@
             this.dataGridViewFechasDeVencimiento.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
             this.dataGridViewFechasDeVencimiento.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridViewFechasDeVencimiento.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(8)))), ((int)(((byte)(21)))));
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewFechasDeVencimiento.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(8)))), ((int)(((byte)(21)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewFechasDeVencimiento.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewFechasDeVencimiento.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewFechasDeVencimiento.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(26)))), ((int)(((byte)(64)))));
             this.dataGridViewFechasDeVencimiento.Location = new System.Drawing.Point(12, 12);
@@ -119,12 +120,33 @@
             this.iconButtonGuardar.UseVisualStyleBackColor = false;
             this.iconButtonGuardar.Click += new System.EventHandler(this.iconButtonGuardar_Click);
             // 
+            // iconButtonCerrar
+            // 
+            this.iconButtonCerrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.iconButtonCerrar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(26)))), ((int)(((byte)(64)))));
+            this.iconButtonCerrar.FlatAppearance.BorderSize = 0;
+            this.iconButtonCerrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.iconButtonCerrar.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.iconButtonCerrar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
+            this.iconButtonCerrar.IconChar = FontAwesome.Sharp.IconChar.X;
+            this.iconButtonCerrar.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
+            this.iconButtonCerrar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iconButtonCerrar.IconSize = 30;
+            this.iconButtonCerrar.Location = new System.Drawing.Point(510, 379);
+            this.iconButtonCerrar.Name = "iconButtonCerrar";
+            this.iconButtonCerrar.Size = new System.Drawing.Size(115, 40);
+            this.iconButtonCerrar.TabIndex = 56;
+            this.iconButtonCerrar.Text = "Cerrar";
+            this.iconButtonCerrar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.iconButtonCerrar.UseVisualStyleBackColor = false;
+            // 
             // FechasDeVencimiento
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
             this.ClientSize = new System.Drawing.Size(637, 428);
+            this.Controls.Add(this.iconButtonCerrar);
             this.Controls.Add(this.iconButtonGuardar);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.dataGridViewFechasDeVencimiento);
@@ -144,5 +166,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxDiasDeAviso;
         private FontAwesome.Sharp.IconButton iconButtonGuardar;
+        private FontAwesome.Sharp.IconButton iconButtonCerrar;
     }
 }

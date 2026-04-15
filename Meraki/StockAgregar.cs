@@ -62,45 +62,61 @@ namespace Meraki
 
         private void iconButtonAgregarStock_Click(object sender, EventArgs e)
         {
-            int totalUnidades = int.Parse(textBoxPacks.Text) * int.Parse(textBoxUnidad.Text);
-
-            DateTime fechaDeVencimiento;
-            bool fechaValida = DateTime.TryParseExact(
-                maskedTextBoxFechaDeVencimiento.Text,
-                "dd/MM/yyyy",
-                null,
-                DateTimeStyles.None,
-                out fechaDeVencimiento
-            );
-
-            if (!fechaValida)
+            // --- PATOVICA DE UI: Prevenir colapsos por campos vacíos ---
+            if (string.IsNullOrWhiteSpace(textBoxPacks.Text) || string.IsNullOrWhiteSpace(textBoxUnidad.Text))
             {
-                MessageBox.Show("La fecha ingresada no es válida. Por favor, ingresá una fecha en formato dd/MM/yyyy.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                MessageBox.Show("Por favor, complete la cantidad de packs y las unidades por pack.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return; // Frenamos la ejecución acá
             }
+            // -----------------------------------------------------------
 
-            if (fechaDeVencimiento <= DateTime.Today)
+            try
             {
-                MessageBox.Show("La fecha de vencimiento debe ser posterior al día de hoy.", "Fecha inválida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                // Como ya validamos que no están vacíos y el teclado solo admite números, esto es seguro
+                int totalUnidades = int.Parse(textBoxPacks.Text) * int.Parse(textBoxUnidad.Text);
+
+                DateTime fechaDeVencimiento;
+                bool fechaValida = DateTime.TryParseExact(
+                    maskedTextBoxFechaDeVencimiento.Text,
+                    "dd/MM/yyyy",
+                    null,
+                    DateTimeStyles.None,
+                    out fechaDeVencimiento
+                );
+
+                if (!fechaValida)
+                {
+                    MessageBox.Show("La fecha ingresada no es válida. Por favor, ingresá una fecha en formato dd/MM/yyyy.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                if (fechaDeVencimiento <= DateTime.Today)
+                {
+                    MessageBox.Show("La fecha de vencimiento debe ser posterior al día de hoy.", "Fecha inválida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                DialogResult confirmacion = MessageBox.Show(
+                    $"Agregar {totalUnidades} unidades de {beStock.Nombre} {beStock.Medida}{beStock.TipoMedida}\nFecha de vencimiento: {fechaDeVencimiento.ToShortDateString()}",
+                    "Confirmar",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question
+                );
+
+                if (confirmacion == DialogResult.Yes)
+                {
+                    bllStock.AgregarStock(beStock, totalUnidades);
+                    bllStock.CargarFechaDeVencimiento(beStock, fechaDeVencimiento, totalUnidades);
+
+                    MessageBox.Show("Stock agregado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    DialogResult = DialogResult.OK;
+                    Close();
+                }
             }
-
-            DialogResult confirmacion = MessageBox.Show(
-                $"Agregar {totalUnidades} unidades de {beStock.Nombre} {beStock.Medida}{beStock.TipoMedida}\nFecha de vencimiento: {fechaDeVencimiento.ToShortDateString()}",
-                "Confirmar",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question
-            );
-
-            if (confirmacion == DialogResult.Yes)
+            catch (Exception ex)
             {
-                bllStock.GuardarNuevoProducto(beStock);
-               
-                bllStock.CargarFechaDeVencimiento(beStock, fechaDeVencimiento, totalUnidades);
+                MessageBox.Show("Ocurrió un error al guardar el stock: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-            DialogResult = DialogResult.OK;
-            Close();
         }
 
         private void iconButtonCancelar_Click(object sender, EventArgs e)
@@ -116,7 +132,7 @@ namespace Meraki
 
         private void panelBarra_MouseDown(object sender, MouseEventArgs e)
         {
-            
+
         }
 
         private void iconButtonCerrar_Click(object sender, EventArgs e)

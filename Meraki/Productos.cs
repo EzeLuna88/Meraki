@@ -23,6 +23,7 @@ namespace Meraki
 
         public Productos()
         {
+            string codigoProductoSeleccionado = "";
             beProductoIndividual = new BEProductoIndividual();
             beProductoCombo = new BEProductoCombo();
             bllProducto = new BLLProducto();
@@ -56,8 +57,27 @@ namespace Meraki
 
         private List<BEProducto> ObtenerListaProductosOrdenada()
         {
-            // Obtener la lista de productos ordenados por el método ToString()
-            return bllProducto.listaProductos().OrderBy(producto => producto.ToString()).ToList();
+            var listaCruda = bllProducto.listaProductos();
+
+            // Ordenamos explícitamente sacando el nombre real de cada tipo de producto
+            var listaOrdenada = listaCruda.OrderBy(producto =>
+            {
+                if (producto is BEProductoIndividual individual)
+                {
+                    // Si es un producto suelto, usamos el nombre de su stock
+                    return individual.Stock.Nombre;
+                }
+                else if (producto is BEProductoCombo combo)
+                {
+                    // Si es un combo, usamos el nombre del combo
+                    return combo.Nombre;
+                }
+
+                // Por las dudas, un valor por defecto para que no falle
+                return "";
+            }).ToList();
+
+            return listaOrdenada;
         }
 
         private void ConfigurarColumnasDataGrid(DataGridView dataGridView)
@@ -158,13 +178,22 @@ namespace Meraki
 
         private void Productos_Load(object sender, EventArgs e)
         {
-            if (dataGridViewProductos.Rows.Count > 0)
-            {
-                dataGridViewProductos.Rows[0].Selected = true;
-            }
-
             textBoxFiltrar.Text = placeholderText;
             textBoxFiltrar.ForeColor = System.Drawing.Color.Gray;
+
+            if (dataGridViewProductos.Rows.Count > 0)
+            {
+                // 1. Seleccionamos la fila visualmente
+                dataGridViewProductos.Rows[0].Selected = true;
+
+                // 2. Le ponemos el foco (el cursor) a esa fila
+                dataGridViewProductos.CurrentCell = dataGridViewProductos.Rows[0].Cells[1];
+
+                // 3. SIMULAMOS UN CLIC: Llamamos manualmente a tu método de clic
+                // Le pasamos el número de fila 0, y la columna 0.
+                DataGridViewCellEventArgs args = new DataGridViewCellEventArgs(0, 0);
+                dataGridViewProductos_CellClick_1(this, args);
+            }
         }
 
 
@@ -207,36 +236,38 @@ namespace Meraki
         {
             try
             {
-                int rowIndex = e.RowIndex;
-                if (rowIndex >= 0)
+                // Verificamos que no hayan hecho clic en el encabezado
+                if (e.RowIndex >= 0 && dataGridViewProductos.CurrentRow != null)
                 {
-                    DataGridViewRow selectedRow = dataGridViewProductos.Rows[rowIndex];
-                    if (selectedRow.Cells["Tipo"].Value.ToString() == "individual")
+                    var productoSeleccionado = dataGridViewProductos.CurrentRow.DataBoundItem;
+
+                    // Limpiamos todo antes de asignar (por si un combo no tiene medida, no queda la medida del producto anterior)
+                    Limpiar();
+
+                    if (productoSeleccionado is BEProductoIndividual individual)
                     {
-                        beProductoIndividual = (BEProductoIndividual)dataGridViewProductos.CurrentRow.DataBoundItem;
-                        labelNombre.Text = beProductoIndividual.Stock.Nombre;
-                        labelMedida.Text = beProductoIndividual.Stock.Medida.ToString() + " " + beProductoIndividual.Stock.TipoMedida;
-                        labelUnidades.Text = beProductoIndividual.Unidad.ToString();
-                        labelPrecioMayorista.Text = beProductoIndividual.PrecioMayorista.ToString();
-                        labelPrecioMinorista.Text = beProductoIndividual.PrecioMinorista.ToString();
+                        beProductoIndividual = individual;
+                        labelNombre.Text = individual.Stock.Nombre;
+                        labelMedida.Text = $"{individual.Stock.Medida} {individual.Stock.TipoMedida}";
+                        labelUnidades.Text = individual.Unidad.ToString();
+                        labelPrecioMayorista.Text = individual.PrecioMayorista.ToString("C2"); // C2 formatea como moneda
+                        labelPrecioMinorista.Text = individual.PrecioMinorista.ToString("C2");
                     }
-                    else
+                    else if (productoSeleccionado is BEProductoCombo combo)
                     {
-                        beProductoCombo = (BEProductoCombo)dataGridViewProductos.CurrentRow.DataBoundItem;
-                        labelNombre.Text = beProductoCombo.Nombre;
-                        labelMedida.Text = string.Empty;
-                        labelUnidades.Text = beProductoCombo.Unidad.ToString();
-                        labelPrecioMayorista.Text = beProductoCombo.PrecioMayorista.ToString();
-                        labelPrecioMinorista.Text = beProductoCombo.PrecioMinorista.ToString();
+                        beProductoCombo = combo;
+                        labelNombre.Text = combo.Nombre;
+                        // El combo no tiene medida, así que queda vacío como lo definió Limpiar()
+                        labelUnidades.Text = combo.Unidad.ToString();
+                        labelPrecioMayorista.Text = combo.PrecioMayorista.ToString("C2");
+                        labelPrecioMinorista.Text = combo.PrecioMinorista.ToString("C2");
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                MessageBox.Show("Ocurrió un error al mostrar los detalles del producto: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
         }
 
         private void textBoxFiltrar_TextChanged_1(object sender, EventArgs e)
@@ -245,109 +276,163 @@ namespace Meraki
 
             if (string.IsNullOrWhiteSpace(textoABuscar) || textoABuscar == "   buscar...")
             {
-                dataGridViewProductos.DataSource = bllProducto.listaProductos().OrderBy(row => row.Codigo).ToList();
-
-
+                // ACÁ ESTABA EL PROBLEMA: Llamamos al método que ya arma la lista ordenada alfabéticamente
+                dataGridViewProductos.DataSource = ObtenerListaProductosOrdenada();
             }
             else
             {
                 var tablaFiltrada = bllProducto.listaProductos().Where(row => row.Codigo.ToLower().Contains(textoABuscar) ||
-            (row is BEProductoIndividual && ((BEProductoIndividual)row).Stock.Nombre.ToLower().Contains(textoABuscar)) || // Buscar por nombre de Stock (para ProductoIndividual)
-        (row is BEProductoCombo && ((BEProductoCombo)row).Nombre.ToLower().Contains(textoABuscar)) // Buscar por nombre (para ProductoCombo)
-            );
-                dataGridViewProductos.DataSource = tablaFiltrada.ToList();
-            }
+                    (row is BEProductoIndividual individual && individual.Stock.Nombre.ToLower().Contains(textoABuscar)) ||
+                    (row is BEProductoCombo combo && combo.Nombre.ToLower().Contains(textoABuscar))
+                );
 
+                // Aprovechamos y ordenamos también cuando el usuario busca algo
+                var tablaOrdenada = tablaFiltrada.OrderBy(producto =>
+                {
+                    if (producto is BEProductoIndividual ind) return ind.Stock.Nombre;
+                    if (producto is BEProductoCombo com) return com.Nombre;
+                    return "";
+                }).ToList();
+
+                dataGridViewProductos.DataSource = tablaOrdenada;
+            }
         }
 
         private void iconButtonBaja_Click(object sender, EventArgs e)
         {
-            try
+            if (dataGridViewProductos.SelectedRows.Count == 0 || dataGridViewProductos.CurrentRow == null)
             {
-                if (dataGridViewProductos.SelectedRows.Count > 0)
+                MessageBox.Show("Debe seleccionar un producto para darlo de baja.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            DialogResult confirmacion = MessageBox.Show("¿Está seguro que desea eliminar este producto?", "Confirmar Baja", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            if (confirmacion == DialogResult.Yes)
+            {
+                try
                 {
                     var producto = dataGridViewProductos.CurrentRow.DataBoundItem;
-                    if (producto is BEProductoIndividual)
-                    {
-                        beProductoIndividual = (BEProductoIndividual)dataGridViewProductos.CurrentRow.DataBoundItem;
-                        DialogResult confirmacion;
-                        confirmacion = MessageBox.Show("Confirmar baja de producto", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                        if (confirmacion == DialogResult.Yes)
-                        { bllProducto.BorrarProducto(beProductoIndividual); }
-                        CargarDataGrid();
-                        Limpiar();
-                        dataGridViewProductos.Rows[0].Selected = true;
-                    }
-                    else if (producto is BEProductoCombo)
-                    {
-                        beProductoCombo = (BEProductoCombo)dataGridViewProductos.CurrentRow.DataBoundItem;
-                        DialogResult confirmacion;
-                        confirmacion = MessageBox.Show("Confirmar baja de producto", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                        if (confirmacion == DialogResult.Yes)
-                        { bllProductoCombo.BorrarProducto(beProductoCombo); }
-                        CargarDataGrid();
-                        Limpiar();
-                        dataGridViewProductos.Rows[0].Selected = true;
-                    }
-                }
-                else
-                { MessageBox.Show("Debe seleccionar un cliente"); }
-            }
-            catch (Exception)
-            {
 
-                throw;
+                    // Pasamos la responsabilidad a las BLL correspondientes
+                    if (producto is BEProductoIndividual individual)
+                    {
+                        bllProducto.BorrarProducto(individual);
+                    }
+                    else if (producto is BEProductoCombo combo)
+                    {
+                        bllProductoCombo.BorrarProducto(combo);
+                    }
+
+                    MessageBox.Show("Producto eliminado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    CargarDataGrid();
+                    Limpiar();
+                }
+                catch (InvalidOperationException ex) // <-- Atajaría una regla de negocio (Ej: "No se puede borrar porque tiene stock")
+                {
+                    MessageBox.Show(ex.Message, "Operación no permitida", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al intentar eliminar el producto: " + ex.Message, "Error Crítico", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
         private void iconButtonModificar_Click(object sender, EventArgs e)
         {
-            var producto = dataGridViewProductos.CurrentRow.DataBoundItem;
-            if (producto != null)
+            if (dataGridViewProductos.CurrentRow == null)
             {
-                if (producto is BEProductoIndividual)
-                {
-                    beProductoIndividual = (BEProductoIndividual)producto;
-                    ProductosModificar modificar = new ProductosModificar();
-                    modificar.textBoxCodigo.Text = beProductoIndividual.Codigo;
-                    modificar.textBoxNombre.Text = beProductoIndividual.Stock.ToString();
-                    modificar.textBoxUnidades.Text = beProductoIndividual.Unidad.ToString();
-
-                    modificar.textBoxPrecioMayorista.Text = beProductoIndividual.PrecioMayorista.ToString();
-                    modificar.textBoxPrecioMinorista.Text = beProductoIndividual.PrecioMinorista.ToString();
-
-                    modificar.dataGridViewCombo.Visible = false;
-
-                    modificar.ShowDialog();
-                    CargarDataGrid();
-                    dataGridViewProductos.Rows[0].Selected = true;
-                }
-                else if (producto is BEProductoCombo)
-                {
-                    beProductoCombo = (BEProductoCombo)producto;
-                    ProductosModificar modificar = new ProductosModificar();
-                    modificar.textBoxCodigo.Text = beProductoCombo.Codigo;
-                    modificar.textBoxNombre.Text = beProductoCombo.Nombre;
-                    modificar.textBoxUnidades.Text = beProductoCombo.Unidad.ToString();
-                    modificar.textBoxNombre.Enabled = true;
-                    modificar.textBoxPrecioMayorista.Text = beProductoCombo.PrecioMayorista.ToString();
-                    modificar.textBoxPrecioMinorista.Text = beProductoCombo.PrecioMinorista.ToString();
-                    modificar.dataGridViewCombo.DataSource = beProductoCombo.ListaProductos;
-                    modificar.dataGridViewCombo.Columns["Codigo"].Visible = false;
-                    modificar.dataGridViewCombo.Columns["CantidadActual"].Visible = false;
-                    modificar.dataGridViewCombo.Columns["CantidadIngresada"].Visible = false;
-                    modificar.dataGridViewCombo.Columns["FechaIngreso"].Visible = false;
-                    modificar.ConfigurarDataGrid(modificar.dataGridViewCombo);
-
-
-                    modificar.ShowDialog();
-                    dataGridViewProductos.Rows[0].Selected = true;
-                }
-                CargarDataGrid();
-
+                MessageBox.Show("Debe seleccionar un producto");
+                return;
             }
-            else
-            { MessageBox.Show("debe seleccionar un producto"); }
+
+            var producto = (BEProducto)dataGridViewProductos.CurrentRow.DataBoundItem;
+            string codigoABuscar = producto.Codigo; // Guardamos el código para re-ubicarlo después
+
+            ProductosModificar modificar = new ProductosModificar();
+
+            if (producto is BEProductoIndividual individual)
+            {
+                beProductoIndividual = individual;
+                modificar.textBoxCodigo.Text = beProductoIndividual.Codigo;
+                modificar.textBoxNombre.Text = beProductoIndividual.Stock.ToString();
+                modificar.textBoxUnidades.Text = beProductoIndividual.Unidad.ToString();
+                modificar.textBoxPrecioMayorista.Text = beProductoIndividual.PrecioMayorista.ToString();
+                modificar.textBoxPrecioMinorista.Text = beProductoIndividual.PrecioMinorista.ToString();
+                modificar.dataGridViewCombo.Visible = false;
+            }
+            else if (producto is BEProductoCombo combo)
+            {
+                beProductoCombo = combo;
+                modificar.textBoxCodigo.Text = beProductoCombo.Codigo;
+                modificar.textBoxNombre.Text = beProductoCombo.Nombre;
+                modificar.textBoxUnidades.Text = beProductoCombo.Unidad.ToString();
+                modificar.textBoxNombre.Enabled = true;
+                modificar.textBoxPrecioMayorista.Text = beProductoCombo.PrecioMayorista.ToString();
+                modificar.textBoxPrecioMinorista.Text = beProductoCombo.PrecioMinorista.ToString();
+
+                // --- CONFIGURACIÓN DE LA GRILLA INTERNA DEL COMBO ---
+                modificar.dataGridViewCombo.DataSource = beProductoCombo.ListaProductos;
+
+                // 1. Creamos la columna "todo en uno" si no existe
+                if (modificar.dataGridViewCombo.Columns["ColumnaDetalle"] == null)
+                {
+                    DataGridViewTextBoxColumn colDetalle = new DataGridViewTextBoxColumn();
+                    colDetalle.Name = "ColumnaDetalle";
+                    colDetalle.HeaderText = "Producto";
+                    modificar.dataGridViewCombo.Columns.Insert(0, colDetalle);
+                }
+
+                // 2. Ocultamos todas las columnas originales y técnicas
+                string[] columnasAOcultar = { "Nombre", "Medida", "TipoMedida", "Codigo", "CantidadActual", "CantidadReservada", "AvisoCantidadStock", "CantidadIngresada", "FechaIngreso" };
+                foreach (string col in columnasAOcultar)
+                {
+                    if (modificar.dataGridViewCombo.Columns[col] != null)
+                        modificar.dataGridViewCombo.Columns[col].Visible = false;
+                }
+
+                // 3. Formateo de celda: Nombre + Medida + TipoMedida
+                modificar.dataGridViewCombo.CellFormatting += (s, ev) =>
+                {
+                    if (ev.ColumnIndex == 0 && ev.RowIndex >= 0)
+                    {
+                        var grid = (DataGridView)s;
+                        var fila = grid.Rows[ev.RowIndex];
+                        string n = fila.Cells["Nombre"].Value?.ToString() ?? "";
+                        string m = fila.Cells["Medida"].Value?.ToString() ?? "";
+                        string t = fila.Cells["TipoMedida"].Value?.ToString() ?? "";
+
+                        if (m == "0" || t == "-") { ev.Value = n; }
+                        else { ev.Value = $"{n} {m} {t}"; }
+
+                        ev.FormattingApplied = true;
+                    }
+                };
+
+                modificar.dataGridViewCombo.Columns["ColumnaDetalle"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                modificar.ConfigurarDataGrid(modificar.dataGridViewCombo);
+            }
+
+            modificar.ShowDialog();
+            CargarDataGrid(); // Recargamos para ver cambios
+
+            // --- RE-POSICIONAR LA SELECCIÓN ---
+            if (!string.IsNullOrEmpty(codigoABuscar))
+            {
+                dataGridViewProductos.ClearSelection();
+                foreach (DataGridViewRow row in dataGridViewProductos.Rows)
+                {
+                    if (row.DataBoundItem is BEProducto prodEnGrilla && prodEnGrilla.Codigo == codigoABuscar)
+                    {
+                        dataGridViewProductos.CurrentCell = row.Cells[1]; // Foco en el nombre
+                        row.Selected = true;
+                        if (row.Index >= 0) dataGridViewProductos.FirstDisplayedScrollingRowIndex = row.Index;
+                        break;
+                    }
+                }
+            }
         }
 
         private void iconButtonCrearCombo_Click(object sender, EventArgs e)
@@ -373,6 +458,11 @@ namespace Meraki
                 textBoxFiltrar.Text = placeholderText; // Restaura el texto del placeholder
                 textBoxFiltrar.ForeColor = System.Drawing.Color.Gray; // Cambia el color del texto
             }
+        }
+
+        private void Productos_VisibleChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

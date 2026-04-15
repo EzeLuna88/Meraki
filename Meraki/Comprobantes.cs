@@ -1,6 +1,6 @@
 ﻿using BE;
 using BLL;
-using iTextSharp.tool.xml;
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,9 +11,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
+using Servicios;
+
 using System.Data.Common;
+using QuestPDF.Fluent;
 
 namespace Meraki
 {
@@ -28,7 +29,7 @@ namespace Meraki
         {
             bllComprobante = new BLLComprobante();
             beComprobante = new BEComprobante();
-            listaComprobantes = bllComprobante.listaComprobantes();
+            
             InitializeComponent();
             CargarDataGrid();
 
@@ -37,6 +38,7 @@ namespace Meraki
 
         public void CargarDataGrid()
         {
+            listaComprobantes = bllComprobante.listaComprobantes();
             dataGridViewComprobantes.DataSource = null;
             dataGridViewComprobantes.DataSource = listaComprobantes;
             ConfigurarDataGrid(dataGridViewComprobantes);
@@ -61,94 +63,10 @@ namespace Meraki
             if (e.RowIndex >= 0)
             {
                 beComprobante = (BEComprobante)dataGridViewComprobantes.Rows[e.RowIndex].DataBoundItem;
-
-                if (beComprobante != null)
-                {
-
-                }
+                GenerarYMostrarPDF(); // Llamamos al método único de QuestPDF
             }
-
-
-            string paginaHtml = Properties.Resources.plantilla.ToString();
-            paginaHtml = paginaHtml.Replace("{{numeroComprobante}}", beComprobante.Numero.ToString());
-            paginaHtml = paginaHtml.Replace("{{fechaComprobante}}", beComprobante.Fecha.ToString("dd/MM/yyyy"));
-            paginaHtml = paginaHtml.Replace("{{nombreCliente}}", beComprobante.Cliente.Nombre.ToString());
-            paginaHtml = paginaHtml.Replace("{{direccionCliente}}", beComprobante.Cliente.Direccion.ToString() + ", " + beComprobante.Cliente.Localidad.ToString());
-            paginaHtml = paginaHtml.Replace("{{telefonoCliente}}", beComprobante.Cliente.Telefono.ToString() + " / " + beComprobante.Cliente.TelefonoAlternativo.ToString());
-            paginaHtml = paginaHtml.Replace("{{horarioApertura}}", beComprobante.Cliente.HorarioDeApertura.ToString());
-            paginaHtml = paginaHtml.Replace("{{horarioCierre}}", beComprobante.Cliente.HorarioDeCierre.ToString());
-            if (beComprobante.Cliente.Comentarios != null)
-            {
-                paginaHtml = paginaHtml.Replace("{{comentariosCliente}}", beComprobante.Cliente.Comentarios.ToString());
-            }
-            else
-            {
-                paginaHtml = paginaHtml.Replace("{{comentariosCliente}}", string.Empty);
-
-            }
-            string filasItems = string.Empty;
-            int cantidad = 0;
-            foreach (BEItem item in beComprobante.ListaItems)
-            {
-                cantidad += item.Cantidad;
-                decimal precioUnitario = item.Precio / item.Cantidad;
-
-                filasItems += "<tr>";
-                filasItems += $"<td>{item.Codigo}</td>";
-                filasItems += $"<td class='producto'>{item.Nombre}</td>";
-                filasItems += $"<td>{precioUnitario.ToString("c2")}</td>";
-                filasItems += $"<td>{item.Cantidad}</td>";
-                filasItems += $"<td class='precio'>{item.Precio.ToString("c2")}</td>";
-                filasItems += "</tr>";
-            }
-            paginaHtml = paginaHtml.Replace("{{productosCarrito}}", filasItems);
-
-            paginaHtml = paginaHtml.Replace("{{cantidadTotalProductos}}", cantidad.ToString());
-            paginaHtml = paginaHtml.Replace("{{totalCompra}}", beComprobante.Total.ToString("c2"));
-
-
-            if (beComprobante.PagoEfectivo == true)
-            {
-                paginaHtml = paginaHtml.Replace("{{formaPago}}", "Efectivo");
-            }
-            else
-            {
-                paginaHtml = paginaHtml.Replace("{{formaPago}}", "Transferencia");
-
-            }
-
-            string tempFilePath = Path.Combine(Path.GetTempPath(), beComprobante.Numero + ".pdf");
-
-
-
-            using (FileStream stream = new FileStream(tempFilePath, FileMode.Create))
-            {
-                Document pdfDoc = new Document(PageSize.A4, 20, 20, 20, 20);
-                iTextSharp.text.pdf.PdfWriter pdfWriter = iTextSharp.text.pdf.PdfWriter.GetInstance(pdfDoc, stream);
-                pdfDoc.Open();
-
-                using (StringReader stringReader = new StringReader(paginaHtml))
-                {
-                    XMLWorkerHelper.GetInstance().ParseXHtml(pdfWriter, pdfDoc, stringReader);
-                }
-
-                pdfDoc.Close();
-                stream.Close();
-            }
-
-            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo()
-            {
-                FileName = tempFilePath,
-                UseShellExecute = true,
-                Verb = "open"
-            });
-
         }
 
-        private void buttonMostrarComprobante_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void textBoxFiltroNombre_TextChanged(object sender, EventArgs e)
         {
@@ -198,7 +116,8 @@ namespace Meraki
             if (!string.IsNullOrWhiteSpace(textoABuscar) && textoABuscar != "   buscar...")
             {
                 listaFiltrada = listaFiltrada
-                    .Where(c => c.Cliente.Nombre.ToLower().Contains(textoABuscar));
+             .Where(c => c.Cliente.Nombre.ToLower().Contains(textoABuscar) ||
+                         c.Numero.ToLower().Contains(textoABuscar));
             }
 
 
@@ -268,7 +187,7 @@ namespace Meraki
             dataGridView.EnableHeadersVisualStyles = false;
             dataGridView.ColumnHeadersDefaultCellStyle.SelectionBackColor = dataGridViewComprobantes.ColumnHeadersDefaultCellStyle.BackColor;
             dataGridView.ColumnHeadersDefaultCellStyle.SelectionForeColor = dataGridViewComprobantes.ColumnHeadersDefaultCellStyle.ForeColor;
-            
+
         }
 
         private void iconButton1_Click(object sender, EventArgs e)
@@ -276,86 +195,12 @@ namespace Meraki
             if (dataGridViewComprobantes.CurrentRow != null && dataGridViewComprobantes.CurrentRow.Index >= 0)
             {
                 beComprobante = (BEComprobante)dataGridViewComprobantes.CurrentRow.DataBoundItem;
+                GenerarYMostrarPDF(); // Llamamos al método único
             }
             else
             {
                 MessageBox.Show("Por favor, selecciona una fila válida.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
             }
-
-            string paginaHtml = Properties.Resources.plantilla.ToString();
-            paginaHtml = paginaHtml.Replace("{{numeroComprobante}}", beComprobante.Numero.ToString());
-            paginaHtml = paginaHtml.Replace("{{fechaComprobante}}", beComprobante.Fecha.ToString("dd/MM/yyyy"));
-            paginaHtml = paginaHtml.Replace("{{nombreCliente}}", beComprobante.Cliente.Nombre.ToString());
-            paginaHtml = paginaHtml.Replace("{{direccionCliente}}", beComprobante.Cliente.Direccion.ToString() + ", " + beComprobante.Cliente.Localidad.ToString());
-            paginaHtml = paginaHtml.Replace("{{telefonoCliente}}", beComprobante.Cliente.Telefono.ToString() + " / " + beComprobante.Cliente.TelefonoAlternativo.ToString());
-            paginaHtml = paginaHtml.Replace("{{horarioApertura}}", beComprobante.Cliente.HorarioDeApertura.ToString());
-            paginaHtml = paginaHtml.Replace("{{horarioCierre}}", beComprobante.Cliente.HorarioDeCierre.ToString());
-            if (beComprobante.Cliente.Comentarios != null)
-            {
-                paginaHtml = paginaHtml.Replace("{{comentariosCliente}}", beComprobante.Cliente.Comentarios.ToString());
-            }
-            else
-            {
-                paginaHtml = paginaHtml.Replace("{{comentariosCliente}}", string.Empty);
-
-            }
-            string filasItems = string.Empty;
-            int cantidad = 0;
-            foreach (BEItem item in beComprobante.ListaItems)
-            {
-                cantidad += item.Cantidad;
-                decimal precioUnitario = item.Precio / item.Cantidad;
-
-                filasItems += "<tr>";
-                filasItems += $"<td>{item.Codigo}</td>";
-                filasItems += $"<td class='producto'>{item.Nombre}</td>";
-                filasItems += $"<td>{precioUnitario.ToString("c2")}</td>";
-                filasItems += $"<td>{item.Cantidad}</td>";
-                filasItems += $"<td class='precio'>{item.Precio.ToString("c2")}</td>";
-                filasItems += "</tr>";
-            }
-            paginaHtml = paginaHtml.Replace("{{productosCarrito}}", filasItems);
-
-            paginaHtml = paginaHtml.Replace("{{cantidadTotalProductos}}", cantidad.ToString());
-            paginaHtml = paginaHtml.Replace("{{totalCompra}}", beComprobante.Total.ToString("c2"));
-
-
-            if (beComprobante.PagoEfectivo == true)
-            {
-                paginaHtml = paginaHtml.Replace("{{formaPago}}", "Efectivo");
-            }
-            else
-            {
-                paginaHtml = paginaHtml.Replace("{{formaPago}}", "Transferencia");
-
-            }
-
-            string tempFilePath = Path.Combine(Path.GetTempPath(), beComprobante.Numero + ".pdf");
-
-
-
-            using (FileStream stream = new FileStream(tempFilePath, FileMode.Create))
-            {
-                Document pdfDoc = new Document(PageSize.A4, 20, 20, 20, 20);
-                iTextSharp.text.pdf.PdfWriter pdfWriter = iTextSharp.text.pdf.PdfWriter.GetInstance(pdfDoc, stream);
-                pdfDoc.Open();
-
-                using (StringReader stringReader = new StringReader(paginaHtml))
-                {
-                    XMLWorkerHelper.GetInstance().ParseXHtml(pdfWriter, pdfDoc, stringReader);
-                }
-
-                pdfDoc.Close();
-                stream.Close();
-            }
-
-            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo()
-            {
-                FileName = tempFilePath,
-                UseShellExecute = true,
-                Verb = "open"
-            });
         }
 
         private void Comprobantes_Load(object sender, EventArgs e)
@@ -380,6 +225,48 @@ namespace Meraki
                 textBoxFiltroNombre.Text = placeholderText; // Restaura el texto del placeholder
                 textBoxFiltroNombre.ForeColor = System.Drawing.Color.Gray; // Cambia el color del texto
             }
+        }
+
+        private void GenerarYMostrarPDF()
+        {
+            // 1. Validación de seguridad
+            if (beComprobante == null)
+            {
+                MessageBox.Show("Por favor, selecciona un comprobante válido.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                // 2. Configurar la licencia (Obligatorio para QuestPDF)
+                QuestPDF.Settings.License = QuestPDF.Infrastructure.LicenseType.Community;
+
+                // 3. Crear el documento usando la clase que armamos para CompraMayorista
+                var documento = new ComprobanteDocument(beComprobante);
+
+                // 4. Crear un archivo temporal para mostrarlo rápido sin preguntar dónde guardar
+                string tempFilePath = Path.Combine(Path.GetTempPath(), "Comprobante_" + beComprobante.Numero + ".pdf");
+
+                // 5. Generar el PDF físicamente
+                documento.GeneratePdf(tempFilePath);
+
+                // 6. Abrir el PDF automáticamente con el visor predeterminado de Windows
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo()
+                {
+                    FileName = tempFilePath,
+                    UseShellExecute = true,
+                    Verb = "open"
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR DETALLADO:\n\n" + ex.ToString(), "Error de Diagnóstico", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void Comprobantes_VisibleChanged(object sender, EventArgs e)
+        {
+            CargarDataGrid();
         }
     }
 }

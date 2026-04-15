@@ -115,5 +115,73 @@ namespace MPP
 
             return producto;
         }
+
+        private void ActualizarStockEnDB(BEStock s, MySqlConnection con, MySqlTransaction tra)
+        {
+            string sql = "UPDATE stock SET cantidad_actual = @cant, cantidad_reservada = @res WHERE id = @id;";
+            using (var cmd = new MySqlCommand(sql, con, tra))
+            {
+                cmd.Parameters.AddWithValue("@cant", s.CantidadActual);
+                cmd.Parameters.AddWithValue("@res", s.CantidadReservada);
+                cmd.Parameters.AddWithValue("@id", s.Codigo);
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public void GuardarCompraCompleta(BECompraMayorista compra)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
+            using (MySqlConnection mySqlConnection = new MySqlConnection(connectionString))
+            {
+                mySqlConnection.Open();
+                using (MySqlTransaction mySqlTransaction = mySqlConnection.BeginTransaction())
+                {
+                    try
+                    {
+                        string cmdText = "INSERT INTO compra_mayorista (fecha, total, id_cliente) \r\n                                       VALUES (@fecha, @total, @id_cliente);\r\n                                       SELECT LAST_INSERT_ID();";
+                        int num;
+                        using (MySqlCommand mySqlCommand = new MySqlCommand(cmdText, mySqlConnection, mySqlTransaction))
+                        {
+                            mySqlCommand.Parameters.AddWithValue("@fecha", compra.Fecha);
+                            mySqlCommand.Parameters.AddWithValue("@total", compra.Total);
+                            mySqlCommand.Parameters.AddWithValue("@id_cliente", compra.Cliente.Codigo);
+                            num = Convert.ToInt32(mySqlCommand.ExecuteScalar());
+                        }
+                        foreach (BECarrito becarrito in compra.ListaCarrito)
+                        {
+                            string cmdText2 = "INSERT INTO detalle_compra (id_compra, id_producto, cantidad, total) \r\n                                            VALUES (@id_compra, @id_producto, @cantidad, @total);";
+                            using (MySqlCommand mySqlCommand2 = new MySqlCommand(cmdText2, mySqlConnection, mySqlTransaction))
+                            {
+                                mySqlCommand2.Parameters.AddWithValue("@id_compra", num);
+                                mySqlCommand2.Parameters.AddWithValue("@id_producto", becarrito.Producto.Codigo);
+                                mySqlCommand2.Parameters.AddWithValue("@cantidad", becarrito.Cantidad);
+                                mySqlCommand2.Parameters.AddWithValue("@total", becarrito.Total);
+                                mySqlCommand2.ExecuteNonQuery();
+                            }
+                            BEProductoIndividual beproductoIndividual = becarrito.Producto as BEProductoIndividual;
+                            bool flag = beproductoIndividual != null;
+                            if (flag)
+                            {
+                                string cmdText3 = "UPDATE stock SET cantidad_actual = @cantidad, cantidad_reservada = @reservada WHERE id = @id;";
+                                using (MySqlCommand mySqlCommand3 = new MySqlCommand(cmdText3, mySqlConnection, mySqlTransaction))
+                                {
+                                    mySqlCommand3.Parameters.AddWithValue("@cantidad", beproductoIndividual.Stock.CantidadActual);
+                                    mySqlCommand3.Parameters.AddWithValue("@reservada", beproductoIndividual.Stock.CantidadReservada);
+                                    mySqlCommand3.Parameters.AddWithValue("@id", beproductoIndividual.Stock.Codigo);
+                                    mySqlCommand3.ExecuteNonQuery();
+                                }
+                            }
+                        }
+                        mySqlTransaction.Commit();
+                    }
+                    catch (Exception innerException)
+                    {
+                        mySqlTransaction.Rollback();
+                        throw new Exception("Error crítico al procesar la compra. Se revirtieron los cambios.", innerException);
+                    }
+                }
+            }
+        }
+
     }
 }

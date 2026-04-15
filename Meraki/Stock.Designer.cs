@@ -225,6 +225,7 @@
             this.Name = "Stock";
             this.Text = "Stock";
             this.Load += new System.EventHandler(this.Stock_Load);
+            this.VisibleChanged += new System.EventHandler(this.Stock_VisibleChanged_1);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStock)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

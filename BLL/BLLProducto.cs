@@ -8,7 +8,7 @@ using MPP;
 
 namespace BLL
 {
-    
+
     public class BLLProducto
     {
         MPPProducto access;
@@ -28,7 +28,27 @@ namespace BLL
             access.GuardarProducto(beProducto);
         }
 
-        public void BorrarProducto(BEProductoIndividual beProducto) { access.BorrarProducto(beProducto);} 
+        public void BorrarProducto(BEProductoIndividual beProducto)
+        {
+
+            if (beProducto.Stock != null && beProducto.Stock.CantidadActual > 0)
+            {
+                throw new InvalidOperationException($"No se puede eliminar el producto porque aún quedan {beProducto.Stock.CantidadActual} unidades físicas de '{beProducto.Stock.Nombre}' en el depósito. Descuente el stock primero.");
+            }
+
+
+            BLLProductoCombo bllCombos = new BLLProductoCombo(); //
+
+            bool estaEnCombo = bllCombos.ValidarStockEnComboActivo(beProducto.Stock.Codigo);
+
+            if (estaEnCombo)
+            {
+                throw new InvalidOperationException("No se puede eliminar este producto porque forma parte de un combo armado. Elimine o modifique el combo primero.");
+            }
+
+
+            access.BorrarProducto(beProducto);
+        }
 
         public void ModificarProducto(BEProducto beProducto)
         {

@@ -21,7 +21,7 @@ namespace Meraki
         public StockModificar()
         {
             bllStock = new BLLStock();
-            beStock= new BEStock();
+            beStock = new BEStock();
             InitializeComponent();
             AsignarDatos(beStock);
             CargarComboBox();
@@ -35,8 +35,8 @@ namespace Meraki
             beStock = stock;
         }
 
-        public void AsignarDatos(BEStock stock) 
-        { 
+        public void AsignarDatos(BEStock stock)
+        {
             textBoxCodigo.Text = beStock.Codigo;
             textBoxNombre.Text = beStock.Nombre;
             textBoxMedida.Text = beStock.Medida.ToString();
@@ -64,39 +64,57 @@ namespace Meraki
             try
             {
                 beStock.Codigo = textBoxCodigo.Text;
-                if (String.IsNullOrEmpty(textBoxNombre.Text))
-                { MessageBox.Show("Debe colocar un nombre"); }
+
+                // Validación 1: Nombre vacío
+                if (string.IsNullOrWhiteSpace(textBoxNombre.Text))
+                {
+                    MessageBox.Show("Debe colocar un nombre para el producto.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                beStock.Nombre = textBoxNombre.Text.ToUpper();
+
+                // Lógica de medida
+                if (string.IsNullOrWhiteSpace(textBoxMedida.Text))
+                {
+                    beStock.Medida = 0;
+                    beStock.TipoMedida = "-";
+                }
                 else
                 {
-                    beStock.Nombre = textBoxNombre.Text.ToUpper();
-                    if (String.IsNullOrEmpty(textBoxMedida.Text))
+                    // Usamos double.TryParse por seguridad extrema
+                    if (double.TryParse(textBoxMedida.Text, out double medidaResult))
                     {
-                        beStock.Medida = 0;
-                        beStock.TipoMedida = "-";
+                        beStock.Medida = medidaResult;
                     }
                     else
                     {
-                        beStock.Medida = Convert.ToDouble(textBoxMedida.Text);
-                        beStock.TipoMedida = comboBoxTipoMedida.Text;
+                        MessageBox.Show("La medida ingresada no es un número válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
                     }
-                    DialogResult confirmacion;
-                    confirmacion = MessageBox.Show("Confirmar la modificacion de los datos?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    if (confirmacion == DialogResult.Yes)
+
+                    // Validación 2: Si puso número, tiene que elegir el tipo de medida
+                    if (string.IsNullOrWhiteSpace(comboBoxTipoMedida.Text))
                     {
-                        bllStock.ModificarStock(beStock);
-                        DialogResult = DialogResult.OK;
-                        Close();
+                        MessageBox.Show("Debe seleccionar un tipo de medida (lt., ml., cc., etc.).", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
                     }
-
-
-
+                    beStock.TipoMedida = comboBoxTipoMedida.Text;
                 }
 
-            }
-            catch (Exception)
-            {
+                DialogResult confirmacion = MessageBox.Show("¿Confirmar la modificación de los datos?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-                throw;
+                if (confirmacion == DialogResult.Yes)
+                {
+                    bllStock.ModificarStock(beStock);
+                    MessageBox.Show("Stock modificado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    DialogResult = DialogResult.OK;
+                    Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ocurrió un error al modificar: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -108,7 +126,7 @@ namespace Meraki
 
         private void panelBarra_MouseDown(object sender, MouseEventArgs e)
         {
-           
+
         }
 
         private void iconButtonCerrar_Click(object sender, EventArgs e)
@@ -134,6 +152,31 @@ namespace Meraki
         {
             ReleaseCapture();
             SendMessage(this.Handle, 0x112, 0xf012, 0);
+        }
+
+        private void textBoxMedida_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            TextBox txt = sender as TextBox;
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                char separadorDecimal = Convert.ToChar(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
+                if (e.KeyChar == '.' || e.KeyChar == ',')
+                {
+                    e.KeyChar = separadorDecimal;
+                    if (txt.Text.Contains(separadorDecimal))
+                    {
+                        e.Handled = true;
+                    }
+                    else
+                    {
+                        e.Handled = false;
+                    }
+                }
+                else
+                {
+                    e.Handled = true;
+                }
+            }
         }
     }
 }

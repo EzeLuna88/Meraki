@@ -1,5 +1,4 @@
 ﻿using DAL;
-using iText.Layout.Properties;
 using MySql.Data.MySqlClient;
 using Mysqlx.Crud;
 using System;
@@ -51,7 +50,7 @@ namespace MPP
     };
 
             AccesoDAL acceso = new AccesoDAL();
-            acceso.EjecutarNonQueryConParametros(query, parametros);
+            acceso.EjecutarNonQuery(query, parametros.ToArray());
         }
     }
 }

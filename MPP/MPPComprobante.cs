@@ -138,7 +138,7 @@ namespace MPP
             new MySqlParameter("@horario_cierre", beComprobante.Cliente.HorarioDeCierre)
         };
 
-                acceso.EjecutarNonQueryConParametros(queryInsertComprobante, parametrosComprobante);
+                acceso.EjecutarNonQuery(queryInsertComprobante, parametrosComprobante.ToArray());
 
                 // Guardar productos del comprobante (como ya lo tenías)
                 foreach (var item in beComprobante.ListaItems)
@@ -158,7 +158,7 @@ namespace MPP
                 new MySqlParameter("@nombre_producto", item.Nombre)
             };
 
-                    acceso.EjecutarNonQueryConParametros(queryInsertItem, parametrosItem);
+                    acceso.EjecutarNonQuery(queryInsertItem, parametrosItem.ToArray());
                 }
             }
             catch (Exception ex)

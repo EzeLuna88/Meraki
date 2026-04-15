@@ -257,6 +257,9 @@ namespace Meraki
             chartProductosMasVendidos.ChartAreas[0].InnerPlotPosition = new ElementPosition(20, 5, 75, 85);
             chartProductosMasVendidos.ChartAreas[0].Position.Y = 10;
             chartProductosMasVendidos.ChartAreas[0].Position.Height = 90;
+            chartProductosMasVendidos.ChartAreas[0].Position.X = 0;      // Empezar en el borde izquierdo
+            chartProductosMasVendidos.ChartAreas[0].Position.Width = 100;
+
         }
 
         private void IconButtonHoy_Click(object sender, EventArgs e)

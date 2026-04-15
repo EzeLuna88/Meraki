@@ -45,6 +45,7 @@ namespace MPP
                 LEFT JOIN stock s ON 
                 (p.tipo = 'individual' AND p.stock_id = s.id) OR 
                 (p.tipo = 'combo' AND ps.stock_id = s.id)
+                WHERE p.activo = 1                
                 ORDER BY p.id;
     ";
 
@@ -95,8 +96,7 @@ namespace MPP
 
                     if (row["StockId"] != DBNull.Value)
                     {
-                        int cantidadEnCombo = Convert.ToInt32(row["CantidadEnCombo"]);
-
+                        int cantidadEnCombo = row["CantidadEnCombo"] == DBNull.Value ? 1 : Convert.ToInt32(row["CantidadEnCombo"]);
                         for (int i = 0; i < cantidadEnCombo; i++)
                         {
                             combos[productoId].ListaProductos.Add(new BEStock
@@ -113,53 +113,64 @@ namespace MPP
             }
 
             lista.AddRange(combos.Values);
-            return lista;
+            return lista.OrderBy(p => p is BEProductoIndividual ind ? ind.Stock.Nombre : ((BEProductoCombo)p).Nombre).ToList();
         }
 
         public void GuardarProducto(BEProductoIndividual producto)
         {
             try
             {
-                // 1. Insertar en la tabla producto
-                string insertProductoQuery = @"
-            INSERT INTO producto (id, stock_id, tipo, unidad, precio_mayorista, precio_minorista)
-            VALUES (@id, @stock_id, @tipo, @unidad, @precioMayorista, @precioMinorista);
-            SELECT LAST_INSERT_ID();";
+                string codigoFinal = producto.Codigo;
+                bool codigoDisponible = false;
+                char sufijo = 'A';
 
-                List<MySqlParameter> parametrosProducto = new List<MySqlParameter>
+                // 1. Bucle para encontrar el primer código libre
+                while (!codigoDisponible)
+                {
+                    string checkQuery = "SELECT COUNT(*) FROM producto WHERE id = @id";
+                    List<MySqlParameter> pCheck = new List<MySqlParameter> { new MySqlParameter("@id", codigoFinal) };
+
+                    // EjecutarConsulta devuelve un DataTable, vemos si el conteo es 0
+                    DataTable dt = acceso.EjecutarConsulta(checkQuery, pCheck.ToArray());
+                    int existe = Convert.ToInt32(dt.Rows[0][0]);
+
+                    if (existe == 0)
+                    {
+                        codigoDisponible = true; // ¡Lo encontramos!
+                    }
+                    else
+                    {
+                        // Si el código existe (activo o no), probamos con la siguiente letra
+                        // Si el código original era "1161", el primero será "1161-A", luego "1161-B"...
+                        string baseCodigo = producto.Codigo.Contains("-") ? producto.Codigo.Split('-')[0] : producto.Codigo;
+                        codigoFinal = $"{baseCodigo}-{sufijo}";
+                        sufijo++; // Pasa de 'A' a 'B', de 'B' a 'C', etc.
+                    }
+                }
+
+                // 2. Una vez que tenemos el codigoFinal único, hacemos el INSERT
+                string insertQuery = @"
+            INSERT INTO producto (id, stock_id, tipo, unidad, precio_mayorista, precio_minorista, activo)
+            VALUES (@id, @stock_id, @tipo, @unidad, @precioMayorista, @precioMinorista, 1);";
+
+                List<MySqlParameter> parametros = new List<MySqlParameter>
         {
-
-                    new MySqlParameter("@id", producto.Codigo),
-                    new MySqlParameter("@stock_id", producto.Stock.Codigo),
-                    new MySqlParameter("@tipo", producto.Tipo),
-                    new MySqlParameter("@unidad", producto.Unidad),
-                    new MySqlParameter("@precioMayorista", producto.PrecioMayorista),
-                    new MySqlParameter("@precioMinorista", producto.PrecioMinorista)
+            new MySqlParameter("@id", codigoFinal),
+            new MySqlParameter("@stock_id", producto.Stock.Codigo),
+            new MySqlParameter("@tipo", producto.Tipo),
+            new MySqlParameter("@unidad", producto.Unidad),
+            new MySqlParameter("@precioMayorista", producto.PrecioMayorista),
+            new MySqlParameter("@precioMinorista", producto.PrecioMinorista)
         };
 
-                // Ejecutamos la inserción y obtenemos el ID del producto insertado
-                DataTable resultadoProducto = acceso.EjecutarConsulta(insertProductoQuery, parametrosProducto.ToArray());
-                int productoId = Convert.ToInt32(resultadoProducto.Rows[0][0]);
+                acceso.EjecutarNonQuery(insertQuery, parametros.ToArray());
 
-               
-
-                // 3. Insertar en la tabla producto_stock
-                string updateProductoQuery = @"
-                    UPDATE producto 
-                    SET stock_id = @stockId 
-                    WHERE id = @productoId;";
-
-                List<MySqlParameter> parametrosUpdate = new List<MySqlParameter>
-{
-                    new MySqlParameter("@stockId", producto.Stock.Codigo),
-                    new MySqlParameter("@productoId", productoId)
-};
-
-                acceso.EjecutarNonQueryConParametros(updateProductoQuery, parametrosUpdate);
+                // Opcional: Actualizar el objeto en memoria para que el usuario vea el código real asignado
+                producto.Codigo = codigoFinal;
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al guardar el producto individual en base de datos", ex);
+                throw new Exception("Error al generar o guardar el nuevo producto", ex);
             }
         }
 
@@ -169,14 +180,14 @@ namespace MPP
             {
                 if (beProducto is BEProductoIndividual)
                 {
-                    string query = "DELETE FROM producto WHERE id = @id AND tipo = 'individual';";
+                    string query = "UPDATE producto  SET activo = 0 WHERE id = @id AND tipo = 'individual';";
 
                     var parametros = new List<MySqlParameter>
             {
                 new MySqlParameter("@id", beProducto.Codigo)
             };
 
-                    acceso.EjecutarNonQueryConParametros(query, parametros);
+                    acceso.EjecutarNonQuery(query, parametros.ToArray());
                 }
                 else if (beProducto is BEProductoCombo)
                 {
@@ -188,17 +199,17 @@ namespace MPP
                 new MySqlParameter("@id", beProducto.Codigo)
             };
 
-                    acceso.EjecutarNonQueryConParametros(queryEliminarRelaciones, parametrosRelaciones);
+                    acceso.EjecutarNonQuery(queryEliminarRelaciones, parametrosRelaciones.ToArray());
 
                     // Luego se elimina el producto combo
-                    string queryEliminarCombo = "DELETE FROM producto WHERE id = @id AND tipo = 'combo';";
+                    string queryEliminarCombo = "UPDATE producto SET activo = 0 WHERE id = @id AND tipo = 'combo';";
 
                     var parametrosCombo = new List<MySqlParameter>
             {
                 new MySqlParameter("@id", beProducto.Codigo)
             };
 
-                    acceso.EjecutarNonQueryConParametros(queryEliminarCombo, parametrosCombo);
+                    acceso.EjecutarNonQuery(queryEliminarCombo, parametrosCombo.ToArray());
                 }
                 else
                 {
@@ -231,7 +242,7 @@ namespace MPP
             new MySqlParameter("@id", beProducto.Codigo)
         };
 
-                acceso.EjecutarNonQueryConParametros(query, parametros);
+                acceso.EjecutarNonQuery(query, parametros.ToArray());
             }
             catch (Exception ex)
             {
@@ -239,62 +250,7 @@ namespace MPP
             }
         }
 
-        /*public BEProducto BuscarProducto(string codigo)
-        {
-            try
-            {
-                string query = @"
-            SELECT 
-                p.id AS ProductoId,
-                p.tipo,
-                p.unidad,
-                p.precio_mayorista,
-                p.precio_minorista,
-                s.id AS StockId,
-                s.nombre,
-                s.medida,
-                s.tipo_medida,
-                s.cantidad_actual
-            FROM producto p
-            LEFT JOIN producto_stock ps ON p.id = ps.producto_id
-            LEFT JOIN stock s ON ps.stock_id = s.id
-            WHERE p.id = @codigo AND p.tipo = 'individual';
-        ";
 
-                List<MySqlParameter> parametros = new List<MySqlParameter>
-        {
-            new MySqlParameter("@codigo", codigo)
-        };
-
-                DataTable tabla = acceso.EjecutarConsulta(query, parametros.ToArray());
-
-                if (tabla.Rows.Count == 0)
-                    return null;
-
-                DataRow row = tabla.Rows[0];
-
-                return new BEProductoIndividual
-                {
-                    Codigo = row["ProductoId"].ToString(),
-                    Tipo = row["tipo"].ToString(),
-                    Unidad = Convert.ToInt32(row["unidad"]),
-                    PrecioMayorista = Convert.ToDecimal(row["precio_mayorista"]),
-                    PrecioMinorista = Convert.ToDecimal(row["precio_minorista"]),
-                    Stock = new BEStock
-                    {
-                        Codigo = row["StockId"].ToString(),
-                        Nombre = row["nombre"].ToString(),
-                        Medida = Convert.ToDouble(row["medida"]),
-                        TipoMedida = row["tipo_medida"].ToString(),
-                        CantidadActual = Convert.ToInt32(row["cantidad_actual"])
-                    }
-                };
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error al buscar el producto en la base de datos.", ex);
-            }
-        }*/
 
 
 

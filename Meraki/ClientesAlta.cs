@@ -30,8 +30,6 @@ namespace Meraki
             this.DoubleBuffered = true;
         }
 
-
-
         private void textBoxNombre_TextChanged(object sender, EventArgs e)
         {
             textBoxNombre.Text = textBoxNombre.Text.ToUpper();
@@ -72,80 +70,46 @@ namespace Meraki
         {
             try
             {
-                if (String.IsNullOrEmpty(textBoxNombre.Text))
-                { MessageBox.Show("Debe colocar un nombre"); }
-                else
+                // El Trim() nos asegura que no guarden "JUAN   " por error
+                beCliente.Nombre = textBoxNombre.Text.Trim();
+                beCliente.Direccion = textBoxDireccion.Text.Trim();
+                beCliente.Localidad = textBoxLocalidad.Text.Trim();
+                beCliente.Telefono = textBoxTelefono.Text.Trim();
+
+                beCliente.TelefonoAlternativo = string.IsNullOrWhiteSpace(textBoxTelefonoAlternativo.Text) ? "-" : textBoxTelefonoAlternativo.Text.Trim();
+
+                // 1. Protección de UI: Que la máscara esté completa
+                if (!maskedTextBoxHorarioDeApertura.MaskFull || !maskedTextBoxHorarioDeCierre.MaskFull)
                 {
-                    beCliente.Nombre = textBoxNombre.Text;
-                    if (String.IsNullOrEmpty(textBoxDireccion.Text))
-                    { MessageBox.Show("Debe colocar una direccion"); }
-                    else
-                    {
-                        beCliente.Direccion = textBoxDireccion.Text;
-                        if (String.IsNullOrEmpty(textBoxLocalidad.Text))
-                        { MessageBox.Show("Debe colocar una localidad"); }
-                        else
-                        {
-                            beCliente.Localidad = textBoxLocalidad.Text;
-                            if (String.IsNullOrEmpty(textBoxTelefono.Text))
-                            { MessageBox.Show("Debe colocar un telefono"); }
-                            else
-                            {
-                                beCliente.Telefono = textBoxTelefono.Text;
-                                if (string.IsNullOrEmpty(textBoxTelefonoAlternativo.Text))
-                                {
-                                    beCliente.TelefonoAlternativo = "-";
-                                    if (!maskedTextBoxHorarioDeApertura.MaskFull)
-                                    { MessageBox.Show("debe colocar un horario de apertura"); }
-                                    else
-                                    {
-                                        beCliente.HorarioDeApertura = TimeSpan.Parse(maskedTextBoxHorarioDeApertura.Text);
-                                        if (!maskedTextBoxHorarioDeCierre.MaskFull)
-                                        { MessageBox.Show("Debe colocar un horario de cierre"); }
-                                        else
-                                        {
-                                            beCliente.HorarioDeCierre = TimeSpan.Parse(maskedTextBoxHorarioDeCierre.Text);
-                                            bllCliente.GuardarCliente(beCliente);
-                                            DialogResult = DialogResult.OK;
-                                            Close();
-                                        }
-
-                                    }
-                                }
-                                else
-                                {
-                                    beCliente.TelefonoAlternativo = textBoxTelefonoAlternativo.Text;
-                                    if (!maskedTextBoxHorarioDeApertura.MaskFull)
-                                    { MessageBox.Show("debe colocar un horario de apertura"); }
-                                    else
-                                    {
-                                        beCliente.HorarioDeApertura = TimeSpan.Parse(maskedTextBoxHorarioDeApertura.Text);
-                                        if (!maskedTextBoxHorarioDeCierre.MaskFull)
-                                        { MessageBox.Show("Debe colocar un horario de cierre"); }
-                                        else
-                                        {
-                                            beCliente.HorarioDeCierre = TimeSpan.Parse(maskedTextBoxHorarioDeCierre.Text);
-                                            bllCliente.GuardarCliente(beCliente);
-                                            DialogResult = DialogResult.OK;
-                                            Close();
-                                        }
-
-                                    }
-                                }
-
-                            }
-
-                        }
-
-                    }
-
+                    MessageBox.Show("Debe completar los horarios de apertura y cierre correctamente (HH:MM).", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
                 }
 
-            }
-            catch (Exception)
-            {
+                // 2. Protección de UI: Que la hora exista (evita que explote con "99:99")
+                if (!TimeSpan.TryParse(maskedTextBoxHorarioDeApertura.Text, out TimeSpan apertura) ||
+                    !TimeSpan.TryParse(maskedTextBoxHorarioDeCierre.Text, out TimeSpan cierre))
+                {
+                    MessageBox.Show("Los horarios ingresados no son válidos (Formato 24hs).", "Error en horario", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
-                throw;
+                beCliente.HorarioDeApertura = apertura;
+                beCliente.HorarioDeCierre = cierre;
+
+                // --- LA BLL TOMA EL CONTROL ---
+                bllCliente.GuardarCliente(beCliente);
+
+                DialogResult = DialogResult.OK;
+                Close();
+            }
+            catch (ArgumentException ex)
+            {
+                // Acá atajamos si la BLL dice "Falta el nombre" o "Falta dirección"
+                MessageBox.Show(ex.Message, "Faltan datos o son incorrectos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error inesperado al guardar: " + ex.Message, "Error Crítico", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -154,7 +118,7 @@ namespace Meraki
             DialogResult = DialogResult.Cancel; Close();
         }
 
-       
+
 
         //Drag form
         [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]

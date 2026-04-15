@@ -20,7 +20,7 @@ namespace Meraki
         BLLStock bllStock;
         public StockNuevoProducto()
         {
-            beStock= new BEStock();
+            beStock = new BEStock();
             bllStock = new BLLStock();
             InitializeComponent();
             CargarComboBox();
@@ -28,8 +28,6 @@ namespace Meraki
             this.ControlBox = false;
             this.DoubleBuffered = true;
         }
-
-     
 
         private int ObtenerUltimoCodigo()
         {
@@ -57,7 +55,6 @@ namespace Meraki
                 throw;
             }
         }
-
         public void CargarComboBox()
         {
             comboBoxTipoMedida.Items.Add("lt.");
@@ -67,27 +64,38 @@ namespace Meraki
             comboBoxTipoMedida.Items.Add("kg.");
 
         }
-
         private void textBoxMedida_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            TextBox txt = sender as TextBox;
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
-                e.Handled = true;
+                char separadorDecimal = Convert.ToChar(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
+                if (e.KeyChar == '.' || e.KeyChar == ',')
+                {
+                    e.KeyChar = separadorDecimal;
+                    if (txt.Text.Contains(separadorDecimal))
+                    {
+                        e.Handled = true;
+                    }
+                    else
+                    {
+                        e.Handled = false;
+                    }
+                }
+                else
+                {
+                    e.Handled = true;
+                }
             }
         }
-
-      
-
         private void StockNuevoProducto_Load(object sender, EventArgs e)
         {
             comboBoxTipoMedida.SelectedIndex = 0;
         }
-
         private void textBoxMedida_TextChanged(object sender, EventArgs e)
         {
-            
-        }
 
+        }
         private void textBoxCantidad_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
@@ -106,6 +114,20 @@ namespace Meraki
         {
             try
             {
+                // --- VALIDACIONES INICIALES RÁPIDAS ---
+                if (string.IsNullOrWhiteSpace(textBoxNombre.Text))
+                {
+                    MessageBox.Show("Debe colocar un nombre para el nuevo producto.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return; // Cortamos acá
+                }
+
+                if (string.IsNullOrWhiteSpace(textBoxCantidad.Text))
+                {
+                    MessageBox.Show("Debe ingresar la cantidad de stock inicial.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return; // Cortamos acá
+                }
+                // --------------------------------------
+
                 int ultimoCodigo = ObtenerUltimoCodigo();
                 int nuevoCodigo = ultimoCodigo + 1;
                 beStock.Codigo = nuevoCodigo.ToString();
@@ -132,51 +154,56 @@ namespace Meraki
                     return;
                 }
 
-                // VALIDACIONES Y CARGA DE STOCK
-                if (String.IsNullOrEmpty(textBoxNombre.Text))
+                beStock.Nombre = textBoxNombre.Text.ToUpper();
+
+                // VALIDACIÓN DE MEDIDA SEGURO
+                if (string.IsNullOrWhiteSpace(textBoxMedida.Text))
                 {
-                    MessageBox.Show("Debe colocar un nombre");
+                    beStock.Medida = 0;
+                    beStock.TipoMedida = "-";
                 }
                 else
                 {
-                    beStock.Nombre = textBoxNombre.Text.ToUpper();
-
-                    if (String.IsNullOrEmpty(textBoxMedida.Text))
+                    if (double.TryParse(textBoxMedida.Text, out double medidaResult))
                     {
-                        beStock.Medida = 0;
-                        beStock.TipoMedida = "-";
+                        beStock.Medida = medidaResult;
                     }
                     else
                     {
-                        beStock.Medida = Convert.ToDouble(textBoxMedida.Text);
-                        beStock.TipoMedida = comboBoxTipoMedida.SelectedItem?.ToString() ?? "-";
+                        MessageBox.Show("El formato de la medida es incorrecto.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
                     }
 
-                    if (String.IsNullOrEmpty(textBoxCantidad.Text))
-                    {
-                        MessageBox.Show("Debe ingresar la cantidad de stock que ingresó del producto");
-                    }
-                    else
-                    {
-                        beStock.CantidadActual = Convert.ToInt32(textBoxCantidad.Text);
+                    beStock.TipoMedida = comboBoxTipoMedida.SelectedItem?.ToString() ?? "-";
+                }
 
-                        if (bllStock.ComprobarRepetido(beStock))
-                        {
-                            MessageBox.Show("El producto a cargar ya se encuentra en el stock");
-                        }
-                        else
-                        {
-                            bllStock.GuardarNuevoProducto(beStock);
-                            bllStock.CargarFechaDeVencimiento(beStock, fechaDeVencimiento, beStock.CantidadActual);
-                            DialogResult = DialogResult.OK;
-                            Close();
-                        }
-                    }
+                // VALIDACIÓN DE CANTIDAD SEGURO
+                if (int.TryParse(textBoxCantidad.Text, out int cantidadResult))
+                {
+                    beStock.CantidadActual = cantidadResult;
+                }
+                else
+                {
+                    MessageBox.Show("El formato de la cantidad es incorrecto. Ingrese números enteros.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // COMPROBACIÓN FINAL Y GUARDADO
+                if (bllStock.ComprobarRepetido(beStock))
+                {
+                    MessageBox.Show("Este producto ya se encuentra registrado en el stock.", "Producto duplicado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    bllStock.GuardarNuevoProducto(beStock, fechaDeVencimiento, beStock.CantidadActual);
+                    MessageBox.Show("Nuevo producto agregado al stock con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    DialogResult = DialogResult.OK;
+                    Close();
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                MessageBox.Show("Ocurrió un error inesperado al intentar guardar el producto: " + ex.Message, "Error Crítico", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -211,9 +238,6 @@ namespace Meraki
 
         [DllImport("user32.DLL", EntryPoint = "SendMessage")]
         private extern static void SendMessage(System.IntPtr hWnd, int wMsg, int wParam, int lParam);
-
-        
-
         private void StockNuevoProducto_MouseDown(object sender, MouseEventArgs e)
         {
             ReleaseCapture();

@@ -36,17 +36,22 @@ namespace Meraki
             var bindingList = new BindingList<BEStock>(listStock);
             dataGridViewStock.DataSource = bindingList;
 
-
             dataGridViewStock.Columns[1].HeaderText = "Nombre";
             dataGridViewStock.Columns[2].Visible = false;
             dataGridViewStock.Columns[3].Visible = false;
             dataGridViewStock.Columns[4].HeaderText = "Cantidad actual";
-            dataGridViewStock.Columns[6].Visible = false;
             dataGridViewStock.Columns[5].Visible = false;
+            dataGridViewStock.Columns[6].Visible = false;
             dataGridViewStock.Columns[7].Visible = false;
             dataGridViewStock.Columns[8].HeaderText = "Aviso poco stock";
-            ConfigurarDataGrid(dataGridViewStock);
 
+            // --- EL ÚNICO CAMBIO ---
+            // Nos aseguramos de que la columna de reservas quede a la vista con su título
+            dataGridViewStock.Columns["CantidadReservada"].Visible = true;
+            dataGridViewStock.Columns["CantidadReservada"].HeaderText = "Cantidad reservada";
+            // -----------------------
+
+            ConfigurarDataGrid(dataGridViewStock);
         }
 
         public void ConfigurarDataGrid(DataGridView dataGridView)
@@ -75,6 +80,10 @@ namespace Meraki
             dataGridView.Columns[4].Width = 80;
             dataGridView.Columns[4].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridView.Columns[4].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridView.Columns["CantidadReservada"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dataGridView.Columns["CantidadReservada"].Width = 80;
+            dataGridView.Columns["CantidadReservada"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridView.Columns["CantidadReservada"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridView.Columns[8].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             dataGridView.Columns[8].Width = 110;
             dataGridView.Columns[8].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -134,7 +143,16 @@ namespace Meraki
 
         private void iconButtonAgregarStock_Click(object sender, EventArgs e)
         {
+            // Validación: ¿Hay algo seleccionado?
+            if (dataGridViewStock.CurrentRow == null)
+            {
+                MessageBox.Show("Por favor, seleccione un artículo del stock primero.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             beStock = (BEStock)dataGridViewStock.CurrentRow.DataBoundItem;
+            string codigoStockActual = beStock.Codigo;
+
             StockAgregar stockAgregar = new StockAgregar();
             stockAgregar.labelProducto.Text = beStock.Nombre + " " + beStock.Medida.ToString() + " " + beStock.TipoMedida;
 
@@ -142,7 +160,26 @@ namespace Meraki
 
             stockAgregar.ShowDialog();
             CargarDataGrid();
-            dataGridViewStock.Rows[0].Selected = true;
+
+            if (!string.IsNullOrEmpty(codigoStockActual))
+            {
+                dataGridViewStock.ClearSelection();
+
+                foreach (DataGridViewRow row in dataGridViewStock.Rows)
+                {
+                    if (row.DataBoundItem is BEStock stockEnGrilla && stockEnGrilla.Codigo == codigoStockActual)
+                    {
+                        dataGridViewStock.CurrentCell = row.Cells["Nombre"]; // Foco en la columna Nombre
+                        row.Selected = true;
+
+                        // Hacemos que la grilla scrollee hasta el producto
+                        if (row.Index >= 0)
+                            dataGridViewStock.FirstDisplayedScrollingRowIndex = row.Index;
+
+                        break;
+                    }
+                }
+            }
         }
 
         private void iconButtonNuevo_Click(object sender, EventArgs e)
@@ -186,7 +223,15 @@ namespace Meraki
 
         private void iconButtonModificar_Click(object sender, EventArgs e)
         {
+            // Validación: ¿Hay algo seleccionado?
+            if (dataGridViewStock.CurrentRow == null)
+            {
+                MessageBox.Show("Por favor, seleccione un artículo del stock para modificar.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             beStock = (BEStock)dataGridViewStock.CurrentRow.DataBoundItem;
+            string codigoStockActual = beStock.Codigo;
             StockModificar stockModificar = new StockModificar();
             stockModificar.textBoxCodigo.Text = beStock.Codigo.ToString();
             stockModificar.textBoxNombre.Text = beStock.Nombre;
@@ -196,10 +241,28 @@ namespace Meraki
             stockModificar.AsignarProducto(beStock);
             stockModificar.ShowDialog();
             CargarDataGrid();
-            dataGridViewStock.Rows[0].Selected = true;
-            dataGridViewStock.Rows[0].Selected = true;
-        }
 
+            if (!string.IsNullOrEmpty(codigoStockActual))
+            {
+                dataGridViewStock.ClearSelection();
+
+                foreach (DataGridViewRow row in dataGridViewStock.Rows)
+                {
+                    if (row.DataBoundItem is BEStock stockEnGrilla && stockEnGrilla.Codigo == codigoStockActual)
+                    {
+                        dataGridViewStock.CurrentCell = row.Cells["Nombre"]; // Foco en la columna Nombre
+                        row.Selected = true;
+
+                        // Hacemos que la grilla scrollee hasta el producto
+                        if (row.Index >= 0)
+                            dataGridViewStock.FirstDisplayedScrollingRowIndex = row.Index;
+
+                        break;
+                    }
+                }
+            }
+
+        }
         private void textBoxFiltrar_Enter(object sender, EventArgs e)
         {
             if (textBoxFiltrar.Text == placeholderText)
@@ -227,11 +290,52 @@ namespace Meraki
 
         private void iconButtonAvisoPocoStock_Click(object sender, EventArgs e)
         {
+            // Validación: ¿Hay algo seleccionado?
+            if (dataGridViewStock.CurrentRow == null)
+            {
+                MessageBox.Show("Por favor, seleccione un artículo del stock primero.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             beStock = (BEStock)dataGridViewStock.CurrentRow.DataBoundItem;
+            string codigoStockActual = beStock.Codigo;
+
+
             AvisoPocoStock avisoPocoStock = new AvisoPocoStock(beStock);
             avisoPocoStock.AsignarProducto(beStock);
             avisoPocoStock.ShowDialog();
             CargarDataGrid();
+
+            if (!string.IsNullOrEmpty(codigoStockActual))
+            {
+                dataGridViewStock.ClearSelection();
+
+                foreach (DataGridViewRow row in dataGridViewStock.Rows)
+                {
+                    if (row.DataBoundItem is BEStock stockEnGrilla && stockEnGrilla.Codigo == codigoStockActual)
+                    {
+                        dataGridViewStock.CurrentCell = row.Cells["Nombre"]; // Foco en la columna Nombre
+                        row.Selected = true;
+
+                        // Hacemos que la grilla scrollee hasta el producto
+                        if (row.Index >= 0)
+                            dataGridViewStock.FirstDisplayedScrollingRowIndex = row.Index;
+
+                        break;
+                    }
+                }
+            }
+
+        }
+
+        
+
+        private void Stock_VisibleChanged_1(object sender, EventArgs e)
+        {
+            if (this.Visible)
+            {
+                CargarDataGrid();
+            }
         }
     }
 }

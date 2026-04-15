@@ -12,20 +12,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.IO;
-using iText;
-//using iText.Layout;
-//using iText.StyledXmlParser.Jsoup.Nodes;
-//using iText.Kernel.Pdf;
-//using iText.Kernel.Font;
-//using iText.Layout.Element;
 using System.Diagnostics;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
-using iTextSharp.tool.xml;
-using iText.Kernel.Pdf;
-using iTextSharp.tool.xml.pipeline.end;
 using System.Drawing.Imaging;
 using System.Globalization;
+using QuestPDF.Fluent;
+using QuestPDF.Helpers;
+using QuestPDF.Infrastructure;
+using Servicios;
+
 
 
 namespace Meraki
@@ -33,8 +27,7 @@ namespace Meraki
     public partial class CompraMayorista : Form
     {
         BLLCliente bllCliente;
-        BEProductoIndividual beProductoIndividual;
-        BEProductoCombo beProductoCombo;
+
         BLLProducto bllProducto;
         BECompraMayorista beCompraMayorista;
         BECarrito beCarrito;
@@ -46,12 +39,14 @@ namespace Meraki
         BEComprobante beComprobante;
         List<BEComprobante> listaComprobantes;
         BECliente clienteSeleccionado;
+
         bool ModificarPrecio;
         bool ModificarCantidad;
         private BindingSource bindingSourceClientes = new BindingSource();
-        bool panelClientes = false;
         private const string placeholderText = "   Buscar...";
         int cantidadAnteriorEditada;
+        bool cargandoGrilla = false;
+
         public CompraMayorista()
         {
             bllStock = new BLLStock();
@@ -59,8 +54,7 @@ namespace Meraki
             listaStock = bllStock.CargarStock();
             listaComprobantes = new List<BEComprobante>();
             beCompraMayorista = new BECompraMayorista();
-            beProductoIndividual = new BEProductoIndividual();
-            beProductoCombo = new BEProductoCombo();
+
             beComprobante = new BEComprobante();
             bllProducto = new BLLProducto();
             bllCompraMayorista = new BLLCompraMayorista();
@@ -71,7 +65,7 @@ namespace Meraki
             ModificarCantidad = false;
 
             InitializeComponent();
-            
+
             iconButtonAlertaPocoStock.Visible = false;
             iconButtonVencimiento.Visible = false;
             CargarDataGrid();
@@ -168,98 +162,69 @@ namespace Meraki
 
         private void ProcesarProductoIndividual(BEProductoIndividual producto)
         {
-            var productoEnCarrito = beCompraMayorista.ListaCarrito.Find(p => p.Producto.Codigo == producto.Codigo);
-            var productoEnStock = listaStock.Find(p => p.Codigo == producto.Stock.Codigo);
-
-            int stockDisponible = productoEnStock.CantidadActual - productoEnStock.CantidadReservada;
-
-            if (productoEnStock == null || stockDisponible < producto.Unidad)
+            try
             {
-                MessageBox.Show("No hay suficiente stock");
-                return;
-            }
+                var productoEnCarrito = beCompraMayorista.ListaCarrito.Find(p => p.Producto.Codigo == producto.Codigo);
 
-            if (productoEnCarrito != null)
-            {
-                // Actualizar el producto existente en el carrito
-                productoEnCarrito.Cantidad++;
-                productoEnCarrito.Total = producto.PrecioMayorista * productoEnCarrito.Cantidad;
-
-            }
-            else
-            {
-                // Agregar el nuevo producto al carrito
-                beCarrito = new BECarrito
+                if (productoEnCarrito != null)
                 {
-                    Producto = producto,
-                    Cantidad = 1,
-                    Total = producto.PrecioMayorista
-                };
-                beCompraMayorista.ListaCarrito.Add(beCarrito);
+                    bllStock.ActualizarStock(productoEnCarrito, listaStock);
+                }
+                else
+                {
+                    beCarrito = new BECarrito
+                    {
+                        Producto = producto,
+                        Cantidad = 0, // ¡Lo ponemos en 0 porque la BLL le va a sumar 1!
+                        Total = 0
+                    };
 
+                    bllStock.ActualizarStock(beCarrito, listaStock);
+
+                    beCompraMayorista.ListaCarrito.Add(beCarrito);
+                }
+
+                bllCliente.GuardarCompraMayoristaTemporal(clienteSeleccionado, beCompraMayorista);
+                CalcularTotal();
+                ActualizarInterfaz();
             }
-            productoEnStock.CantidadReservada = productoEnStock.CantidadReservada + producto.Unidad;
-            bllStock.CantidadReservadaStock(productoEnStock);
-
-            bllCliente.GuardarCompraMayoristaTemporal(clienteSeleccionado, beCompraMayorista);
-
-
-            CalcularTotal();
-            ActualizarInterfaz();
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Aviso de Stock", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void ProcesarProductoCombo(BEProductoCombo productoCombo)
         {
-            bool hayStock = true;
-
-            foreach (BEStock item in productoCombo.ListaProductos)
+            try
             {
-                var itemEnStock = listaStock.Find(p => p.Codigo == item.Codigo);
-                if (itemEnStock == null || itemEnStock.CantidadActual < 1)
+                var productoEnCarrito = beCompraMayorista.ListaCarrito.Find(p => p.Producto.Codigo == productoCombo.Codigo);
+
+                if (productoEnCarrito != null)
                 {
-                    MessageBox.Show("No hay suficiente stock");
-                    hayStock = false;
-                    break;
+                    bllStock.ActualizarStock(productoEnCarrito, listaStock);
                 }
-            }
-
-            if (!hayStock)
-            {
-                MessageBox.Show("No hay suficiente stock para uno o más productos del combo.");
-                return;
-            }
-
-            var productoEnCarrito = beCompraMayorista.ListaCarrito.Find(p => p.Producto.Codigo == productoCombo.Codigo);
-            if (productoEnCarrito != null)
-            {
-                // Actualizar el producto combo existente en el carrito
-                productoEnCarrito.Cantidad++;
-                productoEnCarrito.Total = productoCombo.PrecioMayorista * productoEnCarrito.Cantidad;
-
-            }
-            else
-            {
-                // Agregar el nuevo producto combo al carrito
-                beCarrito = new BECarrito
+                else
                 {
-                    Producto = productoCombo,
-                    Cantidad = 1,
-                    Total = productoCombo.PrecioMayorista
-                };
-                beCompraMayorista.ListaCarrito.Add(beCarrito);
+                    beCarrito = new BECarrito
+                    {
+                        Producto = productoCombo,
+                        Cantidad = 0,
+                        Total = 0
+                    };
 
+                    bllStock.ActualizarStock(beCarrito, listaStock);
+
+                    beCompraMayorista.ListaCarrito.Add(beCarrito);
+                }
+                bllCliente.GuardarCompraMayoristaTemporal(clienteSeleccionado, beCompraMayorista);
+                CalcularTotal();
+                ActualizarInterfaz();
             }
-            bllCliente.GuardarCompraMayoristaTemporal(clienteSeleccionado, beCompraMayorista);
-
-            foreach (BEStock item in productoCombo.ListaProductos)
+            catch (Exception ex)
             {
-                var itemEnStock = listaStock.Find(p => p.Codigo == item.Codigo);
-                itemEnStock.CantidadReservada++;
-                bllStock.CantidadReservadaStock(itemEnStock);
+                MessageBox.Show(ex.Message, "Aviso de Stock", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-
-            CalcularTotal();
-            ActualizarInterfaz();
         }
 
         private void ActualizarInterfaz()
@@ -274,14 +239,15 @@ namespace Meraki
 
         private void CompraMayorista_Load(object sender, EventArgs e)
         {
-            if (dataGridViewProductos.Rows.Count > 0)
-            {
-                dataGridViewProductos.Rows[0].Selected = true;
-            }
+            // 1. Empezamos de cero, sin clientes seleccionados
+            clienteSeleccionado = null;
 
-            bindingSourceClientes.DataSource = bllCliente.ListaClientes();
-            dataGridViewClientes.DataSource = bindingSourceClientes;
+
+
+            // 3. Llamamos a la grilla para que se dibuje y seleccione
             CargarDataGridClientes();
+
+            // 4. Textos de los buscadores
             textBoxFiltrar.Text = placeholderText;
             textBoxFiltrar.ForeColor = System.Drawing.Color.Gray;
             textBoxFiltrarCliente.Text = placeholderText;
@@ -305,38 +271,26 @@ namespace Meraki
 
         public void CargarDataGridClientes()
         {
-            // Guardar el código del cliente seleccionado si existe
-            string codigoClienteSeleccionado = clienteSeleccionado?.Codigo;
+            // 1. Bloqueamos el inicio para evitar ruidos mientras cargamos el DataSource
+            cargandoGrilla = true;
 
-            // Cargar y ordenar los clientes
-            List<BECliente> listClientes = bllCliente.ListaClientes().OrderBy(cliente => cliente.Nombre).ToList();
-            foreach (var cliente in listClientes)
+            // 2. Definimos qué cliente buscar (Mostrador por defecto o el seleccionado)
+            string codigoABuscar = (clienteSeleccionado != null && !string.IsNullOrEmpty(clienteSeleccionado.Codigo))
+                ? clienteSeleccionado.Codigo
+                : Properties.Settings.Default.ClientePorDefecto;
+
+            // 3. Obtenemos y preparamos la lista de clientes
+            List<BECliente> listClientes = bllCliente.ListaClientes().OrderBy(c => c.Nombre).ToList();
+            foreach (var c in listClientes)
             {
-                if (cliente.CompraMayoristaTemp == null)
-                {
-                    cliente.CompraMayoristaTemp = new BECompraMayorista();
-                }
+                if (c.CompraMayoristaTemp == null) c.CompraMayoristaTemp = new BECompraMayorista();
             }
 
-            // Asignar al DataGridView
+            // 4. Asignamos los datos a la grilla
             bindingSourceClientes.DataSource = new BindingList<BECliente>(listClientes);
             dataGridViewClientes.DataSource = bindingSourceClientes;
 
-            // Restaurar la selección usando clienteSeleccionado
-            if (!string.IsNullOrEmpty(codigoClienteSeleccionado))
-            {
-                foreach (DataGridViewRow row in dataGridViewClientes.Rows)
-                {
-                    if (row.DataBoundItem is BECliente cliente && cliente.Codigo == codigoClienteSeleccionado)
-                    {
-                        row.Selected = true;
-                        dataGridViewClientes.FirstDisplayedScrollingRowIndex = row.Index;
-                        break;
-                    }
-                }
-            }
-
-            // Ocultar columnas y configurar
+            // 5. Configuración visual (ocultar IDs y columnas técnicas)
             dataGridViewClientes.Columns[0].Visible = false;
             dataGridViewClientes.Columns[4].Visible = false;
             dataGridViewClientes.Columns[5].Visible = false;
@@ -345,83 +299,76 @@ namespace Meraki
             dataGridViewClientes.Columns[8].Visible = false;
             dataGridViewClientes.Columns[9].Visible = false;
             dataGridViewClientes.AllowUserToAddRows = false;
-
             ConfigurarDataGrid(dataGridViewClientes);
+
+            // --- EL CAMBIO CRÍTICO: Bajamos el escudo ANTES de la selección manual ---
+            cargandoGrilla = false;
+
+            // 6. BUSQUEDA Y SELECCIÓN DEL MOSTRADOR
+            if (!string.IsNullOrEmpty(codigoABuscar))
+            {
+                dataGridViewClientes.ClearSelection();
+                bool encontrado = false;
+
+                foreach (DataGridViewRow row in dataGridViewClientes.Rows)
+                {
+                    if (row.DataBoundItem is BECliente cliente && cliente.Codigo?.Trim() == codigoABuscar.Trim())
+                    {
+                        // Al asignar esto, como cargandoGrilla es false, el evento SE DISPARA SOLO
+                        dataGridViewClientes.CurrentCell = row.Cells[1];
+                        row.Selected = true;
+
+                        if (row.Index >= 0)
+                            dataGridViewClientes.FirstDisplayedScrollingRowIndex = row.Index;
+
+                        encontrado = true;
+                        break;
+                    }
+                }
+
+                // Si el cliente no existe (ej. lo borraste), seleccionamos el primero
+                if (!encontrado && dataGridViewClientes.Rows.Count > 0)
+                {
+                    dataGridViewClientes.CurrentCell = dataGridViewClientes.Rows[0].Cells[1];
+                }
+            }
+            else if (dataGridViewClientes.Rows.Count > 0)
+            {
+                dataGridViewClientes.CurrentCell = dataGridViewClientes.Rows[0].Cells[1];
+            }
+
+            // 7. Refuerzo final: nos aseguramos de que la UI esté sincronizada
+            dataGridViewClientes_SelectionChanged_1(dataGridViewClientes, EventArgs.Empty);
         }
 
 
         public void GenerarPDF(BEComprobante comprobante)
         {
+
             SaveFileDialog guardar = new SaveFileDialog
             {
                 FileName = comprobante.Numero + ".pdf",
-                Filter = "PDF Files (*.pdf)|*.pdf", // Filtro para archivos PDF
-                DefaultExt = "pdf" // Extensión predeterminada
+                Filter = "PDF Files (*.pdf)|*.pdf",
+                DefaultExt = "pdf"
             };
-
-            string paginaHtml = Properties.Resources.plantilla.ToString();
-            paginaHtml = paginaHtml.Replace("{{numeroComprobante}}", comprobante.Numero.ToString());
-            paginaHtml = paginaHtml.Replace("{{fechaComprobante}}", comprobante.Fecha.ToString("dd/MM/yyyy"));
-            paginaHtml = paginaHtml.Replace("{{nombreCliente}}", comprobante.Cliente.Nombre.ToString());
-            paginaHtml = paginaHtml.Replace("{{direccionCliente}}", comprobante.Cliente.Direccion.ToString() + ", " + comprobante.Cliente.Localidad.ToString());
-            paginaHtml = paginaHtml.Replace("{{telefonoCliente}}", comprobante.Cliente.Telefono.ToString() + " / " + comprobante.Cliente.TelefonoAlternativo.ToString());
-            paginaHtml = paginaHtml.Replace("{{horarioApertura}}", comprobante.Cliente.HorarioDeApertura.ToString());
-            paginaHtml = paginaHtml.Replace("{{horarioCierre}}", comprobante.Cliente.HorarioDeCierre.ToString());
-            paginaHtml = paginaHtml.Replace("{{comentariosCliente}}", comprobante.Cliente.Comentarios.ToString());
-
-            string filasItems = string.Empty;
-            int cantidad = 0;
-            foreach (BEItem item in comprobante.ListaItems)
-            {
-                cantidad += item.Cantidad;
-                filasItems += "<tr>";
-                filasItems += $"<td>{item.Codigo}</td>";
-                decimal precioUnitario = item.Precio / item.Cantidad;
-                filasItems += $"<td class='producto'>{item.Nombre}</td>";
-                filasItems += $"<td >{precioUnitario.ToString("c2")}</td>";
-                filasItems += $"<td>{item.Cantidad}</td>";
-                filasItems += $"<td class='precio'>{item.Precio.ToString("c2")}</td>";
-                filasItems += "</tr>";
-            }
-            paginaHtml = paginaHtml.Replace("{{productosCarrito}}", filasItems);
-
-            paginaHtml = paginaHtml.Replace("{{cantidadTotalProductos}}", cantidad.ToString());
-            paginaHtml = paginaHtml.Replace("{{totalCompra}}", comprobante.Total.ToString("c2"));
-
-
-            if (comprobante.PagoEfectivo == true)
-            {
-                paginaHtml = paginaHtml.Replace("{{formaPago}}", "Efectivo");
-            }
-            else
-            {
-                paginaHtml = paginaHtml.Replace("{{formaPago}}", "Transferencia");
-
-            }
 
             if (guardar.ShowDialog() == DialogResult.OK)
             {
-                using (FileStream stream = new FileStream(guardar.FileName, FileMode.Create))
-                {
-                    Document pdfDoc = new Document(PageSize.A4, 20, 20, 20, 20);
-                    iTextSharp.text.pdf.PdfWriter pdfWriter = iTextSharp.text.pdf.PdfWriter.GetInstance(pdfDoc, stream);
-                    pdfDoc.Open();
-
-                    using (StringReader stringReader = new StringReader(paginaHtml))
-                    {
-                        XMLWorkerHelper.GetInstance().ParseXHtml(pdfWriter, pdfDoc, stringReader);
-                    }
-
-                    pdfDoc.Close();
-                    stream.Close();
-                }
                 try
                 {
+
+                    // 2. Usar tu nueva clase
+                    var documento = new Servicios.ComprobanteDocument(comprobante);
+
+                    // 3. Generar y guardar
+                    documento.GeneratePdf(guardar.FileName);
+
+                    // 4. Abrir
                     System.Diagnostics.Process.Start(guardar.FileName);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("No se pudo abrir el archivo PDF: " + ex.Message);
+                    MessageBox.Show("No se pudo generar o abrir el PDF: " + ex.Message);
                 }
             }
         }
@@ -485,8 +432,8 @@ namespace Meraki
             {
                 iconButtonModificarPrecio.Visible = false;
                 iconButtonGuardarPrecio.Visible = true;
-                dataGridViewCarrito.DefaultCellStyle.BackColor = Color.White;
-                dataGridViewCarrito.DefaultCellStyle.SelectionBackColor = Color.Blue;
+                dataGridViewCarrito.DefaultCellStyle.BackColor = System.Drawing.Color.White;
+                dataGridViewCarrito.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.Blue;
 
             }
             else
@@ -494,9 +441,9 @@ namespace Meraki
 
                 iconButtonModificarPrecio.Visible = true;
                 iconButtonGuardarPrecio.Visible = false;
-                dataGridViewCarrito.BackColor = Color.LightGray;
-                dataGridViewCarrito.DefaultCellStyle.BackColor = Color.Gray;
-                dataGridViewCarrito.DefaultCellStyle.SelectionBackColor = Color.Gray;
+                dataGridViewCarrito.BackColor = System.Drawing.Color.LightGray;
+                dataGridViewCarrito.DefaultCellStyle.BackColor = System.Drawing.Color.Gray;
+                dataGridViewCarrito.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.Gray;
                 dataGridViewCarrito.ReadOnly = true;
             }
         }
@@ -516,8 +463,7 @@ namespace Meraki
 
                 if (dataGridViewClientes.Rows.Count > 1)
                 {
-                    dataGridViewClientes.Rows[0].Selected = true;
-                    MostrarCarritoDelCliente((BECliente)dataGridViewClientes.Rows[0].DataBoundItem);
+
 
                 }
 
@@ -672,8 +618,8 @@ namespace Meraki
             if (bindingSourceClientes.Count > 0)
             {
                 // Seleccionar la primera fila si hay resultados
-                dataGridViewClientes.Rows[0].Selected = true;
-                MostrarCarritoDelCliente((BECliente)dataGridViewClientes.Rows[0].DataBoundItem);
+
+
             }
             dataGridViewClientes.Columns[0].Visible = false;
             // Refrescar el DataGridView para mostrar los resultados filtrados
@@ -682,63 +628,59 @@ namespace Meraki
 
         private void dataGridViewClientes_SelectionChanged_1(object sender, EventArgs e)
         {
+            // Escudos de protección
+            if (cargandoGrilla || dataGridViewClientes.CurrentRow == null) return;
+
             try
             {
-                if (dataGridViewClientes.SelectedRows.Count > 0)
+                clienteSeleccionado = (BECliente)dataGridViewClientes.CurrentRow.DataBoundItem;
+
+                // Verifica si CompraMayoristaTemp está inicializada
+                if (clienteSeleccionado.CompraMayoristaTemp == null)
                 {
-                    var filaSeleccionada = dataGridViewClientes.SelectedRows[0];
+                    clienteSeleccionado.CompraMayoristaTemp = new BECompraMayorista();
+                }
 
-                    // Obtén el cliente correspondiente a la fila seleccionada
-                    clienteSeleccionado = (BECliente)filaSeleccionada.DataBoundItem;
+                // Inicializa o limpia el carrito visualmente
+                dataGridViewCarrito.DataSource = null;
 
-                    // Verifica si CompraMayoristaTemp está inicializada
-                    if (clienteSeleccionado.CompraMayoristaTemp == null)
-                    {
-                        clienteSeleccionado.CompraMayoristaTemp = new BECompraMayorista();
-                    }
+                // Verifica si el carrito tiene elementos guardados
+                if (clienteSeleccionado.CompraMayoristaTemp.ListaCarrito != null && clienteSeleccionado.CompraMayoristaTemp.ListaCarrito.Count > 0)
+                {
+                    // Cargar los productos del carrito en el DataGridView
+                    dataGridViewCarrito.DataSource = clienteSeleccionado.CompraMayoristaTemp.ListaCarrito;
 
-                    // Inicializa o limpia el carrito
-                    dataGridViewCarrito.DataSource = null;
+                    // Configuración de formato y alineación de las columnas
+                    dataGridViewCarrito.Columns["Total"].DefaultCellStyle.Format = "c2";
+                    dataGridViewCarrito.Columns["Cantidad"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    dataGridViewCarrito.Columns["Cantidad"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    dataGridViewCarrito.Columns["Cantidad"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+                    dataGridViewCarrito.Columns["Cantidad"].Width = 70;
 
-                    // Verifica si el carrito tiene elementos
-                    if (clienteSeleccionado.CompraMayoristaTemp.ListaCarrito != null && clienteSeleccionado.CompraMayoristaTemp.ListaCarrito.Count > 0)
-                    {
-                        // Cargar los productos del carrito en el DataGridView
-                        dataGridViewCarrito.DataSource = clienteSeleccionado.CompraMayoristaTemp.ListaCarrito;
+                    dataGridViewCarrito.Columns["Total"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
+                    dataGridViewCarrito.Columns["Total"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                    dataGridViewCarrito.Columns["Total"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+                    dataGridViewCarrito.Columns["Total"].Width = 80;
 
-                        // Configuración de formato y alineación de las columnas
-                        dataGridViewCarrito.Columns["Total"].DefaultCellStyle.Format = "c2"; // Formato de moneda
+                    // Actualizar el objeto general con el carrito del cliente
+                    beCompraMayorista = clienteSeleccionado.CompraMayoristaTemp;
+                }
+                else
+                {
+                    // Si el carrito está vacío, inicializa uno nuevo
+                    beCompraMayorista = new BECompraMayorista();
+                }
 
-                        dataGridViewCarrito.Columns["Cantidad"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                        dataGridViewCarrito.Columns["Cantidad"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                        dataGridViewCarrito.Columns["Cantidad"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-                        dataGridViewCarrito.Columns["Cantidad"].Width = 70;
+                CalcularTotal();
 
-                        dataGridViewCarrito.Columns["Total"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
-                        dataGridViewCarrito.Columns["Total"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-                        dataGridViewCarrito.Columns["Total"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-                        dataGridViewCarrito.Columns["Total"].Width = 80;
-
-                        // Actualizar el objeto beCompraMayorista con el carrito temporal del cliente seleccionado
-                        beCompraMayorista = clienteSeleccionado.CompraMayoristaTemp;
-                    }
-                    else
-                    {
-                        // Si el carrito está vacío, inicializa un nuevo objeto BECompraMayorista
-                        beCompraMayorista = new BECompraMayorista();
-                    }
-
-                    // Calcular y actualizar el total después de cargar el DataGrid
-                    CalcularTotal();
-
-                    // Actualiza el botón con el total formateado correctamente
-                    buttonTotal.Text = clienteSeleccionado.Nombre + " // TOTAL: $ " +
-                                       beCompraMayorista.Total.ToString("N2");
+                // Actualiza el botón grande de abajo
+                if (clienteSeleccionado != null)
+                {
+                    buttonTotal.Text = clienteSeleccionado.Nombre + " // TOTAL: $ " + beCompraMayorista.Total.ToString("N2");
                 }
             }
             catch (Exception ex)
             {
-                // Manejo de errores con información específica
                 MessageBox.Show("Error al seleccionar cliente: " + ex.Message);
             }
         }
@@ -750,107 +692,31 @@ namespace Meraki
                 if (dataGridViewCarrito.Rows.Count > 0)
                 {
                     beCarrito = (BECarrito)dataGridViewCarrito.CurrentRow.DataBoundItem;
-                    if (beCarrito.Producto is BEProductoIndividual)
+
+                    // 1. Delegamos a la BLL la tarea de restar la reserva y actualizar totales
+                    bllStock.DisminuirStockEnCarrito(beCarrito, listaStock);
+
+                    // 2. ¿El producto llegó a cero? Lo borramos de la lista visual
+                    if (beCarrito.Cantidad == 0)
                     {
-                        beProductoIndividual = (BEProductoIndividual)beCarrito.Producto;
-                        var productoEnStock = listaStock.Find(p => p.Codigo == beProductoIndividual.Stock.Codigo);
-
-                        if (beCarrito.Cantidad > 1)
-                        {
-                            decimal precioPorUnidad = beCarrito.Total / beCarrito.Cantidad;
-                            beCarrito.Total -= precioPorUnidad;
-
-                            beCarrito.Cantidad--;
-
-                            // Disminuir la cantidad reservada en el stock
-                            productoEnStock.CantidadReservada -= beCarrito.Producto.Unidad;
-                            bllStock.CantidadReservadaStock(productoEnStock);
-
-                            // Actualizar el carrito y recalcular el total
-                            CargarDataGridCarrito();
-                            CalcularTotal();
-
-                        }
-                        else
-                        {
-                            // Remover el producto si la cantidad es 1
-                            beCompraMayorista.ListaCarrito.Remove(beCarrito);
-                            beCompraMayorista.Total = 0;
-                            // Actualizar stock y reservar la cantidad devuelta
-                            productoEnStock.CantidadReservada -= beCarrito.Producto.Unidad;
-                            bllStock.CantidadReservadaStock(productoEnStock);
-
-                            // Refrescar la interfaz y recalcular el total
-                            CargarDataGridCarrito();
-                            CalcularTotal();
-
-
-                        }
+                        beCompraMayorista.ListaCarrito.Remove(beCarrito);
                     }
-                    else if (beCarrito.Producto is BEProductoCombo)
-                    {
-                        var beProductoCombo = (BEProductoCombo)beCarrito.Producto;
-                        if (beCarrito.Cantidad > 1)
-                        {
-                            beCarrito.Cantidad--;
-                            beCarrito.Total -= beCarrito.Producto.PrecioMayorista;
-                            CargarDataGridCarrito();
-                            CalcularTotal();
 
-                            foreach (BEStock item in beProductoCombo.ListaProductos)
-                            {
-                                var itemEnStock = listaStock.Find(p => p.Codigo == item.Codigo);
-                                itemEnStock.CantidadReservada--;
-                                bllStock.CantidadReservadaStock(itemEnStock);
-                            }
+                    // 3. Refrescamos la pantalla
+                    CargarDataGridCarrito();
+                    CalcularTotal();
 
-
-                        }
-                        else
-                        {
-                            var productoEnCarrito = beCompraMayorista.ListaCarrito.Find(p => p.Producto.Codigo == beCarrito.Producto.Codigo);
-                            beCompraMayorista.ListaCarrito.Remove(productoEnCarrito);
-                            dataGridViewCarrito.DataSource = null;
-                            dataGridViewCarrito.DataSource = beCompraMayorista.ListaCarrito;
-                            dataGridViewCarrito.Columns["Total"].DefaultCellStyle.Format = "c2";
-                            decimal total = 0;
-                            if (beCompraMayorista.ListaCarrito.Count > 0)
-                            {
-                                foreach (var producto in beCompraMayorista.ListaCarrito)
-                                {
-                                    total += producto.Total;
-                                    beCompraMayorista.Total = total;
-                                }
-                            }
-                            else
-                            {
-                                beCompraMayorista.Total = 0;
-                            }
-                            buttonTotal.Text = clienteSeleccionado.Nombre +
-                                               " // TOTAL: $ " +
-                                               beCompraMayorista.Total.ToString("N2");
-                            foreach (BEStock item in beProductoCombo.ListaProductos)
-                            {
-                                var itemEnStock = listaStock.Find(p => p.Codigo == item.Codigo);
-                                itemEnStock.CantidadReservada--;
-                                bllStock.CantidadReservadaStock(itemEnStock);
-                            }
-
-                        }
-                    }
+                    // 4. Guardamos el temporal
                     bllCliente.GuardarCompraMayoristaTemporal(clienteSeleccionado, beCompraMayorista);
-
                 }
                 else
                 {
-                    MessageBox.Show("El carrito esta vacio");
+                    MessageBox.Show("El carrito está vacío.");
                 }
-
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                MessageBox.Show(ex.Message, "Error al quitar producto", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -858,9 +724,9 @@ namespace Meraki
         {
             try
             {
-
                 if (dataGridViewCarrito.Rows.Count > 0)
                 {
+                    // 1. Validar forma de pago (Tu código original)
                     if (radioButtonEfectivo.Checked)
                     {
                         beComprobante.PagoEfectivo = true;
@@ -874,10 +740,20 @@ namespace Meraki
                         MessageBox.Show("Debe seleccionar forma de pago");
                         return;
                     }
+
                     DialogResult dialogResult = MessageBox.Show("Desea confirmar la compra? El total es de $ " + beCompraMayorista.Total.ToString(), "Confirmar compra", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
                     if (dialogResult == DialogResult.Yes)
                     {
+                        // 2. LA MAGIA NUEVA: Le pedimos a la BLL que descuente el stock y guarde la compra
+                        bllCompraMayorista.ConfirmarCompra(beCompraMayorista);
+
+                        // 3. RECUPERAMOS EL COMPROBANTE: Armamos el objeto con tu lógica original
                         beComprobante.Cliente = clienteSeleccionado;
+                        beComprobante.Fecha = DateTime.Now;
+                        beComprobante.Total = beCompraMayorista.Total;
+
+                        // Generador de número de comprobante
                         listaComprobantes = bllComprobante.listaComprobantes();
                         if (listaComprobantes.Count == 0)
                         {
@@ -888,8 +764,7 @@ namespace Meraki
                             int numeroMaximo = 0;
                             foreach (var comprobante in listaComprobantes)
                             {
-                                int numeroComprobante;
-                                if (int.TryParse(comprobante.Numero, out numeroComprobante)) // Intentar convertir el número a entero
+                                if (int.TryParse(comprobante.Numero, out int numeroComprobante))
                                 {
                                     if (numeroComprobante > numeroMaximo)
                                     {
@@ -897,17 +772,11 @@ namespace Meraki
                                     }
                                 }
                             }
-
-
                             beComprobante.Numero = (numeroMaximo + 1).ToString().PadLeft(8, '0');
                         }
 
-                        beComprobante.Fecha = DateTime.Now;
+                        // Pasar los items del carrito al comprobante
                         List<BEItem> items = new List<BEItem>();
-
-                        List<BEStock> listaStockTemp = bllStock.CargarStock();
-
-
                         foreach (BECarrito item in beCompraMayorista.ListaCarrito)
                         {
                             beItem = new BEItem
@@ -918,58 +787,32 @@ namespace Meraki
                                 Precio = Convert.ToDecimal(item.Total)
                             };
                             items.Add(beItem);
-
-                            if (item.Producto is BEProductoIndividual individual)
-                            {
-                                BEStock stockTemp = listaStockTemp.FirstOrDefault(s => s.Codigo == individual.Stock.Codigo);
-                                if (stockTemp != null)
-                                {
-                                    int cantidadARestar = individual.Unidad * item.Cantidad;
-                                    stockTemp.CantidadActual -= cantidadARestar;
-                                    stockTemp.CantidadReservada -= cantidadARestar;
-                                    bllStock.CantidadReservadaStock(stockTemp);
-                                }
-                            }
-                            else if (item.Producto is BEProductoCombo combo)
-                            {
-                                foreach (BEStock stockItem in combo.ListaProductos)
-                                {
-                                    BEStock stockTemp = listaStockTemp.FirstOrDefault(s => s.Codigo == stockItem.Codigo);
-                                    if (stockTemp != null)
-                                    {
-                                        int cantidadARestar = 1 * item.Cantidad;
-                                        stockTemp.CantidadActual -= cantidadARestar;
-                                        stockTemp.CantidadReservada -= cantidadARestar;
-                                        bllStock.CantidadReservadaStock(stockTemp);
-                                    }
-                                }
-                            }
-
                         }
-
                         beComprobante.ListaItems = items;
 
-                        beComprobante.Total = beCompraMayorista.Total;
-
-
+                        // 4. GUARDAR Y GENERAR EL PDF
                         bllComprobante.GuardarNuevoComprobante(beComprobante);
                         GenerarPDF(beComprobante);
-                        bllStock.ActualizarStock(listaStockTemp);
+
                         bllStock.DescontarStockPorVencimiento(beCompraMayorista);
                         listaStock = bllStock.CargarStock();
+
+                        // 5. Limpieza y avisos finales
                         limpiarCompraMayorista();
                         ComprobarBajoStock();
+                        clienteSeleccionado = null;
+                        CargarDataGridClientes();
                     }
                 }
                 else
                 {
                     MessageBox.Show("El carrito se encuentra vacio");
                 }
-
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                // Si no hay stock o falla la base de datos, el código frena y cae acá
+                MessageBox.Show(ex.Message, "Error en la operación", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -979,7 +822,7 @@ namespace Meraki
             if (productosBajoStock.Any())
             {
                 iconButtonAlertaPocoStock.Visible = true;
-                
+
             }
         }
 
@@ -1022,12 +865,12 @@ namespace Meraki
                     if (itemCarrito.Producto.Tipo == "individual")
                     {
                         BEProductoIndividual producto = (BEProductoIndividual)itemCarrito.Producto;
-                        
+
                         int devolverStock = cantidadAnteriorEditada * producto.Unidad;
                         int nuevaCantidadReservada = producto.Stock.CantidadReservada - devolverStock;
                         int nuevaCantidadUnidades = nuevaCantidad * producto.Unidad;
-                        
-                        if(producto.Stock.CantidadActual >= nuevaCantidadReservada + nuevaCantidadUnidades)
+
+                        if (producto.Stock.CantidadActual >= nuevaCantidadReservada + nuevaCantidadUnidades)
                         {
                             producto.Stock.CantidadReservada = nuevaCantidadReservada + nuevaCantidadUnidades;
                             bllStock.CantidadReservadaStock(producto.Stock); // si tenés persistencia acá
@@ -1094,8 +937,8 @@ namespace Meraki
                 }
             }
 
-            
-            
+
+
         }
 
         private void iconButtonGuardarPrecio_Click(object sender, EventArgs e)
@@ -1197,85 +1040,24 @@ namespace Meraki
             {
                 if (dataGridViewCarrito.Rows.Count > 0)
                 {
+                    // 1. Agarramos el producto seleccionado del carrito
                     beCarrito = (BECarrito)dataGridViewCarrito.CurrentRow.DataBoundItem;
-                    if (beCarrito.Producto is BEProductoIndividual)
-                    {
-                        beProductoIndividual = (BEProductoIndividual)beCarrito.Producto;
-                        var productoEnStock = listaStock.Find(p => p.Codigo == beProductoIndividual.Stock.Codigo);
 
-                        int cantidadDisponible = productoEnStock.CantidadActual - productoEnStock.CantidadReservada;
+                    // 2. ¡LA MAGIA! Reutilizamos el método que armaste recién en la BLL de Stock
+                    bllStock.ActualizarStock(beCarrito, listaStock);
 
+                    // 3. Si la BLL no frenó el proceso por falta de stock, refrescamos la pantalla
+                    CargarDataGridCarrito();
+                    CalcularTotal();
 
-                        if (cantidadDisponible >= beProductoIndividual.Unidad)
-                        {
-                            // Actualizar la cantidad y el total en el carrito
-                            beCarrito.Cantidad++;
-                            beCarrito.Total += beCarrito.Producto.PrecioMayorista;
-
-                            // Aumentar la cantidad reservada
-                            productoEnStock.CantidadReservada = productoEnStock.CantidadReservada + beCarrito.Producto.Unidad;
-                            bllStock.CantidadReservadaStock(productoEnStock);
-
-                            CargarDataGridCarrito();
-                            CalcularTotal();
-                            bllStock.ActualizarStock(listaStock);
-
-                        }
-                        else
-                        {
-                            MessageBox.Show("No hay stock suficiente para agregar");
-                        }
-                    }
-
-                    else if (beCarrito.Producto is BEProductoCombo)
-                    {
-                        var beProductoCombo = (BEProductoCombo)beCarrito.Producto;
-                        bool hayStockSuficiente = true;
-
-                        foreach (var productoEnCombo in beProductoCombo.ListaProductos)
-                        {
-                            var productoEnStock = listaStock.Find(p => p.Codigo == productoEnCombo.Codigo);
-                            if (productoEnStock == null || productoEnStock.CantidadActual < 1)
-                            {
-                                hayStockSuficiente = false;
-                                break;
-                            }
-                        }
-                        if (hayStockSuficiente)
-                        {
-                            beCarrito.Cantidad++;
-                            beCarrito.Total += beCarrito.Producto.PrecioMayorista;
-
-                            // Disminuye el stock de cada producto en el combo
-                            foreach (var productoEnCombo in beProductoCombo.ListaProductos)
-                            {
-                                var productoEnStock = listaStock.Find(p => p.Codigo == productoEnCombo.Codigo);
-                                if (productoEnStock != null)
-                                {
-                                    productoEnStock.CantidadReservada++; // Restar 1 por cada producto en el combo
-                                    bllStock.CantidadReservadaStock(productoEnStock);
-
-                                }
-                            }
-
-                            CargarDataGridCarrito();
-                            CalcularTotal();
-
-                        }
-                        else
-                        {
-                            MessageBox.Show("No hay stock suficiente para agregar este combo");
-                        }
-                    }
+                    // 4. Guardamos el carrito temporal (Pasamanos a la BLL de Cliente)
                     bllCliente.GuardarCompraMayoristaTemporal(clienteSeleccionado, beCompraMayorista);
-
                 }
             }
-
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                // Si el método de la BLL tira el "throw new Exception", cae directo acá
+                MessageBox.Show(ex.Message, "Aviso de Stock", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -1412,7 +1194,7 @@ namespace Meraki
 
                 if (guardar.ShowDialog() == DialogResult.OK)
                 {
-                    bitmap.Save(guardar.FileName, ImageFormat.Jpeg);
+                    bitmap.Save(guardar.FileName, System.Drawing.Imaging.ImageFormat.Jpeg);
                     MessageBox.Show("Imagen guardada correctamente.");
 
                     try
@@ -1503,7 +1285,7 @@ namespace Meraki
                 return;
             }
 
-         
+
             // Ajustar el stock según el carrito
             foreach (var item in beCompraMayorista.ListaCarrito)
             {
@@ -1527,7 +1309,7 @@ namespace Meraki
         private void AjustarStock(BECarrito carrito, bool revertir)
         {
             BEProducto producto = carrito.Producto;
-            
+
             if (producto is BEProductoIndividual productoIndividual)
             {
                 var productoEnStock = listaStock.Find(p => p.Codigo == productoIndividual.Stock.Codigo);
@@ -1583,7 +1365,7 @@ namespace Meraki
             bllStock.AcomodarCantidadReservada();
         }
 
-        
+
 
         private void dataGridViewClientes_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -1649,6 +1431,18 @@ namespace Meraki
                 {
                     cantidadAnteriorEditada = cantidad;
                 }
+            }
+        }
+
+       
+        private void CompraMayorista_VisibleChanged_1(object sender, EventArgs e)
+        {
+            if (this.Visible)
+            {
+                listaStock = bllStock.CargarStock();
+                CargarDataGrid();
+                ComprobarBajoStock();
+                comprobarVencimiento();
             }
         }
     }

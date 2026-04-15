@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label9 = new System.Windows.Forms.Label();
             this.richTextBoxComentarios = new System.Windows.Forms.RichTextBox();
             this.dataGridViewClientes = new System.Windows.Forms.DataGridView();
@@ -37,7 +37,7 @@
             this.iconButtonBaja2 = new FontAwesome.Sharp.IconButton();
             this.iconButtonModificar2 = new FontAwesome.Sharp.IconButton();
             this.iconButtonComentariosGuardar = new FontAwesome.Sharp.IconButton();
-            this.iconButtonComentariosBorrar = new FontAwesome.Sharp.IconButton();
+            this.iconButtonComentariosEditar = new FontAwesome.Sharp.IconButton();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewClientes)).BeginInit();
             this.SuspendLayout();
             // 
@@ -62,10 +62,12 @@
             this.richTextBoxComentarios.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.richTextBoxComentarios.Location = new System.Drawing.Point(12, 231);
             this.richTextBoxComentarios.Name = "richTextBoxComentarios";
-            this.richTextBoxComentarios.Size = new System.Drawing.Size(472, 127);
+            this.richTextBoxComentarios.Size = new System.Drawing.Size(462, 127);
             this.richTextBoxComentarios.TabIndex = 38;
             this.richTextBoxComentarios.Text = "";
             this.richTextBoxComentarios.TextChanged += new System.EventHandler(this.richTextBoxComentarios_TextChanged);
+            this.richTextBoxComentarios.DoubleClick += new System.EventHandler(this.richTextBoxComentarios_DoubleClick_1);
+            this.richTextBoxComentarios.MouseDown += new System.Windows.Forms.MouseEventHandler(this.richTextBoxComentarios_MouseDown_1);
             // 
             // dataGridViewClientes
             // 
@@ -75,14 +77,14 @@
             this.dataGridViewClientes.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
             this.dataGridViewClientes.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridViewClientes.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(8)))), ((int)(((byte)(21)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewClientes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(8)))), ((int)(((byte)(21)))));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewClientes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridViewClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewClientes.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(26)))), ((int)(((byte)(64)))));
             this.dataGridViewClientes.Location = new System.Drawing.Point(12, 12);
@@ -105,7 +107,7 @@
             this.textBoxFiltrar.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.textBoxFiltrar.Location = new System.Drawing.Point(12, 364);
             this.textBoxFiltrar.Name = "textBoxFiltrar";
-            this.textBoxFiltrar.Size = new System.Drawing.Size(472, 18);
+            this.textBoxFiltrar.Size = new System.Drawing.Size(462, 18);
             this.textBoxFiltrar.TabIndex = 43;
             this.textBoxFiltrar.TextChanged += new System.EventHandler(this.textBoxFiltrar_TextChanged_1);
             this.textBoxFiltrar.Enter += new System.EventHandler(this.textBoxFiltrar_Enter);
@@ -186,36 +188,36 @@
             this.iconButtonComentariosGuardar.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
             this.iconButtonComentariosGuardar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.iconButtonComentariosGuardar.IconSize = 30;
-            this.iconButtonComentariosGuardar.Location = new System.Drawing.Point(493, 271);
+            this.iconButtonComentariosGuardar.Location = new System.Drawing.Point(480, 271);
             this.iconButtonComentariosGuardar.Name = "iconButtonComentariosGuardar";
-            this.iconButtonComentariosGuardar.Size = new System.Drawing.Size(106, 40);
+            this.iconButtonComentariosGuardar.Size = new System.Drawing.Size(119, 48);
             this.iconButtonComentariosGuardar.TabIndex = 47;
             this.iconButtonComentariosGuardar.Text = "Guardar";
             this.iconButtonComentariosGuardar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.iconButtonComentariosGuardar.UseVisualStyleBackColor = false;
             this.iconButtonComentariosGuardar.Click += new System.EventHandler(this.iconButtonComentariosGuardar_Click);
             // 
-            // iconButtonComentariosBorrar
+            // iconButtonComentariosEditar
             // 
-            this.iconButtonComentariosBorrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.iconButtonComentariosBorrar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(26)))), ((int)(((byte)(64)))));
-            this.iconButtonComentariosBorrar.FlatAppearance.BorderSize = 0;
-            this.iconButtonComentariosBorrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.iconButtonComentariosBorrar.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.iconButtonComentariosBorrar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
-            this.iconButtonComentariosBorrar.IconChar = FontAwesome.Sharp.IconChar.Pen;
-            this.iconButtonComentariosBorrar.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
-            this.iconButtonComentariosBorrar.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.iconButtonComentariosBorrar.IconSize = 30;
-            this.iconButtonComentariosBorrar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.iconButtonComentariosBorrar.Location = new System.Drawing.Point(493, 271);
-            this.iconButtonComentariosBorrar.Name = "iconButtonComentariosBorrar";
-            this.iconButtonComentariosBorrar.Size = new System.Drawing.Size(106, 40);
-            this.iconButtonComentariosBorrar.TabIndex = 48;
-            this.iconButtonComentariosBorrar.Text = "Modificar";
-            this.iconButtonComentariosBorrar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.iconButtonComentariosBorrar.UseVisualStyleBackColor = false;
-            this.iconButtonComentariosBorrar.Click += new System.EventHandler(this.iconButtonComentariosBorrar_Click);
+            this.iconButtonComentariosEditar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.iconButtonComentariosEditar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(26)))), ((int)(((byte)(64)))));
+            this.iconButtonComentariosEditar.FlatAppearance.BorderSize = 0;
+            this.iconButtonComentariosEditar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.iconButtonComentariosEditar.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.iconButtonComentariosEditar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
+            this.iconButtonComentariosEditar.IconChar = FontAwesome.Sharp.IconChar.Pen;
+            this.iconButtonComentariosEditar.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
+            this.iconButtonComentariosEditar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iconButtonComentariosEditar.IconSize = 30;
+            this.iconButtonComentariosEditar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.iconButtonComentariosEditar.Location = new System.Drawing.Point(480, 271);
+            this.iconButtonComentariosEditar.Name = "iconButtonComentariosEditar";
+            this.iconButtonComentariosEditar.Size = new System.Drawing.Size(119, 48);
+            this.iconButtonComentariosEditar.TabIndex = 48;
+            this.iconButtonComentariosEditar.Text = "Editar comentarios";
+            this.iconButtonComentariosEditar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.iconButtonComentariosEditar.UseVisualStyleBackColor = false;
+            this.iconButtonComentariosEditar.Click += new System.EventHandler(this.iconButtonComentariosBorrar_Click);
             // 
             // Clientes
             // 
@@ -223,7 +225,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
             this.ClientSize = new System.Drawing.Size(613, 434);
-            this.Controls.Add(this.iconButtonComentariosBorrar);
+            this.Controls.Add(this.iconButtonComentariosEditar);
             this.Controls.Add(this.iconButtonComentariosGuardar);
             this.Controls.Add(this.iconButtonModificar2);
             this.Controls.Add(this.iconButtonBaja2);
@@ -235,6 +237,7 @@
             this.Name = "Clientes";
             this.Text = "Clientes";
             this.Load += new System.EventHandler(this.Clientes_Load);
+            this.VisibleChanged += new System.EventHandler(this.Clientes_VisibleChanged);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewClientes)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -250,7 +253,7 @@
         private FontAwesome.Sharp.IconButton iconButtonBaja2;
         private FontAwesome.Sharp.IconButton iconButtonModificar2;
         private FontAwesome.Sharp.IconButton iconButtonComentariosGuardar;
-        private FontAwesome.Sharp.IconButton iconButtonComentariosBorrar;
+        private FontAwesome.Sharp.IconButton iconButtonComentariosEditar;
     }
 }
 

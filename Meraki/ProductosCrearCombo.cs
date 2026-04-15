@@ -20,8 +20,6 @@ namespace Meraki
         BLLProductoCombo bllProductoCombo;
         BEStock beStock;
         BEProductoCombo productoCombo;
-        private bool puntoMayorista = false;
-        private bool puntoMinorista = false;
         private BindingSource bindingSource = new BindingSource();
 
 
@@ -43,20 +41,44 @@ namespace Meraki
         {
             dataGridViewStock.DataSource = null;
             dataGridViewStock.DataSource = bllStock.CargarStock();
-            dataGridViewStock.Columns[0].Visible = false;
-            dataGridViewStock.Columns[1].HeaderText = "Nombre";
-            dataGridViewStock.Columns[4].Visible = false;
-            dataGridViewStock.Columns[6].Visible = false;
-            dataGridViewStock.Columns[5].Visible = false;
-            dataGridViewStock.Columns[2].Visible = false;
-            dataGridViewStock.Columns[3].Visible = false;
+
             ConfigurarDataGrid(dataGridViewStock);
 
         }
 
         public void ConfigurarDataGrid(DataGridView dataGridView)
         {
-            // Configuración general del DataGridView
+            // Verificamos y agregamos la columna combinada si no existe
+            if (!dataGridView.Columns.Contains("columnaCombinada"))
+            {
+                DataGridViewTextBoxColumn columnaCombinada = new DataGridViewTextBoxColumn();
+                columnaCombinada.HeaderText = "Medida";
+                columnaCombinada.Name = "columnaCombinada";
+                dataGridView.Columns.Add(columnaCombinada);
+            }
+
+            // Ocultamos TODO primero por seguridad
+            foreach (DataGridViewColumn col in dataGridView.Columns)
+            {
+                col.Visible = false;
+            }
+
+            // Mostramos SOLO lo que queremos ver, usando NOMBRES de columnas
+            if (dataGridView.Columns.Contains("Nombre"))
+            {
+                dataGridView.Columns["Nombre"].Visible = true;
+                dataGridView.Columns["Nombre"].HeaderText = "Nombre";
+                dataGridView.Columns["Nombre"].DisplayIndex = 0; // Primera
+            }
+
+            if (dataGridView.Columns.Contains("columnaCombinada"))
+            {
+                dataGridView.Columns["columnaCombinada"].Visible = true;
+                dataGridView.Columns["columnaCombinada"].HeaderText = "Medida";
+                dataGridView.Columns["columnaCombinada"].DisplayIndex = 1; // Segunda
+            }
+
+            // Diseño general
             dataGridView.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(217, 171, 171);
             dataGridView.RowHeadersVisible = false;
             dataGridView.Font = new System.Drawing.Font("Segoe UI", 9);
@@ -72,20 +94,16 @@ namespace Meraki
             dataGridView.AllowUserToAddRows = false;
             dataGridView.ColumnHeadersDefaultCellStyle.SelectionBackColor = dataGridView.ColumnHeadersDefaultCellStyle.BackColor;
             dataGridView.ColumnHeadersDefaultCellStyle.SelectionForeColor = dataGridView.ColumnHeadersDefaultCellStyle.ForeColor;
-            DataGridViewTextBoxColumn columnaCombinada = new DataGridViewTextBoxColumn();
-            columnaCombinada.HeaderText = "Medida";
-            columnaCombinada.Name = "columnaCombinada";
-            dataGridView.Columns.Add(columnaCombinada);
+
+            // Re-asociamos el evento de formateo (¡muy importante!)
+            dataGridView.CellFormatting -= dataGridViewStock_CellFormatting; // Lo desenganchamos por si acaso
             dataGridView.CellFormatting += dataGridViewStock_CellFormatting;
-
-            ConfigurarEstilosColumnas(dataGridView);
-
         }
 
         private void ConfigurarEstilosColumnas(DataGridView dataGridView)
         {
-            
-    
+
+
 
             //dataGridView.Columns[7].Width = 90;
 
@@ -107,39 +125,7 @@ namespace Meraki
 
         }
 
-        private void textBoxPrecioMayorista_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-            {
-                if ((e.KeyChar == '.') && (!puntoMayorista))
-                {
-                    puntoMayorista = true;
-                    e.Handled = false; // permitir ingreso
-                }
 
-                else
-                {
-                    e.Handled = true; // no permitir ingreso
-                }
-            }
-        }
-
-        private void textBoxPrecioMinorista_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-            {
-                if ((e.KeyChar == '.') && (!puntoMinorista))
-                {
-                    puntoMinorista = true;
-                    e.Handled = false; // permitir ingreso
-                }
-
-                else
-                {
-                    e.Handled = true; // no permitir ingreso
-                }
-            }
-        }
 
         private void textBoxPrecioMinorista_Leave(object sender, EventArgs e)
         {
@@ -176,7 +162,30 @@ namespace Meraki
             return codigo;
         }
 
-
+        private void ValidarIngresoDecimal(object sender, KeyPressEventArgs e)
+        {
+            TextBox txt = sender as TextBox;
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                char separadorDecimal = Convert.ToChar(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
+                if (e.KeyChar == '.' || e.KeyChar == ',')
+                {
+                    e.KeyChar = separadorDecimal;
+                    if (txt.Text.Contains(separadorDecimal))
+                    {
+                        e.Handled = true;
+                    }
+                    else
+                    {
+                        e.Handled = false;
+                    }
+                }
+                else
+                {
+                    e.Handled = true;
+                }
+            }
+        }
 
 
 
@@ -185,9 +194,16 @@ namespace Meraki
         {
             try
             {
-                beStock = (BEStock)dataGridViewStock.CurrentRow.DataBoundItem;
-                productoCombo.ListaProductos.Add(beStock);
-                CargarDataGridCombo();
+                if (dataGridViewStock.CurrentRow != null)
+                {
+                    beStock = (BEStock)dataGridViewStock.CurrentRow.DataBoundItem;
+                    productoCombo.ListaProductos.Add(beStock);
+                    CargarDataGridCombo();
+                }
+                else
+                {
+                    MessageBox.Show("Seleccione un producto del stock para agregar.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
 
             }
             catch (Exception)
@@ -206,40 +222,52 @@ namespace Meraki
         {
             try
             {
-                if (String.IsNullOrEmpty(textBoxNombreCombo.Text))
+                // --- PATOVICA DE UI ---
+                if (string.IsNullOrWhiteSpace(textBoxNombreCombo.Text))
                 {
-                    MessageBox.Show("Debe colocarle un nombre al combo");
+                    MessageBox.Show("Debe colocarle un nombre al combo.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (string.IsNullOrWhiteSpace(textBoxPrecioMayorista.Text))
+                {
+                    MessageBox.Show("Debe colocar un precio mayorista.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Validamos que el combo tenga al menos un ingrediente
+                if (productoCombo.ListaProductos == null || productoCombo.ListaProductos.Count == 0)
+                {
+                    MessageBox.Show("Debe agregar al menos un producto a la lista del combo.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                // -----------------------
+
+                productoCombo.Nombre = textBoxNombreCombo.Text.ToUpper();
+                productoCombo.PrecioMayorista = Convert.ToDecimal(textBoxPrecioMayorista.Text);
+
+                if (string.IsNullOrWhiteSpace(textBoxPrecioMinorista.Text))
+                {
+                    productoCombo.PrecioMinorista = 0;
                 }
                 else
                 {
-                    productoCombo.Nombre = textBoxNombreCombo.Text.ToUpper();
-                    if (String.IsNullOrEmpty(textBoxPrecioMayorista.Text))
-                    { MessageBox.Show("Debe colocar un precio mayorista"); }
-                    else
-                    {
-                        productoCombo.PrecioMayorista = Convert.ToDecimal(textBoxPrecioMayorista.Text);
-                        if (String.IsNullOrEmpty(textBoxPrecioMinorista.Text))
-                        { MessageBox.Show("Debe colocar un precio minorista"); }
-                        else
-                        {
-                            productoCombo.PrecioMinorista = Convert.ToDecimal(textBoxPrecioMinorista.Text);
-                            productoCombo.Unidad = 1;
-                            productoCombo.Codigo = GenerarCodigoUnico();
-                            productoCombo.Tipo = "combo";
-                            bllProductoCombo.GuardarProducto(productoCombo);
-                            DialogResult = DialogResult.OK;
-                            Close();
-                        }
-
-                    }
+                    productoCombo.PrecioMinorista = Convert.ToDecimal(textBoxPrecioMinorista.Text);
                 }
 
+                productoCombo.Unidad = 1;
+                productoCombo.Codigo = GenerarCodigoUnico();
+                productoCombo.Tipo = "combo";
 
+                bllProductoCombo.GuardarProducto(productoCombo);
+
+                MessageBox.Show("Combo creado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                DialogResult = DialogResult.OK;
+                Close();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                MessageBox.Show("Ocurrió un error al guardar el combo: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -247,34 +275,41 @@ namespace Meraki
         {
             try
             {
-                if (dataGridViewCombo.Rows.Count > 0)
+                // Patovica: Validamos que haya algo para quitar
+                if (dataGridViewCombo.CurrentRow != null && dataGridViewCombo.Rows.Count > 0)
                 {
-                    beStock = (BEStock)dataGridViewCombo.CurrentRow.DataBoundItem;
-                    productoCombo.ListaProductos.Remove(beStock);
+                    var itemAQuitar = (BEStock)dataGridViewCombo.CurrentRow.DataBoundItem;
+                    productoCombo.ListaProductos.Remove(itemAQuitar);
                     CargarDataGridCombo();
-                    beStock = null;
+                }
+                else
+                {
+                    MessageBox.Show("Seleccione un producto de la lista del combo para quitarlo.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                MessageBox.Show("Error al quitar el producto: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void textBoxFiltrar_TextChanged_1(object sender, EventArgs e)
         {
             string filtro = textBoxFiltrar.Text.ToLower();
-            var listaOriginal = bllStock.CargarStock();
-            var listaFiltrada = listaOriginal.Where(item => item.Nombre.ToLower().Contains(filtro)).ToList();
-            dataGridViewStock.DataSource = null;  // Limpiar el DataSource actual
-            dataGridViewStock.DataSource = listaFiltrada;
-            dataGridViewStock.Columns[0].Visible = false;
-            dataGridViewStock.Columns[1].HeaderText = "Nombre";
-            dataGridViewStock.Columns[3].HeaderText = "Tipo Medida";
-            dataGridViewStock.Columns[4].Visible = false;
-            dataGridViewStock.Columns[6].Visible = false;
-            dataGridViewStock.Columns[5].Visible = false;
+
+            if (string.IsNullOrWhiteSpace(filtro) || filtro == "   buscar...")
+            {
+                dataGridViewStock.DataSource = bllStock.CargarStock();
+            }
+            else
+            {
+                var listaOriginal = bllStock.CargarStock();
+                var listaFiltrada = listaOriginal.Where(item => item.Nombre.ToLower().Contains(filtro)).ToList();
+                dataGridViewStock.DataSource = listaFiltrada;
+            }
+
+            // SIMPLEMENTE VOLVEMOS A LLAMAR AL MÉTODO MAESTRO
+            ConfigurarDataGrid(dataGridViewStock);
         }
 
         private void dataGridViewStock_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -300,16 +335,40 @@ namespace Meraki
         [DllImport("user32.DLL", EntryPoint = "SendMessage")]
         private extern static void SendMessage(System.IntPtr hWnd, int wMsg, int wParam, int lParam);
 
-       
 
-       
 
-      
+
+
+
 
         private void ProductosCrearCombo_MouseDown(object sender, MouseEventArgs e)
         {
             ReleaseCapture();
             SendMessage(this.Handle, 0x112, 0xf012, 0);
+        }
+
+        private void ProductosCrearCombo_Load(object sender, EventArgs e)
+        {
+            textBoxFiltrar.Text = "   Buscar...";
+            textBoxFiltrar.ForeColor = System.Drawing.Color.Gray;
+        }
+
+        private void textBoxFiltrar_Enter(object sender, EventArgs e)
+        {
+            if (textBoxFiltrar.Text == "   Buscar...")
+            {
+                textBoxFiltrar.Text = "";
+                textBoxFiltrar.ForeColor = System.Drawing.Color.Black;
+            }
+        }
+
+        private void textBoxFiltrar_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(textBoxFiltrar.Text))
+            {
+                textBoxFiltrar.Text = "   Buscar...";
+                textBoxFiltrar.ForeColor = System.Drawing.Color.Gray;
+            }
         }
     }
 }

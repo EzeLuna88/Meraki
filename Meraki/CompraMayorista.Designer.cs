@@ -697,6 +697,7 @@
             this.Name = "CompraMayorista";
             this.Text = "CompraMayorista";
             this.Load += new System.EventHandler(this.CompraMayorista_Load);
+            this.VisibleChanged += new System.EventHandler(this.CompraMayorista_VisibleChanged_1);
             this.Click += new System.EventHandler(this.CompraMayorista_Click);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();

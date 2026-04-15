@@ -21,8 +21,7 @@ namespace Meraki
         BLLProducto bllProducto;
         BLLStock bllStock;
         BEStock beStock;
-        private bool puntoMayorista = false;
-        private bool puntoMinorista = false;
+
 
         public ProductosAlta()
         {
@@ -61,40 +60,6 @@ namespace Meraki
             }
         }
 
-        private void textBoxPrecioMayorista_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-            {
-                if ((e.KeyChar == '.') && (!puntoMayorista))
-                {
-                    puntoMayorista = true;
-                    e.Handled = false; // permitir ingreso
-                }
-
-                else
-                {
-                    e.Handled = true; // no permitir ingreso
-                }
-            }
-        }
-
-        private void textBoxPrecioMinorista_KeyPress(object sender, KeyPressEventArgs e)
-        {
-
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-            {
-                if ((e.KeyChar == '.') && (!puntoMinorista))
-                {
-                    puntoMinorista = true;
-                    e.Handled = false; // permitir ingreso
-                }
-
-                else
-                {
-                    e.Handled = true; // no permitir ingreso
-                }
-            }
-        }
 
 
         private void ProductosAlta_Load(object sender, EventArgs e)
@@ -103,12 +68,16 @@ namespace Meraki
             {
                 dataGridViewStock.Rows[0].Selected = true;
             }
+
+            textBoxFiltrar.Text = "   Buscar...";
+            textBoxFiltrar.ForeColor = System.Drawing.Color.Gray;
         }
 
         public void CargarDataGrid()
         {
             dataGridViewStock.DataSource = null;
-            dataGridViewStock.DataSource = bllStock.CargarStock();
+            var listaStockOrdenada = bllStock.CargarStock().OrderBy(stock => stock.Nombre).ToList();
+            dataGridViewStock.DataSource = listaStockOrdenada;
             dataGridViewStock.Columns[1].HeaderText = "Nombre";
             dataGridViewStock.Columns[2].Visible = false;
             dataGridViewStock.Columns[3].Visible = false;
@@ -155,67 +124,25 @@ namespace Meraki
 
 
 
-        private void textBoxUnidades_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void iconButtonAlta_Click(object sender, EventArgs e)
-        {
-            List<BEProducto> listaProductos = bllProducto.listaProductos();
-
-            beStock = (BEStock)dataGridViewStock.CurrentRow.DataBoundItem;
-            beProducto.Stock = beStock;
-
-            string baseCodigo = beStock.Codigo.ToUpper();
-            string nuevoCodigo = baseCodigo;
-
-            // Buscar si ya existe un producto con el mismo código
-            var productosConMismoCodigo = listaProductos.Where(p => p.Codigo.StartsWith(baseCodigo));
-            // Si ya existe un producto con el mismo código
-            if (productosConMismoCodigo.Any())
-            {
-                // Obtener el último carácter del último producto encontrado
-                char ultimoCaracter = productosConMismoCodigo.Max(p => p.Codigo.Last());
-
-                // Incrementar el último carácter en uno
-                char nuevoCaracter = (char)(ultimoCaracter + 1);
-
-                // Formar el nuevo código
-                nuevoCodigo = baseCodigo + "-" + nuevoCaracter;
-            }
-            else
-            {
-                // Si no existe ningún producto con el mismo código, simplemente agregamos "-a"
-                nuevoCodigo = baseCodigo + "-A";
-            }
-            beProducto.Codigo = nuevoCodigo;
-            beProducto.Unidad = Convert.ToInt32(textBoxUnidades.Text);
-            beProducto.PrecioMayorista = Convert.ToDecimal(textBoxPrecioMayorista.Text);
-            if (string.IsNullOrEmpty(textBoxPrecioMinorista.Text))
-            { beProducto.PrecioMinorista = 0; }
-            else
-            {
-                beProducto.PrecioMinorista = Convert.ToDecimal(textBoxPrecioMinorista.Text);
-            }
-            beProducto.Tipo = "individual";
-            bllProducto.GuardarProducto(beProducto);
-            MessageBox.Show("El producto fue creado");
-            textBoxUnidades.Text = string.Empty;
-            textBoxPrecioMayorista.Text = string.Empty;
-            textBoxPrecioMinorista.Text = string.Empty;
-        }
-
         private void textBoxFiltrar_TextChanged_1(object sender, EventArgs e)
         {
             string textoABuscar = textBoxFiltrar.Text.ToLower();
-            var tablaFiltrada = bllStock.CargarStock().Where(row => row.Nombre.ToLower().Contains(textoABuscar) ||
-                                                                    row.Codigo.ToLower().Contains(textoABuscar)
-            );
-            dataGridViewStock.DataSource = tablaFiltrada.ToList();
+
+            // Si está vacío o tiene el texto de adorno, cargamos la grilla completa (que ahora ya viene ordenada)
+            if (string.IsNullOrWhiteSpace(textoABuscar) || textoABuscar == "   buscar...")
+            {
+                CargarDataGrid();
+            }
+            else
+            {
+                // Si el usuario escribió algo, filtramos Y TAMBIÉN ordenamos los resultados
+                var tablaFiltrada = bllStock.CargarStock()
+                    .Where(row => row.Nombre.ToLower().Contains(textoABuscar) || row.Codigo.ToLower().Contains(textoABuscar))
+                    .OrderBy(stock => stock.Nombre) // Mantenemos el orden alfabético en la búsqueda
+                    .ToList();
+
+                dataGridViewStock.DataSource = tablaFiltrada;
+            }
         }
 
         private void dataGridViewStock_CellFormatting_1(object sender, DataGridViewCellFormattingEventArgs e)
@@ -231,13 +158,13 @@ namespace Meraki
 
         private void iconButtonCancelar_Click(object sender, EventArgs e)
         {
-            DialogResult = DialogResult.OK;
+            DialogResult = DialogResult.Cancel;
             Close();
         }
 
         private void panelBarra_MouseDown(object sender, MouseEventArgs e)
         {
-           
+
         }
 
         //Drag form
@@ -271,5 +198,120 @@ namespace Meraki
             ReleaseCapture();
             SendMessage(this.Handle, 0x112, 0xf012, 0);
         }
+
+        // Este evento se lo vas a asignar a AMBOS TextBox de precios (Mayorista y Minorista)
+        // Podés borrar los viejos textBoxPrecioMayorista_KeyPress y textBoxPrecioMinorista_KeyPress
+        private void ValidarIngresoDecimal(object sender, KeyPressEventArgs e)
+        {
+            TextBox txt = sender as TextBox;
+
+            // Permitir borrar (Backspace) y números
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                // Obtenemos el separador oficial del sistema (la coma en es-AR)
+                char separadorDecimal = Convert.ToChar(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
+
+                // Si el usuario toca el punto del teclado numérico, lo convertimos a coma automáticamente
+                if (e.KeyChar == '.' || e.KeyChar == ',')
+                {
+                    e.KeyChar = separadorDecimal;
+
+                    // Verificamos si ya hay una coma en el texto. Si hay, no dejamos poner otra.
+                    if (txt.Text.Contains(separadorDecimal))
+                    {
+                        e.Handled = true;
+                    }
+                    else
+                    {
+                        e.Handled = false;
+                    }
+                }
+                else
+                {
+                    e.Handled = true; // Bloquea letras y otros símbolos
+                }
+            }
+        }
+
+        private void iconButtonAlta_Click(object sender, EventArgs e)
+        {
+            // --- EL PATOVICA DE UI (Validaciones) ---
+            if (dataGridViewStock.CurrentRow == null)
+            {
+                MessageBox.Show("Por favor, seleccione un producto del stock base.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return; // Frenamos la ejecución acá
+            }
+
+            if (string.IsNullOrWhiteSpace(textBoxUnidades.Text) || string.IsNullOrWhiteSpace(textBoxPrecioMayorista.Text))
+            {
+                MessageBox.Show("Los campos 'Unidades' y 'Precio Mayorista' son obligatorios.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return; // Frenamos la ejecución acá
+            }
+            // ----------------------------------------
+
+            List<BEProducto> listaProductos = bllProducto.listaProductos();
+
+            beStock = (BEStock)dataGridViewStock.CurrentRow.DataBoundItem;
+            beProducto.Stock = beStock;
+
+            string baseCodigo = beStock.Codigo.ToUpper();
+            string nuevoCodigo = baseCodigo;
+
+            var productosConMismoCodigo = listaProductos.Where(p => p.Codigo.StartsWith(baseCodigo));
+
+            if (productosConMismoCodigo.Any())
+            {
+                char ultimoCaracter = productosConMismoCodigo.Max(p => p.Codigo.Last());
+                char nuevoCaracter = (char)(ultimoCaracter + 1);
+                nuevoCodigo = baseCodigo + "-" + nuevoCaracter;
+            }
+            else
+            {
+                nuevoCodigo = baseCodigo + "-A";
+            }
+
+            beProducto.Codigo = nuevoCodigo;
+            beProducto.Unidad = Convert.ToInt32(textBoxUnidades.Text);
+            beProducto.PrecioMayorista = Convert.ToDecimal(textBoxPrecioMayorista.Text);
+
+            if (string.IsNullOrWhiteSpace(textBoxPrecioMinorista.Text))
+            {
+                beProducto.PrecioMinorista = 0;
+            }
+            else
+            {
+                beProducto.PrecioMinorista = Convert.ToDecimal(textBoxPrecioMinorista.Text);
+            }
+
+            beProducto.Tipo = "individual";
+
+            bllProducto.GuardarProducto(beProducto);
+
+            MessageBox.Show("El producto fue creado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            textBoxUnidades.Text = string.Empty;
+            textBoxPrecioMayorista.Text = string.Empty;
+            textBoxPrecioMinorista.Text = string.Empty;
+        }
+
+        private void textBoxFiltrar_Enter(object sender, EventArgs e)
+        {
+            if (textBoxFiltrar.Text == "   Buscar...")
+            {
+                textBoxFiltrar.Text = ""; // Limpia el TextBox
+                textBoxFiltrar.ForeColor = System.Drawing.Color.Black; // Cambia el color del texto
+            }
+        }
+
+        private void textBoxFiltrar_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(textBoxFiltrar.Text))
+            {
+                textBoxFiltrar.Text = "   Buscar..."; // Restaura el texto del placeholder
+                textBoxFiltrar.ForeColor = System.Drawing.Color.Gray; // Cambia el color del texto
+            }
+        }
+
+        
     }
 }

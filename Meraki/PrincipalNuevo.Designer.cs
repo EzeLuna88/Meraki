@@ -40,6 +40,7 @@
             this.iconButtonDashboard = new FontAwesome.Sharp.IconButton();
             this.panelLogo = new System.Windows.Forms.Panel();
             this.panelBarra = new System.Windows.Forms.Panel();
+            this.iconButtonConfiguracion = new FontAwesome.Sharp.IconButton();
             this.iconButtonMinimizar = new FontAwesome.Sharp.IconButton();
             this.iconButtonMaximizar = new FontAwesome.Sharp.IconButton();
             this.iconButtonCerrar = new FontAwesome.Sharp.IconButton();
@@ -139,6 +140,7 @@
             this.iconButtonCompras.Text = "Compras";
             this.iconButtonCompras.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.iconButtonCompras.UseVisualStyleBackColor = false;
+            this.iconButtonCompras.VisibleChanged += new System.EventHandler(this.iconButtonCompras_VisibleChanged);
             this.iconButtonCompras.Click += new System.EventHandler(this.iconButtonCompras_Click_1);
             // 
             // iconButtonClientes
@@ -235,6 +237,7 @@
             // panelBarra
             // 
             this.panelBarra.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(8)))), ((int)(((byte)(21)))));
+            this.panelBarra.Controls.Add(this.iconButtonConfiguracion);
             this.panelBarra.Controls.Add(this.iconButtonMinimizar);
             this.panelBarra.Controls.Add(this.iconButtonMaximizar);
             this.panelBarra.Controls.Add(this.iconButtonCerrar);
@@ -245,6 +248,25 @@
             this.panelBarra.Size = new System.Drawing.Size(944, 26);
             this.panelBarra.TabIndex = 7;
             this.panelBarra.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelBarra_MouseDown_1);
+            // 
+            // iconButtonConfiguracion
+            // 
+            this.iconButtonConfiguracion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.iconButtonConfiguracion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(8)))), ((int)(((byte)(21)))));
+            this.iconButtonConfiguracion.FlatAppearance.BorderSize = 0;
+            this.iconButtonConfiguracion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.iconButtonConfiguracion.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.iconButtonConfiguracion.IconChar = FontAwesome.Sharp.IconChar.Cog;
+            this.iconButtonConfiguracion.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
+            this.iconButtonConfiguracion.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iconButtonConfiguracion.IconSize = 18;
+            this.iconButtonConfiguracion.Location = new System.Drawing.Point(828, 0);
+            this.iconButtonConfiguracion.Name = "iconButtonConfiguracion";
+            this.iconButtonConfiguracion.Size = new System.Drawing.Size(30, 26);
+            this.iconButtonConfiguracion.TabIndex = 12;
+            this.iconButtonConfiguracion.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.iconButtonConfiguracion.UseVisualStyleBackColor = false;
+            this.iconButtonConfiguracion.Click += new System.EventHandler(this.iconButtonConfiguracion_Click_1);
             // 
             // iconButtonMinimizar
             // 
@@ -328,7 +350,6 @@
             this.Name = "PrincipalNuevo";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.PrincipalNuevo_Load);
-            this.Resize += new System.EventHandler(this.Form1_Resize);
             this.panelMenu.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panelBarra.ResumeLayout(false);
@@ -355,5 +376,6 @@
         private FontAwesome.Sharp.IconButton iconButtonCerrar;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private FontAwesome.Sharp.IconButton iconButtonDashboard;
+        private FontAwesome.Sharp.IconButton iconButtonConfiguracion;
     }
 }

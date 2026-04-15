@@ -59,7 +59,7 @@ namespace MPP
                 new MySqlParameter("@monto", item.Total)
             };
 
-                    acceso.EjecutarNonQueryConParametros(queryDetalle, parametrosDetalle);
+                    acceso.EjecutarNonQuery(queryDetalle, parametrosDetalle.ToArray());
                 }
             }
             catch (Exception ex)

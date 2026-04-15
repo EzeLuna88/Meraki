@@ -18,6 +18,14 @@ namespace BLL
 
         public void GuardarDiasAvisoVencimiento(int dias)
         {
+            if (dias < 0)
+            {
+                throw new ArgumentException("Los días de anticipación no pueden ser negativos.");
+            }
+            if (dias > 1825)
+            {
+                throw new ArgumentException("El máximo de días de anticipación permitido es 1825 (5 años).");
+            }
             mppConfiguracion.GuardarDiasAvisoVencimiento(dias);
         }
 
