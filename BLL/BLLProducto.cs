@@ -55,9 +55,19 @@ namespace BLL
             access.ModificarProducto(beProducto);
         }
 
-        /*public BEProducto BuscarProducto(string codigo)
+        public List<BEProducto> ListarProductosSinCategoriaPDF()
         {
-            return access.BuscarProducto(codigo);
-        }*/
+            return access.ListarProductosSinCategoriaPDF();
+        }
+
+        public List<BEProducto> ListarProductosPorCategoria(int idCategoria)
+        {
+            return access.ListarProductosPorCategoria(idCategoria);
+        }
+
+        public void ActualizarCategoriaPDF(string codigo, int? idCategoria)
+        {
+            access.ActualizarCategoriaPDF(codigo, idCategoria);
+        }
     }
 }

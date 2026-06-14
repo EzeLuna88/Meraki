@@ -1,5 +1,6 @@
 ﻿using BE;
 using BLL;
+using Servicios;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -92,28 +93,15 @@ namespace Meraki
 
         public void ConfigurarDataGrid(DataGridView dataGridView)
         {
-
-            dataGridView.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(217, 171, 171);
-            dataGridView.RowHeadersVisible = false;
-            dataGridView.Font = new System.Drawing.Font("Segoe UI", 9);
-            dataGridView.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 10, FontStyle.Bold);
-            dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridView.RowTemplate.Height = 25;
-            dataGridView.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(146, 26, 64);
-            dataGridView.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White;
-            dataGridView.AllowUserToResizeRows = false;
-            dataGridView.AllowUserToResizeColumns = false;
-            dataGridView.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
-            dataGridView.EnableHeadersVisualStyles = false;
-            dataGridView.ColumnHeadersDefaultCellStyle.SelectionBackColor = dataGridViewClientes.ColumnHeadersDefaultCellStyle.BackColor;
-            dataGridView.ColumnHeadersDefaultCellStyle.SelectionForeColor = dataGridViewClientes.ColumnHeadersDefaultCellStyle.ForeColor;
+            dataGridView.AplicarEstiloMeraki();
+           
             dataGridView.Columns[0].Visible = false;
-            dataGridView.Columns["HorarioDeApertura"].HeaderText = "Horario apertura";
-            dataGridView.Columns["HorarioDeCierre"].HeaderText = "Horario cierre";
-            dataGridView.Columns["TelefonoAlternativo"].HeaderText = "Telefono alternativo";
-            dataGridView.AllowUserToAddRows = false;
             dataGridView.Columns[8].Visible = false;
             dataGridView.Columns[9].Visible = false;
+
+            dataGridView.Columns["HorarioDeApertura"].HeaderText = "Horario apertura";
+            dataGridView.Columns["HorarioDeCierre"].HeaderText = "Horario cierre";
+            dataGridView.Columns["TelefonoAlternativo"].HeaderText = "Telefono alternativo";          
 
             dataGridView.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             dataGridView.Columns[4].Width = 90;
@@ -123,7 +111,6 @@ namespace Meraki
             dataGridView.Columns[6].Width = 70;
             dataGridView.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             dataGridView.Columns[7].Width = 70;
-
 
         }
 
@@ -257,7 +244,7 @@ namespace Meraki
             ComentariosHabilitado = true;
             ComprobarComentarios();
             richTextBoxComentarios.Enabled = true;
-            richTextBoxComentarios.BackColor = System.Drawing.Color.FromArgb(217, 171, 171);
+            richTextBoxComentarios.BackColor = ColoresMeraki.RosaPalido;
 
             if (filaSeleccionada != null)
             {
@@ -274,7 +261,7 @@ namespace Meraki
 
                 // Magia Visual: Desbloqueamos y cambiamos el color a uno más clarito
                 richTextBoxComentarios.ReadOnly = false;
-                richTextBoxComentarios.BackColor = System.Drawing.Color.FromArgb(217, 171, 171);
+                richTextBoxComentarios.BackColor = ColoresMeraki.RosaPalido;
 
                 // Ponemos el cursor parpadeando al final del texto listo para escribir
                 richTextBoxComentarios.Focus();

@@ -40,8 +40,11 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.iconButtonCancelar = new FontAwesome.Sharp.IconButton();
             this.iconButtonAlta = new FontAwesome.Sharp.IconButton();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStock)).BeginInit();
             this.panel1.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBoxPrecioMayorista
@@ -121,7 +124,7 @@
             this.dataGridViewStock.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridViewStock.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewStock.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(26)))), ((int)(((byte)(64)))));
-            this.dataGridViewStock.Location = new System.Drawing.Point(12, 11);
+            this.dataGridViewStock.Location = new System.Drawing.Point(12, 38);
             this.dataGridViewStock.MultiSelect = false;
             this.dataGridViewStock.Name = "dataGridViewStock";
             this.dataGridViewStock.ReadOnly = true;
@@ -136,18 +139,20 @@
             this.textBoxFiltrar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
             this.textBoxFiltrar.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxFiltrar.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxFiltrar.Location = new System.Drawing.Point(59, 319);
+            this.textBoxFiltrar.Location = new System.Drawing.Point(59, 346);
             this.textBoxFiltrar.Name = "textBoxFiltrar";
             this.textBoxFiltrar.Size = new System.Drawing.Size(409, 18);
             this.textBoxFiltrar.TabIndex = 47;
             this.textBoxFiltrar.TextChanged += new System.EventHandler(this.textBoxFiltrar_TextChanged_1);
+            this.textBoxFiltrar.Enter += new System.EventHandler(this.textBoxFiltrar_Enter_1);
+            this.textBoxFiltrar.Leave += new System.EventHandler(this.textBoxFiltrar_Leave_1);
             // 
             // label7
             // 
             this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(9, 319);
+            this.label7.Location = new System.Drawing.Point(9, 346);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(44, 17);
             this.label7.TabIndex = 46;
@@ -163,7 +168,7 @@
             this.panel1.Controls.Add(this.textBoxPrecioMayorista);
             this.panel1.Controls.Add(this.textBoxUnidades);
             this.panel1.Controls.Add(this.textBoxPrecioMinorista);
-            this.panel1.Location = new System.Drawing.Point(12, 343);
+            this.panel1.Location = new System.Drawing.Point(12, 370);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(456, 106);
             this.panel1.TabIndex = 52;
@@ -180,7 +185,7 @@
             this.iconButtonCancelar.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
             this.iconButtonCancelar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.iconButtonCancelar.IconSize = 30;
-            this.iconButtonCancelar.Location = new System.Drawing.Point(133, 455);
+            this.iconButtonCancelar.Location = new System.Drawing.Point(133, 482);
             this.iconButtonCancelar.Name = "iconButtonCancelar";
             this.iconButtonCancelar.Size = new System.Drawing.Size(115, 40);
             this.iconButtonCancelar.TabIndex = 54;
@@ -201,7 +206,7 @@
             this.iconButtonAlta.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
             this.iconButtonAlta.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.iconButtonAlta.IconSize = 30;
-            this.iconButtonAlta.Location = new System.Drawing.Point(12, 455);
+            this.iconButtonAlta.Location = new System.Drawing.Point(12, 482);
             this.iconButtonAlta.Name = "iconButtonAlta";
             this.iconButtonAlta.Size = new System.Drawing.Size(115, 40);
             this.iconButtonAlta.TabIndex = 53;
@@ -210,12 +215,35 @@
             this.iconButtonAlta.UseVisualStyleBackColor = false;
             this.iconButtonAlta.Click += new System.EventHandler(this.iconButtonAlta_Click);
             // 
+            // panel4
+            // 
+            this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(26)))), ((int)(((byte)(64)))));
+            this.panel4.Controls.Add(this.label6);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel4.Location = new System.Drawing.Point(0, 0);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(480, 30);
+            this.panel4.TabIndex = 55;
+            this.panel4.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel4_MouseDown);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.Color.White;
+            this.label6.Location = new System.Drawing.Point(2, 2);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(130, 25);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "Alta producto";
+            // 
             // ProductosAlta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
-            this.ClientSize = new System.Drawing.Size(480, 501);
+            this.ClientSize = new System.Drawing.Size(480, 528);
+            this.Controls.Add(this.panel4);
             this.Controls.Add(this.iconButtonCancelar);
             this.Controls.Add(this.iconButtonAlta);
             this.Controls.Add(this.panel1);
@@ -224,12 +252,15 @@
             this.Controls.Add(this.label7);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "ProductosAlta";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "ProductosAlta";
             this.Load += new System.EventHandler(this.ProductosAlta_Load);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ProductosAlta_MouseDown);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStock)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -248,5 +279,7 @@
         private System.Windows.Forms.Panel panel1;
         private FontAwesome.Sharp.IconButton iconButtonCancelar;
         private FontAwesome.Sharp.IconButton iconButtonAlta;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Label label6;
     }
 }

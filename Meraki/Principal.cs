@@ -34,7 +34,7 @@ namespace Meraki
 
 
 
-            CompraMayorista compraMayorista = new CompraMayorista();
+            Compra compraMayorista = new Compra();
             AbrirVentana(compraMayorista);
 
         }

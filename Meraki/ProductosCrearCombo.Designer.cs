@@ -48,11 +48,14 @@
             this.iconButtonAlta = new FontAwesome.Sharp.IconButton();
             this.panel3 = new System.Windows.Forms.Panel();
             this.iconButton1 = new FontAwesome.Sharp.IconButton();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStock)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCombo)).BeginInit();
             this.panel3.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBoxPrecioMinorista
@@ -128,7 +131,7 @@
             this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.dataGridViewStock);
-            this.panel1.Location = new System.Drawing.Point(12, 13);
+            this.panel1.Location = new System.Drawing.Point(12, 42);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(399, 273);
             this.panel1.TabIndex = 42;
@@ -210,7 +213,7 @@
             this.panel2.Controls.Add(this.iconButtonQuitar);
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.dataGridViewCombo);
-            this.panel2.Location = new System.Drawing.Point(417, 13);
+            this.panel2.Location = new System.Drawing.Point(417, 42);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(399, 273);
             this.panel2.TabIndex = 48;
@@ -272,7 +275,7 @@
             this.iconButtonCancelar.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
             this.iconButtonCancelar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.iconButtonCancelar.IconSize = 30;
-            this.iconButtonCancelar.Location = new System.Drawing.Point(710, 338);
+            this.iconButtonCancelar.Location = new System.Drawing.Point(710, 367);
             this.iconButtonCancelar.Name = "iconButtonCancelar";
             this.iconButtonCancelar.Size = new System.Drawing.Size(106, 40);
             this.iconButtonCancelar.TabIndex = 50;
@@ -293,7 +296,7 @@
             this.iconButtonAlta.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
             this.iconButtonAlta.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.iconButtonAlta.IconSize = 30;
-            this.iconButtonAlta.Location = new System.Drawing.Point(710, 292);
+            this.iconButtonAlta.Location = new System.Drawing.Point(710, 321);
             this.iconButtonAlta.Name = "iconButtonAlta";
             this.iconButtonAlta.Size = new System.Drawing.Size(106, 40);
             this.iconButtonAlta.TabIndex = 49;
@@ -313,7 +316,7 @@
             this.panel3.Controls.Add(this.textBoxNombreCombo);
             this.panel3.Controls.Add(this.textBoxPrecioMayorista);
             this.panel3.Controls.Add(this.textBoxPrecioMinorista);
-            this.panel3.Location = new System.Drawing.Point(12, 292);
+            this.panel3.Location = new System.Drawing.Point(12, 321);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(690, 106);
             this.panel3.TabIndex = 48;
@@ -334,12 +337,35 @@
             this.iconButton1.TabIndex = 43;
             this.iconButton1.UseVisualStyleBackColor = false;
             // 
+            // panel4
+            // 
+            this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(26)))), ((int)(((byte)(64)))));
+            this.panel4.Controls.Add(this.label6);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel4.Location = new System.Drawing.Point(0, 0);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(830, 30);
+            this.panel4.TabIndex = 48;
+            this.panel4.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel4_MouseDown);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.Color.White;
+            this.label6.Location = new System.Drawing.Point(2, 2);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(180, 25);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "Crear nuevo combo";
+            // 
             // ProductosCrearCombo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
-            this.ClientSize = new System.Drawing.Size(830, 412);
+            this.ClientSize = new System.Drawing.Size(830, 441);
+            this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.iconButtonCancelar);
             this.Controls.Add(this.iconButtonAlta);
@@ -347,6 +373,7 @@
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "ProductosCrearCombo";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "ProductosCrearCombo";
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ProductosCrearCombo_MouseDown);
             this.panel1.ResumeLayout(false);
@@ -357,6 +384,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCombo)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -382,5 +411,7 @@
         private FontAwesome.Sharp.IconButton iconButtonAlta;
         private System.Windows.Forms.Panel panel3;
         private FontAwesome.Sharp.IconButton iconButton1;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Label label6;
     }
 }

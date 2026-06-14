@@ -127,11 +127,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MPPCategoriaPDF.cs" />
     <Compile Include="MPPCliente.cs" />
     <Compile Include="MPPCompraMayorista.cs" />
     <Compile Include="MPPCompraMinorista.cs" />
     <Compile Include="MPPComprobante.cs" />
     <Compile Include="MPPConfiguracion.cs" />
+    <Compile Include="MPPPedido.cs" />
     <Compile Include="MPPProducto.cs" />
     <Compile Include="MPPProductoCombo.cs" />
     <Compile Include="MPPStock.cs" />

@@ -101,12 +101,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BECarrito.cs" />
+    <Compile Include="BECategoriaPDF.cs" />
     <Compile Include="BECliente.cs" />
     <Compile Include="BECompra.cs" />
     <Compile Include="BECompraMayorista.cs" />
     <Compile Include="BECompraMinorista.cs" />
     <Compile Include="BEComprobante.cs" />
     <Compile Include="BEItem.cs" />
+    <Compile Include="BEPedido.cs" />
     <Compile Include="BEProducto.cs" />
     <Compile Include="BEProductoCombo.cs" />
     <Compile Include="BEProductoIndividual.cs" />

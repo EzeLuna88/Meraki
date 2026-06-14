@@ -24,10 +24,10 @@ using Servicios;
 
 namespace Meraki
 {
-    public partial class CompraMayorista : Form
+    public partial class Compra : Form
     {
         BLLCliente bllCliente;
-
+        BEPedido bePedido;
         BLLProducto bllProducto;
         BECompraMayorista beCompraMayorista;
         BECarrito beCarrito;
@@ -39,6 +39,7 @@ namespace Meraki
         BEComprobante beComprobante;
         List<BEComprobante> listaComprobantes;
         BECliente clienteSeleccionado;
+        BLLPedido bllPedido;
 
         bool ModificarPrecio;
         bool ModificarCantidad;
@@ -47,19 +48,20 @@ namespace Meraki
         int cantidadAnteriorEditada;
         bool cargandoGrilla = false;
 
-        public CompraMayorista()
+        public Compra()
         {
             bllStock = new BLLStock();
             listaStock = new List<BEStock>();
             listaStock = bllStock.CargarStock();
             listaComprobantes = new List<BEComprobante>();
             beCompraMayorista = new BECompraMayorista();
-
+            bePedido = new BEPedido();
             beComprobante = new BEComprobante();
             bllProducto = new BLLProducto();
             bllCompraMayorista = new BLLCompraMayorista();
             bllCliente = new BLLCliente();
             bllComprobante = new BLLComprobante();
+            bllPedido = new BLLPedido(); 
             clienteSeleccionado = new BECliente();
             ModificarPrecio = false;
             ModificarCantidad = false;
@@ -107,27 +109,11 @@ namespace Meraki
             ConfigurarEstilosColumnasProductos(dataGridViewProductos);
         }
 
-
         public void ConfigurarDataGrid(DataGridView dataGridView)
         {
-            // Configuración general del DataGridView
-            dataGridView.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(217, 171, 171);
-            dataGridView.RowHeadersVisible = false;
-            dataGridView.Font = new System.Drawing.Font("Segoe UI", 8);
-            dataGridView.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 9, FontStyle.Bold);
-            dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridView.RowTemplate.Height = 20;
-            dataGridView.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(146, 26, 64);
-            dataGridView.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White;
-            dataGridView.AllowUserToResizeRows = false;
-            dataGridView.AllowUserToResizeColumns = false;
-            dataGridView.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
-            dataGridView.EnableHeadersVisualStyles = false;
-            dataGridView.AllowUserToAddRows = false;
-            dataGridView.ColumnHeadersDefaultCellStyle.SelectionBackColor = dataGridView.ColumnHeadersDefaultCellStyle.BackColor;
-            dataGridView.ColumnHeadersDefaultCellStyle.SelectionForeColor = dataGridView.ColumnHeadersDefaultCellStyle.ForeColor;
-
-            // Configuración específica de estilo para columnas
+            dataGridView.AplicarEstiloMeraki();
+            
+            
         }
 
         private void ConfigurarEstilosColumnasProductos(DataGridView dataGridView)
@@ -236,7 +222,6 @@ namespace Meraki
             comprobarVencimiento();
         }
 
-
         private void CompraMayorista_Load(object sender, EventArgs e)
         {
             // 1. Empezamos de cero, sin clientes seleccionados
@@ -253,7 +238,6 @@ namespace Meraki
             textBoxFiltrarCliente.Text = placeholderText;
             textBoxFiltrarCliente.ForeColor = System.Drawing.Color.Gray;
         }
-
 
         public void limpiarCompraMayorista()
         {
@@ -341,38 +325,60 @@ namespace Meraki
             dataGridViewClientes_SelectionChanged_1(dataGridViewClientes, EventArgs.Empty);
         }
 
-
-        public void GenerarPDF(BEComprobante comprobante)
+        public void GenerarPDFPedido(BEPedido pedido)
         {
 
-            SaveFileDialog guardar = new SaveFileDialog
+            try
             {
-                FileName = comprobante.Numero + ".pdf",
-                Filter = "PDF Files (*.pdf)|*.pdf",
-                DefaultExt = "pdf"
-            };
+                // 1. Leemos la configuración del directorio raíz
+                string rutaBaseConfigurada = Properties.Settings.Default.CarpetaDestinoPDF;
 
-            if (guardar.ShowDialog() == DialogResult.OK)
+                // 2. ¡LA MAGIA DE LA FECHA!: Le pasamos la fecha de entrega real del pedido.
+                // Si hoy es 11 pero el pedido dice que se entrega el 12, el servicio creará la carpeta del 12.
+                // (Nota: si tu propiedad se llama FechaEnvio o similar, cambiala acá)
+                DateTime fechaDestino = CalendarioEnvio.SelectionStart.Date;
+                
+                string rutaFinalPDF = Servicios.GestorRutas.GenerarRutaDestino(
+                    rutaBaseConfigurada,
+                    fechaDestino,
+                    "Pedidos",
+                    pedido.Numero
+                );
+
+                // 3. Usar tu clase de QuestPDF para armar el documento
+                var documento = new Servicios.PedidosDocument(pedido);
+
+                // 4. Generar y guardar de forma automática en la carpeta correcta
+                documento.GeneratePdf(rutaFinalPDF);
+
+                // 5. Abrir el PDF para control interno o impresión en el depósito
+                System.Diagnostics.Process.Start(rutaFinalPDF);
+            }
+            catch (Exception ex)
             {
-                try
-                {
-
-                    // 2. Usar tu nueva clase
-                    var documento = new Servicios.ComprobanteDocument(comprobante);
-
-                    // 3. Generar y guardar
-                    documento.GeneratePdf(guardar.FileName);
-
-                    // 4. Abrir
-                    System.Diagnostics.Process.Start(guardar.FileName);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("No se pudo generar o abrir el PDF: " + ex.Message);
-                }
+                MessageBox.Show("No se pudo generar o abrir el PDF de la Hoja de Pedido: " + ex.Message,
+                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
+        public void GenerarPDFComprobante(BEComprobante comprobante, string rutaFinalPDF)
+        {
+            try
+            {
+                // 1. Usar tu clase de documento para armar la estructura visual
+                var documento = new Servicios.ComprobanteDocument(comprobante);
+
+                // 2. Generar y guardar DIRECTO en la ruta automática que armó nuestro servicio
+                documento.GeneratePdf(rutaFinalPDF);
+
+                // 3. Abrir el PDF automáticamente en pantalla para que lo puedan imprimir o ver
+                System.Diagnostics.Process.Start(rutaFinalPDF);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("No se pudo generar o abrir el PDF: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
         private void CalcularTotal()
         {
@@ -720,6 +726,7 @@ namespace Meraki
             }
         }
 
+        
         private void iconButtonConfirmarCompra_Click(object sender, EventArgs e)
         {
             try
@@ -784,7 +791,8 @@ namespace Meraki
                                 Codigo = item.Producto.Codigo,
                                 Cantidad = item.Cantidad,
                                 Nombre = item.Producto.ToString(),
-                                Precio = Convert.ToDecimal(item.Total)
+                                PrecioUnitario = item.Cantidad > 0 ? (item.Total / item.Cantidad) : 0,
+                                Subtotal = item.Total
                             };
                             items.Add(beItem);
                         }
@@ -792,7 +800,11 @@ namespace Meraki
 
                         // 4. GUARDAR Y GENERAR EL PDF
                         bllComprobante.GuardarNuevoComprobante(beComprobante);
-                        GenerarPDF(beComprobante);
+                        // ¡Magia inyectada acá también!
+                        string rutaBaseConfigurada = Properties.Settings.Default.CarpetaDestinoPDF;
+                        string rutaFinalPDF = Servicios.GestorRutas.GenerarRutaDestino(rutaBaseConfigurada, DateTime.Now, "Comprobantes", beComprobante.Numero);
+
+                        GenerarPDFComprobante(beComprobante, rutaFinalPDF);
 
                         bllStock.DescontarStockPorVencimiento(beCompraMayorista);
                         listaStock = bllStock.CargarStock();
@@ -1209,27 +1221,6 @@ namespace Meraki
             };
         }
 
-        private void iconButtonAgregar_Click_1(object sender, EventArgs e)
-        {
-            try
-            {
-                // Verificar el tipo de producto seleccionado en la fila actual del DataGridView
-                if (dataGridViewProductos.CurrentRow.DataBoundItem is BEProductoIndividual productoIndividual)
-                {
-                    ProcesarProductoIndividual(productoIndividual);
-                }
-                else if (dataGridViewProductos.CurrentRow.DataBoundItem is BEProductoCombo productoCombo)
-                {
-                    ProcesarProductoCombo(productoCombo);
-                }
-            }
-            catch (Exception ex)
-            {
-                // Mostrar un mensaje de error o registrar el error según sea necesario
-                MessageBox.Show($"Error al agregar el producto: {ex.Message}");
-            }
-        }
-
         private void panel2_Click(object sender, EventArgs e)
         {
             OcultarPanelClientes();
@@ -1360,13 +1351,6 @@ namespace Meraki
                                beCompraMayorista.Total.ToString("N2");
         }
 
-        private void iconButtonAcomodarCantidadReservada_Click(object sender, EventArgs e)
-        {
-            bllStock.AcomodarCantidadReservada();
-        }
-
-
-
         private void dataGridViewClientes_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             dataGridViewClientes_CellClick_1(sender, e);
@@ -1433,8 +1417,7 @@ namespace Meraki
                 }
             }
         }
-
-       
+      
         private void CompraMayorista_VisibleChanged_1(object sender, EventArgs e)
         {
             if (this.Visible)
@@ -1445,5 +1428,105 @@ namespace Meraki
                 comprobarVencimiento();
             }
         }
+
+        private void dataGridViewProductos_DoubleClick(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dataGridViewProductos.CurrentRow.DataBoundItem is BEProductoIndividual productoIndividual)
+                {
+                    ProcesarProductoIndividual(productoIndividual);
+                }
+                else if (dataGridViewProductos.CurrentRow.DataBoundItem is BEProductoCombo productoCombo)
+                {
+                    ProcesarProductoCombo(productoCombo);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Mostrar un mensaje de error o registrar el error según sea necesario
+                MessageBox.Show($"Error al agregar el producto: {ex.Message}");
+            }
+        }
+
+        private void iconButtonCrearPedido_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dataGridViewCarrito.Rows.Count > 0)
+                {
+
+                    if (radioButtonEfectivo.Checked)
+                    {
+                        beComprobante.PagoEfectivo = true;
+                    }
+                    else if (radioButtonTransferencia.Checked)
+                    {
+                        beComprobante.PagoEfectivo = false;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Debe seleccionar forma de pago");
+                        return;
+                    }
+
+                    DialogResult dialogResult = MessageBox.Show("Desea confirmar el pedido? El total es de $ " + beCompraMayorista.Total.ToString(), "Confirmar pedido", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        bePedido.Cliente = clienteSeleccionado;
+                        bePedido.Fecha = DateTime.Now;
+                        bePedido.Total = beCompraMayorista.Total;
+                        bePedido.FechaEnvio = CalendarioEnvio.SelectionStart.Date;
+                        bePedido.Estado = EstadoPedido.EnPreparacion;
+                        bePedido.Numero = bllPedido.GenerarNumeroPedido();
+
+                        List<BEItem> items = new List<BEItem>();
+                        foreach (BECarrito item in beCompraMayorista.ListaCarrito)
+                        {
+                            beItem = new BEItem
+                            {
+                                Codigo = item.Producto.Codigo,
+                                Cantidad = item.Cantidad,
+                                Nombre = item.Producto.ToString(),
+                                PrecioUnitario = item.Cantidad > 0 ? (item.Total / item.Cantidad) : 0,
+                                Subtotal = item.Total
+                            };
+                            items.Add(beItem);
+                        }
+                        bePedido.ListaItems = items;
+
+                        // 4. GUARDAR Y GENERAR EL PDF
+                        bllPedido.GuardarPedido(bePedido);
+                        GenerarPDFPedido(bePedido);
+
+
+                        listaStock = bllStock.CargarStock();
+
+                        // 5. Limpieza y avisos finales
+                        limpiarCompraMayorista();
+                        ComprobarBajoStock();
+                        clienteSeleccionado = null;
+                        CargarDataGridClientes();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("El carrito se encuentra vacio");
+                }
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }
+
+
+/* PARA CUANDO HAYA QUE GENERAR EL COMPROBANTE
+
+
+*/

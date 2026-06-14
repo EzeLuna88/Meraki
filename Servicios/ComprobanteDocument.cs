@@ -59,6 +59,7 @@ namespace Servicios // O "namespace Meraki.Servicios" si lo armaste como carpeta
                     {
                         c.Item().Text(_comprobante.Cliente.Nombre).FontSize(12).Bold();
                         c.Item().Text(_comprobante.Cliente.Direccion).FontSize(11);
+                        c.Item().Text(_comprobante.Cliente.Localidad).FontSize(10).Italic();
                     });
 
                     // Columna 2: Horario y Teléfono (Pegado al cliente, con ancho fijo)
@@ -105,11 +106,11 @@ namespace Servicios // O "namespace Meraki.Servicios" si lo armaste como carpeta
             {
                 table.ColumnsDefinition(cols =>
                 {
-                    cols.ConstantColumn(55);  // Código
-                    cols.RelativeColumn();     // Nombre + Renglón
-                    cols.ConstantColumn(75);  // Precio unit
-                    cols.ConstantColumn(45);  // Cantidad
-                    cols.ConstantColumn(75);  // Total
+                    cols.ConstantColumn(60);  // Código (Ancho fijo chiquito)
+                    cols.RelativeColumn();    // Nombre del Producto (Ocupa todo el resto del espacio disponible)
+                    cols.ConstantColumn(70);  // Precio Unitario
+                    cols.ConstantColumn(40);  // Cantidad
+                    cols.ConstantColumn(80);  // Subtotal
                 });
 
                 // Encabezados
@@ -126,20 +127,16 @@ namespace Servicios // O "namespace Meraki.Servicios" si lo armaste como carpeta
                 // Filas de productos
                 foreach (var item in _comprobante.ListaItems)
                 {
-                    decimal precioUnit = item.Precio / item.Cantidad;
-
+                    // Imprimimos el código
                     table.Cell().PaddingVertical(2).Text(item.Codigo);
 
-                    // Celda del nombre con conector punteado
-                    table.Cell().PaddingVertical(2).Row(row =>
-                    {
-                        row.AutoItem().Text(item.Nombre);
-                        row.RelativeItem().PaddingBottom(2).AlignBottom().PaddingHorizontal(5).LineHorizontal(0.5f);
-                    });
+                    // Imprimimos el nombre (sin la línea loca y con Wrap para que baje si es muy largo)
+                    table.Cell().PaddingVertical(2).Text(item.Nombre).WrapAnywhere();
 
-                    table.Cell().PaddingVertical(2).AlignRight().Text(precioUnit.ToString("c2"));
+                    // Imprimimos los valores directos de tu nueva estructura BEItem
+                    table.Cell().PaddingVertical(2).AlignRight().Text(item.PrecioUnitario.ToString("c2"));
                     table.Cell().PaddingVertical(2).AlignRight().Text(item.Cantidad.ToString());
-                    table.Cell().PaddingVertical(2).AlignRight().Text(item.Precio.ToString("c2"));
+                    table.Cell().PaddingVertical(2).AlignRight().Text(item.Subtotal.ToString("c2")); // ¡La propiedad nueva!
                 }
             });
         }

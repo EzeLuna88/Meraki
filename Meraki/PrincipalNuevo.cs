@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using BLL;
 using FontAwesome.Sharp;
+using Servicios;
 
 
 namespace Meraki
@@ -18,9 +19,9 @@ namespace Meraki
     {
         private IconButton currentButton;
         private Form currentChildForm;
-
+        private Pedidos formPedidos;
         private Dashboard formDashboard;
-        private CompraMayorista formCompraMayorista;
+        private Compra formCompraMayorista;
         private Productos formProductos;
         private Stock formStock;
         private Clientes formClientes;
@@ -54,7 +55,7 @@ namespace Meraki
                 DesactivarBoton();
 
                 currentButton = (IconButton)senderButton;
-                currentButton.BackColor = Color.FromArgb(146, 26, 64);
+                currentButton.BackColor = ColoresMeraki.BordoPrincipal;
                 currentButton.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                 currentButton.ForeColor = Color.White;
                 currentButton.IconColor = Color.White;
@@ -109,7 +110,7 @@ namespace Meraki
         private void iconButtonCompras_Click_1(object sender, EventArgs e)
         {
             ActivarBoton(sender, RGBColores.color1);
-            if (formCompraMayorista == null || formCompraMayorista.IsDisposed) { formCompraMayorista = new CompraMayorista(); }
+            if (formCompraMayorista == null || formCompraMayorista.IsDisposed) { formCompraMayorista = new Compra(); }
             OpenChildForm(formCompraMayorista);
         }
 
@@ -190,6 +191,13 @@ namespace Meraki
         private void iconButtonCompras_VisibleChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void iconButtonPedidos_Click(object sender, EventArgs e)
+        {
+            ActivarBoton(sender, RGBColores.color2);
+            if (formPedidos == null || formPedidos.IsDisposed) { formPedidos = new Pedidos(); }
+            OpenChildForm(formPedidos);
         }
     }
 }

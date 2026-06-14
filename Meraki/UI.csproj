@@ -69,6 +69,18 @@
     <Reference Include="FontAwesome.Sharp, Version=6.6.0.0, Culture=neutral, PublicKeyToken=d16d1e4e568ec10f, processorArchitecture=MSIL">
       <HintPath>..\packages\FontAwesome.Sharp.6.6.0\lib\net472\FontAwesome.Sharp.dll</HintPath>
     </Reference>
+    <Reference Include="Google.Apis, Version=1.74.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.1.74.0\lib\net462\Google.Apis.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Auth, Version=1.74.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.Auth.1.74.0\lib\net462\Google.Apis.Auth.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Core, Version=1.74.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.Core.1.74.0\lib\net462\Google.Apis.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Drive.v3, Version=1.74.0.4135, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.Drive.v3.1.74.0.4135\lib\net462\Google.Apis.Drive.v3.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.5.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
@@ -90,8 +102,9 @@
     <Reference Include="Microsoft.Extensions.Primitives, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Primitives.5.0.0\lib\net461\Microsoft.Extensions.Primitives.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.13.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -107,6 +120,7 @@
     <Reference Include="System.Diagnostics.DiagnosticSource, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.5.0.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
+    <Reference Include="System.Management" />
     <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
     </Reference>
@@ -144,12 +158,11 @@
     <Compile Include="AvisoPocoStock.Designer.cs">
       <DependentUpon>AvisoPocoStock.cs</DependentUpon>
     </Compile>
-    <Compile Include="Colores.cs" />
-    <Compile Include="CompraMayorista.cs">
+    <Compile Include="Compra.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CompraMayorista.Designer.cs">
-      <DependentUpon>CompraMayorista.cs</DependentUpon>
+    <Compile Include="Compra.Designer.cs">
+      <DependentUpon>Compra.cs</DependentUpon>
     </Compile>
     <Compile Include="Comprobantes.cs">
       <SubType>Form</SubType>
@@ -163,6 +176,12 @@
     <Compile Include="Configuracion.Designer.cs">
       <DependentUpon>Configuracion.cs</DependentUpon>
     </Compile>
+    <Compile Include="ConfiguracionListaPrecios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfiguracionListaPrecios.Designer.cs">
+      <DependentUpon>ConfiguracionListaPrecios.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dashboard.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -174,6 +193,18 @@
     </Compile>
     <Compile Include="FechasDeVencimiento.Designer.cs">
       <DependentUpon>FechasDeVencimiento.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PedidosEditar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PedidosEditar.Designer.cs">
+      <DependentUpon>PedidosEditar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pedidos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pedidos.Designer.cs">
+      <DependentUpon>Pedidos.cs</DependentUpon>
     </Compile>
     <Compile Include="PrincipalNuevo.cs">
       <SubType>Form</SubType>
@@ -255,11 +286,35 @@
     <Compile Include="Stock.Designer.cs">
       <DependentUpon>Stock.cs</DependentUpon>
     </Compile>
+    <Compile Include="UC_ConfigClienteDefecto.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UC_ConfigClienteDefecto.Designer.cs">
+      <DependentUpon>UC_ConfigClienteDefecto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UC_ConfigDrive.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UC_ConfigDrive.Designer.cs">
+      <DependentUpon>UC_ConfigDrive.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UC_ConfigListaPrecios.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UC_ConfigListaPrecios.Designer.cs">
+      <DependentUpon>UC_ConfigListaPrecios.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UC_ConfigRutaArchivos.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UC_ConfigRutaArchivos.Designer.cs">
+      <DependentUpon>UC_ConfigRutaArchivos.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AvisoPocoStock.resx">
       <DependentUpon>AvisoPocoStock.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CompraMayorista.resx">
-      <DependentUpon>CompraMayorista.cs</DependentUpon>
+    <EmbeddedResource Include="Compra.resx">
+      <DependentUpon>Compra.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Comprobantes.resx">
       <DependentUpon>Comprobantes.cs</DependentUpon>
@@ -267,11 +322,20 @@
     <EmbeddedResource Include="Configuracion.resx">
       <DependentUpon>Configuracion.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ConfiguracionListaPrecios.resx">
+      <DependentUpon>ConfiguracionListaPrecios.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dashboard.resx">
       <DependentUpon>Dashboard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FechasDeVencimiento.resx">
       <DependentUpon>FechasDeVencimiento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pedidos.resx">
+      <DependentUpon>Pedidos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PedidosEditar.resx">
+      <DependentUpon>PedidosEditar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PrincipalNuevo.resx">
       <DependentUpon>PrincipalNuevo.cs</DependentUpon>
@@ -322,6 +386,18 @@
     <EmbeddedResource Include="Stock.resx">
       <DependentUpon>Stock.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UC_ConfigClienteDefecto.resx">
+      <DependentUpon>UC_ConfigClienteDefecto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UC_ConfigDrive.resx">
+      <DependentUpon>UC_ConfigDrive.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UC_ConfigListaPrecios.resx">
+      <DependentUpon>UC_ConfigListaPrecios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UC_ConfigRutaArchivos.resx">
+      <DependentUpon>UC_ConfigRutaArchivos.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -332,6 +408,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Resources\credentials.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="UI_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
@@ -345,6 +424,10 @@
     <ProjectReference Include="..\BLL\BLL.csproj">
       <Project>{dd5498c4-b175-457c-ac9a-15c43e3f8a8c}</Project>
       <Name>BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DAL\DAL.csproj">
+      <Project>{777d8142-3f6a-416b-93e0-8d0f6d08d947}</Project>
+      <Name>DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\Servicios\Servicios.csproj">
       <Project>{0ce46789-b82e-4332-a211-91ebb69e80b6}</Project>
@@ -373,6 +456,12 @@
     <None Include="Resources\Logo Meraki 2024 sin fondo.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\LOGO invert.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\LOGO.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\plantilla2.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using BE;
 using BLL;
+using Servicios;
 
 namespace Meraki
 {
@@ -32,66 +33,57 @@ namespace Meraki
         {
             dataGridViewStock.DataSource = null;
 
+            // Solo lógica de datos
             List<BEStock> listStock = bllStock.CargarStock().OrderBy(stock => stock.Nombre).ToList();
             var bindingList = new BindingList<BEStock>(listStock);
             dataGridViewStock.DataSource = bindingList;
 
-            dataGridViewStock.Columns[1].HeaderText = "Nombre";
-            dataGridViewStock.Columns[2].Visible = false;
-            dataGridViewStock.Columns[3].Visible = false;
-            dataGridViewStock.Columns[4].HeaderText = "Cantidad actual";
-            dataGridViewStock.Columns[5].Visible = false;
-            dataGridViewStock.Columns[6].Visible = false;
-            dataGridViewStock.Columns[7].Visible = false;
-            dataGridViewStock.Columns[8].HeaderText = "Aviso poco stock";
-
-            // --- EL ÚNICO CAMBIO ---
-            // Nos aseguramos de que la columna de reservas quede a la vista con su título
-            dataGridViewStock.Columns["CantidadReservada"].Visible = true;
-            dataGridViewStock.Columns["CantidadReservada"].HeaderText = "Cantidad reservada";
-            // -----------------------
-
+            // Le pasamos el mando al configurador
             ConfigurarDataGrid(dataGridViewStock);
         }
 
-        public void ConfigurarDataGrid(DataGridView dataGridView)
+        public void ConfigurarDataGrid(DataGridView grilla)
         {
-            // Configuración general del DataGridView
-            dataGridView.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(217, 171, 171);
-            dataGridView.RowHeadersVisible = false;
-            dataGridView.Font = new System.Drawing.Font("Segoe UI", 9);
-            dataGridView.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 10, FontStyle.Bold);
-            dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridView.RowTemplate.Height = 25;
-            dataGridView.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(146, 26, 64);
-            dataGridView.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White;
-            dataGridView.AllowUserToResizeRows = false;
-            dataGridView.AllowUserToResizeColumns = false;
-            dataGridView.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
-            dataGridView.EnableHeadersVisualStyles = false;
-            dataGridView.AllowUserToAddRows = false;
-            dataGridView.ColumnHeadersDefaultCellStyle.SelectionBackColor = dataGridView.ColumnHeadersDefaultCellStyle.BackColor;
-            dataGridView.ColumnHeadersDefaultCellStyle.SelectionForeColor = dataGridView.ColumnHeadersDefaultCellStyle.ForeColor;
+            // 1. Vestimos la grilla con el traje global de Meraki (¡Adiós a las 15 líneas repetidas!)
+            grilla.AplicarEstiloMeraki();
 
-            dataGridView.Columns["Codigo"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            dataGridView.Columns["Codigo"].Width = 60;
-            dataGridView.Columns["Codigo"].HeaderText = "Cod.";
-            dataGridView.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            dataGridView.Columns[4].Width = 80;
-            dataGridView.Columns[4].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridView.Columns[4].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridView.Columns["CantidadReservada"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            dataGridView.Columns["CantidadReservada"].Width = 80;
-            dataGridView.Columns["CantidadReservada"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridView.Columns["CantidadReservada"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridView.Columns[8].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            dataGridView.Columns[8].Width = 110;
-            dataGridView.Columns[8].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridView.Columns[8].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            // 2. Visibilidad: Ocultamos lo que el usuario no necesita ver
+            grilla.Columns[2].Visible = false;
+            grilla.Columns[3].Visible = false;
+            grilla.Columns[5].Visible = false;
+            grilla.Columns[6].Visible = false;
+            grilla.Columns[7].Visible = false;
+            grilla.Columns["CantidadReservada"].Visible = true; // Nos aseguramos de que esta se vea
 
+            // 3. Configuración específica: CÓDIGO
+            grilla.Columns["Codigo"].HeaderText = "Cod.";
+            grilla.Columns["Codigo"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            grilla.Columns["Codigo"].Width = 60;
 
-            // Configuración específica de estilo para columnas
-            //ConfigurarEstilosColumnas(dataGridView);
+            // 4. Configuración específica: NOMBRE (Columna 1)
+            grilla.Columns[1].HeaderText = "Nombre";
+            // El AutoSizeMode queda en Fill por defecto gracias al estilo global
+
+            // 5. Configuración específica: CANTIDAD ACTUAL (Columna 4)
+            grilla.Columns[4].HeaderText = "Cant. actual";
+            grilla.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            grilla.Columns[4].Width = 80;
+            grilla.Columns[4].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            grilla.Columns[4].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            // 6. Configuración específica: CANTIDAD RESERVADA
+            grilla.Columns["CantidadReservada"].HeaderText = "Cant. reservada";
+            grilla.Columns["CantidadReservada"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            grilla.Columns["CantidadReservada"].Width = 80;
+            grilla.Columns["CantidadReservada"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            grilla.Columns["CantidadReservada"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            // 7. Configuración específica: AVISO POCO STOCK (Columna 8)
+            grilla.Columns[8].HeaderText = "Aviso poco stock";
+            grilla.Columns[8].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            grilla.Columns[8].Width = 110;
+            grilla.Columns[8].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            grilla.Columns[8].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
         }
 
 

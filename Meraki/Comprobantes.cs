@@ -156,38 +156,30 @@ namespace Meraki
 
         public void ConfigurarDataGrid(DataGridView dataGridView)
         {
-            dataGridView.Columns["Fecha"].DefaultCellStyle.Format = "dd/MM/yyyy";
+            dataGridView.AplicarEstiloMeraki();
+
             dataGridView.CellFormatting += dataGridViewComprobantes_CellFormatting;
             dataGridView.Columns[4].Visible = false;
-            dataGridView.DefaultCellStyle.BackColor = Color.FromArgb(217, 171, 171);
-            dataGridView.RowHeadersVisible = false;
-            dataGridView.Font = new System.Drawing.Font("Segoe UI", 9);
-            dataGridView.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 10, FontStyle.Bold);
+
+            dataGridView.Columns["Fecha"].DefaultCellStyle.Format = "dd/MM/yyyy";
+            dataGridView.Columns["Total"].DefaultCellStyle.Format = "c2";
+
             dataGridView.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridView.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridView.Columns["Total"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dataGridView.Columns["Total"].DefaultCellStyle.Format = "c2";
-            dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridView.RowTemplate.Height = 25;
-            dataGridView.DefaultCellStyle.SelectionBackColor = Color.FromArgb(146, 26, 64);
-            dataGridView.DefaultCellStyle.SelectionForeColor = Color.White;
-            dataGridView.AllowUserToResizeRows = false;
-            dataGridView.AllowUserToResizeColumns = false;
-            dataGridView.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+
+            dataGridView.Columns[0].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridView.Columns[1].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridView.Columns[2].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridView.Columns[3].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
+            
             dataGridView.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             dataGridView.Columns[0].Width = 100;
             dataGridView.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             dataGridView.Columns[1].Width = 100;
             dataGridView.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             dataGridView.Columns[3].Width = 100;
-            dataGridView.Columns[0].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridView.Columns[1].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridView.Columns[2].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridView.Columns[3].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dataGridView.EnableHeadersVisualStyles = false;
-            dataGridView.ColumnHeadersDefaultCellStyle.SelectionBackColor = dataGridViewComprobantes.ColumnHeadersDefaultCellStyle.BackColor;
-            dataGridView.ColumnHeadersDefaultCellStyle.SelectionForeColor = dataGridViewComprobantes.ColumnHeadersDefaultCellStyle.ForeColor;
-
+            
         }
 
         private void iconButton1_Click(object sender, EventArgs e)

@@ -35,11 +35,14 @@
             this.textBoxUnidad = new System.Windows.Forms.TextBox();
             this.textBoxPacks = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.maskedTextBoxFechaDeVencimiento = new System.Windows.Forms.MaskedTextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.iconButtonAgregarStock = new FontAwesome.Sharp.IconButton();
             this.iconButtonCancelar = new FontAwesome.Sharp.IconButton();
-            this.label1 = new System.Windows.Forms.Label();
-            this.maskedTextBoxFechaDeVencimiento = new System.Windows.Forms.MaskedTextBox();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // labelCodigoEscondido
@@ -114,10 +117,30 @@
             this.panel1.Controls.Add(this.labelUnidadesXPackCaja);
             this.panel1.Controls.Add(this.textBoxPacks);
             this.panel1.Controls.Add(this.textBoxUnidad);
-            this.panel1.Location = new System.Drawing.Point(12, 12);
+            this.panel1.Location = new System.Drawing.Point(12, 41);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(373, 134);
             this.panel1.TabIndex = 5;
+            // 
+            // maskedTextBoxFechaDeVencimiento
+            // 
+            this.maskedTextBoxFechaDeVencimiento.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+            this.maskedTextBoxFechaDeVencimiento.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.maskedTextBoxFechaDeVencimiento.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.maskedTextBoxFechaDeVencimiento.Location = new System.Drawing.Point(184, 96);
+            this.maskedTextBoxFechaDeVencimiento.Name = "maskedTextBoxFechaDeVencimiento";
+            this.maskedTextBoxFechaDeVencimiento.Size = new System.Drawing.Size(110, 22);
+            this.maskedTextBoxFechaDeVencimiento.TabIndex = 6;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(12, 96);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(163, 21);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "Fecha de vencimiento:";
             // 
             // iconButtonAgregarStock
             // 
@@ -131,7 +154,7 @@
             this.iconButtonAgregarStock.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
             this.iconButtonAgregarStock.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.iconButtonAgregarStock.IconSize = 30;
-            this.iconButtonAgregarStock.Location = new System.Drawing.Point(80, 164);
+            this.iconButtonAgregarStock.Location = new System.Drawing.Point(80, 193);
             this.iconButtonAgregarStock.Name = "iconButtonAgregarStock";
             this.iconButtonAgregarStock.Size = new System.Drawing.Size(110, 40);
             this.iconButtonAgregarStock.TabIndex = 56;
@@ -152,7 +175,7 @@
             this.iconButtonCancelar.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
             this.iconButtonCancelar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.iconButtonCancelar.IconSize = 30;
-            this.iconButtonCancelar.Location = new System.Drawing.Point(196, 164);
+            this.iconButtonCancelar.Location = new System.Drawing.Point(196, 193);
             this.iconButtonCancelar.Name = "iconButtonCancelar";
             this.iconButtonCancelar.Size = new System.Drawing.Size(110, 40);
             this.iconButtonCancelar.TabIndex = 55;
@@ -161,42 +184,48 @@
             this.iconButtonCancelar.UseVisualStyleBackColor = false;
             this.iconButtonCancelar.Click += new System.EventHandler(this.iconButtonCancelar_Click);
             // 
-            // label1
+            // panel4
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(12, 96);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(163, 21);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "Fecha de vencimiento:";
+            this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(26)))), ((int)(((byte)(64)))));
+            this.panel4.Controls.Add(this.label6);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel4.Location = new System.Drawing.Point(0, 0);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(397, 30);
+            this.panel4.TabIndex = 57;
+            this.panel4.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel4_MouseDown);
             // 
-            // maskedTextBoxFechaDeVencimiento
+            // label6
             // 
-            this.maskedTextBoxFechaDeVencimiento.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-            this.maskedTextBoxFechaDeVencimiento.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.maskedTextBoxFechaDeVencimiento.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.maskedTextBoxFechaDeVencimiento.Location = new System.Drawing.Point(184, 96);
-            this.maskedTextBoxFechaDeVencimiento.Name = "maskedTextBoxFechaDeVencimiento";
-            this.maskedTextBoxFechaDeVencimiento.Size = new System.Drawing.Size(110, 22);
-            this.maskedTextBoxFechaDeVencimiento.TabIndex = 6;
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.Color.White;
+            this.label6.Location = new System.Drawing.Point(2, 2);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(131, 25);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "Agregar stock";
             // 
             // StockAgregar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
-            this.ClientSize = new System.Drawing.Size(397, 219);
+            this.ClientSize = new System.Drawing.Size(397, 248);
+            this.Controls.Add(this.panel4);
             this.Controls.Add(this.iconButtonAgregarStock);
             this.Controls.Add(this.iconButtonCancelar);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelCodigoEscondido);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "StockAgregar";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "StockAgregar";
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.StockAgregar_MouseDown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -214,5 +243,7 @@
         private FontAwesome.Sharp.IconButton iconButtonCancelar;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.MaskedTextBox maskedTextBoxFechaDeVencimiento;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Label label6;
     }
 }

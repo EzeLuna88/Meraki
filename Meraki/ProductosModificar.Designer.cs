@@ -42,8 +42,11 @@
             this.dataGridViewCombo = new System.Windows.Forms.DataGridView();
             this.iconButtonModificar = new FontAwesome.Sharp.IconButton();
             this.iconButtonCancelar = new FontAwesome.Sharp.IconButton();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCombo)).BeginInit();
+            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBoxCodigo
@@ -117,7 +120,7 @@
             this.panel1.Controls.Add(this.textBoxNombre);
             this.panel1.Controls.Add(this.textBoxPrecioMayorista);
             this.panel1.Controls.Add(this.textBoxUnidades);
-            this.panel1.Location = new System.Drawing.Point(14, 13);
+            this.panel1.Location = new System.Drawing.Point(14, 41);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(457, 160);
             this.panel1.TabIndex = 57;
@@ -179,7 +182,7 @@
             this.dataGridViewCombo.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridViewCombo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewCombo.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(26)))), ((int)(((byte)(64)))));
-            this.dataGridViewCombo.Location = new System.Drawing.Point(14, 179);
+            this.dataGridViewCombo.Location = new System.Drawing.Point(14, 207);
             this.dataGridViewCombo.MultiSelect = false;
             this.dataGridViewCombo.Name = "dataGridViewCombo";
             this.dataGridViewCombo.ReadOnly = true;
@@ -199,7 +202,7 @@
             this.iconButtonModificar.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
             this.iconButtonModificar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.iconButtonModificar.IconSize = 30;
-            this.iconButtonModificar.Location = new System.Drawing.Point(126, 399);
+            this.iconButtonModificar.Location = new System.Drawing.Point(126, 427);
             this.iconButtonModificar.Name = "iconButtonModificar";
             this.iconButtonModificar.Size = new System.Drawing.Size(106, 40);
             this.iconButtonModificar.TabIndex = 60;
@@ -220,7 +223,7 @@
             this.iconButtonCancelar.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
             this.iconButtonCancelar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.iconButtonCancelar.IconSize = 30;
-            this.iconButtonCancelar.Location = new System.Drawing.Point(238, 399);
+            this.iconButtonCancelar.Location = new System.Drawing.Point(238, 427);
             this.iconButtonCancelar.Name = "iconButtonCancelar";
             this.iconButtonCancelar.Size = new System.Drawing.Size(106, 40);
             this.iconButtonCancelar.TabIndex = 59;
@@ -229,23 +232,49 @@
             this.iconButtonCancelar.UseVisualStyleBackColor = false;
             this.iconButtonCancelar.Click += new System.EventHandler(this.iconButtonCancelar_Click);
             // 
+            // panel4
+            // 
+            this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(26)))), ((int)(((byte)(64)))));
+            this.panel4.Controls.Add(this.label1);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel4.Location = new System.Drawing.Point(0, 0);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(484, 30);
+            this.panel4.TabIndex = 61;
+            this.panel4.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel4_MouseDown);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(2, 2);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(178, 25);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Modificar producto";
+            // 
             // ProductosModificar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
-            this.ClientSize = new System.Drawing.Size(484, 445);
+            this.ClientSize = new System.Drawing.Size(484, 473);
+            this.Controls.Add(this.panel4);
             this.Controls.Add(this.iconButtonModificar);
             this.Controls.Add(this.iconButtonCancelar);
             this.Controls.Add(this.dataGridViewCombo);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "ProductosModificar";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "ProductosModificar";
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ProductosModificar_MouseDown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCombo)).EndInit();
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -266,5 +295,7 @@
         public System.Windows.Forms.DataGridView dataGridViewCombo;
         private FontAwesome.Sharp.IconButton iconButtonModificar;
         private FontAwesome.Sharp.IconButton iconButtonCancelar;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Label label1;
     }
 }

@@ -7,3 +7,4 @@ packages/
 *.dll
 *.pdb
 *.exe
+/Meraki/Resources/credentials.json

@@ -28,41 +28,43 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridViewFechasDeVencimiento = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxDiasDeAviso = new System.Windows.Forms.TextBox();
             this.iconButtonGuardar = new FontAwesome.Sharp.IconButton();
             this.iconButtonCerrar = new FontAwesome.Sharp.IconButton();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFechasDeVencimiento)).BeginInit();
             this.panel1.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataGridViewFechasDeVencimiento
             // 
-            this.dataGridViewFechasDeVencimiento.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.dataGridViewFechasDeVencimiento.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewFechasDeVencimiento.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
             this.dataGridViewFechasDeVencimiento.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridViewFechasDeVencimiento.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(8)))), ((int)(((byte)(21)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewFechasDeVencimiento.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(8)))), ((int)(((byte)(21)))));
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewFechasDeVencimiento.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dataGridViewFechasDeVencimiento.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewFechasDeVencimiento.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(26)))), ((int)(((byte)(64)))));
-            this.dataGridViewFechasDeVencimiento.Location = new System.Drawing.Point(12, 12);
+            this.dataGridViewFechasDeVencimiento.Location = new System.Drawing.Point(12, 40);
             this.dataGridViewFechasDeVencimiento.MultiSelect = false;
             this.dataGridViewFechasDeVencimiento.Name = "dataGridViewFechasDeVencimiento";
             this.dataGridViewFechasDeVencimiento.ReadOnly = true;
             this.dataGridViewFechasDeVencimiento.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewFechasDeVencimiento.Size = new System.Drawing.Size(613, 354);
+            this.dataGridViewFechasDeVencimiento.Size = new System.Drawing.Size(613, 356);
             this.dataGridViewFechasDeVencimiento.TabIndex = 45;
             this.dataGridViewFechasDeVencimiento.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewFechasDeVencimiento_CellFormatting);
             // 
@@ -72,7 +74,7 @@
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(199)))), ((int)(((byte)(91)))), ((int)(((byte)(122)))));
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.textBoxDiasDeAviso);
-            this.panel1.Location = new System.Drawing.Point(12, 379);
+            this.panel1.Location = new System.Drawing.Point(12, 409);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(266, 40);
             this.panel1.TabIndex = 53;
@@ -111,7 +113,7 @@
             this.iconButtonGuardar.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
             this.iconButtonGuardar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.iconButtonGuardar.IconSize = 30;
-            this.iconButtonGuardar.Location = new System.Drawing.Point(284, 379);
+            this.iconButtonGuardar.Location = new System.Drawing.Point(284, 409);
             this.iconButtonGuardar.Name = "iconButtonGuardar";
             this.iconButtonGuardar.Size = new System.Drawing.Size(115, 40);
             this.iconButtonGuardar.TabIndex = 54;
@@ -128,33 +130,60 @@
             this.iconButtonCerrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.iconButtonCerrar.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.iconButtonCerrar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
-            this.iconButtonCerrar.IconChar = FontAwesome.Sharp.IconChar.X;
+            this.iconButtonCerrar.IconChar = FontAwesome.Sharp.IconChar.Ban;
             this.iconButtonCerrar.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
             this.iconButtonCerrar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.iconButtonCerrar.IconSize = 30;
-            this.iconButtonCerrar.Location = new System.Drawing.Point(510, 379);
+            this.iconButtonCerrar.Location = new System.Drawing.Point(510, 409);
             this.iconButtonCerrar.Name = "iconButtonCerrar";
             this.iconButtonCerrar.Size = new System.Drawing.Size(115, 40);
             this.iconButtonCerrar.TabIndex = 56;
-            this.iconButtonCerrar.Text = "Cerrar";
+            this.iconButtonCerrar.Text = "Cancelar";
             this.iconButtonCerrar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.iconButtonCerrar.UseVisualStyleBackColor = false;
+            this.iconButtonCerrar.Click += new System.EventHandler(this.iconButtonCerrar_Click_1);
+            // 
+            // panel4
+            // 
+            this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(26)))), ((int)(((byte)(64)))));
+            this.panel4.Controls.Add(this.label6);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel4.Location = new System.Drawing.Point(0, 0);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(637, 30);
+            this.panel4.TabIndex = 58;
+            this.panel4.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel4_MouseDown);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.Color.White;
+            this.label6.Location = new System.Drawing.Point(2, 2);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(275, 25);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "Fecha de vencimiento de stock";
             // 
             // FechasDeVencimiento
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
-            this.ClientSize = new System.Drawing.Size(637, 428);
+            this.ClientSize = new System.Drawing.Size(637, 458);
+            this.Controls.Add(this.panel4);
             this.Controls.Add(this.iconButtonCerrar);
             this.Controls.Add(this.iconButtonGuardar);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.dataGridViewFechasDeVencimiento);
             this.Name = "FechasDeVencimiento";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Fechas De Vencimiento";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFechasDeVencimiento)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -167,5 +196,7 @@
         private System.Windows.Forms.TextBox textBoxDiasDeAviso;
         private FontAwesome.Sharp.IconButton iconButtonGuardar;
         private FontAwesome.Sharp.IconButton iconButtonCerrar;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Label label6;
     }
 }

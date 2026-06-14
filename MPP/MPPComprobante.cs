@@ -44,7 +44,8 @@ namespace MPP
                     cp.id_producto AS codigo,
                     cp.nombre_producto,
                     cp.cantidad,
-                    cp.precio_unitario AS precio
+                    cp.precio_unitario,
+                    cp.precio_total
                 FROM comprobantes_productos cp
                 WHERE cp.id_comprobante = @numero;";
 
@@ -63,7 +64,8 @@ namespace MPP
                             Codigo = itemRow["codigo"].ToString(),
                             Nombre = itemRow["nombre_producto"].ToString(),
                             Cantidad = Convert.ToInt32(itemRow["cantidad"]),
-                            Precio = Convert.ToDecimal(itemRow["precio"])
+                            PrecioUnitario = Convert.ToDecimal(itemRow["precio_unitario"]),
+                            Subtotal = Convert.ToDecimal(itemRow["precio_total"])
                         });
                     }
 
@@ -153,8 +155,8 @@ namespace MPP
                 new MySqlParameter("@id_comprobante", beComprobante.Numero),
                 new MySqlParameter("@id_producto", item.Codigo),
                 new MySqlParameter("@cantidad", item.Cantidad),
-                new MySqlParameter("@precio_unitario", item.Precio),
-                new MySqlParameter("@precio_total", item.Cantidad * item.Precio),
+                new MySqlParameter("@precio_unitario", item.PrecioUnitario),
+                new MySqlParameter("@precio_total", item.Cantidad * item.PrecioUnitario),
                 new MySqlParameter("@nombre_producto", item.Nombre)
             };
 
@@ -211,9 +213,9 @@ namespace MPP
 
                     string numeroComprobante = row["id_comprobante"].ToString();
 
-                    // Obtener los items asociados
+                    // 1. MODIFICAMOS LA CONSULTA: Sumamos cp.subtotal al SELECT
                     string consultaItems = @"
-                SELECT cp.id_producto, p.nombre, cp.cantidad, cp.precio_unitario
+                SELECT cp.id_producto, p.nombre, cp.cantidad, cp.precio_unitario, cp.precio_total
                 FROM comprobantes_productos cp
                 INNER JOIN producto p ON cp.id_producto = p.id
                 WHERE cp.id_comprobante = @numero";
@@ -228,12 +230,14 @@ namespace MPP
                     List<BEItem> items = new List<BEItem>();
                     foreach (DataRow rowItem in tablaItems.Rows)
                     {
+                        // 2. ASIGNAMOS EL VALOR A LA NUEVA PROPIEDAD
                         items.Add(new BEItem
                         {
                             Codigo = rowItem["id_producto"].ToString(),
                             Nombre = rowItem["nombre"].ToString(),
                             Cantidad = Convert.ToInt32(rowItem["cantidad"]),
-                            Precio = Convert.ToDecimal(rowItem["precio_unitario"])
+                            PrecioUnitario = Convert.ToDecimal(rowItem["precio_unitario"]),
+                            Subtotal = Convert.ToDecimal(rowItem["precio_total"]) // 🛠️ ¡Propiedad actualizada!
                         });
                     }
 

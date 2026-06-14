@@ -70,6 +70,69 @@ namespace DAL
                 }
             }
         }
+
+        public class MigradorBaseDatos
+        {
+            // Reemplazá por tu cadena de conexión real o traela de tu configuración
+            private string cadenaConexion = System.Configuration.ConfigurationManager.ConnectionStrings["MySqlConn"].ConnectionString;
+            public void VerificarYActualizarEstructura()
+            {
+                using (MySqlConnection conexion = new MySqlConnection(cadenaConexion))
+                {
+                    try
+                    {
+                        conexion.Open();
+
+                        // 1. Crear la tabla CategoriaPdf si no existe
+                        string sqlTabla = @"
+                        CREATE TABLE IF NOT EXISTS CategoriaPdf (
+                            Id INT AUTO_INCREMENT PRIMARY KEY,
+                            Nombre VARCHAR(100) NOT NULL
+                        );";
+
+                        using (MySqlCommand cmd = new MySqlCommand(sqlTabla, conexion))
+                        {
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        // 2. Chequear si la columna IdCategoriaPdf ya existe en la tabla Producto
+                        string sqlCheckColumna = @"
+                        SELECT COUNT(*) 
+                        FROM INFORMATION_SCHEMA.COLUMNS 
+                        WHERE TABLE_SCHEMA = DATABASE() 
+                          AND TABLE_NAME = 'Producto' 
+                          AND COLUMN_NAME = 'IdCategoriaPdf';";
+
+                        bool columnaExiste = false;
+                        using (MySqlCommand cmdCheck = new MySqlCommand(sqlCheckColumna, conexion))
+                        {
+                            int count = Convert.ToInt32(cmdCheck.ExecuteScalar());
+                            columnaExiste = (count > 0);
+                        }
+
+                        // 3. Si no existe la columna, la agregamos con su clave foránea
+                        if (!columnaExiste)
+                        {
+                            string sqlAlter = @"
+                            ALTER TABLE Producto 
+                            ADD IdCategoriaPdf INT NULL,
+                            ADD CONSTRAINT FK_Producto_CategoriaPdf 
+                            FOREIGN KEY (IdCategoriaPdf) REFERENCES CategoriaPdf(Id);";
+
+                            using (MySqlCommand cmdAlter = new MySqlCommand(sqlAlter, conexion))
+                            {
+                                cmdAlter.ExecuteNonQuery();
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Lo ideal es loguearlo o avisar si falla la conexión crítica
+                        throw new Exception($"Error crítico en la migración de la base de datos: {ex.Message}");
+                    }
+                }
+            }
+        }
     }
 }
 

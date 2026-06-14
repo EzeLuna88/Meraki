@@ -1,5 +1,6 @@
 ﻿using BE;
 using BLL;
+using Servicios;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -106,29 +107,8 @@ namespace Meraki
 
         public void ConfigurarDataGrid(DataGridView dataGridView)
         {
-            // Configuración general del DataGridView
-            dataGridView.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(217, 171, 171);
-            dataGridView.RowHeadersVisible = false;
-            dataGridView.Font = new System.Drawing.Font("Segoe UI", 9);
-            dataGridView.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 10, FontStyle.Bold);
-            dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridView.RowTemplate.Height = 25;
-            dataGridView.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(146, 26, 64);
-            dataGridView.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White;
-            dataGridView.AllowUserToResizeRows = false;
-            dataGridView.AllowUserToResizeColumns = false;
-            dataGridView.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
-            dataGridView.EnableHeadersVisualStyles = false;
-            dataGridView.AllowUserToAddRows = false;
-
-            dataGridView.EnableHeadersVisualStyles = false;
-            dataGridView.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(48, 8, 21); // Bordó oscuro
-            dataGridView.ColumnHeadersDefaultCellStyle.ForeColor = Color.FromArgb(244, 217, 208); // Crema claro
-
-            dataGridView.ColumnHeadersDefaultCellStyle.SelectionBackColor = dataGridView.ColumnHeadersDefaultCellStyle.BackColor;
-            dataGridView.ColumnHeadersDefaultCellStyle.SelectionForeColor = dataGridView.ColumnHeadersDefaultCellStyle.ForeColor;
-            // Configuración específica de estilo para columnas
-            // ConfigurarEstilosColumnas(dataGridView);
+            dataGridView.AplicarEstiloMeraki();
+            
         }
 
         private void iconButtonModificar_Click(object sender, EventArgs e)
@@ -207,6 +187,15 @@ namespace Meraki
         {
             ReleaseCapture();
             SendMessage(this.Handle, 0x112, 0xf012, 0);
+        }
+
+        private void panel4_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(this.Handle, 0x112, 0xf012, 0);
+            }
         }
     }
 }

@@ -38,7 +38,10 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.iconButtonCancelar = new FontAwesome.Sharp.IconButton();
             this.iconButtonModificar = new FontAwesome.Sharp.IconButton();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // comboBoxTipoMedida
@@ -125,7 +128,7 @@
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.textBoxNombre);
             this.panel1.Controls.Add(this.textBoxMedida);
-            this.panel1.Location = new System.Drawing.Point(12, 14);
+            this.panel1.Location = new System.Drawing.Point(12, 41);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(394, 107);
             this.panel1.TabIndex = 70;
@@ -142,7 +145,7 @@
             this.iconButtonCancelar.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
             this.iconButtonCancelar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.iconButtonCancelar.IconSize = 30;
-            this.iconButtonCancelar.Location = new System.Drawing.Point(209, 134);
+            this.iconButtonCancelar.Location = new System.Drawing.Point(209, 161);
             this.iconButtonCancelar.Name = "iconButtonCancelar";
             this.iconButtonCancelar.Size = new System.Drawing.Size(110, 40);
             this.iconButtonCancelar.TabIndex = 71;
@@ -163,7 +166,7 @@
             this.iconButtonModificar.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
             this.iconButtonModificar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.iconButtonModificar.IconSize = 30;
-            this.iconButtonModificar.Location = new System.Drawing.Point(93, 134);
+            this.iconButtonModificar.Location = new System.Drawing.Point(93, 161);
             this.iconButtonModificar.Name = "iconButtonModificar";
             this.iconButtonModificar.Size = new System.Drawing.Size(110, 40);
             this.iconButtonModificar.TabIndex = 72;
@@ -172,21 +175,47 @@
             this.iconButtonModificar.UseVisualStyleBackColor = false;
             this.iconButtonModificar.Click += new System.EventHandler(this.iconButtonModificar_Click);
             // 
+            // panel4
+            // 
+            this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(26)))), ((int)(((byte)(64)))));
+            this.panel4.Controls.Add(this.label6);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel4.Location = new System.Drawing.Point(0, 0);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(418, 30);
+            this.panel4.TabIndex = 73;
+            this.panel4.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel4_MouseDown);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.Color.White;
+            this.label6.Location = new System.Drawing.Point(2, 2);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(145, 25);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "Modificar stock";
+            // 
             // StockModificar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
-            this.ClientSize = new System.Drawing.Size(418, 186);
+            this.ClientSize = new System.Drawing.Size(418, 213);
+            this.Controls.Add(this.panel4);
             this.Controls.Add(this.iconButtonModificar);
             this.Controls.Add(this.iconButtonCancelar);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "StockModificar";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "StockModificar";
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.StockModificar_MouseDown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -203,5 +232,7 @@
         private System.Windows.Forms.Panel panel1;
         private FontAwesome.Sharp.IconButton iconButtonCancelar;
         private FontAwesome.Sharp.IconButton iconButtonModificar;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Label label6;
     }
 }

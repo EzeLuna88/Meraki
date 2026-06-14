@@ -250,6 +250,70 @@ namespace MPP
             }
         }
 
+        public List<BEProducto> ListarProductosSinCategoriaPDF()
+        {
+            string query = @"SELECT p.Id, p.precio_mayorista, p.unidad, s.nombre, s.medida, s.tipo_medida 
+                             FROM Producto p
+                             INNER JOIN Stock s ON p.id = s.id
+                             WHERE p.IdCategoriaPdf IS NULL;";
+
+            DataTable tabla = acceso.EjecutarConsulta(query);
+            return MapearListaProductos(tabla);
+        }
+
+        public List<BEProducto> ListarProductosPorCategoria(int idCategoria)
+        {
+            string query = @"SELECT p.Id, p.precio_mayorista, p.unidad, s.nombre, s.medida, s.tipo_medida 
+                             FROM Producto p
+                             INNER JOIN Stock s ON p.id = s.id
+                             WHERE p.IdCategoriaPdf = @idCategoria;";
+
+            DataTable tabla = acceso.EjecutarConsulta(query, new MySqlParameter("@idCategoria", idCategoria));
+            return MapearListaProductos(tabla);
+        }
+
+        public void ActualizarCategoriaPDF(string codigo, int? idCategoria)
+        {
+            string query = "UPDATE Producto SET IdCategoriaPdf = @idCategoria WHERE Id = @idProducto;";
+
+            // Definimos el parámetro para la categoría controlando si es null
+            MySqlParameter paramCategoria = new MySqlParameter("@idCategoria", MySqlDbType.Int32);
+            paramCategoria.Value = idCategoria.HasValue ? (object)idCategoria.Value : DBNull.Value;
+
+            acceso.EjecutarNonQuery(query,
+                new MySqlParameter("@idProducto", codigo),
+                paramCategoria
+            );
+        }
+
+        #region 🔄 Helper de Mapeo
+        // Creamos este método privado para no repetir el bucle de mapeo en los dos listados
+        private List<BEProducto> MapearListaProductos(DataTable tabla)
+        {
+            List<BEProducto> lista = new List<BEProducto>();
+
+            foreach (DataRow fila in tabla.Rows)
+            {
+                // Instanciamos la clase hija concreta (Polimorfismo)
+                BEProductoIndividual producto = new BEProductoIndividual();
+                producto.Codigo = fila["Id"].ToString();
+                producto.PrecioMayorista = Convert.ToDecimal(fila["precio_mayorista"]);
+                producto.Unidad = Convert.ToInt32(fila["Unidad"]);
+
+                // Rehidratamos el objeto Stock interno para el ToString del PDF
+                producto.Stock = new BEStock
+                {
+                    Nombre = fila["Nombre"].ToString(),
+                    Medida = Convert.ToDouble(fila["Medida"]),
+                    TipoMedida = fila["tipo_medida"].ToString()
+                };
+
+                lista.Add(producto);
+            }
+            return lista;
+        }
+        #endregion
+
 
 
 

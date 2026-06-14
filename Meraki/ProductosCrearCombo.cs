@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using System.Xml.Linq;
 using BE;
 using BLL;
+using Servicios;
 
 namespace Meraki
 {
@@ -78,22 +79,7 @@ namespace Meraki
                 dataGridView.Columns["columnaCombinada"].DisplayIndex = 1; // Segunda
             }
 
-            // Diseño general
-            dataGridView.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(217, 171, 171);
-            dataGridView.RowHeadersVisible = false;
-            dataGridView.Font = new System.Drawing.Font("Segoe UI", 9);
-            dataGridView.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 10, FontStyle.Bold);
-            dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridView.RowTemplate.Height = 25;
-            dataGridView.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(146, 26, 64);
-            dataGridView.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White;
-            dataGridView.AllowUserToResizeRows = false;
-            dataGridView.AllowUserToResizeColumns = false;
-            dataGridView.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
-            dataGridView.EnableHeadersVisualStyles = false;
-            dataGridView.AllowUserToAddRows = false;
-            dataGridView.ColumnHeadersDefaultCellStyle.SelectionBackColor = dataGridView.ColumnHeadersDefaultCellStyle.BackColor;
-            dataGridView.ColumnHeadersDefaultCellStyle.SelectionForeColor = dataGridView.ColumnHeadersDefaultCellStyle.ForeColor;
+            dataGridView.AplicarEstiloMeraki();
 
             // Re-asociamos el evento de formateo (¡muy importante!)
             dataGridView.CellFormatting -= dataGridViewStock_CellFormatting; // Lo desenganchamos por si acaso
@@ -368,6 +354,15 @@ namespace Meraki
             {
                 textBoxFiltrar.Text = "   Buscar...";
                 textBoxFiltrar.ForeColor = System.Drawing.Color.Gray;
+            }
+        }
+
+        private void panel4_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(this.Handle, 0x112, 0xf012, 0);
             }
         }
     }

@@ -12,6 +12,7 @@ using BLL;
 using System.Text.RegularExpressions;
 using System.Drawing.Text;
 using System.Runtime.InteropServices;
+using Servicios;
 
 namespace Meraki
 {
@@ -21,6 +22,7 @@ namespace Meraki
         BLLProducto bllProducto;
         BLLStock bllStock;
         BEStock beStock;
+        private const string placeholderText = "   Buscar...";
 
 
         public ProductosAlta()
@@ -69,7 +71,7 @@ namespace Meraki
                 dataGridViewStock.Rows[0].Selected = true;
             }
 
-            textBoxFiltrar.Text = "   Buscar...";
+            textBoxFiltrar.Text = placeholderText;
             textBoxFiltrar.ForeColor = System.Drawing.Color.Gray;
         }
 
@@ -93,21 +95,14 @@ namespace Meraki
 
         public void ConfigurarDataGrid(DataGridView dataGridView)
         {
+            dataGridView.AplicarEstiloMeraki();
             dataGridView.CellFormatting += dataGridViewStock_CellFormatting_1;
-            dataGridView.DefaultCellStyle.BackColor = Color.FromArgb(217, 171, 171);
-            dataGridView.RowHeadersVisible = false;
-            dataGridView.Font = new System.Drawing.Font("Segoe UI", 9);
-            dataGridView.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 10, FontStyle.Bold);
             dataGridView.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridView.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridView.Columns[4].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridView.RowTemplate.Height = 25;
-            dataGridView.DefaultCellStyle.SelectionBackColor = Color.FromArgb(146, 26, 64);
-            dataGridView.DefaultCellStyle.SelectionForeColor = Color.White;
-            dataGridView.AllowUserToResizeRows = false;
-            dataGridView.AllowUserToResizeColumns = false;
-            dataGridView.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+         
+            
+            
             dataGridView.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             dataGridView.Columns[0].Width = 60;
             dataGridView.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
@@ -116,10 +111,7 @@ namespace Meraki
             dataGridView.Columns[1].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridView.Columns[4].HeaderText = "Cant. actual";
             dataGridView.Columns[4].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridView.EnableHeadersVisualStyles = false;
-            dataGridView.ColumnHeadersDefaultCellStyle.SelectionBackColor = dataGridViewStock.ColumnHeadersDefaultCellStyle.BackColor;
-            dataGridView.ColumnHeadersDefaultCellStyle.SelectionForeColor = dataGridViewStock.ColumnHeadersDefaultCellStyle.ForeColor;
-
+           
         }
 
 
@@ -312,6 +304,31 @@ namespace Meraki
             }
         }
 
-        
+        private void textBoxFiltrar_Enter_1(object sender, EventArgs e)
+        {
+            if (textBoxFiltrar.Text == placeholderText)
+            {
+                textBoxFiltrar.Text = ""; // Limpia el TextBox
+                textBoxFiltrar.ForeColor = System.Drawing.Color.Black; // Cambia el color del texto
+            }
+        }
+
+        private void textBoxFiltrar_Leave_1(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(textBoxFiltrar.Text))
+            {
+                textBoxFiltrar.Text = placeholderText; // Restaura el texto del placeholder
+                textBoxFiltrar.ForeColor = System.Drawing.Color.Gray; // Cambia el color del texto
+            }
+        }
+
+        private void panel4_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(this.Handle, 0x112, 0xf012, 0);
+            }
+        }
     }
 }

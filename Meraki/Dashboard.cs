@@ -1,5 +1,6 @@
 ﻿using BE;
 using BLL;
+using Servicios;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -136,13 +137,13 @@ namespace Meraki
         public void ConfigurarDataGrid(DataGridView dataGridView)
         {
             // Configuración general del DataGridView
-            dataGridView.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(217, 171, 171);
+            dataGridView.DefaultCellStyle.BackColor = ColoresMeraki.RosaPalido;
             dataGridView.RowHeadersVisible = false;
             dataGridView.Font = new System.Drawing.Font("Segoe UI", 8);
             dataGridView.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 9, FontStyle.Bold);
             dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView.RowTemplate.Height = 20;
-            dataGridView.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(146, 26, 64);
+            dataGridView.DefaultCellStyle.SelectionBackColor = ColoresMeraki.BordoPrincipal;
             dataGridView.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White;
             dataGridView.AllowUserToResizeRows = false;
             dataGridView.AllowUserToResizeColumns = false;

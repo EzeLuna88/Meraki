@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using BE;
 using BLL;
+using Servicios;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip;
 
 namespace Meraki
@@ -44,15 +46,11 @@ namespace Meraki
             // Asignar la lista enlazada al DataSource
             dataGridViewProductos.DataSource = bindingList;
 
-            // Configurar columnas y su formato
-            ConfigurarColumnasDataGrid(dataGridViewProductos);
-
+          
             // Aplicar configuración general al DataGridView
             ConfigurarDataGrid(dataGridViewProductos);
 
-            dataGridViewProductos.Columns["NombreMostrar"].Visible = false;
-            dataGridViewProductos.Columns[2].Visible = false;
-
+            
         }
 
         private List<BEProducto> ObtenerListaProductosOrdenada()
@@ -80,79 +78,64 @@ namespace Meraki
             return listaOrdenada;
         }
 
-        private void ConfigurarColumnasDataGrid(DataGridView dataGridView)
-        {
-            // Configuración específica de columnas
-            dataGridView.Columns["Tipo"].Visible = false;
-            dataGridView.Columns["Unidad"].HeaderText = "Unidades";
-            dataGridView.Columns["precioMayorista"].HeaderText = "Precio Mayorista";
-            dataGridView.Columns["precioMinorista"].HeaderText = "Precio Minorista";
-            dataGridView.Columns["precioMayorista"].DefaultCellStyle.Format = "c2";
-            dataGridView.Columns["precioMinorista"].DefaultCellStyle.Format = "c2";
+        
 
-            // Asegurarse de que la columna "nombre" exista antes de modificar su índice de visualización
+        public void ConfigurarDataGrid(DataGridView dataGridView)
+        {
+            // 1. Vestimos la grilla con el traje global de Meraki
+            dataGridView.AplicarEstiloMeraki();
+
+            // 2. Suscribimos el evento (usamos 'grilla' y no el nombre harcodeado por las dudas)
+            // Buena práctica: desuscribir primero evita que el evento se dispare doble si recargás la grilla
+            dataGridView.CellFormatting -= dataGridViewProductos_CellFormatting;
+            dataGridView.CellFormatting += dataGridViewProductos_CellFormatting;
+
+            // Asegurarse de que la columna "nombre" exista
             if (dataGridView.Columns["nombre"] == null)
             {
                 dataGridView.Columns.Add("nombre", "Nombre");
             }
 
-            dataGridView.Columns["nombre"].DisplayIndex = 1;
+            // 3. Ocultar columnas que no van a la vista del usuario
+            dataGridView.Columns["Tipo"].Visible = false;
+            dataGridView.Columns["NombreMostrar"].Visible = false;
+            dataGridView.Columns[2].Visible = false; // 💡 Consejo: Si podés, cambiá el [2] por el nombre en string (ej: "Id") para que no se rompa si agregás propiedades a la clase
+
+            // 4. Ordenar visualmente las columnas de izquierda a derecha
             dataGridView.Columns["codigo"].DisplayIndex = 0;
+            dataGridView.Columns["nombre"].DisplayIndex = 1;
             dataGridView.Columns["Unidad"].DisplayIndex = 2;
 
-            // Agregar manejador de formato de celda
-            dataGridViewProductos.CellFormatting += dataGridViewProductos_CellFormatting;
-        }
+            // 5. Configuración específica: CODIGO
+            dataGridView.Columns["codigo"].HeaderText = "Cod.";
+            dataGridView.Columns["codigo"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dataGridView.Columns["codigo"].Width = 60;
 
-        public void ConfigurarDataGrid(DataGridView dataGridView)
-        {
-            // Configuración general del DataGridView
-            dataGridView.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(217, 171, 171);
-            dataGridView.RowHeadersVisible = false;
-            dataGridView.Font = new System.Drawing.Font("Segoe UI", 9);
-            dataGridView.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 10, FontStyle.Bold);
-            dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridView.RowTemplate.Height = 25;
-            dataGridView.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(146, 26, 64);
-            dataGridView.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White;
-            dataGridView.AllowUserToResizeRows = false;
-            dataGridView.AllowUserToResizeColumns = false;
-            dataGridView.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
-            dataGridView.EnableHeadersVisualStyles = false;
-            dataGridView.AllowUserToAddRows = false;
-            dataGridView.ColumnHeadersDefaultCellStyle.SelectionBackColor = dataGridView.ColumnHeadersDefaultCellStyle.BackColor;
-            dataGridView.ColumnHeadersDefaultCellStyle.SelectionForeColor = dataGridView.ColumnHeadersDefaultCellStyle.ForeColor;
-
-            // Configuración específica de estilo para columnas
-            ConfigurarEstilosColumnas(dataGridView);
-        }
-
-        private void ConfigurarEstilosColumnas(DataGridView dataGridView)
-        {
-            // Configuración de estilo para la columna "Unidad"
+            // 6. Configuración específica: UNIDAD
             dataGridView.Columns["Unidad"].HeaderText = "Un.";
-            dataGridView.Columns["Unidad"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridView.Columns["Unidad"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridView.Columns["Unidad"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             dataGridView.Columns["Unidad"].Width = 70;
+            dataGridView.Columns["Unidad"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridView.Columns["Unidad"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
-            // Configuración de estilo para la columna "Codigo"
-            dataGridView.Columns["Codigo"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            dataGridView.Columns["Codigo"].Width = 60;
-            dataGridView.Columns["Codigo"].HeaderText = "Cod.";
+            // 7. Configuración específica: PRECIO MAYORISTA
+            dataGridView.Columns["precioMayorista"].HeaderText = "Precio Mayorista";
+            dataGridView.Columns["precioMayorista"].DefaultCellStyle.Format = "c2";
+            dataGridView.Columns["precioMayorista"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dataGridView.Columns["precioMayorista"].Width = 90;
+            dataGridView.Columns["precioMayorista"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridView.Columns["precioMayorista"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
-            // Configuración de estilo para la columna "PrecioMayorista"
-            dataGridView.Columns["PrecioMayorista"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            dataGridView.Columns["PrecioMayorista"].Width = 90;
-            dataGridView.Columns["PrecioMayorista"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dataGridView.Columns["PrecioMayorista"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-
-            // Configuración de estilo para la columna "PrecioMinorista"
-            dataGridView.Columns["PrecioMinorista"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            dataGridView.Columns["PrecioMinorista"].Width = 90;
-            dataGridView.Columns["PrecioMinorista"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dataGridView.Columns["PrecioMinorista"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            // 8. Configuración específica: PRECIO MINORISTA
+            dataGridView.Columns["precioMinorista"].HeaderText = "Precio Minorista";
+            dataGridView.Columns["precioMinorista"].DefaultCellStyle.Format = "c2";
+            dataGridView.Columns["precioMinorista"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dataGridView.Columns["precioMinorista"].Width = 90;
+            dataGridView.Columns["precioMinorista"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridView.Columns["precioMinorista"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
         }
+
+        
 
 
 
@@ -164,8 +147,7 @@ namespace Meraki
             try
             {
                 labelNombre.Text = string.Empty;
-                labelUnidades.Text = string.Empty;
-                labelMedida.Text = string.Empty;
+                labelMedidayUnidades.Text = string.Empty;
                 labelPrecioMayorista.Text = string.Empty;
                 labelPrecioMinorista.Text = string.Empty;
             }
@@ -248,8 +230,7 @@ namespace Meraki
                     {
                         beProductoIndividual = individual;
                         labelNombre.Text = individual.Stock.Nombre;
-                        labelMedida.Text = $"{individual.Stock.Medida} {individual.Stock.TipoMedida}";
-                        labelUnidades.Text = individual.Unidad.ToString();
+                        labelMedidayUnidades.Text = $"{individual.Stock.Medida} {individual.Stock.TipoMedida} • Pack x {individual.Unidad.ToString()}";
                         labelPrecioMayorista.Text = individual.PrecioMayorista.ToString("C2"); // C2 formatea como moneda
                         labelPrecioMinorista.Text = individual.PrecioMinorista.ToString("C2");
                     }
@@ -258,7 +239,7 @@ namespace Meraki
                         beProductoCombo = combo;
                         labelNombre.Text = combo.Nombre;
                         // El combo no tiene medida, así que queda vacío como lo definió Limpiar()
-                        labelUnidades.Text = combo.Unidad.ToString();
+                        
                         labelPrecioMayorista.Text = combo.PrecioMayorista.ToString("C2");
                         labelPrecioMinorista.Text = combo.PrecioMinorista.ToString("C2");
                     }
@@ -463,6 +444,11 @@ namespace Meraki
         private void Productos_VisibleChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void iconButtonGenerarPDF_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }

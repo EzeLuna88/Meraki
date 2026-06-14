@@ -36,11 +36,14 @@
             this.textBoxCantidad = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.iconButtonCargar = new FontAwesome.Sharp.IconButton();
-            this.iconButtonCancelar = new FontAwesome.Sharp.IconButton();
             this.maskedTextBoxFechaDeVencimiento = new System.Windows.Forms.MaskedTextBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.iconButtonCargar = new FontAwesome.Sharp.IconButton();
+            this.iconButtonCancelar = new FontAwesome.Sharp.IconButton();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // comboBoxTipoMedida
@@ -131,52 +134,10 @@
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.textBoxNombre);
             this.panel1.Controls.Add(this.textBoxMedida);
-            this.panel1.Location = new System.Drawing.Point(12, 12);
+            this.panel1.Location = new System.Drawing.Point(12, 40);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(470, 140);
             this.panel1.TabIndex = 71;
-            // 
-            // iconButtonCargar
-            // 
-            this.iconButtonCargar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.iconButtonCargar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(26)))), ((int)(((byte)(64)))));
-            this.iconButtonCargar.FlatAppearance.BorderSize = 0;
-            this.iconButtonCargar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.iconButtonCargar.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.iconButtonCargar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
-            this.iconButtonCargar.IconChar = FontAwesome.Sharp.IconChar.Upload;
-            this.iconButtonCargar.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
-            this.iconButtonCargar.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.iconButtonCargar.IconSize = 30;
-            this.iconButtonCargar.Location = new System.Drawing.Point(133, 169);
-            this.iconButtonCargar.Name = "iconButtonCargar";
-            this.iconButtonCargar.Size = new System.Drawing.Size(110, 40);
-            this.iconButtonCargar.TabIndex = 74;
-            this.iconButtonCargar.Text = "Cargar";
-            this.iconButtonCargar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.iconButtonCargar.UseVisualStyleBackColor = false;
-            this.iconButtonCargar.Click += new System.EventHandler(this.iconButtonCargar_Click);
-            // 
-            // iconButtonCancelar
-            // 
-            this.iconButtonCancelar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.iconButtonCancelar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(26)))), ((int)(((byte)(64)))));
-            this.iconButtonCancelar.FlatAppearance.BorderSize = 0;
-            this.iconButtonCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.iconButtonCancelar.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.iconButtonCancelar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
-            this.iconButtonCancelar.IconChar = FontAwesome.Sharp.IconChar.Ban;
-            this.iconButtonCancelar.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
-            this.iconButtonCancelar.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.iconButtonCancelar.IconSize = 30;
-            this.iconButtonCancelar.Location = new System.Drawing.Point(249, 169);
-            this.iconButtonCancelar.Name = "iconButtonCancelar";
-            this.iconButtonCancelar.Size = new System.Drawing.Size(110, 40);
-            this.iconButtonCancelar.TabIndex = 73;
-            this.iconButtonCancelar.Text = "Cancelar";
-            this.iconButtonCancelar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.iconButtonCancelar.UseVisualStyleBackColor = false;
-            this.iconButtonCancelar.Click += new System.EventHandler(this.iconButtonCancelar_Click);
             // 
             // maskedTextBoxFechaDeVencimiento
             // 
@@ -198,21 +159,90 @@
             this.label4.TabIndex = 75;
             this.label4.Text = "Fecha de vencimiento:";
             // 
+            // iconButtonCargar
+            // 
+            this.iconButtonCargar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.iconButtonCargar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(26)))), ((int)(((byte)(64)))));
+            this.iconButtonCargar.FlatAppearance.BorderSize = 0;
+            this.iconButtonCargar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.iconButtonCargar.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.iconButtonCargar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
+            this.iconButtonCargar.IconChar = FontAwesome.Sharp.IconChar.Upload;
+            this.iconButtonCargar.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
+            this.iconButtonCargar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iconButtonCargar.IconSize = 30;
+            this.iconButtonCargar.Location = new System.Drawing.Point(133, 197);
+            this.iconButtonCargar.Name = "iconButtonCargar";
+            this.iconButtonCargar.Size = new System.Drawing.Size(110, 40);
+            this.iconButtonCargar.TabIndex = 74;
+            this.iconButtonCargar.Text = "Cargar";
+            this.iconButtonCargar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.iconButtonCargar.UseVisualStyleBackColor = false;
+            this.iconButtonCargar.Click += new System.EventHandler(this.iconButtonCargar_Click);
+            // 
+            // iconButtonCancelar
+            // 
+            this.iconButtonCancelar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.iconButtonCancelar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(26)))), ((int)(((byte)(64)))));
+            this.iconButtonCancelar.FlatAppearance.BorderSize = 0;
+            this.iconButtonCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.iconButtonCancelar.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.iconButtonCancelar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
+            this.iconButtonCancelar.IconChar = FontAwesome.Sharp.IconChar.Ban;
+            this.iconButtonCancelar.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
+            this.iconButtonCancelar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iconButtonCancelar.IconSize = 30;
+            this.iconButtonCancelar.Location = new System.Drawing.Point(249, 197);
+            this.iconButtonCancelar.Name = "iconButtonCancelar";
+            this.iconButtonCancelar.Size = new System.Drawing.Size(110, 40);
+            this.iconButtonCancelar.TabIndex = 73;
+            this.iconButtonCancelar.Text = "Cancelar";
+            this.iconButtonCancelar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.iconButtonCancelar.UseVisualStyleBackColor = false;
+            this.iconButtonCancelar.Click += new System.EventHandler(this.iconButtonCancelar_Click);
+            // 
+            // panel4
+            // 
+            this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(26)))), ((int)(((byte)(64)))));
+            this.panel4.Controls.Add(this.label6);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel4.Location = new System.Drawing.Point(0, 0);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(494, 30);
+            this.panel4.TabIndex = 75;
+            this.panel4.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel4_MouseDown);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.Color.White;
+            this.label6.Location = new System.Drawing.Point(2, 2);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(228, 25);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "Nuevo producto en stock";
+            // 
             // StockNuevoProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
-            this.ClientSize = new System.Drawing.Size(494, 221);
+            this.ClientSize = new System.Drawing.Size(494, 249);
+            this.Controls.Add(this.panel4);
             this.Controls.Add(this.iconButtonCargar);
             this.Controls.Add(this.iconButtonCancelar);
             this.Controls.Add(this.panel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "StockNuevoProducto";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Nuevo Producto a Stock";
             this.Load += new System.EventHandler(this.StockNuevoProducto_Load);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.StockNuevoProducto_MouseDown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -231,5 +261,7 @@
         private FontAwesome.Sharp.IconButton iconButtonCancelar;
         private System.Windows.Forms.MaskedTextBox maskedTextBoxFechaDeVencimiento;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Label label6;
     }
 }

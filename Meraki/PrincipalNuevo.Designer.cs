@@ -32,12 +32,13 @@
             this.panelShadow = new System.Windows.Forms.Panel();
             this.panelMenu = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.iconButtonComprobantes = new FontAwesome.Sharp.IconButton();
-            this.iconButtonCompras = new FontAwesome.Sharp.IconButton();
-            this.iconButtonClientes = new FontAwesome.Sharp.IconButton();
+            this.iconButtonPedidos = new FontAwesome.Sharp.IconButton();
             this.iconButtonProductos = new FontAwesome.Sharp.IconButton();
             this.iconButtonStock = new FontAwesome.Sharp.IconButton();
             this.iconButtonDashboard = new FontAwesome.Sharp.IconButton();
+            this.iconButtonComprobantes = new FontAwesome.Sharp.IconButton();
+            this.iconButtonCompras = new FontAwesome.Sharp.IconButton();
+            this.iconButtonClientes = new FontAwesome.Sharp.IconButton();
             this.panelLogo = new System.Windows.Forms.Panel();
             this.panelBarra = new System.Windows.Forms.Panel();
             this.iconButtonConfiguracion = new FontAwesome.Sharp.IconButton();
@@ -81,19 +82,21 @@
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 6;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel1.Controls.Add(this.iconButtonComprobantes, 5, 0);
-            this.tableLayoutPanel1.Controls.Add(this.iconButtonCompras, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.iconButtonClientes, 4, 0);
+            this.tableLayoutPanel1.ColumnCount = 7;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
+            this.tableLayoutPanel1.Controls.Add(this.iconButtonPedidos, 6, 0);
             this.tableLayoutPanel1.Controls.Add(this.iconButtonProductos, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.iconButtonStock, 3, 0);
             this.tableLayoutPanel1.Controls.Add(this.iconButtonDashboard, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.iconButtonComprobantes, 5, 0);
+            this.tableLayoutPanel1.Controls.Add(this.iconButtonCompras, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.iconButtonClientes, 4, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(50, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -102,66 +105,25 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(894, 50);
             this.tableLayoutPanel1.TabIndex = 11;
             // 
-            // iconButtonComprobantes
+            // iconButtonPedidos
             // 
-            this.iconButtonComprobantes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(199)))), ((int)(((byte)(91)))), ((int)(((byte)(122)))));
-            this.iconButtonComprobantes.FlatAppearance.BorderSize = 0;
-            this.iconButtonComprobantes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.iconButtonComprobantes.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.iconButtonComprobantes.IconChar = FontAwesome.Sharp.IconChar.Ticket;
-            this.iconButtonComprobantes.IconColor = System.Drawing.Color.Black;
-            this.iconButtonComprobantes.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.iconButtonComprobantes.IconSize = 30;
-            this.iconButtonComprobantes.Location = new System.Drawing.Point(745, 0);
-            this.iconButtonComprobantes.Margin = new System.Windows.Forms.Padding(0);
-            this.iconButtonComprobantes.Name = "iconButtonComprobantes";
-            this.iconButtonComprobantes.Size = new System.Drawing.Size(149, 50);
-            this.iconButtonComprobantes.TabIndex = 10;
-            this.iconButtonComprobantes.Text = "Comprobantes";
-            this.iconButtonComprobantes.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.iconButtonComprobantes.UseVisualStyleBackColor = false;
-            this.iconButtonComprobantes.Click += new System.EventHandler(this.iconButtonComprobantes_Click_1);
-            // 
-            // iconButtonCompras
-            // 
-            this.iconButtonCompras.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(199)))), ((int)(((byte)(91)))), ((int)(((byte)(122)))));
-            this.iconButtonCompras.FlatAppearance.BorderSize = 0;
-            this.iconButtonCompras.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.iconButtonCompras.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.iconButtonCompras.IconChar = FontAwesome.Sharp.IconChar.CartShopping;
-            this.iconButtonCompras.IconColor = System.Drawing.Color.Black;
-            this.iconButtonCompras.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.iconButtonCompras.IconSize = 30;
-            this.iconButtonCompras.Location = new System.Drawing.Point(149, 0);
-            this.iconButtonCompras.Margin = new System.Windows.Forms.Padding(0);
-            this.iconButtonCompras.Name = "iconButtonCompras";
-            this.iconButtonCompras.Size = new System.Drawing.Size(149, 50);
-            this.iconButtonCompras.TabIndex = 6;
-            this.iconButtonCompras.Text = "Compras";
-            this.iconButtonCompras.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.iconButtonCompras.UseVisualStyleBackColor = false;
-            this.iconButtonCompras.VisibleChanged += new System.EventHandler(this.iconButtonCompras_VisibleChanged);
-            this.iconButtonCompras.Click += new System.EventHandler(this.iconButtonCompras_Click_1);
-            // 
-            // iconButtonClientes
-            // 
-            this.iconButtonClientes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(199)))), ((int)(((byte)(91)))), ((int)(((byte)(122)))));
-            this.iconButtonClientes.FlatAppearance.BorderSize = 0;
-            this.iconButtonClientes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.iconButtonClientes.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.iconButtonClientes.IconChar = FontAwesome.Sharp.IconChar.Person;
-            this.iconButtonClientes.IconColor = System.Drawing.Color.Black;
-            this.iconButtonClientes.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.iconButtonClientes.IconSize = 30;
-            this.iconButtonClientes.Location = new System.Drawing.Point(596, 0);
-            this.iconButtonClientes.Margin = new System.Windows.Forms.Padding(0);
-            this.iconButtonClientes.Name = "iconButtonClientes";
-            this.iconButtonClientes.Size = new System.Drawing.Size(149, 50);
-            this.iconButtonClientes.TabIndex = 9;
-            this.iconButtonClientes.Text = "Clientes";
-            this.iconButtonClientes.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.iconButtonClientes.UseVisualStyleBackColor = false;
-            this.iconButtonClientes.Click += new System.EventHandler(this.iconButtonClientes_Click_1);
+            this.iconButtonPedidos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(199)))), ((int)(((byte)(91)))), ((int)(((byte)(122)))));
+            this.iconButtonPedidos.FlatAppearance.BorderSize = 0;
+            this.iconButtonPedidos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.iconButtonPedidos.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.iconButtonPedidos.IconChar = FontAwesome.Sharp.IconChar.Warehouse;
+            this.iconButtonPedidos.IconColor = System.Drawing.Color.Black;
+            this.iconButtonPedidos.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iconButtonPedidos.IconSize = 30;
+            this.iconButtonPedidos.Location = new System.Drawing.Point(762, 0);
+            this.iconButtonPedidos.Margin = new System.Windows.Forms.Padding(0);
+            this.iconButtonPedidos.Name = "iconButtonPedidos";
+            this.iconButtonPedidos.Size = new System.Drawing.Size(127, 50);
+            this.iconButtonPedidos.TabIndex = 9;
+            this.iconButtonPedidos.Text = "Pedidos";
+            this.iconButtonPedidos.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.iconButtonPedidos.UseVisualStyleBackColor = false;
+            this.iconButtonPedidos.Click += new System.EventHandler(this.iconButtonPedidos_Click);
             // 
             // iconButtonProductos
             // 
@@ -173,10 +135,10 @@
             this.iconButtonProductos.IconColor = System.Drawing.Color.Black;
             this.iconButtonProductos.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.iconButtonProductos.IconSize = 30;
-            this.iconButtonProductos.Location = new System.Drawing.Point(298, 0);
+            this.iconButtonProductos.Location = new System.Drawing.Point(254, 0);
             this.iconButtonProductos.Margin = new System.Windows.Forms.Padding(0);
             this.iconButtonProductos.Name = "iconButtonProductos";
-            this.iconButtonProductos.Size = new System.Drawing.Size(149, 50);
+            this.iconButtonProductos.Size = new System.Drawing.Size(127, 50);
             this.iconButtonProductos.TabIndex = 7;
             this.iconButtonProductos.Text = "Productos";
             this.iconButtonProductos.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -193,10 +155,10 @@
             this.iconButtonStock.IconColor = System.Drawing.Color.Black;
             this.iconButtonStock.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.iconButtonStock.IconSize = 30;
-            this.iconButtonStock.Location = new System.Drawing.Point(447, 0);
+            this.iconButtonStock.Location = new System.Drawing.Point(381, 0);
             this.iconButtonStock.Margin = new System.Windows.Forms.Padding(0);
             this.iconButtonStock.Name = "iconButtonStock";
-            this.iconButtonStock.Size = new System.Drawing.Size(149, 50);
+            this.iconButtonStock.Size = new System.Drawing.Size(127, 50);
             this.iconButtonStock.TabIndex = 8;
             this.iconButtonStock.Text = "Stock";
             this.iconButtonStock.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -216,12 +178,73 @@
             this.iconButtonDashboard.Location = new System.Drawing.Point(0, 0);
             this.iconButtonDashboard.Margin = new System.Windows.Forms.Padding(0);
             this.iconButtonDashboard.Name = "iconButtonDashboard";
-            this.iconButtonDashboard.Size = new System.Drawing.Size(149, 50);
+            this.iconButtonDashboard.Size = new System.Drawing.Size(127, 50);
             this.iconButtonDashboard.TabIndex = 11;
             this.iconButtonDashboard.Text = "Dashboard";
             this.iconButtonDashboard.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.iconButtonDashboard.UseVisualStyleBackColor = false;
             this.iconButtonDashboard.Click += new System.EventHandler(this.iconButton1_Click);
+            // 
+            // iconButtonComprobantes
+            // 
+            this.iconButtonComprobantes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(199)))), ((int)(((byte)(91)))), ((int)(((byte)(122)))));
+            this.iconButtonComprobantes.FlatAppearance.BorderSize = 0;
+            this.iconButtonComprobantes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.iconButtonComprobantes.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.iconButtonComprobantes.IconChar = FontAwesome.Sharp.IconChar.Ticket;
+            this.iconButtonComprobantes.IconColor = System.Drawing.Color.Black;
+            this.iconButtonComprobantes.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iconButtonComprobantes.IconSize = 30;
+            this.iconButtonComprobantes.Location = new System.Drawing.Point(635, 0);
+            this.iconButtonComprobantes.Margin = new System.Windows.Forms.Padding(0);
+            this.iconButtonComprobantes.Name = "iconButtonComprobantes";
+            this.iconButtonComprobantes.Size = new System.Drawing.Size(127, 50);
+            this.iconButtonComprobantes.TabIndex = 10;
+            this.iconButtonComprobantes.Text = "Comprobantes";
+            this.iconButtonComprobantes.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.iconButtonComprobantes.UseVisualStyleBackColor = false;
+            this.iconButtonComprobantes.Click += new System.EventHandler(this.iconButtonComprobantes_Click_1);
+            // 
+            // iconButtonCompras
+            // 
+            this.iconButtonCompras.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(199)))), ((int)(((byte)(91)))), ((int)(((byte)(122)))));
+            this.iconButtonCompras.FlatAppearance.BorderSize = 0;
+            this.iconButtonCompras.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.iconButtonCompras.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.iconButtonCompras.IconChar = FontAwesome.Sharp.IconChar.CartShopping;
+            this.iconButtonCompras.IconColor = System.Drawing.Color.Black;
+            this.iconButtonCompras.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iconButtonCompras.IconSize = 30;
+            this.iconButtonCompras.Location = new System.Drawing.Point(127, 0);
+            this.iconButtonCompras.Margin = new System.Windows.Forms.Padding(0);
+            this.iconButtonCompras.Name = "iconButtonCompras";
+            this.iconButtonCompras.Size = new System.Drawing.Size(127, 50);
+            this.iconButtonCompras.TabIndex = 6;
+            this.iconButtonCompras.Text = "Compras";
+            this.iconButtonCompras.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.iconButtonCompras.UseVisualStyleBackColor = false;
+            this.iconButtonCompras.VisibleChanged += new System.EventHandler(this.iconButtonCompras_VisibleChanged);
+            this.iconButtonCompras.Click += new System.EventHandler(this.iconButtonCompras_Click_1);
+            // 
+            // iconButtonClientes
+            // 
+            this.iconButtonClientes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(199)))), ((int)(((byte)(91)))), ((int)(((byte)(122)))));
+            this.iconButtonClientes.FlatAppearance.BorderSize = 0;
+            this.iconButtonClientes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.iconButtonClientes.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.iconButtonClientes.IconChar = FontAwesome.Sharp.IconChar.Person;
+            this.iconButtonClientes.IconColor = System.Drawing.Color.Black;
+            this.iconButtonClientes.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iconButtonClientes.IconSize = 30;
+            this.iconButtonClientes.Location = new System.Drawing.Point(508, 0);
+            this.iconButtonClientes.Margin = new System.Windows.Forms.Padding(0);
+            this.iconButtonClientes.Name = "iconButtonClientes";
+            this.iconButtonClientes.Size = new System.Drawing.Size(127, 50);
+            this.iconButtonClientes.TabIndex = 9;
+            this.iconButtonClientes.Text = "Clientes";
+            this.iconButtonClientes.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.iconButtonClientes.UseVisualStyleBackColor = false;
+            this.iconButtonClientes.Click += new System.EventHandler(this.iconButtonClientes_Click_1);
             // 
             // panelLogo
             // 
@@ -328,11 +351,11 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(217)))), ((int)(((byte)(208)))));
             this.label1.Location = new System.Drawing.Point(4, 2);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(116, 21);
+            this.label1.Size = new System.Drawing.Size(122, 21);
             this.label1.TabIndex = 0;
             this.label1.Text = "Meraki bebidas";
             // 
@@ -377,5 +400,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private FontAwesome.Sharp.IconButton iconButtonDashboard;
         private FontAwesome.Sharp.IconButton iconButtonConfiguracion;
+        private FontAwesome.Sharp.IconButton iconButtonPedidos;
     }
 }

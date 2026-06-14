@@ -34,5 +34,29 @@ namespace Meraki.Properties {
                 this["ClientePorDefecto"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string CarpetaDestinoPDF {
+            get {
+                return ((string)(this["CarpetaDestinoPDF"]));
+            }
+            set {
+                this["CarpetaDestinoPDF"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string GoogleDriveFileId {
+            get {
+                return ((string)(this["GoogleDriveFileId"]));
+            }
+            set {
+                this["GoogleDriveFileId"] = value;
+            }
+        }
     }
 }
